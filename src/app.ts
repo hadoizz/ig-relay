@@ -5,3 +5,7 @@ import loadSubscribers from './loaders/subscibers'
   const page = await loadPage()
   await loadSubscribers()
 })()
+
+process.on('uncaughtException', error => {
+  console.log(`Błąd aplikacji:`, error)
+})

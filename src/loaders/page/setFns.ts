@@ -10,6 +10,7 @@ import likePost from '../../services/post/likePost'
 
 import followPersonsWhoLiked from '../../controllers/followPersonsWhoLiked'
 import followingBot from '../../controllers/followingBot'
+import login from '../../controllers/login'
 
 export default async (page: puppeteer.Page) => {
   await page.exposeFunction('click', query => page.click(query))
@@ -44,4 +45,5 @@ export default async (page: puppeteer.Page) => {
       await getVisiblePost(page)
     )
   )
+  await page.exposeFunction('login', () => login(page))
 }

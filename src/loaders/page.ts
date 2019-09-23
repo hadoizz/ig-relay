@@ -7,7 +7,7 @@ export default async () => {
     args,
     headless: false,
     ignoreHTTPSErrors: true,
-    userDataDir: './data',
+    //userDataDir: './data',
     ignoreDefaultArgs: ["--enable-automation"]
   })
   const page = await browser.newPage()
