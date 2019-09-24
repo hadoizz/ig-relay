@@ -5,7 +5,7 @@ import isOnProfile from '../../isOnProfile'
 
 export default async (page: Page): Promise<LinkToFollowing> => {
   if(!(await isOnProfile(page)))
-    throw `Nie można pobrać LinkToFollowing, gdy gracz nie znajduje się na profilu`
+    throw `Nie można pobrać LinkToFollowing, gdy użytkownik nie znajduje się na profilu`
 
   const { login } = await getCredentials()
   const linkToFollowing = await page.$(`a[href*="${login}/following"]`)
