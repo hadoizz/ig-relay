@@ -6,7 +6,7 @@ const dataKey = 'marked'
 
 /*
   Function called in loop in async function iterates throught children.
-  Returns next children or null if it is end of list.
+  Returns next children or null if it is end of the list.
 
   Example:
   while(true){
