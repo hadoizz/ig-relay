@@ -7,6 +7,8 @@ import scrollToNextPost from '../../services/post/scrollToNextPost'
 import openLikesDialog from '../../services/likesDialog/openLikesDialog'
 import getLikes from '../../services/post/getLikes'
 import likePost from '../../services/post/likePost'
+import gotoProfile from '../../services/profile/gotoProfile'
+import gotoFollowing from '../../services/profile/following/gotoFollowing'
 
 import followPersonsWhoLiked from '../../controllers/followPersonsWhoLiked'
 import followingBot from '../../controllers/followingBot'
@@ -46,4 +48,6 @@ export default async (page: puppeteer.Page) => {
     )
   )
   await page.exposeFunction('login', () => login(page))
+  await page.exposeFunction('gotoProfile', () => gotoProfile(page))
+  await page.exposeFunction('gotoFollowing', () => gotoFollowing(page))
 }
