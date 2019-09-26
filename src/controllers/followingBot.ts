@@ -40,7 +40,7 @@ export default async (page: Page, maximum?: number) => {
 
     if(followCount.getCount() === maximum){
       console.log(`Reached maximum follow count (${maximum})`)
-      return
+      break
     }
 
     await scrollToNextPost(page)

@@ -3,6 +3,8 @@ import getCredentials from '../config/getCredentials'
 import typeCredentials from '../services/login/typeCredentials'
 import submitCredentials from '../services/login/submitCredentials'
 import sleep from '../utils/sleep'
+import { onLogin, onFailedLogin } from '../emitter'
+
 
 const path = '/accounts/login'
 
@@ -15,15 +17,19 @@ export default async (page: Page) => {
     return
   }
 
+  const credentials = await getCredentials()
+
   await sleep(1000, 3000)
 
-  await typeCredentials(page, await getCredentials())
+  await typeCredentials(page, credentials)
   await submitCredentials(page)
 
   await sleep(3000, 6000)
 
-  if(page.url().includes(path))
-    throw `Nie można zalogować (login ${(await getCredentials()).login})`
+  if(page.url().includes(path)){
+    await onFailedLogin.emit(credentials)
+    throw `Nie można zalogować (login ${credentials.login})`
+  }
 
-  console.log(`Logged in (${(await getCredentials()).login})`)
+  onLogin.emit(credentials)
 } 

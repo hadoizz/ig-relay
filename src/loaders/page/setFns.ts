@@ -13,6 +13,7 @@ import gotoFollowing from '../../services/profile/following/gotoFollowing'
 import followPersonsWhoLiked from '../../controllers/followPersonsWhoLiked'
 import followingBot from '../../controllers/followingBot'
 import login from '../../controllers/login'
+import unfollowFollowed from '../../controllers/unfollowFollowed'
 
 export default async (page: puppeteer.Page) => {
   await page.exposeFunction('click', query => page.click(query))
@@ -40,14 +41,17 @@ export default async (page: puppeteer.Page) => {
       await getVisiblePost(page)
     )
   )
-  await page.exposeFunction('followPersonsWhoLiked', maximum => followPersonsWhoLiked(page, maximum))
-  await page.exposeFunction('followingBot', maximum => followingBot(page, maximum))
   await page.exposeFunction('likePost', async () =>
     await likePost(
       await getVisiblePost(page)
     )
   )
-  await page.exposeFunction('login', () => login(page))
   await page.exposeFunction('gotoProfile', () => gotoProfile(page))
   await page.exposeFunction('gotoFollowing', () => gotoFollowing(page))
+
+  //CONTROLLERS
+  await page.exposeFunction('followPersonsWhoLiked', maximum => followPersonsWhoLiked(page, maximum))
+  await page.exposeFunction('followingBot', maximum => followingBot(page, maximum))
+  await page.exposeFunction('login', () => login(page))
+  await page.exposeFunction('unfollowFollowed', () => unfollowFollowed(page))
 }

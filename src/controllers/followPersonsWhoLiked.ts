@@ -1,7 +1,6 @@
 import { Page } from 'puppeteer'
 import sleep from '../utils/sleep'
 import getLikesDialog from '../services/likesDialog/selectors/getLikesDialog'
-import scrollTo from '../utils/elements/scrollTo'
 import follow from '../services/personRow/follow'
 import { onFollow } from '../emitter'
 import followedModel from '../models/followedModel'
@@ -54,9 +53,6 @@ export default async (page: Page, maximum?: number) => {
     if(personRow === null)
       break
   
-    //scroll to it
-    await scrollTo(personRow)
-
     //like if it is available
     await likePersonFromPersonRow(personRow)
 

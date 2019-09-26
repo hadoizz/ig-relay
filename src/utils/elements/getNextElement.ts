@@ -1,6 +1,7 @@
 import { ElementHandle } from 'puppeteer'
 import getData from './dataset/getData'
 import addData from './dataset/addData'
+import scrollTo from './scrollTo'
 
 const dataKey = 'marked'
 
@@ -17,11 +18,14 @@ const dataKey = 'marked'
     //do something with personRow
   }
 */
-export default async (container: ElementHandle): Promise<ElementHandle | null> => {
+export default async (container: ElementHandle, { noScroll = false }: { noScroll?: boolean } = {}): Promise<ElementHandle | null> => {
   for(const child of await container.$$(':scope > *')){
     if(await getData(child, dataKey))
       continue
       
+    if(!noScroll)
+      await scrollTo(child)
+    
     await addData(child, dataKey, true)
     return child
   }
