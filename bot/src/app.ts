@@ -3,7 +3,7 @@ import loadSubscribers from './loaders/subscibers'
 
 ;(async () => {
   const page = await loadPage()
-  await loadSubscribers()
+  await loadSubscribers(page)
 })()
 
 process.on('uncaughtException', error => {
