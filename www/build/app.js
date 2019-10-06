@@ -43,9 +43,15 @@ var express_1 = __importDefault(require("express"));
 var next_1 = __importDefault(require("next"));
 var execa_1 = __importDefault(require("execa"));
 var path_1 = require("path");
+var chalk_1 = __importDefault(require("chalk"));
 var dev = process.env.NODE_ENV !== 'production';
 var app = next_1.default({ dev: dev, dir: './client' });
 var handle = app.getRequestHandler();
+var handleBotLog = function (log) {
+    if (log === undefined)
+        return;
+    console.log('Bot:', chalk_1.default.cyan(Buffer.from(log, 'utf-8').toString().trim()));
+};
 (function () { return __awaiter(void 0, void 0, void 0, function () {
     var error_1, server, bot;
     return __generator(this, function (_a) {
@@ -77,12 +83,13 @@ var handle = app.getRequestHandler();
                         bot = null;
                         console.log("Bot was closed");
                     });
+                    bot.stdout.on('data', handleBotLog);
+                    bot.stdout.on('end', handleBotLog);
                     res.json({ ok: true });
                 });
                 server.post('/execute', function (req, res) {
                     if (bot === null)
                         return;
-                    console.log('Sending message');
                     bot.send({
                         type: req.body.type,
                         payload: req.body.payload

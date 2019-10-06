@@ -23,6 +23,14 @@ const services = [{
   name: 'closeDialog'
 }]
 
+const navigation = [{
+  title: 'Go to profile',
+  name: 'gotoProfile'
+}, {
+  title: 'Go to following',
+  name: 'gotoFollowing'
+}]
+
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -118,6 +126,16 @@ export default () => {
               <Typography variant="caption" gutterBottom>Controllers</Typography>
               {
                 controllers.map(({ name, title }) =>
+                  <Button variant="contained" className={classes.listButton} key={name} onClick={run(name)}>
+                  {
+                    title
+                  }
+                  </Button>
+                )
+              }
+              <Typography variant="caption" gutterBottom>Navigation</Typography>
+              {
+                navigation.map(({ name, title }) =>
                   <Button variant="contained" className={classes.listButton} key={name} onClick={run(name)}>
                   {
                     title

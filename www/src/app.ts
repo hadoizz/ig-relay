@@ -2,10 +2,20 @@ import express from 'express'
 import next from 'next'
 import execa from 'execa'
 import { resolve } from 'path'
+import chalk from 'chalk'
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev, dir: './client' })
 const handle = app.getRequestHandler()
+
+const handleBotLog = (log?: string) => {
+  if(log === undefined)
+    return
+  
+  console.log(
+    'Bot:', chalk.cyan(Buffer.from(log, 'utf-8').toString().trim())
+  )
+}
 
 ;(async () => {
   try {
@@ -37,6 +47,9 @@ const handle = app.getRequestHandler()
       bot = null
       console.log(`Bot was closed`)
     })
+    bot.stdout.on('data', handleBotLog)
+    bot.stdout.on('end', handleBotLog)
+    
 
     res.json({ ok: true })
   })
@@ -44,8 +57,6 @@ const handle = app.getRequestHandler()
   server.post('/execute', (req, res) => {
     if(bot === null)
       return
-
-    console.log('Sending message')
 
     bot.send({ 
       type: req.body.type,
