@@ -1,4 +1,4 @@
 node_modules/
 data/
-build/
+dist/
 /src/config/getCredentials.ts

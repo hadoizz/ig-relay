@@ -1,39 +1,15 @@
 import { Container, CssBaseline, Theme, Button, Typography, Avatar, Paper, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import SettingsIcon from '@material-ui/icons/Settings'
+import MessageIcon from '@material-ui/icons/Message'
 import fetch from 'isomorphic-unfetch'
 import { useState, useEffect } from 'react'
-
-const controllers = [{
-  title: 'Login',
-  name: 'login'
-}]
-
-const services = [{
-  title: 'Like',
-  name: 'likePost'
-}, {
-  title: 'Scroll to next post',
-  name: 'scrollToNextPost'
-}, {
-  title: 'Open likes dialog',
-  name: 'openLikesDialog'
-}, {
-  title: 'Close dialog',
-  name: 'closeDialog'
-}]
-
-const navigation = [{
-  title: 'Go to profile',
-  name: 'gotoProfile'
-}, {
-  title: 'Go to following',
-  name: 'gotoFollowing'
-}]
+import getServerUrl from '../config/getServerUrl'
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
     marginTop: theme.spacing(8),
+    marginBottom: theme.spacing(8),
     padding: theme.spacing(2),
     display: 'flex',
     flexDirection: 'column',
@@ -60,41 +36,69 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 export default () => {
-  const [active, setActive] = useState(null)
+  const [running, setRunning] = useState(null)
+  const [supervisors, setSupervisors] = useState([])
   const classes = useStyles({})
 
   useEffect(() => {
-    const checkActive = async () => {
-      setActive(
-        await (await fetch('/active')).json()
-      )
+    const checkRunning = async () => {
+      const { running } = await (await fetch(`${getServerUrl()}/dev`)).json()
+      setRunning(running)
     }
-    checkActive()
+
+    checkRunning()
   }, [])
 
-  const startBot = () => {
-    fetch('/start', {
-      method: 'POST'
-    })
-    setActive(true)
+  useEffect(() => {
+    const updateSupervisors = async () => {
+      try {
+        setSupervisors(
+          await (await fetch(`${getServerUrl()}/dev/supervisors`)).json()
+        )
+      } catch(error){
+        return
+      }
+    }
+
+    updateSupervisors()
+  }, [running])
+
+  const startBot = async () => {
+    await fetch(`${getServerUrl()}/dev/start`, { method: 'POST' })
+    setRunning(true)
   }
 
   const exitBot = () => {
-    run('exit')()
-    setActive(false)
+    fetch(`${getServerUrl()}/dev/exit`, { method: 'POST' })
+    setRunning(false)
   }
 
-  const run = (type: string, payload?: any) => () =>
-    fetch('/execute', {
+  const execute = ({ name, arity }: { name: string, arity: number }) => async () => {
+    const payload = (() => {
+      if(arity === 0)
+        return undefined
+
+      const arg = prompt('Podaj argument')
+      if(Number.isNaN(Number(arg)))
+        return arg 
+
+      return parseInt(arg)
+    })()
+
+    const response = await fetch(`${getServerUrl()}/dev/execute`, {
       method: 'POST',
-      body: JSON.stringify({ type, payload }),
+      body: JSON.stringify({ type: name, payload }),
       headers: { 'Content-Type': 'application/json' }
     })
+    const result = await response.text()
+    if(result)
+      alert(result)
+  }
 
   return ( 
     <>
       <CssBaseline />
-      <Container component="main" maxWidth="sm">
+      <Container component="main" maxWidth="xs">
         <Paper className={classes.paper}>
           <Avatar className={classes.avatar}>
             <SettingsIcon />
@@ -104,12 +108,12 @@ export default () => {
           </Typography>
           <div>
           {
-            active === null
+            running === null
               ? (
                 <Button variant="contained" color="primary" className={classes.runButton} disabled>
                   Uruchom bota
                 </Button>
-              ) : active
+              ) : running
                 ? (
                   <Button variant="contained" color="primary" className={classes.runButton} onClick={exitBot}>
                     Wyłącz bota
@@ -121,42 +125,30 @@ export default () => {
                 )
           }
           </div>
-          <Grid container>
-            <Grid item xs={12} md={6} className={classes.list}>
-              <Typography variant="caption" gutterBottom>Controllers</Typography>
-              {
-                controllers.map(({ name, title }) =>
-                  <Button variant="contained" className={classes.listButton} key={name} onClick={run(name)}>
+          {
+            supervisors.length !== 0 && (
+              <Grid container>
+                <Grid item xs className={classes.list}>
+                  <Typography variant="caption" gutterBottom>Opcje</Typography>
                   {
-                    title
+                    supervisors.map(({ name, title, arity }) =>
+                      <Button 
+                        variant="contained" 
+                        className={classes.listButton} 
+                        key={name} 
+                        onClick={execute({ name, arity })}
+                        {...arity !== 0 && { endIcon: <MessageIcon /> }}
+                      >
+                      {
+                        title
+                      }
+                      </Button>
+                    )
                   }
-                  </Button>
-                )
-              }
-              <Typography variant="caption" gutterBottom>Navigation</Typography>
-              {
-                navigation.map(({ name, title }) =>
-                  <Button variant="contained" className={classes.listButton} key={name} onClick={run(name)}>
-                  {
-                    title
-                  }
-                  </Button>
-                )
-              }
-            </Grid>
-            <Grid item xs={12} md={6} className={classes.list}>
-              <Typography variant="caption" gutterBottom>Services</Typography>
-              {
-                services.map(({ name, title }) =>
-                  <Button variant="contained" className={classes.listButton} key={name} onClick={run(name)}>
-                  {
-                    title
-                  }
-                  </Button>
-                )
-              }
-            </Grid>
-          </Grid>
+                </Grid>
+              </Grid>
+            )
+          }
         </Paper>
       </Container>
     </>

@@ -2,21 +2,20 @@
   "name": "insta",
   "version": "1.0.0",
   "description": "",
-  "main": "build/app.js",
+  "main": "dist/app.js",
   "scripts": {
     "tsc": "tsc",
-    "start": "node build/app"
+    "start": "node dist/app"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "decamelize": "^3.2.0",
     "nedb-promises": "^4.0.0",
     "puppeteer": "^1.19.0",
     "random-int": "^2.0.1",
-    "reflect-metadata": "^0.1.13",
-    "sleep-promise": "^8.0.1",
-    "typedi": "^0.8.0"
+    "sleep-promise": "^8.0.1"
   },
   "devDependencies": {
     "@types/node": "^12.7.5",

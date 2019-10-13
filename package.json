@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "watch": "concurrently \"cd bot && npm run tsc -- --watch\" \"cd www && npm run tsc -- --watch\"",
-    "start": "cd www && npm run start",
-    "dev": "concurrently \"npm run watch\" \"npm run start\""
+    "dev-bot": "cd bot && npm run tsc -- --watch",
+    "dev-www": "concurrently \"cd www && npm run start:dev\" \"cd www/client && npm run dev\"",
+    "dev": "concurrently \"npm run dev-www && npm run dev-bot\""
   },
   "repository": {
     "type": "git",

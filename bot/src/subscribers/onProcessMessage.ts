@@ -1,6 +1,7 @@
 import { Page } from 'puppeteer'
+import sleep from 'sleep-promise'
+import decamelize from 'decamelize'
 import getSupervisors from '../getSupervisors'
-import sleep = require('sleep-promise')
 
 export default (page: Page) => {
   const supervisors = getSupervisors(page)
@@ -17,17 +18,34 @@ export default (page: Page) => {
       console.log(`Exit with process.exit after 5 seconds (browser could be crashed)`)
       process.exit(1)
     },
+    'getSupervisors': () => 
+      Object.entries(supervisors)
+      .map(([name, { length }]) => ({
+        title: decamelize(name, ' '),
+        name,
+        arity: length
+      })),
     ...supervisors
   }
 
-  process.on('message', ({ type, payload }: { type: string, payload: any }) => {
+  process.on('message', async ({ type, payload }: { type: string, payload: any }) => {
     console.log(`Received message`, { type, ...payload && { payload } })
 
+    //@ts-ignore
+    const fn = fns[type]
+    if(fn === undefined){
+      console.log(`Unknown process message`, { type, ...payload && { payload } })
+      return
+    }
+
     try {
-      //@ts-ignore
-      fns[type](payload)
+      const result = await fn(payload)
+      if(!process.send)
+        return
+
+      process.send({ type: 'executed', payload: result })
     } catch(error) {
-      console.log(`Nieznana wiadomość do procesu (${type}, ${payload})`)
+      console.log(`Execution error`, { type, ...payload && { payload } }, error)
     }
   })
 }
