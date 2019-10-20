@@ -196,12 +196,12 @@ function _extends() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_corejs2_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/extends */ "./node_modules/@babel/runtime-corejs2/helpers/esm/extends.js");
-/* harmony import */ var _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/json/stringify */ "./node_modules/@babel/runtime-corejs2/core-js/json/stringify.js");
-/* harmony import */ var _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_corejs2_core_js_parse_int__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/parse-int */ "./node_modules/@babel/runtime-corejs2/core-js/parse-int.js");
-/* harmony import */ var _babel_runtime_corejs2_core_js_parse_int__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_parse_int__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _babel_runtime_corejs2_core_js_number_is_nan__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/number/is-nan */ "./node_modules/@babel/runtime-corejs2/core-js/number/is-nan.js");
-/* harmony import */ var _babel_runtime_corejs2_core_js_number_is_nan__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_number_is_nan__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _babel_runtime_corejs2_core_js_parse_int__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/parse-int */ "./node_modules/@babel/runtime-corejs2/core-js/parse-int.js");
+/* harmony import */ var _babel_runtime_corejs2_core_js_parse_int__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_parse_int__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_corejs2_core_js_number_is_nan__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/number/is-nan */ "./node_modules/@babel/runtime-corejs2/core-js/number/is-nan.js");
+/* harmony import */ var _babel_runtime_corejs2_core_js_number_is_nan__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_number_is_nan__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/json/stringify */ "./node_modules/@babel/runtime-corejs2/core-js/json/stringify.js");
+/* harmony import */ var _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core */ "@material-ui/core");
@@ -236,7 +236,8 @@ const useStyles = Object(_material_ui_styles__WEBPACK_IMPORTED_MODULE_6__["makeS
     padding: theme.spacing(2),
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
+    textAlign: 'center'
   },
   avatar: {
     backgroundColor: theme.palette.secondary.main,
@@ -244,8 +245,7 @@ const useStyles = Object(_material_ui_styles__WEBPACK_IMPORTED_MODULE_6__["makeS
   },
   runButton: {
     display: 'block',
-    margin: theme.spacing(2, 0, 2),
-    width: '100%'
+    margin: theme.spacing(2, 0, 2)
   },
   list: {
     display: 'flex',
@@ -255,29 +255,51 @@ const useStyles = Object(_material_ui_styles__WEBPACK_IMPORTED_MODULE_6__["makeS
   },
   listButton: {
     marginBottom: theme.spacing(1)
+  },
+  form: {
+    display: 'inline-block'
   }
 }));
+var BotStatus;
+
+(function (BotStatus) {
+  BotStatus[BotStatus["Stopped"] = 0] = "Stopped";
+  BotStatus[BotStatus["Running"] = 1] = "Running";
+  BotStatus[BotStatus["Starting"] = 2] = "Starting";
+  BotStatus[BotStatus["NotChecked"] = 3] = "NotChecked";
+})(BotStatus || (BotStatus = {}));
+
 /* harmony default export */ __webpack_exports__["default"] = (() => {
   const {
-    0: running,
-    1: setRunning
-  } = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(null);
+    0: login,
+    1: setLogin
+  } = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])('');
+  const {
+    0: password,
+    1: setPassword
+  } = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])('');
+  const {
+    0: botStatus,
+    1: setBotStatus
+  } = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(BotStatus.NotChecked);
   const {
     0: supervisors,
     1: setSupervisors
   } = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])([]);
   const classes = useStyles({});
   Object(react__WEBPACK_IMPORTED_MODULE_4__["useEffect"])(() => {
-    const checkRunning = async () => {
+    const checkBotStatus = async () => {
       const {
         running
       } = await (await isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_9___default()(`${Object(_config_getServerUrl__WEBPACK_IMPORTED_MODULE_10__["default"])()}/dev`)).json();
-      setRunning(running);
+      setBotStatus(running ? BotStatus.Running : BotStatus.Stopped);
     };
 
-    checkRunning();
+    checkBotStatus();
   }, []);
   Object(react__WEBPACK_IMPORTED_MODULE_4__["useEffect"])(() => {
+    if (botStatus !== BotStatus.Running) return;
+
     const updateSupervisors = async () => {
       try {
         setSupervisors((await (await isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_9___default()(`${Object(_config_getServerUrl__WEBPACK_IMPORTED_MODULE_10__["default"])()}/dev/supervisors`)).json()));
@@ -287,20 +309,28 @@ const useStyles = Object(_material_ui_styles__WEBPACK_IMPORTED_MODULE_6__["makeS
     };
 
     updateSupervisors();
-  }, [running]);
+  }, [botStatus]);
 
   const startBot = async () => {
+    setBotStatus(BotStatus.Starting);
     await isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_9___default()(`${Object(_config_getServerUrl__WEBPACK_IMPORTED_MODULE_10__["default"])()}/dev/start`, {
-      method: 'POST'
+      method: 'POST',
+      body: _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_3___default()({
+        login,
+        password
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
     });
-    setRunning(true);
+    setBotStatus(BotStatus.Running);
   };
 
   const exitBot = () => {
     isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_9___default()(`${Object(_config_getServerUrl__WEBPACK_IMPORTED_MODULE_10__["default"])()}/dev/exit`, {
       method: 'POST'
     });
-    setRunning(false);
+    setBotStatus(BotStatus.Stopped);
   };
 
   const execute = ({
@@ -310,13 +340,13 @@ const useStyles = Object(_material_ui_styles__WEBPACK_IMPORTED_MODULE_6__["makeS
     const payload = (() => {
       if (arity === 0) return undefined;
       const arg = prompt('Podaj argument');
-      if (_babel_runtime_corejs2_core_js_number_is_nan__WEBPACK_IMPORTED_MODULE_3___default()(Number(arg))) return arg;
-      return _babel_runtime_corejs2_core_js_parse_int__WEBPACK_IMPORTED_MODULE_2___default()(arg);
+      if (_babel_runtime_corejs2_core_js_number_is_nan__WEBPACK_IMPORTED_MODULE_2___default()(Number(arg))) return arg;
+      return _babel_runtime_corejs2_core_js_parse_int__WEBPACK_IMPORTED_MODULE_1___default()(arg);
     })();
 
     const response = await isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_9___default()(`${Object(_config_getServerUrl__WEBPACK_IMPORTED_MODULE_10__["default"])()}/dev/execute`, {
       method: 'POST',
-      body: _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_1___default()({
+      body: _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_3___default()({
         type: name,
         payload
       }),
@@ -331,7 +361,7 @@ const useStyles = Object(_material_ui_styles__WEBPACK_IMPORTED_MODULE_6__["makeS
   return __jsx(react__WEBPACK_IMPORTED_MODULE_4___default.a.Fragment, null, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["CssBaseline"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 100
+      lineNumber: 123
     },
     __self: undefined
   }), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Container"], {
@@ -339,27 +369,27 @@ const useStyles = Object(_material_ui_styles__WEBPACK_IMPORTED_MODULE_6__["makeS
     maxWidth: "xs",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 101
+      lineNumber: 124
     },
     __self: undefined
   }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Paper"], {
     className: classes.paper,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 102
+      lineNumber: 125
     },
     __self: undefined
   }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Avatar"], {
     className: classes.avatar,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 103
+      lineNumber: 126
     },
     __self: undefined
   }, __jsx(_material_ui_icons_Settings__WEBPACK_IMPORTED_MODULE_7___default.a, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 104
+      lineNumber: 127
     },
     __self: undefined
   })), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Typography"], {
@@ -367,50 +397,69 @@ const useStyles = Object(_material_ui_styles__WEBPACK_IMPORTED_MODULE_6__["makeS
     component: "h1",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 106
+      lineNumber: 129
     },
     __self: undefined
-  }, "Panel sterowania"), __jsx("div", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 109
-    },
-    __self: undefined
-  }, running === null ? __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Button"], {
+  }, "Panel sterowania"), botStatus === BotStatus.NotChecked || botStatus === BotStatus.Starting ? __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Button"], {
     variant: "contained",
     color: "primary",
     className: classes.runButton,
     disabled: true,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 113
+      lineNumber: 135
     },
     __self: undefined
-  }, "Uruchom bota") : running ? __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Button"], {
+  }, "Uruchom bota") : botStatus === BotStatus.Running ? __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Button"], {
     variant: "contained",
     color: "primary",
     className: classes.runButton,
     onClick: exitBot,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 118
+      lineNumber: 140
     },
     __self: undefined
-  }, "Wy\u0142\u0105cz bota") : __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Button"], {
+  }, "Wy\u0142\u0105cz bota") : __jsx(react__WEBPACK_IMPORTED_MODULE_4___default.a.Fragment, null, __jsx("p", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 145
+    },
+    __self: undefined
+  }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["TextField"], {
+    label: "Login",
+    value: login,
+    onChange: e => setLogin(e.target.value),
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 146
+    },
+    __self: undefined
+  }), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["TextField"], {
+    type: "password",
+    label: "Has\u0142o",
+    value: password,
+    onChange: e => setPassword(e.target.value),
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 151
+    },
+    __self: undefined
+  })), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Button"], {
     variant: "contained",
     color: "primary",
     className: classes.runButton,
     onClick: startBot,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 122
+      lineNumber: 158
     },
     __self: undefined
-  }, "Uruchom bota")), supervisors.length !== 0 && __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Grid"], {
+  }, "Uruchom bota")), supervisors.length !== 0 && botStatus === BotStatus.Running && __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Grid"], {
     container: true,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 130
+      lineNumber: 166
     },
     __self: undefined
   }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Grid"], {
@@ -419,7 +468,7 @@ const useStyles = Object(_material_ui_styles__WEBPACK_IMPORTED_MODULE_6__["makeS
     className: classes.list,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 131
+      lineNumber: 167
     },
     __self: undefined
   }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Typography"], {
@@ -427,7 +476,7 @@ const useStyles = Object(_material_ui_styles__WEBPACK_IMPORTED_MODULE_6__["makeS
     gutterBottom: true,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 132
+      lineNumber: 168
     },
     __self: undefined
   }, "Opcje"), supervisors.map(({
@@ -446,14 +495,14 @@ const useStyles = Object(_material_ui_styles__WEBPACK_IMPORTED_MODULE_6__["makeS
     endIcon: __jsx(_material_ui_icons_Message__WEBPACK_IMPORTED_MODULE_8___default.a, {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 140
+        lineNumber: 176
       },
       __self: undefined
     })
   }, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 135
+      lineNumber: 171
     },
     __self: undefined
   }), title)))))));

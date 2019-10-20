@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body } from '@nestjs/common'
 import { BotService } from '../bot/bot.service'
 import BotCommandDto from '../bot/dto/bot-command.dto'
+import { Credentials } from '../bot/bot.interface'
 
 @Controller('dev')
 export class DevController {
@@ -19,8 +20,8 @@ export class DevController {
   }
 
   @Post('start')
-  async run(){
-    await this.botService.start()
+  async run(@Body() credentials?: Credentials){
+    await this.botService.start(credentials)
   }
 
   @Post('exit')

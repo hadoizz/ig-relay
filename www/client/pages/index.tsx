@@ -1,4 +1,4 @@
-import { Container, CssBaseline, Theme, Button, Typography, Avatar, Paper, Grid } from '@material-ui/core'
+import { Container, CssBaseline, Theme, Button, Typography, Avatar, Paper, Grid, Input, TextField } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import SettingsIcon from '@material-ui/icons/Settings'
 import MessageIcon from '@material-ui/icons/Message'
@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    textAlign: 'center'
   },  
   avatar: {
     backgroundColor: theme.palette.secondary.main,
@@ -21,8 +22,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   runButton: {
     display: 'block',
-    margin: theme.spacing(2, 0, 2),
-    width: '100%'
+    margin: theme.spacing(2, 0, 2)
   },
   list: {
     display: 'flex',
@@ -32,24 +32,42 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   listButton: {
     marginBottom: theme.spacing(1)
+  },
+  form: {
+    display: 'inline-block'
   }
 }))
 
+enum BotStatus {
+  Stopped,
+  Running,
+  Starting,
+  NotChecked
+}
+
 export default () => {
-  const [running, setRunning] = useState(null)
+  const [login, setLogin] = useState('')
+  const [password, setPassword] = useState('')
+  const [botStatus, setBotStatus] = useState(BotStatus.NotChecked)
   const [supervisors, setSupervisors] = useState([])
   const classes = useStyles({})
 
   useEffect(() => {
-    const checkRunning = async () => {
+    const checkBotStatus = async () => {
       const { running } = await (await fetch(`${getServerUrl()}/dev`)).json()
-      setRunning(running)
+      setBotStatus(running
+        ? BotStatus.Running
+        : BotStatus.Stopped
+      )
     }
 
-    checkRunning()
+    checkBotStatus()
   }, [])
 
   useEffect(() => {
+    if(botStatus !== BotStatus.Running)
+      return
+
     const updateSupervisors = async () => {
       try {
         setSupervisors(
@@ -61,16 +79,21 @@ export default () => {
     }
 
     updateSupervisors()
-  }, [running])
+  }, [botStatus])
 
   const startBot = async () => {
-    await fetch(`${getServerUrl()}/dev/start`, { method: 'POST' })
-    setRunning(true)
+    setBotStatus(BotStatus.Starting)
+    await fetch(`${getServerUrl()}/dev/start`, {
+      method: 'POST',
+      body: JSON.stringify({ login, password }),
+      headers: { 'Content-Type': 'application/json' }
+    })
+    setBotStatus(BotStatus.Running)
   }
 
   const exitBot = () => {
     fetch(`${getServerUrl()}/dev/exit`, { method: 'POST' })
-    setRunning(false)
+    setBotStatus(BotStatus.Stopped)
   }
 
   const execute = ({ name, arity }: { name: string, arity: number }) => async () => {
@@ -106,27 +129,40 @@ export default () => {
           <Typography variant="h5" component="h1">
             Panel sterowania
           </Typography>
-          <div>
           {
-            running === null
+            botStatus === BotStatus.NotChecked || botStatus === BotStatus.Starting
               ? (
                 <Button variant="contained" color="primary" className={classes.runButton} disabled>
                   Uruchom bota
                 </Button>
-              ) : running
+              ) : botStatus === BotStatus.Running
                 ? (
                   <Button variant="contained" color="primary" className={classes.runButton} onClick={exitBot}>
                     Wyłącz bota
                   </Button>
                 ) : (
-                  <Button variant="contained" color="primary" className={classes.runButton} onClick={startBot}>
-                    Uruchom bota
-                  </Button>
+                  <>
+                    <p>
+                      <TextField
+                        label="Login"
+                        value={login}
+                        onChange={e => setLogin(e.target.value)}
+                      />
+                      <TextField
+                        type="password"
+                        label="Hasło"
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                      />
+                    </p>
+                    <Button variant="contained" color="primary" className={classes.runButton} onClick={startBot}>
+                      Uruchom bota
+                    </Button>
+                  </>
                 )
           }
-          </div>
           {
-            supervisors.length !== 0 && (
+            supervisors.length !== 0 && botStatus === BotStatus.Running && (
               <Grid container>
                 <Grid item xs className={classes.list}>
                   <Typography variant="caption" gutterBottom>Opcje</Typography>

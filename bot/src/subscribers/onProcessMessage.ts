@@ -7,17 +7,20 @@ export default (page: Page) => {
   const supervisors = getSupervisors(page)
 
   const fns = {
-    'exit': async () => {
-      //browser could be crashed
-      try {
-        page.browser().close()
-      } catch(error) {}
+    'exit': () =>
+      //allow bot to send result
+      setImmediate(async () => {
+        try {
+          page.browser().close()
+        } catch(error) {
+          process.exit(1)
+        }
 
-      //make sure process is terminated
-      await sleep(5000)
-      console.log(`Exit with process.exit after 5 seconds (browser could be crashed)`)
-      process.exit(1)
-    },
+        //make sure process is terminated
+        await sleep(5000)
+        console.log(`Exit with process.exit after 5 seconds (browser is crashed)`)
+        process.exit(1)
+      }),
     'getSupervisors': () => 
       Object.entries(supervisors)
       .map(([name, { length }]) => ({
@@ -39,7 +42,16 @@ export default (page: Page) => {
     }
 
     try {
-      const result = await fn(payload)
+      const result = await new Promise(async resolve => {
+        //resolve if function does not respond withing 2 seconds
+        const timeoutHandler = setTimeout(resolve, 2000)
+
+        //normal result
+        const result = await fn(payload)
+        clearTimeout(timeoutHandler)
+        resolve(result)
+      })
+
       if(!process.send)
         return
 

@@ -3,7 +3,7 @@ import execa from 'execa'
 import { resolve } from 'path'
 import chalk from 'chalk'
 import sleep from 'sleep-promise'
-import { BotStatus } from './bot.interface'
+import { BotStatus, Credentials } from './bot.interface'
 import BotCommandDto from './dto/bot-command.dto'
 import { EventEmitter } from 'events'
 
@@ -18,16 +18,24 @@ export class BotService {
     }
   }
 
-  async start(){
+  async start(credentials?: Credentials){
+    console.log(`Starting with credentials: `, credentials)
+
     if(this.status().running)
       return
     
     this.botInstance = execa.node(
       resolve('../bot'),
-      ['dist/app'],
-      //@ts-ignore
-      { cwd: resolve('../bot') } 
-    )
+      ['dist/app'], { 
+        cwd: resolve('../bot'), 
+        env: { 
+          ...process.env, 
+          ...credentials && {
+            LOGIN: credentials.login,
+            PASSWORD: credentials.password
+          }
+        }
+    })
     this.botInstance.on('exit', this.handleExit)
     this.botInstance.on('message', this.handleMessage)
     this.botInstance.stdout.on('data', this.handleLog)
@@ -46,7 +54,6 @@ export class BotService {
       return
 
     await this.execute({ type: 'exit' })
-    this.handleExit()
   }
 
   async execute(command: BotCommandDto){
