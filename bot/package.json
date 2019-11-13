@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "decamelize": "^3.2.0",
+    "fork-with-emitter": "^1.0.2",
     "nedb-promises": "^4.0.0",
     "puppeteer": "^1.19.0",
     "random-int": "^2.0.1",

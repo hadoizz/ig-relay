@@ -1,15 +1,19 @@
 import { Injectable, Scope } from '@nestjs/common'
-import execa from 'execa'
 import { resolve } from 'path'
 import chalk from 'chalk'
 import sleep from 'sleep-promise'
+import { EventEmitter } from 'events'
+import { debounce } from 'throttle-debounce'
+import { fork, ChildProcess } from 'child_process'
 import { BotStatus, Credentials } from './bot.interface'
 import BotCommandDto from './dto/bot-command.dto'
-import { EventEmitter } from 'events'
+
+const bufferToString = (buffer: string) =>
+  Buffer.from(buffer, 'utf-8').toString()
 
 @Injectable({ scope: Scope.TRANSIENT })
 export class BotService {  
-  private botInstance?: execa.ExecaChildProcess = null
+  private botInstance?: ChildProcess = null
   private emitter = new EventEmitter
 
   status(): BotStatus {
@@ -19,27 +23,27 @@ export class BotService {
   }
 
   async start(credentials?: Credentials){
-    console.log(`Starting with credentials: `, credentials)
-
     if(this.status().running)
       return
+
+    console.log(`Starting with credentials`, credentials)
     
-    this.botInstance = execa.node(
-      resolve('../bot'),
-      ['dist/app'], { 
-        cwd: resolve('../bot'), 
-        env: { 
-          ...process.env, 
-          ...credentials && {
-            LOGIN: credentials.login,
-            PASSWORD: credentials.password
-          }
+    this.botInstance = fork('app.js', [], {
+      cwd: resolve('../bot/dist/'),
+      env: { 
+        ...process.env, 
+        ...credentials && {
+          LOGIN: credentials.login,
+          PASSWORD: credentials.password
         }
+      },
+      stdio: [undefined, undefined, undefined, 'ipc']
     })
+
     this.botInstance.on('exit', this.handleExit)
-    this.botInstance.on('message', this.handleMessage)
-    this.botInstance.stdout.on('data', this.handleLog)
-    this.botInstance.stdout.on('end', this.handleLog)
+    this.botInstance.on('message', this.handleProcessMessage)
+    this.attachStdoutHandler(this.botInstance)
+    this.attachStderrHandler(this.botInstance)
 
     await new Promise(async (resolve, reject) => {
       this.emitter.once('started', resolve)
@@ -70,7 +74,15 @@ export class BotService {
     return await gettingResult
   }
 
-  private handleMessage = ({ type, payload }: BotCommandDto) => {
+  private handleLog = (text: string) => {
+    console.log(chalk.yellow(text))
+  }
+
+  private handleError = (text: string) => {
+    console.log(chalk.red(text))
+  }
+
+  private handleProcessMessage = ({ type, payload }: BotCommandDto) => {
     if(type === 'started'){
       this.emitter.emit('started')
       return
@@ -87,13 +99,38 @@ export class BotService {
     console.log(`Bot was closed`)
   }
 
-  private handleLog = (log?: string) => {
-    if(log === undefined)
-      return
-  
-    console.log(
-      'Bot:', 
-      chalk.cyan(Buffer.from(log, 'utf-8').toString().trim())
-    )
+  private attachStdoutHandler = (instance: ChildProcess) => {    
+    const end = debounce(100, () => {
+      if(text === '')
+        return
+
+      this.handleLog(text.trim())
+      text = ''
+    })
+
+    let text = ''
+    instance.stdout.on('data', (data: string) => {
+      console.log('stdout')
+      text += bufferToString(data)
+      end()
+    })
+    instance.stdout.on('end', end)
+  }
+
+  private attachStderrHandler = (instance: ChildProcess) => {
+    const end = debounce(100, () => {
+      if(text === '')
+        return
+
+      this.handleError(text.trim())
+      text = ''
+    })
+
+    let text = ''
+    instance.stderr.on('data', (data: string) => {
+      text += bufferToString(data)
+      end()
+    })
+    instance.stderr.on('end', end)
   }
 }

@@ -2,6 +2,8 @@ import { Page } from 'puppeteer'
 import sleep from 'sleep-promise'
 import decamelize from 'decamelize'
 import getSupervisors from '../getSupervisors'
+import { onProcessMessage } from '../emitter'
+import { master } from 'fork-with-emitter'
 
 export default (page: Page) => {
   const supervisors = getSupervisors(page)
@@ -13,17 +15,16 @@ export default (page: Page) => {
         try {
           page.browser().close()
         } catch(error) {
-          process.exit(1)
+          process.exit(0)
         }
 
         //make sure process is terminated
         await sleep(5000)
         console.log(`Exit with process.exit after 5 seconds (browser is crashed)`)
-        process.exit(1)
+        process.exit(0)
       }),
     'getSupervisors': () => 
-      Object.entries(supervisors)
-      .map(([name, { length }]) => ({
+      Object.entries(supervisors).map(([name, { length }]) => ({
         title: decamelize(name, ' '),
         name,
         arity: length
@@ -31,7 +32,7 @@ export default (page: Page) => {
     ...supervisors
   }
 
-  process.on('message', async ({ type, payload }: { type: string, payload: any }) => {
+  onProcessMessage.on(async ({ type, payload }) => {
     console.log(`Received message`, { type, ...payload && { payload } })
 
     //@ts-ignore
