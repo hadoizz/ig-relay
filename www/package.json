@@ -27,6 +27,7 @@
     "@nestjs/platform-express": "^6.7.2",
     "chalk": "^2.4.2",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "execa": "^2.1.0",
     "isomorphic-unfetch": "^3.0.0",
     "nest-next": "^9.0.6",
@@ -36,7 +37,8 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.3",
-    "sleep-promise": "^8.0.1"
+    "sleep-promise": "^8.0.1",
+    "throttle-debounce": "^2.1.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^6.9.0",
