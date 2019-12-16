@@ -8,9 +8,9 @@
     "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./",
     "incremental": true,
-    "esModuleInterop": true
-  },
-  "include": ["src/**/*"]
+    "esModuleInterop": true,
+    "baseUrl": "./"
+   },
+   "include": ["src/**/*"]
 }

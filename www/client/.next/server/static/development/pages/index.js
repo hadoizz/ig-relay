@@ -93,18 +93,91 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
-/***/ "./config/getServerUrl.ts":
-/*!********************************!*\
-  !*** ./config/getServerUrl.ts ***!
-  \********************************/
+/***/ "./api/bots/dev/getId.ts":
+/*!*******************************!*\
+  !*** ./api/bots/dev/getId.ts ***!
+  \*******************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-const SERVER_PORT = 8080;
-/* harmony default export */ __webpack_exports__["default"] = (() => {
-  return `${location.protocol}//${location.hostname}:${SERVER_PORT}`;
+/* harmony import */ var _fetch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../fetch */ "./api/fetch.ts");
+
+/* harmony default export */ __webpack_exports__["default"] = (async () => {
+  const body = await Object(_fetch__WEBPACK_IMPORTED_MODULE_0__["default"])(`/bots/dev`);
+  const {
+    id
+  } = await body.json();
+  return id;
+});
+
+/***/ }),
+
+/***/ "./api/bots/executeSupervisor.ts":
+/*!***************************************!*\
+  !*** ./api/bots/executeSupervisor.ts ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/json/stringify */ "./node_modules/@babel/runtime-corejs2/core-js/json/stringify.js");
+/* harmony import */ var _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _fetch__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../fetch */ "./api/fetch.ts");
+
+
+/* harmony default export */ __webpack_exports__["default"] = (async (id, name, payload) => {
+  const body = await Object(_fetch__WEBPACK_IMPORTED_MODULE_1__["default"])(`/bots/${id}/executeSupervisor`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_0___default()({
+      name,
+      payload
+    })
+  });
+  const {
+    result
+  } = await body.json();
+  return result;
+});
+
+/***/ }),
+
+/***/ "./api/bots/getSupervisors.ts":
+/*!************************************!*\
+  !*** ./api/bots/getSupervisors.ts ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _fetch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../fetch */ "./api/fetch.ts");
+
+/* harmony default export */ __webpack_exports__["default"] = (async id => {
+  const body = await Object(_fetch__WEBPACK_IMPORTED_MODULE_0__["default"])(`/bots/${id}/getSupervisors`);
+  const supervisors = await body.json();
+  return supervisors;
+});
+
+/***/ }),
+
+/***/ "./api/fetch.ts":
+/*!**********************!*\
+  !*** ./api/fetch.ts ***!
+  \**********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ((path, props) => {
+  path = `http://localhost:8080${path}`;
+  return fetch(path, props);
 });
 
 /***/ }),
@@ -120,72 +193,6 @@ module.exports = __webpack_require__(/*! core-js/library/fn/json/stringify */ "c
 
 /***/ }),
 
-/***/ "./node_modules/@babel/runtime-corejs2/core-js/number/is-nan.js":
-/*!**********************************************************************!*\
-  !*** ./node_modules/@babel/runtime-corejs2/core-js/number/is-nan.js ***!
-  \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(/*! core-js/library/fn/number/is-nan */ "core-js/library/fn/number/is-nan");
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime-corejs2/core-js/object/assign.js":
-/*!**********************************************************************!*\
-  !*** ./node_modules/@babel/runtime-corejs2/core-js/object/assign.js ***!
-  \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(/*! core-js/library/fn/object/assign */ "core-js/library/fn/object/assign");
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime-corejs2/core-js/parse-int.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/@babel/runtime-corejs2/core-js/parse-int.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(/*! core-js/library/fn/parse-int */ "core-js/library/fn/parse-int");
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime-corejs2/helpers/esm/extends.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/@babel/runtime-corejs2/helpers/esm/extends.js ***!
-  \********************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _extends; });
-/* harmony import */ var _core_js_object_assign__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core-js/object/assign */ "./node_modules/@babel/runtime-corejs2/core-js/object/assign.js");
-/* harmony import */ var _core_js_object_assign__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0__);
-
-function _extends() {
-  _extends = _core_js_object_assign__WEBPACK_IMPORTED_MODULE_0___default.a || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  return _extends.apply(this, arguments);
-}
-
-/***/ }),
-
 /***/ "./pages/index.tsx":
 /*!*************************!*\
   !*** ./pages/index.tsx ***!
@@ -195,318 +202,246 @@ function _extends() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_corejs2_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/extends */ "./node_modules/@babel/runtime-corejs2/helpers/esm/extends.js");
-/* harmony import */ var _babel_runtime_corejs2_core_js_parse_int__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/parse-int */ "./node_modules/@babel/runtime-corejs2/core-js/parse-int.js");
-/* harmony import */ var _babel_runtime_corejs2_core_js_parse_int__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_parse_int__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_corejs2_core_js_number_is_nan__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/number/is-nan */ "./node_modules/@babel/runtime-corejs2/core-js/number/is-nan.js");
-/* harmony import */ var _babel_runtime_corejs2_core_js_number_is_nan__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_number_is_nan__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/json/stringify */ "./node_modules/@babel/runtime-corejs2/core-js/json/stringify.js");
-/* harmony import */ var _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core */ "@material-ui/core");
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _material_ui_styles__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/styles */ "@material-ui/styles");
-/* harmony import */ var _material_ui_styles__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_material_ui_styles__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _material_ui_icons_Settings__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material-ui/icons/Settings */ "@material-ui/icons/Settings");
-/* harmony import */ var _material_ui_icons_Settings__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_Settings__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _material_ui_icons_Message__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @material-ui/icons/Message */ "@material-ui/icons/Message");
-/* harmony import */ var _material_ui_icons_Message__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_Message__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! isomorphic-unfetch */ "isomorphic-unfetch");
-/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _config_getServerUrl__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../config/getServerUrl */ "./config/getServerUrl.ts");
-
-
-
-
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material-ui/core */ "@material-ui/core");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _material_ui_styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/styles */ "@material-ui/styles");
+/* harmony import */ var _material_ui_styles__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_material_ui_styles__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _api_bots_dev_getId__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../api/bots/dev/getId */ "./api/bots/dev/getId.ts");
+/* harmony import */ var _api_bots_getSupervisors__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../api/bots/getSupervisors */ "./api/bots/getSupervisors.ts");
+/* harmony import */ var _api_bots_executeSupervisor__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../api/bots/executeSupervisor */ "./api/bots/executeSupervisor.ts");
 var _jsxFileName = "C:\\Users\\Artur\\Documents\\Node\\Insta\\www\\client\\pages\\index.tsx";
 
-var __jsx = react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement;
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 
 
 
 
-
-const useStyles = Object(_material_ui_styles__WEBPACK_IMPORTED_MODULE_6__["makeStyles"])(theme => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    marginBottom: theme.spacing(8),
-    padding: theme.spacing(2),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    textAlign: 'center'
-  },
-  avatar: {
-    backgroundColor: theme.palette.secondary.main,
-    margin: theme.spacing(1)
-  },
-  runButton: {
-    display: 'block',
-    margin: theme.spacing(2, 0, 2)
-  },
-  list: {
-    display: 'flex',
-    flexDirection: 'column',
-    padding: theme.spacing(0, 1),
+const useStyles = Object(_material_ui_styles__WEBPACK_IMPORTED_MODULE_2__["makeStyles"])(theme => ({
+  button: {
+    marginRight: theme.spacing(1),
     marginBottom: theme.spacing(1)
-  },
-  listButton: {
-    marginBottom: theme.spacing(1)
-  },
-  form: {
-    display: 'inline-block'
   }
 }));
-var BotStatus;
 
-(function (BotStatus) {
-  BotStatus[BotStatus["Stopped"] = 0] = "Stopped";
-  BotStatus[BotStatus["Running"] = 1] = "Running";
-  BotStatus[BotStatus["Starting"] = 2] = "Starting";
-  BotStatus[BotStatus["NotChecked"] = 3] = "NotChecked";
-})(BotStatus || (BotStatus = {}));
+const createSupervisionExecutor = id => ({
+  name,
+  arity
+}) => () => Object(_api_bots_executeSupervisor__WEBPACK_IMPORTED_MODULE_5__["default"])(id, name, arity === 0 ? undefined : prompt('Podaj wartość'));
 
 /* harmony default export */ __webpack_exports__["default"] = (() => {
   const {
-    0: login,
-    1: setLogin
-  } = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])('');
-  const {
-    0: password,
-    1: setPassword
-  } = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])('');
-  const {
-    0: botStatus,
-    1: setBotStatus
-  } = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(BotStatus.NotChecked);
+    0: id,
+    1: setId
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null);
   const {
     0: supervisors,
     1: setSupervisors
-  } = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])([]);
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => void (id && Object(_api_bots_getSupervisors__WEBPACK_IMPORTED_MODULE_4__["default"])(id).then(setSupervisors)), [id]);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => void Object(_api_bots_dev_getId__WEBPACK_IMPORTED_MODULE_3__["default"])().then(setId), []);
+  const supervisionExecutor = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(() => createSupervisionExecutor(id), [id]);
   const classes = useStyles({});
-  Object(react__WEBPACK_IMPORTED_MODULE_4__["useEffect"])(() => {
-    const checkBotStatus = async () => {
-      const {
-        running
-      } = await (await isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_9___default()(`${Object(_config_getServerUrl__WEBPACK_IMPORTED_MODULE_10__["default"])()}/dev`)).json();
-      setBotStatus(running ? BotStatus.Running : BotStatus.Stopped);
-    };
-
-    checkBotStatus();
-  }, []);
-  Object(react__WEBPACK_IMPORTED_MODULE_4__["useEffect"])(() => {
-    if (botStatus !== BotStatus.Running) return;
-
-    const updateSupervisors = async () => {
-      try {
-        setSupervisors((await (await isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_9___default()(`${Object(_config_getServerUrl__WEBPACK_IMPORTED_MODULE_10__["default"])()}/dev/supervisors`)).json()));
-      } catch (error) {
-        return;
-      }
-    };
-
-    updateSupervisors();
-  }, [botStatus]);
-
-  const startBot = async () => {
-    setBotStatus(BotStatus.Starting);
-    await isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_9___default()(`${Object(_config_getServerUrl__WEBPACK_IMPORTED_MODULE_10__["default"])()}/dev/start`, {
-      method: 'POST',
-      body: _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_3___default()({
-        login,
-        password
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    setBotStatus(BotStatus.Running);
-  };
-
-  const exitBot = () => {
-    isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_9___default()(`${Object(_config_getServerUrl__WEBPACK_IMPORTED_MODULE_10__["default"])()}/dev/exit`, {
-      method: 'POST'
-    });
-    setBotStatus(BotStatus.Stopped);
-  };
-
-  const execute = ({
-    name,
-    arity
-  }) => async () => {
-    const payload = (() => {
-      if (arity === 0) return undefined;
-      const arg = prompt('Podaj argument');
-      if (_babel_runtime_corejs2_core_js_number_is_nan__WEBPACK_IMPORTED_MODULE_2___default()(Number(arg))) return arg;
-      return _babel_runtime_corejs2_core_js_parse_int__WEBPACK_IMPORTED_MODULE_1___default()(arg);
-    })();
-
-    const response = await isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_9___default()(`${Object(_config_getServerUrl__WEBPACK_IMPORTED_MODULE_10__["default"])()}/dev/execute`, {
-      method: 'POST',
-      body: _babel_runtime_corejs2_core_js_json_stringify__WEBPACK_IMPORTED_MODULE_3___default()({
-        type: name,
-        payload
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    const result = await response.text();
-    if (result) alert(result);
-  };
-
-  return __jsx(react__WEBPACK_IMPORTED_MODULE_4___default.a.Fragment, null, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["CssBaseline"], {
+  return __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Container"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 123
+      lineNumber: 35
     },
     __self: undefined
-  }), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Container"], {
-    component: "main",
-    maxWidth: "xs",
+  }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["CssBaseline"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 124
+      lineNumber: 36
     },
     __self: undefined
-  }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Paper"], {
-    className: classes.paper,
+  }), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Card"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 125
+      lineNumber: 37
     },
     __self: undefined
-  }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Avatar"], {
-    className: classes.avatar,
+  }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["CardContent"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 126
+      lineNumber: 38
     },
     __self: undefined
-  }, __jsx(_material_ui_icons_Settings__WEBPACK_IMPORTED_MODULE_7___default.a, {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 127
-    },
-    __self: undefined
-  })), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Typography"], {
-    variant: "h5",
-    component: "h1",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 129
-    },
-    __self: undefined
-  }, "Panel sterowania"), botStatus === BotStatus.NotChecked || botStatus === BotStatus.Starting ? __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Button"], {
-    variant: "contained",
-    color: "primary",
-    className: classes.runButton,
-    disabled: true,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 135
-    },
-    __self: undefined
-  }, "Uruchom bota") : botStatus === BotStatus.Running ? __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Button"], {
-    variant: "contained",
-    color: "primary",
-    className: classes.runButton,
-    onClick: exitBot,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 140
-    },
-    __self: undefined
-  }, "Wy\u0142\u0105cz bota") : __jsx(react__WEBPACK_IMPORTED_MODULE_4___default.a.Fragment, null, __jsx("p", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 145
-    },
-    __self: undefined
-  }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["TextField"], {
-    label: "Login",
-    value: login,
-    onChange: e => setLogin(e.target.value),
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 146
-    },
-    __self: undefined
-  }), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["TextField"], {
-    type: "password",
-    label: "Has\u0142o",
-    value: password,
-    onChange: e => setPassword(e.target.value),
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 151
-    },
-    __self: undefined
-  })), __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Button"], {
-    variant: "contained",
-    color: "primary",
-    className: classes.runButton,
-    onClick: startBot,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 158
-    },
-    __self: undefined
-  }, "Uruchom bota")), supervisors.length !== 0 && botStatus === BotStatus.Running && __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Grid"], {
-    container: true,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 166
-    },
-    __self: undefined
-  }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Grid"], {
-    item: true,
-    xs: true,
-    className: classes.list,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 167
-    },
-    __self: undefined
-  }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Typography"], {
-    variant: "caption",
+  }, __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Typography"], {
+    variant: "h3",
     gutterBottom: true,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 168
+      lineNumber: 39
     },
     __self: undefined
-  }, "Opcje"), supervisors.map(({
+  }, "Bociak"), supervisors.map(({
     name,
     title,
     arity
-  }) => __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__["Button"], Object(_babel_runtime_corejs2_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+  }) => __jsx(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Button"], {
     variant: "contained",
-    className: classes.listButton,
     key: name,
-    onClick: execute({
+    onClick: supervisionExecutor({
       name,
       arity
-    })
-  }, arity !== 0 && {
-    endIcon: __jsx(_material_ui_icons_Message__WEBPACK_IMPORTED_MODULE_8___default.a, {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 176
-      },
-      __self: undefined
-    })
-  }, {
+    }),
+    className: classes.button,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 171
+      lineNumber: 42
     },
     __self: undefined
-  }), title)))))));
+  }, title)))));
 });
+/*
+export default () => {
+  const [login, setLogin] = useState('')
+  const [password, setPassword] = useState('')
+  const [botStatus, setBotStatus] = useState(BotStatus.NotChecked)
+  const [supervisors, setSupervisors] = useState([])
+  const classes = useStyles({})
+
+  useEffect(() => {
+    const checkBotStatus = async () => {
+      const isRunning = await (await fetch(`${getServerUrl()}/dev/isRunning`)).json()
+      setBotStatus(isRunning
+        ? BotStatus.Running
+        : BotStatus.Stopped
+      )
+    }
+
+    checkBotStatus()
+  }, [])
+
+  useEffect(() => {
+    if(botStatus !== BotStatus.Running)
+      return
+
+    const updateSupervisors = async () => {
+      try {
+        setSupervisors(
+          await (await fetch(`${getServerUrl()}/dev/supervisors`)).json()
+        )
+      } catch(error){
+        return
+      }
+    }
+
+    updateSupervisors()
+  }, [botStatus])
+
+  const startBot = async () => {
+    setBotStatus(BotStatus.Starting)
+    await fetch(`${getServerUrl()}/dev/start`, {
+      method: 'POST',
+      body: JSON.stringify({ login, password }),
+      headers: { 'Content-Type': 'application/json' }
+    })
+    setBotStatus(BotStatus.Running)
+  }
+
+  const exitBot = () => {
+    fetch(`${getServerUrl()}/dev/exit`, { method: 'POST' })
+    setBotStatus(BotStatus.Stopped)
+  }
+
+  const execute = ({ name, arity }: { name: string, arity: number }) => async () => {
+    const payload = (() => {
+      if(arity === 0)
+        return undefined
+
+      const arg = prompt('Podaj argument')
+      if(Number.isNaN(Number(arg)))
+        return arg 
+
+      return parseInt(arg)
+    })()
+
+    const response = await fetch(`${getServerUrl()}/dev/executeSupervisor`, {
+      method: 'POST',
+      body: JSON.stringify({ name, payload } as BotCommandDto),
+      headers: { 'Content-Type': 'application/json' }
+    })
+    const result = await response.text()
+    if(result)
+      alert(result)
+  }
+
+  return ( 
+    <>
+      <CssBaseline />
+      <Container component="main" maxWidth="xs">
+        <Paper className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <SettingsIcon />
+          </Avatar>
+          <Typography variant="h5" component="h1">
+            Panel sterowania
+          </Typography>
+          {
+            botStatus === BotStatus.NotChecked || botStatus === BotStatus.Starting
+              ? (
+                <Button variant="contained" color="primary" className={classes.runButton} disabled>
+                  Uruchom bota
+                </Button>
+              ) : botStatus === BotStatus.Running
+                ? (
+                  <Button variant="contained" color="primary" className={classes.runButton} onClick={exitBot}>
+                    Wyłącz bota
+                  </Button>
+                ) : (
+                  <>
+                    <p>
+                      <TextField
+                        label="Login"
+                        value={login}
+                        onChange={e => setLogin(e.target.value)}
+                      />
+                      <TextField
+                        type="password"
+                        label="Hasło"
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                      />
+                    </p>
+                    <Button variant="contained" color="primary" className={classes.runButton} onClick={startBot}>
+                      Uruchom bota
+                    </Button>
+                  </>
+                )
+          }
+          {
+            supervisors.length !== 0 && botStatus === BotStatus.Running && (
+              <Grid container>
+                <Grid item xs className={classes.list}>
+                  <Typography variant="caption" gutterBottom>Opcje</Typography>
+                  {
+                    supervisors.map(({ name, title, arity }) =>
+                      <Button 
+                        variant="contained" 
+                        className={classes.listButton} 
+                        key={name} 
+                        onClick={execute({ name, arity })}
+                        {...arity !== 0 && { endIcon: <MessageIcon /> }}
+                      >
+                      {
+                        title
+                      }
+                      </Button>
+                    )
+                  }
+                </Grid>
+              </Grid>
+            )
+          }
+        </Paper>
+      </Container>
+    </>
+  )
+}*/
 
 /***/ }),
 
@@ -533,28 +468,6 @@ module.exports = require("@material-ui/core");
 
 /***/ }),
 
-/***/ "@material-ui/icons/Message":
-/*!*********************************************!*\
-  !*** external "@material-ui/icons/Message" ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("@material-ui/icons/Message");
-
-/***/ }),
-
-/***/ "@material-ui/icons/Settings":
-/*!**********************************************!*\
-  !*** external "@material-ui/icons/Settings" ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("@material-ui/icons/Settings");
-
-/***/ }),
-
 /***/ "@material-ui/styles":
 /*!**************************************!*\
   !*** external "@material-ui/styles" ***!
@@ -574,50 +487,6 @@ module.exports = require("@material-ui/styles");
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/library/fn/json/stringify");
-
-/***/ }),
-
-/***/ "core-js/library/fn/number/is-nan":
-/*!***************************************************!*\
-  !*** external "core-js/library/fn/number/is-nan" ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("core-js/library/fn/number/is-nan");
-
-/***/ }),
-
-/***/ "core-js/library/fn/object/assign":
-/*!***************************************************!*\
-  !*** external "core-js/library/fn/object/assign" ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("core-js/library/fn/object/assign");
-
-/***/ }),
-
-/***/ "core-js/library/fn/parse-int":
-/*!***********************************************!*\
-  !*** external "core-js/library/fn/parse-int" ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("core-js/library/fn/parse-int");
-
-/***/ }),
-
-/***/ "isomorphic-unfetch":
-/*!*************************************!*\
-  !*** external "isomorphic-unfetch" ***!
-  \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("isomorphic-unfetch");
 
 /***/ }),
 

@@ -3,7 +3,7 @@ import sleep from '../utils/sleep'
 import getLikesDialog from '../services/likesDialog/selectors/getLikesDialog'
 import follow from '../services/personRow/follow'
 import { onFollow } from '../emitter'
-import followedModel from '../models/followedModel'
+import { wasFollowedBefore, markAsFollowed } from '../models/followedBefore'
 import Counter from '../lib/Counter'
 import getPerson from '../services/personRow/getPerson'
 import getNextElement from '../utils/elements/getNextElement'
@@ -34,14 +34,14 @@ export default async (page: Page, maximum?: number) => {
     }
 
     //make sure person was not followed in the past
-    if(await followedModel.wasFollowed(person)){
+    if(await wasFollowedBefore(person)){
       console.log(`Person was followed in the past`)
       return
     }
 
     //follow person
     await follow(personRow)
-    await followedModel.add(person)
+    markAsFollowed(person)
     await onFollow.emit(person)
     followCount.increase()
   }

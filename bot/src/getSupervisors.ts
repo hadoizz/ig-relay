@@ -14,36 +14,41 @@ import login from './controllers/login'
 import unfollowFollowed from './controllers/unfollowFollowed'
 import closeDialog from './services/dialog/closeDialog'
 
-export default (page: Page) => ({
+export class Supervisors {
+  constructor(private readonly page: Page){}
+
   /* services */
-  getVisiblePost: async () =>
-    log(await getVisiblePost(page)),
-  getNextPost: async () =>
-    log(await getNextPost(page)),
-  scrollToNextPost: () =>
-    scrollToNextPost(page),
-  getLikes: async () =>
-    await getLikes(await getVisiblePost(page)),
-  likePost: async () =>
-    await likePost(await getVisiblePost(page)),
-  openLikesDialog: async () =>
-    await openLikesDialog(await getVisiblePost(page)),
-  closeDialog: () =>
-    closeDialog(page),
+  getVisiblePost = async () =>
+    log(await getVisiblePost(this.page))
+  getNextPost = async () =>
+    log(await getNextPost(this.page))
+  scrollToNextPost = () =>
+    scrollToNextPost(this.page)
+  getLikes = async () =>
+    await getLikes(await getVisiblePost(this.page))
+  likePost = async () =>
+    await likePost(await getVisiblePost(this.page))
+  openLikesDialog = async () =>
+    await openLikesDialog(await getVisiblePost(this.page))
+  closeDialog = () =>
+    closeDialog(this.page)
 
   /* navigation */
-  gotoProfile: () =>
-    gotoProfile(page),
-  gotoFollowing: () =>
-    gotoFollowing(page),
+  gotoProfile = () =>
+    gotoProfile(this.page)
+  gotoFollowing = () =>
+    gotoFollowing(this.page)
 
   /* controllers */
-  followPersonsWhoLiked: (maximum?: number) =>
-    followPersonsWhoLiked(page, maximum),
-  followingBot: (maximum?: number) =>
-    followingBot(page, maximum),
-  login: () =>
-    login(page),
-  unfollowFollowed: () =>
-    unfollowFollowed(page)
-})
+  followPersonsWhoLiked = (maximum?: number) =>
+    followPersonsWhoLiked(this.page, maximum)
+  followingBot = (maximum?: number) =>
+    followingBot(this.page, maximum)
+  login = () =>
+    login(this.page)
+  unfollowFollowed = () =>
+    unfollowFollowed(this.page)
+}
+
+export default (page: Page) =>
+  new Supervisors(page)

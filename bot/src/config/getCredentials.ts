@@ -10,7 +10,7 @@ if(!login)
 
 if(!password)
   throw `process.env.PASSWORD is not set`
-
+ 
 export default async (): Promise<Credentials> => ({
   login,
   password

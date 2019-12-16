@@ -1,50 +1,59 @@
-import { Container, CssBaseline, Theme, Button, Typography, Avatar, Paper, Grid, Input, TextField } from '@material-ui/core'
+import { Container, CssBaseline, Theme, Button, Typography, Avatar, Paper, Grid, Input, TextField, Card, CardContent } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import SettingsIcon from '@material-ui/icons/Settings'
 import MessageIcon from '@material-ui/icons/Message'
-import fetch from 'isomorphic-unfetch'
-import { useState, useEffect } from 'react'
-import getServerUrl from '../config/getServerUrl'
+import { useState, useEffect, useMemo } from 'react'
+import getId from '../api/bots/dev/getId'
+import getSupervisors from '../api/bots/getSupervisors'
+import executeSupervisor from '../api/bots/executeSupervisor'
 
 const useStyles = makeStyles((theme: Theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    marginBottom: theme.spacing(8),
-    padding: theme.spacing(2),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    textAlign: 'center'
-  },  
-  avatar: {
-    backgroundColor: theme.palette.secondary.main,
-    margin: theme.spacing(1)
-  },
-  runButton: {
-    display: 'block',
-    margin: theme.spacing(2, 0, 2)
-  },
-  list: {
-    display: 'flex',
-    flexDirection: 'column',
-    padding: theme.spacing(0, 1),
+  button: {
+    marginRight: theme.spacing(1),
     marginBottom: theme.spacing(1)
-  },
-  listButton: {
-    marginBottom: theme.spacing(1)
-  },
-  form: {
-    display: 'inline-block'
   }
 }))
 
-enum BotStatus {
-  Stopped,
-  Running,
-  Starting,
-  NotChecked
+const createSupervisionExecutor = (id: string) =>
+  ({ name, arity }: { name: string, arity: number }) =>
+    () =>
+      executeSupervisor(id, name, arity === 0 ? undefined : prompt('Podaj wartość'))
+
+export default () => {
+  const [id, setId] = useState(null)
+  const [supervisors, setSupervisors] = useState([])
+
+  useEffect(() => void (id && getSupervisors(id).then(setSupervisors)), [id])
+
+  useEffect(() => void getId().then(setId), [])
+
+  const supervisionExecutor = useMemo(() => createSupervisionExecutor(id), [id])
+
+  const classes = useStyles({})
+
+  return (
+    <Container>
+      <CssBaseline />
+      <Card>
+        <CardContent>
+          <Typography variant="h3" gutterBottom>Bociak</Typography>
+          {
+            supervisors.map(({ name, title, arity }) =>
+              <Button variant="contained" key={name} onClick={supervisionExecutor({ name, arity })} className={classes.button}>
+              {
+                title
+              }
+              </Button>
+            )
+          }
+        </CardContent>
+      </Card>
+    </Container>
+  )
 }
 
+
+/*
 export default () => {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
@@ -54,8 +63,8 @@ export default () => {
 
   useEffect(() => {
     const checkBotStatus = async () => {
-      const { running } = await (await fetch(`${getServerUrl()}/dev`)).json()
-      setBotStatus(running
+      const isRunning = await (await fetch(`${getServerUrl()}/dev/isRunning`)).json()
+      setBotStatus(isRunning
         ? BotStatus.Running
         : BotStatus.Stopped
       )
@@ -108,9 +117,9 @@ export default () => {
       return parseInt(arg)
     })()
 
-    const response = await fetch(`${getServerUrl()}/dev/execute`, {
+    const response = await fetch(`${getServerUrl()}/dev/executeSupervisor`, {
       method: 'POST',
-      body: JSON.stringify({ type: name, payload }),
+      body: JSON.stringify({ name, payload } as BotCommandDto),
       headers: { 'Content-Type': 'application/json' }
     })
     const result = await response.text()
@@ -189,4 +198,4 @@ export default () => {
       </Container>
     </>
   )
-}
+}*/
