@@ -1,14 +1,17 @@
-import puppeteer from 'puppeteer'
-import args from './page/args'
+import puppeteer from 'puppeteer-extra'
+import StealthPlugin from 'puppeteer-extra-plugin-stealth'
+import AdblockerPlugin from 'puppeteer-extra-plugin-adblocker'
 import exposeDevFns from './page/exposeDevFns'
+import { master } from 'fork-with-emitter'
+import getEnvData from '../config/getEnvData'
+
+puppeteer.use(StealthPlugin())
+puppeteer.use(AdblockerPlugin())
 
 export default async () => {
   const browser = await puppeteer.launch({
-    args,
-    headless: false,
-    ignoreHTTPSErrors: true,
+    headless: getEnvData().headless,
     userDataDir: './data',
-    ignoreDefaultArgs: ["--enable-automation"]
   })
   browser.on('disconnected', () => {
     console.log(`Browser disconnected`)
@@ -21,6 +24,10 @@ export default async () => {
   })
   await exposeDevFns(page)
   await page.goto('https://instagram.com/')
+
+  setInterval(async () => {
+    master.emit('screenshot', await page.screenshot({ encoding: 'base64' }))
+  }, 500)
 
   return page
 }

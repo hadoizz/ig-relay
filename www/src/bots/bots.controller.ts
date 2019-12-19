@@ -25,12 +25,7 @@ export class BotsController {
 
   @Get(':id')
   getBotInfo(@Param('id') id: string){
-    const { info: { startedAt, ...info } } = this.botsService.getBot(id)
-
-    return {
-      alive: `${(+new Date - startedAt)/1000} seconds`,
-      ...info
-    }
+    return this.botsService.getBotInfo(id)
   }
 
   @Get(':id/exit')

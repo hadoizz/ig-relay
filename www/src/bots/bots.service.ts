@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import createBot, { Bot, Credentials, ExecuteSupervisorCommand } from './createBot'
+import createBot, { Bot, Credentials } from './createBot'
 
 const getId = () => 
   Math.random().toString(36).slice(2)+(new Date).getTime().toString(36)
@@ -27,5 +27,14 @@ export class BotsService {
 
   getBot(id: string){
     return this.bots.get(id)
+  }
+
+  getBotInfo(id: string){
+    const { info: { startedAt, ...info } } = this.getBot(id)
+
+    return {
+      alive: `${(+new Date - startedAt)/1000} seconds`,
+      ...info
+    }
   }
 }

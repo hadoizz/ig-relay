@@ -1,9 +1,7 @@
 import Credentials from '../types/Credentials'
+import getEnvData from './getEnvData'
 
-const { 
-  LOGIN: login, 
-  PASSWORD: password
-} = process.env
+const { login, password } = getEnvData()
 
 if(!login)
   throw `process.env.LOGIN is not set`

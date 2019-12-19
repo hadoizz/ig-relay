@@ -6,6 +6,8 @@ import { useState, useEffect, useMemo } from 'react'
 import getId from '../api/bots/dev/getId'
 import getSupervisors from '../api/bots/getSupervisors'
 import executeSupervisor from '../api/bots/executeSupervisor'
+import exit from '../api/bots/exit'
+import Streaming from '../components/Streaming'
 
 const useStyles = makeStyles((theme: Theme) => ({
   button: {
@@ -14,10 +16,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-const createSupervisionExecutor = (id: string) =>
+const createSupervisorExecutor = (id: string) =>
   ({ name, arity }: { name: string, arity: number }) =>
     () =>
       executeSupervisor(id, name, arity === 0 ? undefined : prompt('Podaj wartość'))
+      .then((result: any) => result && alert(result))
 
 export default () => {
   const [id, setId] = useState(null)
@@ -27,7 +30,7 @@ export default () => {
 
   useEffect(() => void getId().then(setId), [])
 
-  const supervisionExecutor = useMemo(() => createSupervisionExecutor(id), [id])
+  const supervisorExecutor = useMemo(() => createSupervisorExecutor(id), [id])
 
   const classes = useStyles({})
 
@@ -36,15 +39,20 @@ export default () => {
       <CssBaseline />
       <Card>
         <CardContent>
-          <Typography variant="h3" gutterBottom>Bociak</Typography>
+          <Typography variant="h2" gutterBottom>Bociak</Typography>
+          <p>
           {
             supervisors.map(({ name, title, arity }) =>
-              <Button variant="contained" key={name} onClick={supervisionExecutor({ name, arity })} className={classes.button}>
+              <Button variant="contained" key={name} onClick={supervisorExecutor({ name, arity })} color="primary" className={classes.button}>
               {
                 title
               }
               </Button>
             )
+          }
+          </p>
+          {
+            id && <Streaming id={id} />
           }
         </CardContent>
       </Card>
