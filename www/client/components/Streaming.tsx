@@ -30,7 +30,9 @@ export default memo(({ id }: { id: string }) => {
 
   if(!enabled)
     return (
-      <Button variant="contained" color="primary" onClick={startStreaming}>Start</Button>
+      <Button variant="contained" color="primary" onClick={startStreaming}>
+        Pokaż
+      </Button>
     )
 
   return (
@@ -39,7 +41,7 @@ export default memo(({ id }: { id: string }) => {
         <img src={`data:image/png;base64,${data}`} style={{ objectFit: 'contain', width: '100%', maxHeight: '600px' }} />
       </picture>
       <Button variant="contained" color="primary" onClick={stopStreaming}>
-        Stop
+        Ukryj
       </Button>
     </>
   )

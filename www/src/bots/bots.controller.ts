@@ -45,6 +45,10 @@ export class BotsController {
 
   @Get(':id/getSupervisors')
   async getSupervisors(@Param('id') id: string){
-    return await this.botsService.getBot(id).getSupervisors()
+    try {
+      return await this.botsService.getBot(id).getSupervisors()
+    } catch(error){
+      return []
+    }
   }
 }
