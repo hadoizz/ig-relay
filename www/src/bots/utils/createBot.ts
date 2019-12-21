@@ -1,8 +1,7 @@
 import { resolve } from 'path'
 import chalk from 'chalk'
-import { createSlave } from 'fork-with-emitter'
+import { createSlave, Slave } from 'fork-with-emitter'
 import { chunksToLinesAsync, chomp } from '@rauschma/stringio'
-import { Observable } from 'rxjs'
 
 export class Credentials {
   login: string
@@ -16,8 +15,8 @@ export interface ExecuteSupervisorCommand {
 
 export type Bot = {
   info: { startedAt: number },
-  stream: any,
-  exit: () => Promise<any>,
+  fork: Slave,
+  exit: () => any,
   executeSupervisor: (ExecuteSupervisorCommand) => Promise<any>,
   getSupervisors: () => Promise<any>
 }
@@ -51,11 +50,9 @@ const createBot = async ({ login, password }: Credentials) => {
     info: {
       startedAt
     },
-    stream: new Observable(subscriber => {
-      bot.on('screenshot', data => subscriber.next(data))
-    }),
-    async exit(){
-      await bot.request('exit')
+    fork: bot,
+    exit(){
+      bot.emit('exit')
     },
     async executeSupervisor(executeSupervisorCommand: ExecuteSupervisorCommand){
       try {

@@ -2,11 +2,12 @@ import { Container, CssBaseline, Theme, Button, Typography, Avatar, Paper, Grid,
 import { makeStyles } from '@material-ui/styles'
 import SettingsIcon from '@material-ui/icons/Settings'
 import MessageIcon from '@material-ui/icons/Message'
-import { useState, useEffect, useMemo } from 'react'
-import getId from '../api/bots/dev/getId'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import getSupervisors from '../api/bots/getSupervisors'
 import executeSupervisor from '../api/bots/executeSupervisor'
-import exit from '../api/bots/exit'
+import fetchStart from '../api/bots/dev/start'
+import fetchIsAlive from '../api/bots/dev/isAlive'
+import fetchExit from '../api/bots/exit'
 import Streaming from '../components/Streaming'
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -20,190 +21,83 @@ const createSupervisorExecutor = (id: string) =>
   ({ name, arity }: { name: string, arity: number }) =>
     () =>
       executeSupervisor(id, name, arity === 0 ? undefined : prompt('Podaj wartość'))
-      .then((result: any) => result && alert(result))
+      .then((result: any) => result !== undefined && alert(result))
+
+type BotStatus = 'starting' | 'on' | 'exitting' | 'off'
 
 export default () => {
+  const [botStatus, setBotStatus]: [BotStatus, Function] = useState('starting')
   const [id, setId] = useState(null)
   const [supervisors, setSupervisors] = useState([])
 
+  useEffect(() => void (async () => {
+    const isAlive = await fetchIsAlive()
+    if(isAlive)
+      setBotStatus('on')
+    else
+      setBotStatus('off')
+  })(), [])
+
+  //fetch supervisors if id is set
   useEffect(() => void (id && getSupervisors(id).then(setSupervisors)), [id])
 
-  useEffect(() => void getId().then(setId), [])
+  const start = useCallback(() => {
+    fetchStart()
+  }, [])
+
+  const exit = useCallback(() => {
+    fetchExit(id)
+  }, [id])
 
   const supervisorExecutor = useMemo(() => createSupervisorExecutor(id), [id])
-
   const classes = useStyles({})
-
   return (
     <Container>
       <CssBaseline />
       <Card>
         <CardContent>
-          <Typography variant="h2" gutterBottom>Bociak</Typography>
-          <p>
-          {
-            supervisors.map(({ name, title, arity }) =>
-              <Button variant="contained" key={name} onClick={supervisorExecutor({ name, arity })} color="primary" className={classes.button}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={4}>
+              <Typography variant="h4"gutterBottom >Streaming</Typography>
               {
-                title
+                id && <Streaming id={id} />
               }
-              </Button>
-            )
-          }
-          </p>
-          {
-            id && <Streaming id={id} />
-          }
+            </Grid>
+            <Grid item xs={12} sm={8}>
+              <Typography variant="h4" gutterBottom>Opcje:</Typography>
+              <p>
+              {
+                supervisors.map(({ name, title, arity }) =>
+                  <Button variant="contained" key={name} onClick={supervisorExecutor({ name, arity })} color="primary" className={classes.button}>
+                  {
+                    title
+                  }
+                  </Button>
+                )
+              }
+              </p>
+              {
+                /*(botStatus === 'on' || botStatus === 'exitting')
+                  ? <Button 
+                      variant="contained" 
+                      color="secondary" 
+                      onClick={() => exit(id)} 
+                      disabled={botStatus === 'exitting'}>
+                        Wyłącz
+                    </Button>
+                  : <Button 
+                      variant="contained" 
+                      color="secondary" 
+                      onClick={() => start(id)} 
+                      disabled={botStatus === 'exitting'}>
+                        Wyłącz
+                    </Button>*/
+                
+              }
+            </Grid>
+          </Grid>
         </CardContent>
       </Card>
     </Container>
   )
 }
-
-
-/*
-export default () => {
-  const [login, setLogin] = useState('')
-  const [password, setPassword] = useState('')
-  const [botStatus, setBotStatus] = useState(BotStatus.NotChecked)
-  const [supervisors, setSupervisors] = useState([])
-  const classes = useStyles({})
-
-  useEffect(() => {
-    const checkBotStatus = async () => {
-      const isRunning = await (await fetch(`${getServerUrl()}/dev/isRunning`)).json()
-      setBotStatus(isRunning
-        ? BotStatus.Running
-        : BotStatus.Stopped
-      )
-    }
-
-    checkBotStatus()
-  }, [])
-
-  useEffect(() => {
-    if(botStatus !== BotStatus.Running)
-      return
-
-    const updateSupervisors = async () => {
-      try {
-        setSupervisors(
-          await (await fetch(`${getServerUrl()}/dev/supervisors`)).json()
-        )
-      } catch(error){
-        return
-      }
-    }
-
-    updateSupervisors()
-  }, [botStatus])
-
-  const startBot = async () => {
-    setBotStatus(BotStatus.Starting)
-    await fetch(`${getServerUrl()}/dev/start`, {
-      method: 'POST',
-      body: JSON.stringify({ login, password }),
-      headers: { 'Content-Type': 'application/json' }
-    })
-    setBotStatus(BotStatus.Running)
-  }
-
-  const exitBot = () => {
-    fetch(`${getServerUrl()}/dev/exit`, { method: 'POST' })
-    setBotStatus(BotStatus.Stopped)
-  }
-
-  const execute = ({ name, arity }: { name: string, arity: number }) => async () => {
-    const payload = (() => {
-      if(arity === 0)
-        return undefined
-
-      const arg = prompt('Podaj argument')
-      if(Number.isNaN(Number(arg)))
-        return arg 
-
-      return parseInt(arg)
-    })()
-
-    const response = await fetch(`${getServerUrl()}/dev/executeSupervisor`, {
-      method: 'POST',
-      body: JSON.stringify({ name, payload } as BotCommandDto),
-      headers: { 'Content-Type': 'application/json' }
-    })
-    const result = await response.text()
-    if(result)
-      alert(result)
-  }
-
-  return ( 
-    <>
-      <CssBaseline />
-      <Container component="main" maxWidth="xs">
-        <Paper className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <SettingsIcon />
-          </Avatar>
-          <Typography variant="h5" component="h1">
-            Panel sterowania
-          </Typography>
-          {
-            botStatus === BotStatus.NotChecked || botStatus === BotStatus.Starting
-              ? (
-                <Button variant="contained" color="primary" className={classes.runButton} disabled>
-                  Uruchom bota
-                </Button>
-              ) : botStatus === BotStatus.Running
-                ? (
-                  <Button variant="contained" color="primary" className={classes.runButton} onClick={exitBot}>
-                    Wyłącz bota
-                  </Button>
-                ) : (
-                  <>
-                    <p>
-                      <TextField
-                        label="Login"
-                        value={login}
-                        onChange={e => setLogin(e.target.value)}
-                      />
-                      <TextField
-                        type="password"
-                        label="Hasło"
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                      />
-                    </p>
-                    <Button variant="contained" color="primary" className={classes.runButton} onClick={startBot}>
-                      Uruchom bota
-                    </Button>
-                  </>
-                )
-          }
-          {
-            supervisors.length !== 0 && botStatus === BotStatus.Running && (
-              <Grid container>
-                <Grid item xs className={classes.list}>
-                  <Typography variant="caption" gutterBottom>Opcje</Typography>
-                  {
-                    supervisors.map(({ name, title, arity }) =>
-                      <Button 
-                        variant="contained" 
-                        className={classes.listButton} 
-                        key={name} 
-                        onClick={execute({ name, arity })}
-                        {...arity !== 0 && { endIcon: <MessageIcon /> }}
-                      >
-                      {
-                        title
-                      }
-                      </Button>
-                    )
-                  }
-                </Grid>
-              </Grid>
-            )
-          }
-        </Paper>
-      </Container>
-    </>
-  )
-}*/

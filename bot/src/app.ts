@@ -7,7 +7,9 @@ process.on('unhandledRejection', err => {
 })
 
 const starting = (async () => {
+  console.log('Loading page...')
   const page = await loadPage()
+  console.log('Page loaded')
   await loadSubscribers(page)
 })()
 

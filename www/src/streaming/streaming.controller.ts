@@ -1,19 +1,23 @@
 import { Controller, Get, Param, Res, Req } from '@nestjs/common'
-import { Response, Request } from 'nestjs-sse'
-import { BotsService } from '../bots/bots.service'
+import { Response } from 'nestjs-sse'
+import { Request } from 'express'
+import { StreamingService } from './streaming.service'
 
 @Controller('streaming')
 export class StreamingController {
-  constructor(private readonly botsService: BotsService){}
+  constructor(private readonly streamingService: StreamingService){}
 
   @Get(':id')
-  streamBot(@Param('id') id: string, @Res() res: Response, @Req() req: Request){    
-    const subscription = this.botsService.getBot(id).stream.subscribe(data => {
-      res.sse(`data:${data}\n\n`)
-    })
+  streaming(@Param('id') id: string, @Res() res: Response, @Req() req: Request){
+    if(this.streamingService.getLastData(id))
+      res.sse(`data:${this.streamingService.getLastData(id)}\n\n`)
 
-    //prevent memory leaks
-    res.on('close', () => subscription.unsubscribe())
+    const cleanup = this.streamingService.createStreaming(id, 
+      (data: string) => 
+        res.sse(`data:${data}\n\n`) 
+    )
+
+    req.on('close', cleanup)
   }
 }
  

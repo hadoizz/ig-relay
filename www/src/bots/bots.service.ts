@@ -1,16 +1,20 @@
 import { Injectable } from '@nestjs/common'
-import createBot, { Bot, Credentials } from './createBot'
+import ms from 'ms'
+import createBot, { Bot, Credentials } from './utils/createBot'
+import getId from './utils/getId'
+import { ConfigService } from '../config/config.service'
 
-const getId = () => 
-  Math.random().toString(36).slice(2)+(new Date).getTime().toString(36)
+type DevBot = null | {
+  id: string,
+  botPromise: Promise<Bot>
+}
 
 @Injectable()
 export class BotsService {
-  private readonly bots = new Map<string, Bot>()
+  constructor(private readonly configService: ConfigService){}
 
-  getCount(){
-    return this.bots.size
-  }
+  private readonly bots = new Map<string, Bot>()
+  private devBot: DevBot = null
 
   async createBot(credentials: Credentials){
     const id = getId()
@@ -20,21 +24,86 @@ export class BotsService {
     return { id, bot }
   }
 
-  async exitBot(id: string){
-    await this.bots.get(id).exit()
+  private getCredentialsFromConfig(){
+    return {
+      login: this.configService.get('LOGIN'),
+      password: this.configService.get('PASSWORD')
+    }
+  }
+
+  async createDevBot(credentials: Credentials = this.getCredentialsFromConfig()){
+    if(this.devBot === null){
+      const id = getId()
+      const botPromise = createBot(credentials)
+      this.devBot = { id, botPromise }
+
+      const bot = await botPromise
+      this.bots.set(id, bot)
+      return { id }
+    }
+
+    await this.devBot.botPromise
+
+    return {
+      id: this.devBot.id
+    }
+  }
+
+  exitBot(id: string){
+    if(!this.hasBot(id))
+      return
+
+    this.bots.get(id).exit()
     this.bots.delete(id)
+    
+    if(this.devBot !== null && this.devBot.id === id)
+      this.devBot = null
+
+    console.log(`Exitted ${id} bot`)
+  }
+  
+  async executeSupervisor(id: string, name: string, payload?: any){
+    if(!this.hasBot(id))
+      return
+
+    return this.getBot(id).executeSupervisor({ name, payload })
+  }
+
+  hasBot(id: string){
+    return this.bots.has(id)
   }
 
   getBot(id: string){
     return this.bots.get(id)
   }
 
-  getBotInfo(id: string){
-    const { info: { startedAt, ...info } } = this.getBot(id)
+  getBotStatus(id: string){
+    if(!this.hasBot(id))
+      return {
+        alive: false
+      }
+
+    const { info: { startedAt } } = this.getBot(id)
 
     return {
-      alive: `${(+new Date - startedAt)/1000} seconds`,
-      ...info
+      alive: true,
+      aliveFor: ms(+new Date - startedAt, { long: true })
     }
+  }
+
+  getDevBotStatus(){
+    if(this.devBot === null)
+      return {
+        alive: false
+      }
+
+    return {
+      id: this.devBot.id,
+      ...this.getBotStatus(this.devBot.id)
+    }
+  }
+
+  getBotsCount(){
+    return this.bots.size
   }
 }

@@ -1,35 +1,46 @@
-import { PureComponent } from 'react'
+import { memo, useState, useEffect, useCallback } from 'react'
+import { Button } from '@material-ui/core'
+import fetchStartStreaming from '../api/streaming/startStreaming'
+import fetchStopStreaming from '../api/streaming/stopStreaming'
+import createEventSource from '../api/streaming/createEventSource'
 
-interface Props {
-  id: string
-}
+export default memo(({ id }: { id: string }) => {
+  const [data, setData] = useState(null)
+  const [enabled, setEnabled] = useState(false)
 
-export default class extends PureComponent<Props> {
-  state = { data: null }
+  const updateData = useCallback(({ data }) => setData(data), [id])
+
+  const startStreaming = useCallback(() => setEnabled(true), [id])
   
-  eventSource
+  const stopStreaming = useCallback(() => setEnabled(false), [id])
 
-  handleUpdate = ({ data }) => this.setState({ data })
-  
-  componentDidMount(){
-    this.eventSource = new EventSource(`http://localhost:8080/streaming/${this.props.id}`)
-    this.eventSource.addEventListener('message', this.handleUpdate)
-  }
+  useEffect(() => {
+    if(!enabled)
+      return
+    
+    const eventSource = createEventSource(id)
+    eventSource.addEventListener('message', updateData)
+    console.log(`eventSource.addEventListener('message')`)
+    return () => {
+      eventSource.removeEventListener('message', updateData)
+      eventSource.close()
+      console.log(`eventSource.removeEventListener('message')`)
+    }
+  }, [enabled, id])
 
-  componentWillUnmount(){
-    this.eventSource.removeEventListener('message', this.handleUpdate)
-  }
-
-  render(){
-    const data = this.state.data
-
-    if(data === null) 
-      return null
-
+  if(!enabled)
     return (
-      <picture>
-        <img src={`data:image/png;base64,${data}`} />
-      </picture>
+      <Button variant="contained" color="primary" onClick={startStreaming}>Start</Button>
     )
-  }  
-}
+
+  return (
+    <>
+      <picture>
+        <img src={`data:image/png;base64,${data}`} style={{ objectFit: 'contain', width: '100%', maxHeight: '600px' }} />
+      </picture>
+      <Button variant="contained" color="primary" onClick={stopStreaming}>
+        Stop
+      </Button>
+    </>
+  )
+})

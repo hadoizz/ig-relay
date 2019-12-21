@@ -16,10 +16,39 @@ const exit = async (page: Page) => {
   process.exit(0)
 }
 
+const createStreaming = (page: Page) => {
+  let streaming: NodeJS.Timeout | null = null
+  let oldData: string
+
+  const emit = async () => {
+    const data = await page.screenshot({ encoding: 'base64', type: 'jpeg' })
+    if(data === oldData)
+      return
+
+    master.emit('streaming', data)
+  }
+
+  return { 
+    startStreaming(){
+      if(streaming !== null)
+        return
+
+      streaming = setInterval(emit, 300)
+    },
+    stopStreaming(){
+      if(streaming === null)
+        return
+      
+      clearInterval(streaming)
+      streaming = null
+    }
+  }
+}
+
 export default (page: Page) => {
   const supervisors = getSupervisors(page)
 
-  master.onRequest('exit', () => setImmediate(exit))
+  master.on('exit', exit)
 
   master.onRequest('getSupervisors', () => {
     return Object.entries(supervisors)
@@ -35,4 +64,8 @@ export default (page: Page) => {
     console.log({ name, payload })
     return await supervisors[name](payload)
   })
+
+  const { startStreaming, stopStreaming } = createStreaming(page)
+  master.on('startStreaming', startStreaming)
+  master.on('stopStreaming', stopStreaming)
 }

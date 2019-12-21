@@ -1,43 +1,45 @@
 import { Controller, Get, Param, Post, Query, Body } from '@nestjs/common'
-import { DevService } from './dev/dev.service'
 import { BotsService } from './bots.service'
 
 @Controller('bots')
 export class BotsController {
-  constructor(
-    private readonly botsService: BotsService,
-    private readonly devService: DevService
-  ){}
+  constructor(private readonly botsService: BotsService){}
   
   @Get()
   index(){
     return {
-      bots: this.botsService.getCount()
+      botsCount: this.botsService.getBotsCount()
     }
   }
 
   @Get('dev')
-  getDevBotId(@Query('login') login?: string, @Query('password') password?: string){
-    return login && password
-      ? this.devService.getBotId({ login, password })
-      : this.devService.getBotId()
+  devBot(){
+    return this.botsService.getDevBotStatus()
+  }
+
+  @Get('dev/start')
+  createDevBot(@Query('login') login?: string, @Query('password') password?: string){
+    const credentials = login && password
+      ? { login, password }
+      : undefined
+
+    return this.botsService.createDevBot(credentials)
   }
 
   @Get(':id')
-  getBotInfo(@Param('id') id: string){
-    return this.botsService.getBotInfo(id)
-  }
+  getBotStatus(@Param('id') id: string){
+    return this.botsService.getBotStatus(id)
+  } 
 
   @Get(':id/exit')
   exit(@Param('id') id: string){
-    this.botsService.getBot(id).exit()
+    this.botsService.exitBot(id)
   }
 
   @Post(':id/executeSupervisor')
   async executeSupervisor(@Param('id') id: string, @Body('name') name: string, @Body('payload') payload: string){
-    const result = await this.botsService.getBot(id).executeSupervisor({ name, payload })
     return { 
-      result 
+      result: await this.botsService.executeSupervisor(id, name, payload)
     }
   }
 
