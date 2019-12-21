@@ -6,7 +6,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react'
 import getSupervisors from '../api/bots/getSupervisors'
 import executeSupervisor from '../api/bots/executeSupervisor'
 import fetchStart from '../api/bots/dev/start'
-import fetchIsAlive from '../api/bots/dev/isAlive'
+import fetchStatus from '../api/bots/dev/fetchStatus'
 import fetchExit from '../api/bots/exit'
 import Streaming from '../components/Streaming'
 
@@ -23,30 +23,45 @@ const createSupervisorExecutor = (id: string) =>
       executeSupervisor(id, name, arity === 0 ? undefined : prompt('Podaj wartość'))
       .then((result: any) => result !== undefined && alert(result))
 
-type BotStatus = 'starting' | 'on' | 'exitting' | 'off'
+enum BotStatus {
+  Starting = 'STARTING',
+  On = 'ON',
+  Exitting = 'EXITTING',
+  Off = 'OFF'
+}
 
 export default () => {
-  const [botStatus, setBotStatus]: [BotStatus, Function] = useState('starting')
+  const [botStatus, setBotStatus] = useState(BotStatus.Starting)
   const [id, setId] = useState(null)
   const [supervisors, setSupervisors] = useState([])
 
   useEffect(() => void (async () => {
-    const isAlive = await fetchIsAlive()
-    if(isAlive)
-      setBotStatus('on')
-    else
-      setBotStatus('off')
+    const { alive, id } = await fetchStatus()
+    if(alive){
+      setBotStatus(BotStatus.On)
+      setId(id)
+      return
+    }
+    
+    setBotStatus(BotStatus.Off)
   })(), [])
 
   //fetch supervisors if id is set
-  useEffect(() => void (id && getSupervisors(id).then(setSupervisors)), [id])
+  useEffect(() => {
+    if(id === null)
+      return
+
+    getSupervisors(id).then(setSupervisors)
+  }, [id, botStatus])
 
   const start = useCallback(() => {
-    fetchStart()
+    setBotStatus(BotStatus.Starting)
+    fetchStart().then(setId).then(() => setBotStatus(BotStatus.On))
   }, [])
 
   const exit = useCallback(() => {
-    fetchExit(id)
+    setBotStatus(BotStatus.Exitting)
+    fetchExit(id).then(() => setBotStatus(BotStatus.Off))
   }, [id])
 
   const supervisorExecutor = useMemo(() => createSupervisorExecutor(id), [id])
@@ -62,7 +77,7 @@ export default () => {
               {
                 id && <Streaming id={id} />
               }
-            </Grid>
+            </Grid> 
             <Grid item xs={12} sm={8}>
               <Typography variant="h4" gutterBottom>Opcje:</Typography>
               <p>
@@ -77,22 +92,21 @@ export default () => {
               }
               </p>
               {
-                /*(botStatus === 'on' || botStatus === 'exitting')
+                (botStatus === BotStatus.On || botStatus === BotStatus.Exitting)
                   ? <Button 
                       variant="contained" 
                       color="secondary" 
-                      onClick={() => exit(id)} 
-                      disabled={botStatus === 'exitting'}>
+                      onClick={exit} 
+                      disabled={botStatus === BotStatus.Exitting}>
                         Wyłącz
                     </Button>
                   : <Button 
                       variant="contained" 
                       color="secondary" 
-                      onClick={() => start(id)} 
-                      disabled={botStatus === 'exitting'}>
-                        Wyłącz
-                    </Button>*/
-                
+                      onClick={start} 
+                      disabled={botStatus === BotStatus.Starting}>
+                        Włącz
+                    </Button>
               }
             </Grid>
           </Grid>
