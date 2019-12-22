@@ -7,7 +7,7 @@
     "dev-bot": "cd bot && npm run tsc -- --watch",
     "dev-www": "concurrently \"cd www && npm run start:dev\" \"cd www/client && npm run dev\"",
     "dev": "concurrently \"cd www && npm run start:dev\" \"cd www/client && npm run dev\" \"npm run dev-bot\"",
-    "postinstall": "npm install --prefix www && npm install --prefix bot"
+    "postinstall": "cd www && npm install && cd ../bot && npm install && cd .."
   },
   "repository": {
     "type": "git",
