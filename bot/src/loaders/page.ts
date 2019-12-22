@@ -12,6 +12,10 @@ export default async () => {
   const browser = await puppeteer.launch({
     headless: getEnvData().headless,
     userDataDir: resolve('data'),
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+    ]
   })
   browser.on('disconnected', () => {
     console.log(`Browser disconnected`)
