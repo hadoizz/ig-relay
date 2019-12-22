@@ -11,10 +11,10 @@ import fetchExit from '../api/bots/exit'
 import Streaming from '../components/Streaming'
 
 const useStyles = makeStyles((theme: Theme) => ({
-  button: {
+  button: { 
     marginRight: theme.spacing(1),
     marginBottom: theme.spacing(1)
-  }
+  } 
 }))
 
 const createSupervisorExecutor = (id: string) =>
@@ -34,6 +34,8 @@ export default () => {
   const [botStatus, setBotStatus] = useState(BotStatus.Starting)
   const [id, setId] = useState(null)
   const [supervisors, setSupervisors] = useState([])
+
+  console.log(`botStatus: ${botStatus}`)
 
   useEffect(() => void (async () => {
     const { alive, id } = await fetchStatus()
