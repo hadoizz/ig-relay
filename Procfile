@@ -1,1 +1,1 @@
-web: cd www && npm install && npm start
+web: cd www && node dist/main
