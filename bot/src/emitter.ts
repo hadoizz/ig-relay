@@ -5,4 +5,4 @@ import Credentials from './types/Credentials'
 export const onFollow = new TypedEvent<Person>()
 export const onLikePost = new TypedEvent<void>()
 export const onLogin = new TypedEvent<Credentials>()
-export const onFailedLogin = new TypedEvent<Credentials>()
+export const onFailedLogin = new TypedEvent<Credentials>() 
