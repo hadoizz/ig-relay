@@ -7,7 +7,6 @@
     "dev-bot": "cd bot && npm run tsc -- --watch",
     "dev-www": "concurrently \"cd www && npm run start:dev\" \"cd www/client && npm run dev\"",
     "dev": "concurrently \"cd www && npm run start:dev\" \"cd www/client && npm run dev\" \"npm run dev-bot\"",
-    "preinstall": "npm i -g @nestjs/cli",
     "postinstall": "cd www && npm install && npm run build && cd ../bot && npm install && npm run tsc && cd .."
   },
   "repository": {
