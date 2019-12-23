@@ -2194,7 +2194,7 @@
         "signature": "1989f44b80990b923eb5313553bf29cea9b186708311d4db6c69bc8b9a102fd4"
       },
       "../src/streaming/streaming.controller.ts": {
-        "version": "d0af5c41f12e0dc4434d419ba04ce9826ffbcea0e1952e42a81aadaed2d2ef07",
+        "version": "f2aa8962f5ef8946e5691c83440669a354f8baf50088f3a3f49aa6ab16c5a20b",
         "signature": "02b0fcaa065e76297705aea55ac6b95898e2e56c35d48c38839203b47bae1b60"
       },
       "../src/streaming/streaming.module.ts": {
@@ -11671,7 +11671,7 @@
       "../node_modules/@types/connect/index.d.ts",
       "../node_modules/@types/body-parser/index.d.ts",
       "../node_modules/@types/express/index.d.ts",
-      "../src/streaming/streaming.service.ts",
+      "../src/streaming/streaming.controller.ts",
       "../src/streaming/streaming.module.ts",
       "../src/app.module.ts",
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts",
@@ -11802,7 +11802,7 @@
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
       "../node_modules/@types/yargs/index.d.ts",
-      "../src/streaming/streaming.controller.ts"
+      "../src/streaming/streaming.service.ts"
     ]
   },
   "version": "3.6.3"

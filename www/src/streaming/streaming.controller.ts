@@ -16,6 +16,7 @@ export class StreamingController {
 
     if(this.streamingService.getLastData(id)){
       res.sse(`data:${this.streamingService.getLastData(id)}\n\n`)
+      console.log('XD')
     }
 
     req.on('close', cleanup)

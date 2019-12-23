@@ -91,6 +91,9 @@ export default () => {
               {
                 Object.entries(
                   supervisors.reduce((acc, { type, ...rest }) => {
+                    if(type === 'dev')
+                      return acc
+                      
                     if(acc[type]){
                       acc[type].push(rest)
                       return acc
