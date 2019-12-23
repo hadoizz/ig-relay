@@ -3,8 +3,7 @@ export declare class StreamingService {
     private readonly botsService;
     constructor(botsService: BotsService);
     private streams;
-    getLastData(id: string): string;
-    private updateLastData;
+    private getLastData;
     private startStreaming;
     private stopStreaming;
     private attachStreamingHandler;

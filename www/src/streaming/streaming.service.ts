@@ -4,7 +4,8 @@ import { BotsService } from '../bots/bots.service'
 interface Streams {
   [botId: string]: {
     lastData: string,
-    connectedClients: number
+    connectedClients: number,
+    handleUpdateLastData: (data: string) => void
   }
 }
 
@@ -14,32 +15,28 @@ export class StreamingService {
 
   private streams: Streams = Object.create(null)
 
-  getLastData(id: string){
-    if(this.streams[id]){
-      return this.streams[id].lastData
-    }
-
-    return null
-  }
-
-  private updateLastData = (id: string) => {
-    return (data: string) =>
-      this.streams[id].lastData = data
+  private getLastData(id: string){
+    return this.streams[id].lastData
   }
 
   private startStreaming(id: string){
+    const handleUpdateLastData = (data: string) => {
+      this.streams[id].lastData = data 
+    }
+
     this.streams[id] = { 
       lastData: '', 
-      connectedClients: 0
+      connectedClients: 0,
+      handleUpdateLastData
     }
-    this.attachStreamingHandler(id, this.updateLastData)
+    this.attachStreamingHandler(id, handleUpdateLastData)
     this.orderBotToStartStreaming(id)
 
     console.log(`Start streaming ${id}`)
   }
 
   private stopStreaming(id: string){
-    this.detachStreamingHandler(id, this.updateLastData)
+    this.detachStreamingHandler(id, this.streams[id].handleUpdateLastData)
     this.orderBotToStopStreaming(id)
     delete this.streams[id]
 
@@ -84,6 +81,9 @@ export class StreamingService {
     
     this.streams[id].connectedClients++
     this.attachStreamingHandler(id, handleData)
+
+    if(this.getLastData(id))
+      handleData(this.getLastData(id))
 
     //cleanup
     return () => {

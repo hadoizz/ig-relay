@@ -2190,11 +2190,11 @@
         "signature": "1f92cdebe2b1e0e6309ccdb6e8700cfd2d3e7131c7842f91b38ed1e4ff2a7090"
       },
       "../src/streaming/streaming.service.ts": {
-        "version": "2a835786d801f0a4e5c9d8efecb4009a5a40e1bc85bcc4e69858240f9caf21ec",
-        "signature": "1989f44b80990b923eb5313553bf29cea9b186708311d4db6c69bc8b9a102fd4"
+        "version": "5a94b1f420b0d372119394a028d5b07b97f415be7d67267b2b4acac90261f3e4",
+        "signature": "0352b97a5d672b39d253fb2dcb6b2472166478b2d2fe6aa61ac48b2f9baa5690"
       },
       "../src/streaming/streaming.controller.ts": {
-        "version": "f2aa8962f5ef8946e5691c83440669a354f8baf50088f3a3f49aa6ab16c5a20b",
+        "version": "7d439d42ded715103cb52b0189325296bb8d65640d641a08601b510f374de852",
         "signature": "02b0fcaa065e76297705aea55ac6b95898e2e56c35d48c38839203b47bae1b60"
       },
       "../src/streaming/streaming.module.ts": {

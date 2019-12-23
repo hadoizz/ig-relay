@@ -15,27 +15,25 @@ let StreamingService = class StreamingService {
     constructor(botsService) {
         this.botsService = botsService;
         this.streams = Object.create(null);
-        this.updateLastData = (id) => {
-            return (data) => this.streams[id].lastData = data;
-        };
     }
     getLastData(id) {
-        if (this.streams[id]) {
-            return this.streams[id].lastData;
-        }
-        return null;
+        return this.streams[id].lastData;
     }
     startStreaming(id) {
+        const handleUpdateLastData = (data) => {
+            this.streams[id].lastData = data;
+        };
         this.streams[id] = {
             lastData: '',
-            connectedClients: 0
+            connectedClients: 0,
+            handleUpdateLastData
         };
-        this.attachStreamingHandler(id, this.updateLastData);
+        this.attachStreamingHandler(id, handleUpdateLastData);
         this.orderBotToStartStreaming(id);
         console.log(`Start streaming ${id}`);
     }
     stopStreaming(id) {
-        this.detachStreamingHandler(id, this.updateLastData);
+        this.detachStreamingHandler(id, this.streams[id].handleUpdateLastData);
         this.orderBotToStopStreaming(id);
         delete this.streams[id];
         console.log(`Stop streaming ${id}`);
@@ -67,6 +65,8 @@ let StreamingService = class StreamingService {
             this.startStreaming(id);
         this.streams[id].connectedClients++;
         this.attachStreamingHandler(id, handleData);
+        if (this.getLastData(id))
+            handleData(this.getLastData(id));
         return () => {
             this.streams[id].connectedClients--;
             this.detachStreamingHandler(id, handleData);

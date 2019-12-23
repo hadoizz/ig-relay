@@ -17,33 +17,38 @@ const exit = async (page: Page) => {
 }
 
 const createStreaming = (page: Page) => {
-  let streaming: NodeJS.Timeout | null = null
-  let oldData: string
+  let enabled = false
+  let oldData = ''
 
   const emit = async () => {
     const data = await page.screenshot({ encoding: 'base64', type: 'jpeg' })
-    if(data === oldData)
+    if(data === oldData || !enabled)
       return
 
     oldData = data
     master.emit('streaming', data)
   }
 
+  const streaming = async () => {
+    await emit()
+    setTimeout(() => enabled && streaming(), 200)
+  }
+
   return { 
     startStreaming(){
-      if(streaming !== null)
+      if(enabled)
         return
-
-      streaming = setInterval(emit, 300)
+      
+      enabled = true
+      streaming()
       console.log('startStreaming')
     },
     stopStreaming(){
-      if(streaming === null)
+      if(!enabled)
         return
       
-      clearInterval(streaming)
+      enabled = false
       oldData = ''
-      streaming = null
       console.log('stopStreaming')
     }
   }
