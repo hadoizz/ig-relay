@@ -1,18 +1,22 @@
 import { memo, useState, useEffect, useCallback } from 'react'
 import { Button } from '@material-ui/core'
-import fetchStartStreaming from '../api/streaming/startStreaming'
-import fetchStopStreaming from '../api/streaming/stopStreaming'
 import createEventSource from '../api/streaming/createEventSource'
 
 export default memo(({ id }: { id: string }) => {
   const [data, setData] = useState(null)
-  const [enabled, setEnabled] = useState(false)
+  const [enabled, setEnabled] = useState(!!localStorage.getItem('streaming'))
 
   const updateData = useCallback(({ data }) => setData(data), [id])
 
-  const startStreaming = useCallback(() => setEnabled(true), [id])
+  const startStreaming = useCallback(() => {
+    setEnabled(true)
+    localStorage.setItem('streaming', '1')
+  }, [id])
   
-  const stopStreaming = useCallback(() => setEnabled(false), [id])
+  const stopStreaming = useCallback(() => {
+    setEnabled(false)
+    localStorage.removeItem('streaming')
+  }, [id])
 
   useEffect(() => {
     if(!enabled)

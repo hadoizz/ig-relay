@@ -1,5 +1,7 @@
+import getServerUrl from '../config/getServerUrl'
+
 export const getUrl = (path: string) =>
-  `${location.protocol}//${location.hostname}:8080${path}`
+  `${getServerUrl()}${path}`
 
 export default (path: string, props?: object) =>
   fetch(getUrl(path), props)

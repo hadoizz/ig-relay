@@ -2,7 +2,7 @@ import { Page } from 'puppeteer'
 import sleep from 'sleep-promise'
 import decamelize from 'decamelize'
 import { master } from 'fork-with-emitter'
-import getSupervisors, { Supervisors } from '../getSupervisors'
+import { getSupervisorsWithTypes } from '../supervisors'
 
 const exit = async (page: Page) => {
   try {
@@ -46,23 +46,23 @@ const createStreaming = (page: Page) => {
 }
 
 export default (page: Page) => {
-  const supervisors = getSupervisors(page)
+  const supervisors = getSupervisorsWithTypes(page)
 
   master.on('exit', exit)
 
-  master.onRequest('getSupervisors', () => {
-    return Object.entries(supervisors)
-      .filter(([name]) => name !== 'page')
-      .map(([name, { length }]) => ({
+  master.onRequest('getSupervisors', () =>
+    Object.entries(supervisors)
+      .map(([ name, { type, supervisor } ]) => ({
         title: decamelize(name, ' '),
         name,
-        arity: length
+        arity: supervisor.length,
+        type
       }))
-  })
+  )
 
-  master.onRequest('executeSupervisor', async ({ name, payload }: { name: keyof Supervisors, payload: any }) => {    
+  master.onRequest('executeSupervisor', async ({ name, payload }: { name: string, payload: any }) => {    
     console.log({ name, payload })
-    return await supervisors[name](payload)
+    return await supervisors[name].supervisor(payload)
   })
 
   const { startStreaming, stopStreaming } = createStreaming(page)

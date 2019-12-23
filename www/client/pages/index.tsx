@@ -35,8 +35,6 @@ export default () => {
   const [id, setId] = useState(null)
   const [supervisors, setSupervisors] = useState([])
 
-  console.log(`botStatus: ${botStatus}`)
-
   useEffect(() => void (async () => {
     const { alive, id } = await fetchStatus()
     if(alive){
@@ -58,41 +56,65 @@ export default () => {
 
   const start = useCallback(() => {
     setBotStatus(BotStatus.Starting)
-    fetchStart().then(setId).then(() => setBotStatus(BotStatus.On))
+    fetchStart()
+      .then(setId)
+      .then(() => setBotStatus(BotStatus.On))
   }, [])
 
   const exit = useCallback(() => {
     setBotStatus(BotStatus.Exitting)
-    fetchExit(id).then(() => setBotStatus(BotStatus.Off))
+    fetchExit(id)
+      .then(() => setId(null))
+      .then(() => setBotStatus(BotStatus.Off))
   }, [id])
 
   const supervisorExecutor = useMemo(() => createSupervisorExecutor(id), [id])
   const classes = useStyles({})
   return (
-    <Container>
+    <Container maxWidth="md">
       <CssBaseline />
       <Card>
         <CardContent>
-          <Grid container spacing={2}>
+          <Grid container spacing={2} direction="row-reverse">
             <Grid item xs={12} sm={4}>
-              <Typography variant="h4"gutterBottom >Streaming</Typography>
-              {
-                id && <Streaming id={id} />
-              }
+            {
+              id && (
+                <>
+                  <Typography variant="h4" gutterBottom>Podgląd</Typography>
+                  <Streaming id={id} />
+                </>
+              )
+            }
             </Grid> 
             <Grid item xs={12} sm={8}>
-              <Typography variant="h4" gutterBottom>Opcje:</Typography>
-              <p>
+              <Typography variant="h4" gutterBottom>Opcje</Typography>
               {
-                supervisors.map(({ name, title, arity }) =>
-                  <Button variant="contained" key={name} onClick={supervisorExecutor({ name, arity })} color="primary" className={classes.button}>
-                  {
-                    title
-                  }
-                  </Button>
+                Object.entries(
+                  supervisors.reduce((acc, { type, ...rest }) => {
+                    if(acc[type]){
+                      acc[type].push(rest)
+                      return acc
+                    }
+
+                    acc[type] = [rest]
+                    return acc
+                  }, {})
+                )
+                .map(([ type, supervisors ]: [ string, [] ]) =>
+                  <p>
+                    <Typography variant="subtitle2">{ type }</Typography>
+                    {
+                      supervisors.map(({ name, title, arity }) =>
+                        <Button variant="contained" key={name} onClick={supervisorExecutor({ name, arity })} color="primary" className={classes.button}>
+                        {
+                          title
+                        }
+                        </Button>
+                      )
+                    }
+                  </p>
                 )
               }
-              </p>
               {
                 (botStatus === BotStatus.On || botStatus === BotStatus.Exitting)
                   ? <Button 
