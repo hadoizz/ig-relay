@@ -98,10 +98,10 @@ export default () => {
 
                     acc[type] = [rest]
                     return acc
-                  }, {})
+                  }, {}) 
                 )
                 .map(([ type, supervisors ]: [ string, [] ]) =>
-                  <p>
+                  <div key={type}>
                     <Typography variant="subtitle2">{ type }</Typography>
                     {
                       supervisors.map(({ name, title, arity }) =>
@@ -112,7 +112,7 @@ export default () => {
                         </Button>
                       )
                     }
-                  </p>
+                  </div>
                 )
               }
               {

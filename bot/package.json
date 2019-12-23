@@ -5,6 +5,7 @@
   "main": "dist/app.js",
   "scripts": {
     "tsc": "tsc",
+    "watch": "npm run tsc -- --watch",
     "start": "node dist/app"
   },
   "keywords": [],

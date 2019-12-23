@@ -12,10 +12,12 @@ export default async (post: Post): Promise<number> => {
   }
 
   const likesSpan = await likesBox.$('span')
-  if(likesSpan === null)
-    throw `Brak spana w likesButton`
+  if(likesSpan !== null)
+    return parseInt(
+      (await getInnerText(likesSpan)).replace(/ /g, '')
+    )
 
   return parseInt(
-    (await getInnerText(likesSpan)).replace(/ /g, '')
+    (await getInnerText(likesBox)).replace(/ /g, '')
   )
 }

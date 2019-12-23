@@ -1,4 +1,4 @@
 import getCredentials from '../../config/getCredentials'
 
-export default async () =>
-  `https://www.instagram.com/${(await getCredentials()).login}/`
+export default () =>
+  `https://www.instagram.com/${(getCredentials()).login}/`

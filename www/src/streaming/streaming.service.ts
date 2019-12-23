@@ -15,9 +15,11 @@ export class StreamingService {
   private streams: Streams = Object.create(null)
 
   getLastData(id: string){
-    return (this.streams[id] && this.streams[id].lastData)
-      ? this.streams[id].lastData
-      : null
+    if(this.streams[id]){
+      return this.streams[id].lastData
+    }
+
+    return null
   }
 
   private updateLastData = (id: string) => {

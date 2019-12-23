@@ -2190,7 +2190,7 @@
         "signature": "1f92cdebe2b1e0e6309ccdb6e8700cfd2d3e7131c7842f91b38ed1e4ff2a7090"
       },
       "../src/streaming/streaming.service.ts": {
-        "version": "45d349cff422fe7713c44834c403f386da7b29791796ccb00d45532608ee4b16",
+        "version": "2a835786d801f0a4e5c9d8efecb4009a5a40e1bc85bcc4e69858240f9caf21ec",
         "signature": "1989f44b80990b923eb5313553bf29cea9b186708311d4db6c69bc8b9a102fd4"
       },
       "../src/streaming/streaming.controller.ts": {

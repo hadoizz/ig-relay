@@ -20,9 +20,10 @@ let StreamingService = class StreamingService {
         };
     }
     getLastData(id) {
-        return (this.streams[id] && this.streams[id].lastData)
-            ? this.streams[id].lastData
-            : null;
+        if (this.streams[id]) {
+            return this.streams[id].lastData;
+        }
+        return null;
     }
     startStreaming(id) {
         this.streams[id] = {

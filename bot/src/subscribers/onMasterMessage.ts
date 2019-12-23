@@ -25,6 +25,7 @@ const createStreaming = (page: Page) => {
     if(data === oldData)
       return
 
+    oldData = data
     master.emit('streaming', data)
   }
 
@@ -34,13 +35,16 @@ const createStreaming = (page: Page) => {
         return
 
       streaming = setInterval(emit, 300)
+      console.log('startStreaming')
     },
     stopStreaming(){
       if(streaming === null)
         return
       
       clearInterval(streaming)
+      oldData = ''
       streaming = null
+      console.log('stopStreaming')
     }
   }
 }

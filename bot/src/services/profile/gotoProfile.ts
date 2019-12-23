@@ -11,6 +11,6 @@ export default async (page: Page) => {
 
   console.log(`gotoProfile from ${page.url()}`)
 
-  await page.goto(await getProfileUrl())
+  await page.goto(getProfileUrl())
   await sleep(2000, 4000)
 }

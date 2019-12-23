@@ -1,15 +1,15 @@
 import Credentials from '../types/Credentials'
 import getEnvData from './getEnvData'
 
-const { login, password } = getEnvData()
+const { login, password, controlled } = getEnvData()
 
-if(!login)
+if(controlled && !login)
   throw `process.env.LOGIN is not set`
 
-if(!password)
+if(controlled && !password)
   throw `process.env.PASSWORD is not set`
  
-export default async (): Promise<Credentials> => ({
+export default (): Credentials => ({
   login,
   password
 }) 
