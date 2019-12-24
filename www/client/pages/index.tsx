@@ -28,7 +28,7 @@ enum BotStatus {
   Off = 'OFF'
 }
 
-const ignoredSupervisorTypes = ['dev', 'controllers']
+const ignoredSupervisorTypes = ['dev']
 
 export default () => {
   const [botStatus, setBotStatus] = useState(BotStatus.Starting)

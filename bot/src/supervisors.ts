@@ -48,14 +48,14 @@ const servicesSupervisors = (page: Page) => ({
 })
 
 const controllersSupervisors = (page: Page) => ({
-  followPersonsWhoLiked: (maximum?: number) =>
-    followPersonsWhoLiked(page, maximum),
+  //followPersonsWhoLiked: (maximum?: number) =>
+  //  followPersonsWhoLiked(page, maximum),
   followingBot: (maximum?: number) =>
     followingBot(page, maximum),
   login: () =>
     login(page),
-  unfollowFollowed: () =>
-    unfollowFollowed(page)
+  //unfollowFollowed: () =>
+  //  unfollowFollowed(page)
 })
 
 const devSupervisors = (page: Page) => ({
