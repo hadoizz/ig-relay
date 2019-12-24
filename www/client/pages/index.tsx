@@ -1,7 +1,5 @@
 import { Container, CssBaseline, Theme, Button, Typography, Avatar, Paper, Grid, Input, TextField, Card, CardContent } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import SettingsIcon from '@material-ui/icons/Settings'
-import MessageIcon from '@material-ui/icons/Message'
 import { useState, useEffect, useMemo, useCallback } from 'react'
 import getSupervisors from '../api/bots/getSupervisors'
 import executeSupervisor from '../api/bots/executeSupervisor'
@@ -29,6 +27,8 @@ enum BotStatus {
   Exitting = 'EXITTING',
   Off = 'OFF'
 }
+
+const ignoredSupervisorTypes = ['dev', 'controllers']
 
 export default () => {
   const [botStatus, setBotStatus] = useState(BotStatus.Starting)
@@ -91,7 +91,7 @@ export default () => {
               {
                 Object.entries(
                   supervisors.reduce((acc, { type, ...rest }) => {
-                    if(type === 'dev')
+                    if(ignoredSupervisorTypes.includes(type))
                       return acc
                       
                     if(acc[type]){
@@ -118,6 +118,7 @@ export default () => {
                   </div>
                 )
               }
+              <br />
               {
                 (botStatus === BotStatus.On || botStatus === BotStatus.Exitting)
                   ? <Button 

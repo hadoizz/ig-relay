@@ -5,6 +5,8 @@ import log from './utils/elements/log'
 import gotoIndex from './services/index/gotoIndex'
 import gotoProfile from './services/profile/gotoProfile'
 import gotoFollowing from './services/profile/following/gotoFollowing'
+import gotoLikedBy from './services/post/gotoLikedBy'
+import goBackFromLikedBy from './services/likedBy/goBack'
 
 import getVisiblePost from './services/post/selectors/getVisiblePost'
 import scrollToNextPost from './services/post/scrollToNextPost'
@@ -24,7 +26,11 @@ const navigationSupervisors = (page: Page) => ({
   gotoProfile: () =>
     gotoProfile(page),
   gotoFollowing: () =>
-    gotoFollowing(page)
+    gotoFollowing(page),
+  gotoLikedBy: async () =>
+    await gotoLikedBy(await getVisiblePost(page)),
+  goBackFromLikedBy: async () =>
+    await goBackFromLikedBy(page)
 })
 
 const servicesSupervisors = (page: Page) => ({
@@ -34,10 +40,11 @@ const servicesSupervisors = (page: Page) => ({
     await getLikes(await getVisiblePost(page)),
   likePost: async () =>
     await likePost(await getVisiblePost(page)),
-  openLikesDialog: async () =>
-    await openLikesDialog(await getVisiblePost(page)),
   closeDialog: () =>
-    closeDialog(page)
+    closeDialog(page),
+  //only works in browser (puppeteer mimits mobile device):
+  //openLikesDialog: async () =>
+  //  await openLikesDialog(await getVisiblePost(page)),
 })
 
 const controllersSupervisors = (page: Page) => ({

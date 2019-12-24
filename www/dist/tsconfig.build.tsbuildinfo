@@ -11671,6 +11671,7 @@
       "../node_modules/@types/connect/index.d.ts",
       "../node_modules/@types/body-parser/index.d.ts",
       "../node_modules/@types/express/index.d.ts",
+      "../src/streaming/streaming.service.ts",
       "../src/streaming/streaming.controller.ts",
       "../src/streaming/streaming.module.ts",
       "../src/app.module.ts",
@@ -11801,8 +11802,7 @@
       "../node_modules/@types/webpack-sources/index.d.ts",
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
-      "../node_modules/@types/yargs/index.d.ts",
-      "../src/streaming/streaming.service.ts"
+      "../node_modules/@types/yargs/index.d.ts"
     ]
   },
   "version": "3.6.3"

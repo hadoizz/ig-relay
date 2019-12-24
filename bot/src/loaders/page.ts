@@ -1,4 +1,5 @@
 import puppeteer from 'puppeteer-extra'
+import devices from 'puppeteer/DeviceDescriptors'
 import StealthPlugin from 'puppeteer-extra-plugin-stealth'
 import AdblockerPlugin from 'puppeteer-extra-plugin-adblocker'
 import { resolve } from 'path'
@@ -7,6 +8,8 @@ import getEnvData from '../config/getEnvData'
 
 puppeteer.use(StealthPlugin())
 puppeteer.use(AdblockerPlugin())
+
+const device = devices['Pixel 2']
 
 export default async () => {
   const browser = await puppeteer.launch({
@@ -22,10 +25,7 @@ export default async () => {
     process.exit(1)
   })
   const page = await browser.newPage()
-  await page.setViewport({
-    width: 400,
-    height: 800
-  })
+  await page.emulate(device)
   await exposeDevFns(page)
   await page.goto('https://instagram.com/')
 
