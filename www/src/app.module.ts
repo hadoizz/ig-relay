@@ -3,13 +3,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { BotsModule } from './bots/bots.module';
 import { StreamingModule } from './streaming/streaming.module';
 import { AuthModule } from './auth/auth.module';
+import { AccountsModule } from './accounts/accounts.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(),
     BotsModule,
     StreamingModule,
-    AuthModule
+    AuthModule,
+    AccountsModule
   ]
 })
 export class AppModule {}

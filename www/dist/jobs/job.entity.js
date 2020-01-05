@@ -28,7 +28,7 @@ __decorate([
 __decorate([
     typeorm_1.ManyToOne(type => user_entity_1.User, user => user.jobs),
     __metadata("design:type", user_entity_1.User)
-], Job.prototype, "belongsTo", void 0);
+], Job.prototype, "user", void 0);
 Job = __decorate([
     typeorm_1.Entity()
 ], Job);

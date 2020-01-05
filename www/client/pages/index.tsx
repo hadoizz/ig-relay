@@ -80,38 +80,44 @@ const Dev = ({ id: startingId, alive }: { id: string, alive: boolean }) => {
           }
         </Grid>
         <Grid item xs={12} sm={8}>
-          <Typography variant="h4" gutterBottom>Opcje</Typography>
           {
-            Object.entries(
-              supervisors.reduce((acc, { type, ...rest }) => {
-                if (ignoredSupervisorTypes.includes(type))
-                  return acc
-
-                if (acc[type]) {
-                  acc[type].push(rest)
-                  return acc
+            supervisors.length > 0 && (
+              <>
+                <Typography variant="h4" gutterBottom>Opcje</Typography>
+                {
+                  Object.entries(
+                    supervisors.reduce((acc, { type, ...rest }) => {
+                      if (ignoredSupervisorTypes.includes(type))
+                        return acc
+      
+                      if (acc[type]) {
+                        acc[type].push(rest)
+                        return acc
+                      }
+      
+                      acc[type] = [rest]
+                      return acc
+                    }, {})
+                  )
+                  .map(([type, supervisors]: [string, []]) =>
+                    <div key={type}>
+                      <Typography variant="subtitle2">{type}</Typography>
+                      {
+                        supervisors.map(({ name, title, arity }) =>
+                          <Button variant="contained" key={name} onClick={supervisorExecutor({ name, arity })} color="primary" className={classes.button}>
+                            {
+                              title
+                            }
+                          </Button>
+                        )
+                      }
+                    </div>
+                  )
                 }
-
-                acc[type] = [rest]
-                return acc
-              }, {})
+                <br />
+              </>
             )
-              .map(([type, supervisors]: [string, []]) =>
-                <div key={type}>
-                  <Typography variant="subtitle2">{type}</Typography>
-                  {
-                    supervisors.map(({ name, title, arity }) =>
-                      <Button variant="contained" key={name} onClick={supervisorExecutor({ name, arity })} color="primary" className={classes.button}>
-                        {
-                          title
-                        }
-                      </Button>
-                    )
-                  }
-                </div>
-              )
           }
-          <br />
           {
             (botStatus === BotStatus.On || botStatus === BotStatus.Exitting)
               ? <Button

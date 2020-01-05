@@ -1,55 +1,43 @@
 import { Container, Typography, makeStyles, Theme, TextField, TextareaAutosize, Link, Button } from '@material-ui/core'
 import { useState } from 'react'
 import { isValidCron } from 'cron-validator'
-
-const useStyles = makeStyles((theme: Theme) => ({
-  cronLabels: {
-    color: theme.palette.grey[500]
-  }
-}))
+import Layout from '../components/Layout'
 
 export default () => {
-  const [cron, setCron] = useState('* * * * * *')
-  const [cronError, setCronError] = useState(false)
-  const [evaluate, setEvaluate] = useState('')
+  const [jobs, setJobs] = useState([{
+    jobId: 0,
+    cron: '0 * * * * *',
+    evaluate: `console.log('job:', new Date().toLocaleString())`
+  }])
 
-  const classes = useStyles({})
+  const updateJobData = jobId => prop => ({ target: { value } }) => {
+    const newJobs = [...jobs]
+    const job = newJobs.find(job => jobId === job.jobId)
+    job[prop] = value
+    setJobs(newJobs)
+  }
 
-  const updateCron = ({ target: { value } }) => 
-    setCron(value)
+  //isValidCron(value, { seconds: true, alias: true })
 
-  const validateCron = ({ target: { value } }) =>
-    setCronError(!isValidCron(value, { seconds: true, alias: true }))
+  const updateJob = jobId => () => {
 
-  const onSubmit = event => {
-    event.preventDefault()
-
-    if(cronError)
-      return
-
-    
   }
 
   return (
-    <Container maxWidth="sm">
-      <Typography variant="h4" gutterBottom>Your jobs:</Typography>
-      <form onSubmit={onSubmit} noValidate autoComplete="off">
-        <p>
-          <Typography variant="h4" gutterBottom>Cron job</Typography>
-          <TextField value={cron} autoFocus onChange={updateCron} onBlur={validateCron} label="cron" error={cronError} />
-          <Typography variant="subtitle2" className={classes.cronLabels}>second - minute - hour - day (month) - month - day (week)</Typography>
-        </p>
-        <Link href="https://crontab.guru" target="__blank" variant="h5">
-          Simulator 
-        </Link>
-        <p>
-          <Typography variant="h4" gutterBottom>Code</Typography>
-          <TextareaAutosize onChange={({ target: { value } }) => setEvaluate(value)} />
-        </p>
-        <Button type="submit" variant="contained" color="inherit">
-          Add
-        </Button>
+    <Layout>
+      <form noValidate autoComplete="off">
+        {
+          jobs.map(({ cron, evaluate, jobId }) =>
+            <div key={jobId} style={{ marginBottom: '32px' }}>
+              <TextField label="CRON" value={cron} onChange={updateJobData(jobId)('cron')} inputProps={{ style: { fontFamily: 'Courier' } }} />
+              <TextField label="Code" value={evaluate} onChange={updateJobData(jobId)('evaluate')} fullWidth inputProps={{ style: { fontFamily: 'Courier' } }} />
+              <br /><br />
+              <Button onClick={updateJob(jobId)} variant="contained" color="primary">Zapisz</Button>
+            </div>
+          )
+        }
+        <Button variant="contained" color="secondary">Dodaj</Button>
       </form>
-    </Container>
+    </Layout>
   )
 }

@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { CronJob } from 'cron'
-import { Job } from './job.entity'
+import { JobEntity } from './job.entity'
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../users/user.entity';
+import { UserEntity } from '../users/user.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class JobsService {
   constructor(
-    @InjectRepository(Job) private readonly jobsRepository: Repository<Job>,
-    @InjectRepository(User) private readonly usersRepository: Repository<User>
+    @InjectRepository(JobEntity) private readonly jobsRepository: Repository<JobEntity>,
+    @InjectRepository(UserEntity) private readonly usersRepository: Repository<UserEntity>
   ){
     this.init()
   }
@@ -21,11 +21,11 @@ export class JobsService {
     }
   }
 
-  async getJobs(): Promise<Job[]>{
+  async getJobs(): Promise<JobEntity[]>{
     return await this.jobsRepository.find()
   }
 
-  async getUserJobs(userId: number): Promise<Job[]>{
+  async getUserJobs(userId: number): Promise<JobEntity[]>{
     try {
       const user = await this.usersRepository.findOneOrFail({ userId }, { relations: ['jobs'] })
       return user.jobs
@@ -34,15 +34,15 @@ export class JobsService {
     }
   }
 
-  async createJob(job: Job){
+  async createJob(job: JobEntity){
     return await this.jobsRepository.save(job)
   }
 
-  async updateJob(job: Job){
+  async updateJob(job: JobEntity){
     return await this.jobsRepository.save(job)
   }
 
-  async deleteJob(job: Job){
+  async deleteJob(job: JobEntity){
     return await this.jobsRepository.delete(job)
   }
 }

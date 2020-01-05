@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, ManyToOne, Column } from 'typeorm';
-import { User } from '../users/user.entity'
+import { AccountEntity } from '../accounts/account.entity'
 
 @Entity()
-export class Job {
+export class JobEntity {
   @PrimaryGeneratedColumn()
   jobId: number
 
@@ -12,6 +12,6 @@ export class Job {
   @Column()
   evaluate: string
 
-  @ManyToOne(type => User, user => user.jobs)
-  belongsTo: User
+  @ManyToOne(type => AccountEntity, account => account.jobs)
+  account: AccountEntity
 }

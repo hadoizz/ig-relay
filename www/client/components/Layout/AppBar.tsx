@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Link from 'next/link'
 import { AppBar, Toolbar, Container, Typography, makeStyles, Theme, IconButton, Hidden, Drawer, SwipeableDrawer, useTheme, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core'
 import { Menu, Close, AccountCircleOutlined, ExitToAppOutlined } from '@material-ui/icons'
 import { logout } from '../../utils/auth'
@@ -52,7 +53,7 @@ export default () => {
             </IconButton>
           </Hidden>
           <Typography variant="h3" className={classes.logo}>
-            Insta
+            <Link href="/">Insta</Link>
           </Typography>
         </Toolbar>
         { /* mobile drawer */ }

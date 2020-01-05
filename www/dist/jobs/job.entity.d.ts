@@ -3,5 +3,5 @@ export declare class Job {
     jobId: number;
     cron: string;
     evaluate: string;
-    belongsTo: User;
+    user: User;
 }

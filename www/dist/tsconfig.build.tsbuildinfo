@@ -2202,11 +2202,11 @@
         "signature": "7d54718db86e3daa944209fe4806e1541aed39f9b329959d6bc44f799693b1c2"
       },
       "../src/jobs/job.entity.ts": {
-        "version": "de822d0a873218b0ae92c84015ba0fcdde980bbe2f3c5f55866a0f577143282b",
-        "signature": "abc54741458e7cc56d9bdc8dae13bb5edf3e0b902268aef860d2e5e6a02480d7"
+        "version": "482baff67bedc1c034eadc4c1a84e95eebe79d6cdd525308d0b31cdb649a4544",
+        "signature": "87e88275312aa2ecb94e6205e9a281f256c66162745b20dde3d662300713f93c"
       },
       "../src/users/user.entity.ts": {
-        "version": "f1bb14b835e195212ee74795e3dfb51106ddf9b08df859cc981760e476e93599",
+        "version": "1fed66ba9f540549c8777218a0aa6bae8cde4ae15f4b9ce7ed156420741e5b43",
         "signature": "6052acc047ce3e98fe24f319733a32c575cf3a7764059a212971d1997dc4d421"
       },
       "../src/users/users.service.ts": {
