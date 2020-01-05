@@ -13,6 +13,7 @@ import scrollToNextPost from './services/post/scrollToNextPost'
 import getNextPost from './services/post/selectors/getNextPost'
 import getLikes from './services/post/getLikes'
 import likePost from './services/post/likePost'
+import unlikePost from './services/post/unlikePost'
 import openLikesDialog from './services/likesDialog/openLikesDialog'
 import followPersonsWhoLiked from './controllers/followPersonsWhoLiked'
 import followingBot from './controllers/followingBot'
@@ -40,6 +41,8 @@ const servicesSupervisors = (page: Page) => ({
     await getLikes(await getVisiblePost(page)),
   likePost: async () =>
     await likePost(await getVisiblePost(page)),
+  unlikePost: async () =>
+    await unlikePost(await getVisiblePost(page)),
   closeDialog: () =>
     closeDialog(page),
   //only works in browser (puppeteer mimits mobile device):

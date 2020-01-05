@@ -1,7 +1,8 @@
-import fetch from '../../fetch'
+import fetch from 'isomorphic-unfetch'
+import getServerHost from '../../../utils/getServerHost'
 
 export default async () => {
-  const body = await fetch(`/bots/dev/start`)
+  const body = await fetch(`${getServerHost()}/bots/dev/start`)
   const { id } = await body.json()
   return id
 }

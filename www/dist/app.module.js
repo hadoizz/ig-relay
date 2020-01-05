@@ -7,15 +7,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
+const typeorm_1 = require("@nestjs/typeorm");
 const bots_module_1 = require("./bots/bots.module");
 const streaming_module_1 = require("./streaming/streaming.module");
+const auth_module_1 = require("./auth/auth.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     common_1.Module({
         imports: [
+            typeorm_1.TypeOrmModule.forRoot(),
             bots_module_1.BotsModule,
-            streaming_module_1.StreamingModule
+            streaming_module_1.StreamingModule,
+            auth_module_1.AuthModule
         ]
     })
 ], AppModule);

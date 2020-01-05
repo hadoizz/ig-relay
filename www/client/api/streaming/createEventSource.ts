@@ -1,4 +1,4 @@
-import { getUrl } from '../fetch'
+import getServerHost from '../../utils/getServerHost'
 
 export default (id: string) =>
-  new EventSource(getUrl(`/streaming/${id}`))
+  new EventSource(`${getServerHost()}/streaming/${id}`)

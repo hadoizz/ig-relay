@@ -27,14 +27,6 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
-    typeorm_1.Column(),
-    __metadata("design:type", String)
-], User.prototype, "instagramLogin", void 0);
-__decorate([
-    typeorm_1.Column(),
-    __metadata("design:type", String)
-], User.prototype, "instagramPassword", void 0);
-__decorate([
     typeorm_1.OneToMany(type => job_entity_1.Job, job => job.belongsTo),
     __metadata("design:type", Array)
 ], User.prototype, "jobs", void 0);

@@ -4,7 +4,7 @@ import createEventSource from '../api/streaming/createEventSource'
 
 export default memo(({ id }: { id: string }) => {
   const [data, setData] = useState(null)
-  const [enabled, setEnabled] = useState(!!localStorage.getItem('streaming'))
+  const [enabled, setEnabled] = useState(process.browser && Boolean(localStorage.getItem('streaming')))
 
   const updateData = useCallback(({ data }) => setData(data), [id])
 

@@ -3,6 +3,7 @@ import { Repository } from 'typeorm';
 export declare class UsersService {
     private readonly usersRepository;
     constructor(usersRepository: Repository<User>);
+    createDevUser(): Promise<void>;
     getUsers(): Promise<User[]>;
     getUser(where: {
         [key: string]: any;

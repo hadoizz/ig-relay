@@ -4,7 +4,7 @@ import { Job } from '../jobs/job.entity'
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  userId: number
+  userId?: number
 
   @Column() 
   @Unique(this.username)
@@ -13,12 +13,6 @@ export class User {
   @Column()
   password: string
 
-  @Column()
-  instagramLogin: string
-
-  @Column()
-  instagramPassword: string
-
   @OneToMany(type => Job, job => job.belongsTo)
-  jobs: Job[]
+  jobs?: Job[]
 }
