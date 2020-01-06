@@ -2202,15 +2202,19 @@
         "signature": "7d54718db86e3daa944209fe4806e1541aed39f9b329959d6bc44f799693b1c2"
       },
       "../src/jobs/job.entity.ts": {
-        "version": "482baff67bedc1c034eadc4c1a84e95eebe79d6cdd525308d0b31cdb649a4544",
-        "signature": "87e88275312aa2ecb94e6205e9a281f256c66162745b20dde3d662300713f93c"
+        "version": "6dfd2a604796e5b63deb667c2cfd5a9c5ac6d555f8ecd7363285f90374c14558",
+        "signature": "8ec1982bf8199f51b83daff4b8a36195a5c93369b485510e86a7b4aeaece4f25"
+      },
+      "../src/accounts/account.entity.ts": {
+        "version": "9c4794767c5849788e85ecc648e5629486875d4821bc9e65f875795390999614",
+        "signature": "a1456b4ddba959662fbb7e9769add4b92a7c9ff2e79ba79012b44ca0d847ee83"
       },
       "../src/users/user.entity.ts": {
-        "version": "1fed66ba9f540549c8777218a0aa6bae8cde4ae15f4b9ce7ed156420741e5b43",
-        "signature": "6052acc047ce3e98fe24f319733a32c575cf3a7764059a212971d1997dc4d421"
+        "version": "648f4b5106f7a2f0a5f55f11b8240f5cffa75275bfe6381f71de777f5e5ed2b5",
+        "signature": "1dad6956b8ca6b8e0e3906e38f8335c6b510bfd9756c6a49d1125a582403e5d2"
       },
       "../src/users/users.service.ts": {
-        "version": "3bc5192a5ba2f1006a1ef987343a5ba20b4c4bde413cb70f1bfa7cdb8d348e08",
+        "version": "606012a313730829424fae0536d5810faeb45feb08ccfdaf6da524adf7c50d7d",
         "signature": "aa1451697f371edfde1bd36a7db3ae24aad55ee6e697d5990d3df5aa6fb16ce0"
       },
       "../node_modules/@types/jsonwebtoken/index.d.ts": {
@@ -2329,8 +2333,32 @@
         "version": "6640cf6fcd8cff9f4708ee4004642328f39b5f60666d194eb85d9d973132d79f",
         "signature": "2e5d258cf85349b02b015c3f1b8873c152d182c3819a7ccc3aff16fc3037a5fc"
       },
+      "../src/accounts/accounts.service.ts": {
+        "version": "f3ee5ee543535a17f94c1ab36ae52d50d5e7a157b9f76e8df9bb0278e3a512a3",
+        "signature": "c75dbc81e5943b101891393c79a981c27e6dbac59847267a77f8cf4ca6b407fd"
+      },
+      "../src/accounts/accounts.controller.ts": {
+        "version": "04c9f051f87250ee3c664babb5b0968020e72479129ba70fb35dd7b932bc58db",
+        "signature": "aa4fc36370ab7c9647fcde1c3b4c988c569dca58d09f97d79da2720b9a3abfc4"
+      },
+      "../src/accounts/accounts.module.ts": {
+        "version": "fe33015f759ffaf0a31297d86e52fab0bb52d28a9df61ec475e4e6188a9a01e7",
+        "signature": "98de1f66ea71edcebabff749b010a6768051978ec049d0cbabf5407b3781134e"
+      },
+      "../src/jobs/jobs.service.ts": {
+        "version": "e3e72879b2b7b70f391bf53f54c1333b7d74b7a2e096974549b3bcf3348706b9",
+        "signature": "14915ebfd832f723fbd1cb7fd7e5e8dd8addd13a6ee3e931592a75cc8c58e1d5"
+      },
+      "../src/jobs/jobs.controller.ts": {
+        "version": "862cd7552eee648dd00deb3d150750f971bc6a4c45db24e27e6dd7d6fd3e9086",
+        "signature": "f877351e2522ba5c34191bed2115f9a3d7cc6a4679b0ee3bc27950f691564834"
+      },
+      "../src/jobs/jobs.module.ts": {
+        "version": "0b30ae832e60fc00ea9dbb26226f6a6afd2ec29dcc7df651e1483d47b0707be3",
+        "signature": "d81f9b2b91d86572e1fa067c9ef5c3387b82322a064e0b9f81810085b52116e5"
+      },
       "../src/app.module.ts": {
-        "version": "d05e471214389874765c5190e39713a8cc5318b12467e7e646208ed6c9b453d1",
+        "version": "00f45eb1e544f22f8f4054119481d8783d5c02e9474bdaa11dca3dad3ab07323",
         "signature": "9fc7f7b6ad854404973b8cba8e6d883f758237991968e9a3965d716d46f1da88"
       },
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts": {
@@ -2453,6 +2481,10 @@
         "version": "b12f568e969e7d39baafaf8b4e96963c40f80dcb69ba7f1b07db59b3b99814a3",
         "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
       },
+      "../src/accounts/account.entity.spec.ts": {
+        "version": "2e2efd4c2ecb6d2a9dbd584ac35d1dbe9d45fd6f8d1c377e2fa410c42f877f8d",
+        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
+      },
       "../node_modules/@nestjs/testing/interfaces/override-by-factory-options.interface.d.ts": {
         "version": "ca248f650c19abc031e2aaafa41fceb524378b1a2249905b44d1c8e4148fcb52",
         "signature": "ca248f650c19abc031e2aaafa41fceb524378b1a2249905b44d1c8e4148fcb52"
@@ -2485,6 +2517,14 @@
         "version": "0a33b8bff876368beef794f5f08e8221103efa394f9e0e27e19f557a8cdaa0a0",
         "signature": "0a33b8bff876368beef794f5f08e8221103efa394f9e0e27e19f557a8cdaa0a0"
       },
+      "../src/accounts/accounts.controller.spec.ts": {
+        "version": "d25e48400164c1a49d449919b730ac55025a8843de287d03a4f3011db1fd49c1",
+        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
+      },
+      "../src/accounts/accounts.service.spec.ts": {
+        "version": "b32a382ee1815d26e60d72aba7a72be75e743f1b1a50367f127be5f26136ee2b",
+        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
+      },
       "../src/auth/auth.controller.spec.ts": {
         "version": "3ee087062383b1645cb5eb17b9c9700bdb26635e5e5a01d5648b2141bf8cb213",
         "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
@@ -2502,24 +2542,12 @@
         "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
       },
       "../src/jobs/job.entity.spec.ts": {
-        "version": "1497611760fd25a1d7cc029a9cdf81be8f6665a46fa7b9e2459f179b19884e1d",
+        "version": "f893be39446f6033df2a1836daae43dd8873d8d47cd2a0db291f8fd6b2126e0d",
         "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
-      },
-      "../src/jobs/jobs.service.ts": {
-        "version": "6d5e400c9e1008e75bfa22e34e4a01525079ac006dd33f8af2df6a3555e87351",
-        "signature": "4155aa3b928129d91274ce56667eae769fb0c87b3d05691d90c508c0b1b588fb"
-      },
-      "../src/jobs/jobs.controller.ts": {
-        "version": "6e7e8c26a3b7c1b47bba5467725e38a2cdf9ce17f3ad7d694dcfb393e3132809",
-        "signature": "605aa622067758c11fc9039f96a1b467729c665c5fca62fcf2e7b72186117ca0"
       },
       "../src/jobs/jobs.controller.spec.ts": {
         "version": "0c4f08039190c2591e30c32e402cc6ee53109443eef10c20b8ecdf7dc12f2e3a",
         "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
-      },
-      "../src/jobs/jobs.module.ts": {
-        "version": "0b30ae832e60fc00ea9dbb26226f6a6afd2ec29dcc7df651e1483d47b0707be3",
-        "signature": "d81f9b2b91d86572e1fa067c9ef5c3387b82322a064e0b9f81810085b52116e5"
       },
       "../src/jobs/jobs.service.spec.ts": {
         "version": "bb3338a1721b8fa204543a6b072d5005a479c09ccd931e2a1bf11674f889c2ca",
@@ -6229,13 +6257,20 @@
       ],
       "../src/jobs/job.entity.ts": [
         "../node_modules/typeorm/index.d.ts",
+        "../src/accounts/account.entity.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/accounts/account.entity.ts": [
+        "../node_modules/typeorm/index.d.ts",
+        "../src/jobs/job.entity.ts",
         "../src/users/user.entity.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "../src/users/user.entity.ts": [
         "../node_modules/typeorm/index.d.ts",
-        "../src/jobs/job.entity.ts",
+        "../src/accounts/account.entity.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -6434,12 +6469,58 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "../src/accounts/accounts.service.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/accounts/accounts.controller.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/accounts/accounts.module.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../src/accounts/accounts.service.ts",
+        "../src/accounts/accounts.controller.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/jobs/jobs.service.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../src/jobs/job.entity.ts",
+        "../node_modules/@nestjs/typeorm/index.d.ts",
+        "../src/users/user.entity.ts",
+        "../node_modules/typeorm/index.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/jobs/jobs.controller.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../src/jobs/jobs.service.ts",
+        "../node_modules/@nestjs/passport/index.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/jobs/jobs.module.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../src/jobs/jobs.service.ts",
+        "../src/jobs/jobs.controller.ts",
+        "../node_modules/@nestjs/typeorm/index.d.ts",
+        "../src/jobs/job.entity.ts",
+        "../src/users/user.entity.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "../src/app.module.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/typeorm/index.d.ts",
         "../src/bots/bots.module.ts",
         "../src/streaming/streaming.module.ts",
         "../src/auth/auth.module.ts",
+        "../src/accounts/accounts.module.ts",
+        "../src/jobs/jobs.module.ts",
+        "../src/users/users.module.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -6652,6 +6733,11 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "../src/accounts/account.entity.spec.ts": [
+        "../src/accounts/account.entity.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "../node_modules/@nestjs/testing/interfaces/override-by-factory-options.interface.d.ts": [
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
@@ -6708,6 +6794,18 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "../src/accounts/accounts.controller.spec.ts": [
+        "../node_modules/@nestjs/testing/index.d.ts",
+        "../src/accounts/accounts.controller.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/accounts/accounts.service.spec.ts": [
+        "../node_modules/@nestjs/testing/index.d.ts",
+        "../src/accounts/accounts.service.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "../src/auth/auth.controller.spec.ts": [
         "../node_modules/@nestjs/testing/index.d.ts",
         "../src/auth/auth.controller.ts",
@@ -6737,35 +6835,9 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
-      "../src/jobs/jobs.service.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
-        "../src/jobs/job.entity.ts",
-        "../node_modules/@nestjs/typeorm/index.d.ts",
-        "../src/users/user.entity.ts",
-        "../node_modules/typeorm/index.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/jobs/jobs.controller.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
-        "../src/jobs/jobs.service.ts",
-        "../src/jobs/job.entity.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
       "../src/jobs/jobs.controller.spec.ts": [
         "../node_modules/@nestjs/testing/index.d.ts",
         "../src/jobs/jobs.controller.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/jobs/jobs.module.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
-        "../src/jobs/jobs.service.ts",
-        "../src/jobs/jobs.controller.ts",
-        "../node_modules/@nestjs/typeorm/index.d.ts",
-        "../src/jobs/job.entity.ts",
-        "../src/users/user.entity.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -10479,10 +10551,14 @@
         "../node_modules/@nestjs/common/index.d.ts"
       ],
       "../src/jobs/job.entity.ts": [
-        "../src/users/user.entity.ts"
+        "../src/accounts/account.entity.ts"
+      ],
+      "../src/accounts/account.entity.ts": [
+        "../src/users/user.entity.ts",
+        "../src/jobs/job.entity.ts"
       ],
       "../src/users/user.entity.ts": [
-        "../src/jobs/job.entity.ts"
+        "../src/accounts/account.entity.ts"
       ],
       "../src/users/users.service.ts": [
         "../node_modules/typeorm/index.d.ts",
@@ -10630,6 +10706,15 @@
         "../src/users/user.entity.ts",
         "../src/users/users.service.ts",
         "../node_modules/@types/passport-jwt/index.d.ts"
+      ],
+      "../src/jobs/jobs.service.ts": [
+        "../node_modules/typeorm/index.d.ts",
+        "../src/jobs/job.entity.ts",
+        "../src/users/user.entity.ts"
+      ],
+      "../src/jobs/jobs.controller.ts": [
+        "../src/jobs/job.entity.ts",
+        "../src/jobs/jobs.service.ts"
       ],
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
@@ -10889,15 +10974,6 @@
         "../node_modules/@nestjs/testing/testing-module.builder.d.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/jobs/jobs.service.ts": [
-        "../node_modules/typeorm/index.d.ts",
-        "../src/jobs/job.entity.ts",
-        "../src/users/user.entity.ts"
-      ],
-      "../src/jobs/jobs.controller.ts": [
-        "../src/jobs/jobs.service.ts",
-        "../src/jobs/job.entity.ts"
       ],
       "../node_modules/@types/anymatch/index.d.ts": [
         "../node_modules/@types/node/util.d.ts",
@@ -11676,6 +11752,7 @@
       "../src/streaming/streaming.controller.ts",
       "../src/streaming/streaming.module.ts",
       "../src/jobs/job.entity.ts",
+      "../src/accounts/account.entity.ts",
       "../src/users/user.entity.ts",
       "../src/users/users.service.ts",
       "../node_modules/@types/jsonwebtoken/index.d.ts",
@@ -11707,6 +11784,11 @@
       "../node_modules/@types/passport-jwt/index.d.ts",
       "../src/auth/jwt.strategy.ts",
       "../src/auth/auth.module.ts",
+      "../src/accounts/accounts.service.ts",
+      "../src/accounts/accounts.controller.ts",
+      "../src/accounts/accounts.module.ts",
+      "../src/jobs/jobs.controller.ts",
+      "../src/jobs/jobs.module.ts",
       "../src/app.module.ts",
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts",
       "../node_modules/@nestjs/core/adapters/index.d.ts",
@@ -11738,6 +11820,7 @@
       "../node_modules/@nestjs/core/services/index.d.ts",
       "../node_modules/@nestjs/core/index.d.ts",
       "../src/main.ts",
+      "../src/accounts/account.entity.spec.ts",
       "../node_modules/@nestjs/testing/interfaces/override-by-factory-options.interface.d.ts",
       "../node_modules/@nestjs/core/metadata-scanner.d.ts",
       "../node_modules/@nestjs/testing/testing-module.d.ts",
@@ -11746,15 +11829,14 @@
       "../node_modules/@nestjs/testing/interfaces/index.d.ts",
       "../node_modules/@nestjs/testing/test.d.ts",
       "../node_modules/@nestjs/testing/index.d.ts",
+      "../src/accounts/accounts.controller.spec.ts",
+      "../src/accounts/accounts.service.spec.ts",
       "../src/auth/auth.controller.spec.ts",
       "../src/auth/auth.service.spec.ts",
       "../src/bots/bots.controller.spec.ts",
       "../src/bots/bots.service.spec.ts",
       "../src/jobs/job.entity.spec.ts",
-      "../src/jobs/jobs.service.ts",
-      "../src/jobs/jobs.controller.ts",
       "../src/jobs/jobs.controller.spec.ts",
-      "../src/jobs/jobs.module.ts",
       "../src/jobs/jobs.service.spec.ts",
       "../src/streaming/streaming.controller.spec.ts",
       "../src/streaming/streaming.service.spec.ts",
@@ -11803,7 +11885,8 @@
       "../node_modules/@types/webpack-sources/index.d.ts",
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
-      "../node_modules/@types/yargs/index.d.ts"
+      "../node_modules/@types/yargs/index.d.ts",
+      "../src/jobs/jobs.service.ts"
     ]
   },
   "version": "3.6.3"

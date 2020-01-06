@@ -1,7 +1,7 @@
-import { AccountEntity } from './account.entity';
+import { Account } from './account.entity';
 
-describe('AccountEntity', () => {
+describe('Account', () => {
   it('should be defined', () => {
-    expect(new AccountEntity()).toBeDefined();
+    expect(new Account()).toBeDefined();
   });
 });

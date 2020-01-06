@@ -1,8 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn, Unique, OneToMany } from 'typeorm'
-import { AccountEntity } from '../accounts/account.entity'
+import { Account } from '../accounts/account.entity'
 
 @Entity()
-export class UserEntity {
+export class User {
   @PrimaryGeneratedColumn()
   userId?: number
 
@@ -13,6 +13,6 @@ export class UserEntity {
   @Column()
   password: string
 
-  @OneToMany(type => AccountEntity, account => account.user)
-  account?: AccountEntity
+  @OneToMany(type => Account, account => account.user)
+  account?: Account
 }

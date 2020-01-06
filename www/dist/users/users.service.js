@@ -32,7 +32,7 @@ let UsersService = class UsersService {
         return await this.usersRepository.find();
     }
     async getUser(where) {
-        return await this.usersRepository.findOneOrFail({ where });
+        return await this.usersRepository.findOne({ where });
     }
     async updateUser(user) {
         this.usersRepository.save(user);

@@ -4,6 +4,8 @@ import { BotsModule } from './bots/bots.module';
 import { StreamingModule } from './streaming/streaming.module';
 import { AuthModule } from './auth/auth.module';
 import { AccountsModule } from './accounts/accounts.module';
+import { JobsModule } from './jobs/jobs.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -11,7 +13,9 @@ import { AccountsModule } from './accounts/accounts.module';
     BotsModule,
     StreamingModule,
     AuthModule,
-    AccountsModule
+    AccountsModule,
+    JobsModule,
+    UsersModule
   ]
 })
 export class AppModule {}

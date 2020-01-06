@@ -13,7 +13,6 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
-const cron_1 = require("cron");
 const job_entity_1 = require("./job.entity");
 const typeorm_1 = require("@nestjs/typeorm");
 const user_entity_1 = require("../users/user.entity");
@@ -22,25 +21,24 @@ let JobsService = class JobsService {
     constructor(jobsRepository, usersRepository) {
         this.jobsRepository = jobsRepository;
         this.usersRepository = usersRepository;
-        this.init();
     }
-    async init() {
-        for (const { jobId, cron, evaluate } of await this.getJobs()) {
-            new cron_1.CronJob(cron, () => eval(evaluate), null, true, 'Europe/Warsaw');
-            console.log(`#${jobId} job initialized`);
-        }
-    }
-    async getJobs() {
-        return await this.jobsRepository.find();
-    }
-    async getUserJobs(userId) {
-        try {
-            const user = await this.usersRepository.findOneOrFail({ userId }, { relations: ['jobs'] });
-            return user.jobs;
-        }
-        catch (error) {
-            return [];
-        }
+    async getJobs(userId, accountId) {
+        return await this.jobsRepository.find({
+            select: ['jobId', 'cron', 'supervisor', 'supervisorPayload', 'sleepMin', 'sleepMax'],
+            join: {
+                alias: 'job',
+                innerJoin: {
+                    'account': 'job.account',
+                    'user': 'account.user'
+                }
+            },
+            where: qb => {
+                qb
+                    .where('account.accountId = :accountId', { accountId })
+                    .andWhere('user.userId = :userId', { userId });
+            },
+            order: { createdAt: 'DESC' }
+        });
     }
     async createJob(job) {
         return await this.jobsRepository.save(job);

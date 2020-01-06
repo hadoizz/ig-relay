@@ -1,9 +1,9 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from 'typeorm'
-import { JobEntity } from '../jobs/job.entity'
-import { UserEntity } from 'src/users/user.entity'
+import { Job } from '../jobs/job.entity'
+import { User } from '../users/user.entity'
 
 @Entity()
-export class AccountEntity {
+export class Account {
   @PrimaryGeneratedColumn()
   accountId?: number
 
@@ -13,9 +13,9 @@ export class AccountEntity {
   @Column()
   password: string
 
-  @ManyToOne(type => UserEntity, user => user.account)
-  user: UserEntity
+  @ManyToOne(type => User, user => user.account)
+  user: User
 
-  @OneToMany(type => JobEntity, job => job.account)
-  jobs?: JobEntity[]
+  @OneToMany(type => Job, job => job.account)
+  jobs?: Job[]
 }

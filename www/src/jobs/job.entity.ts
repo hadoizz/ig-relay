@@ -1,8 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne, Column } from 'typeorm';
-import { AccountEntity } from '../accounts/account.entity'
+import { Entity, PrimaryGeneratedColumn, ManyToOne, Column, BeforeInsert } from 'typeorm';
+import { Account } from '../accounts/account.entity'
 
 @Entity()
-export class JobEntity {
+export class Job {
   @PrimaryGeneratedColumn()
   jobId: number
 
@@ -10,8 +10,25 @@ export class JobEntity {
   cron: string
 
   @Column()
-  evaluate: string
+  supervisor: string
 
-  @ManyToOne(type => AccountEntity, account => account.jobs)
-  account: AccountEntity
+  @Column()
+  supervisorPayload?: string
+
+  @Column({ default: 0 })
+  sleepMin?: number
+
+  @Column({ default: 0 })
+  sleepMax?: number
+
+  @Column()
+  createdAt?: number
+
+  @BeforeInsert()
+  updateDateCreation(){
+    this.createdAt = Math.round(new Date().getTime() / 1000)
+  }
+
+  @ManyToOne(type => Account, account => account.jobs)
+  account: Account
 }

@@ -11,6 +11,9 @@ const typeorm_1 = require("@nestjs/typeorm");
 const bots_module_1 = require("./bots/bots.module");
 const streaming_module_1 = require("./streaming/streaming.module");
 const auth_module_1 = require("./auth/auth.module");
+const accounts_module_1 = require("./accounts/accounts.module");
+const jobs_module_1 = require("./jobs/jobs.module");
+const users_module_1 = require("./users/users.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -19,7 +22,10 @@ AppModule = __decorate([
             typeorm_1.TypeOrmModule.forRoot(),
             bots_module_1.BotsModule,
             streaming_module_1.StreamingModule,
-            auth_module_1.AuthModule
+            auth_module_1.AuthModule,
+            accounts_module_1.AccountsModule,
+            jobs_module_1.JobsModule,
+            users_module_1.UsersModule
         ]
     })
 ], AppModule);

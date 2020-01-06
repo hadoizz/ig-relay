@@ -10,28 +10,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
-const account_entity_1 = require("../accounts/account.entity");
-let User = class User {
+const job_entity_1 = require("../jobs/job.entity");
+const user_entity_1 = require("../users/user.entity");
+let Account = class Account {
 };
 __decorate([
     typeorm_1.PrimaryGeneratedColumn(),
     __metadata("design:type", Number)
-], User.prototype, "userId", void 0);
-__decorate([
-    typeorm_1.Column(),
-    typeorm_1.Unique(this.username),
-    __metadata("design:type", String)
-], User.prototype, "username", void 0);
+], Account.prototype, "accountId", void 0);
 __decorate([
     typeorm_1.Column(),
     __metadata("design:type", String)
-], User.prototype, "password", void 0);
+], Account.prototype, "login", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => account_entity_1.Account, account => account.user),
-    __metadata("design:type", account_entity_1.Account)
-], User.prototype, "account", void 0);
-User = __decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], Account.prototype, "password", void 0);
+__decorate([
+    typeorm_1.ManyToOne(type => user_entity_1.User, user => user.account),
+    __metadata("design:type", user_entity_1.User)
+], Account.prototype, "user", void 0);
+__decorate([
+    typeorm_1.OneToMany(type => job_entity_1.Job, job => job.account),
+    __metadata("design:type", Array)
+], Account.prototype, "jobs", void 0);
+Account = __decorate([
     typeorm_1.Entity()
-], User);
-exports.User = User;
-//# sourceMappingURL=user.entity.js.map
+], Account);
+exports.Account = Account;
+//# sourceMappingURL=account.entity.js.map

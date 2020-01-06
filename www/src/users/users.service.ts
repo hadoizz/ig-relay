@@ -24,7 +24,7 @@ export class UsersService {
   }
 
   async getUser(where: { [key: string]: any }): Promise<User>{
-    return await this.usersRepository.findOneOrFail({ where })
+    return await this.usersRepository.findOne({ where })
   }
 
   async updateUser(user: User){

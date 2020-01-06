@@ -14,22 +14,25 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const jobs_service_1 = require("./jobs.service");
-const job_entity_1 = require("./job.entity");
+const passport_1 = require("@nestjs/passport");
 let JobsController = class JobsController {
-    constructor(service) {
-        this.service = service;
+    constructor(jobsService) {
+        this.jobsService = jobsService;
     }
-    create(job) {
-        return this.service.createJob(job);
+    async getJobs(accountId, req) {
+        if (!accountId || !req.user)
+            return [];
+        return await this.jobsService.getJobs(parseInt(req.user.userId), parseInt(accountId));
     }
 };
 __decorate([
-    common_1.Post(),
-    __param(0, common_1.Body()),
+    common_1.UseGuards(passport_1.AuthGuard('jwt')),
+    common_1.Get('/'),
+    __param(0, common_1.Query('accountId')), __param(1, common_1.Request()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [job_entity_1.Job]),
-    __metadata("design:returntype", void 0)
-], JobsController.prototype, "create", null);
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], JobsController.prototype, "getJobs", null);
 JobsController = __decorate([
     common_1.Controller('jobs'),
     __metadata("design:paramtypes", [jobs_service_1.JobsService])
