@@ -16,10 +16,7 @@ export class Job {
   supervisorPayload?: string
 
   @Column({ default: 0 })
-  sleepMin?: number
-
-  @Column({ default: 0 })
-  sleepMax?: number
+  maxDelaySeconds?: number
 
   @Column()
   createdAt?: number

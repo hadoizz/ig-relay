@@ -1,12 +1,12 @@
 import { Job } from './job.entity';
-import { User } from '../users/user.entity';
 import { Repository } from 'typeorm';
+import { BotsService } from '../bots/bots.service';
 export declare class JobsService {
     private readonly jobsRepository;
-    private readonly usersRepository;
-    constructor(jobsRepository: Repository<Job>, usersRepository: Repository<User>);
+    private readonly botsService;
+    constructor(jobsRepository: Repository<Job>, botsService: BotsService);
+    private loadedJobs;
+    private loadJobs;
     getJobs(userId: number, accountId: number): Promise<Job[]>;
-    createJob(job: Job): Promise<Job>;
-    updateJob(job: Job): Promise<Job>;
-    deleteJob(job: Job): Promise<import("typeorm").DeleteResult>;
+    deleteJob(jobId: number): Promise<void>;
 }

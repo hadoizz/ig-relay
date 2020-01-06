@@ -4,8 +4,7 @@ export declare class Job {
     cron: string;
     supervisor: string;
     supervisorPayload?: string;
-    sleepMin?: number;
-    sleepMax?: number;
+    maxDelaySeconds?: number;
     createdAt?: number;
     updateDateCreation(): void;
     account: Account;

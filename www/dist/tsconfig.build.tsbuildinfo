@@ -2202,8 +2202,8 @@
         "signature": "7d54718db86e3daa944209fe4806e1541aed39f9b329959d6bc44f799693b1c2"
       },
       "../src/jobs/job.entity.ts": {
-        "version": "6dfd2a604796e5b63deb667c2cfd5a9c5ac6d555f8ecd7363285f90374c14558",
-        "signature": "8ec1982bf8199f51b83daff4b8a36195a5c93369b485510e86a7b4aeaece4f25"
+        "version": "27aaeea1830193994a202483b11f5951564f7d3b941f2aec93f8265c5b230e04",
+        "signature": "63339e4f73145f2206d5949a7cd1f3c49ee356e2fa262f29e70a3e2e42706756"
       },
       "../src/accounts/account.entity.ts": {
         "version": "9c4794767c5849788e85ecc648e5629486875d4821bc9e65f875795390999614",
@@ -2345,16 +2345,32 @@
         "version": "fe33015f759ffaf0a31297d86e52fab0bb52d28a9df61ec475e4e6188a9a01e7",
         "signature": "98de1f66ea71edcebabff749b010a6768051978ec049d0cbabf5407b3781134e"
       },
+      "../node_modules/moment/moment.d.ts": {
+        "version": "d62fa6fe33566fa743b3d6715a1a2fe46e937ba9d2ba158563c5744315d438a7",
+        "signature": "d62fa6fe33566fa743b3d6715a1a2fe46e937ba9d2ba158563c5744315d438a7"
+      },
+      "../node_modules/@types/cron/index.d.ts": {
+        "version": "c486fee8c56bbe438c77c4952093e081912e9aaa43557d0f6ca7842b8d3bf9de",
+        "signature": "c486fee8c56bbe438c77c4952093e081912e9aaa43557d0f6ca7842b8d3bf9de"
+      },
+      "../node_modules/delay/index.d.ts": {
+        "version": "77ef901e7424f160f3ce11e05e05be147374fe15c492c6378158b2cf4119f7b9",
+        "signature": "77ef901e7424f160f3ce11e05e05be147374fe15c492c6378158b2cf4119f7b9"
+      },
+      "../node_modules/random-int/index.d.ts": {
+        "version": "20aa24ce3ffe34fb1b563122479449c6330fac5509d3d076680ec657c4eb949f",
+        "signature": "20aa24ce3ffe34fb1b563122479449c6330fac5509d3d076680ec657c4eb949f"
+      },
       "../src/jobs/jobs.service.ts": {
-        "version": "e3e72879b2b7b70f391bf53f54c1333b7d74b7a2e096974549b3bcf3348706b9",
-        "signature": "14915ebfd832f723fbd1cb7fd7e5e8dd8addd13a6ee3e931592a75cc8c58e1d5"
+        "version": "f65a2aacf67c4a46eae76b6dd362b044e4feaa2e07f3cb80af2d16938b510e94",
+        "signature": "fa149f760d057517965dd27c7d623bcb5104a8cc7c679cb043129edf7327f5d5"
       },
       "../src/jobs/jobs.controller.ts": {
         "version": "862cd7552eee648dd00deb3d150750f971bc6a4c45db24e27e6dd7d6fd3e9086",
         "signature": "f877351e2522ba5c34191bed2115f9a3d7cc6a4679b0ee3bc27950f691564834"
       },
       "../src/jobs/jobs.module.ts": {
-        "version": "0b30ae832e60fc00ea9dbb26226f6a6afd2ec29dcc7df651e1483d47b0707be3",
+        "version": "06952368c63dc2d619b6f9fc776974fc73de7566506d1f20d3173c401cc084d5",
         "signature": "d81f9b2b91d86572e1fa067c9ef5c3387b82322a064e0b9f81810085b52116e5"
       },
       "../src/app.module.ts": {
@@ -6486,12 +6502,35 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "../node_modules/moment/moment.d.ts": [
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../node_modules/@types/cron/index.d.ts": [
+        "../node_modules/moment/moment.d.ts",
+        "../node_modules/@types/node/child_process.d.ts",
+        "../node_modules/@types/node/ts3.2/index.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../node_modules/delay/index.d.ts": [
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../node_modules/random-int/index.d.ts": [
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "../src/jobs/jobs.service.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@types/cron/index.d.ts",
         "../src/jobs/job.entity.ts",
         "../node_modules/@nestjs/typeorm/index.d.ts",
         "../src/users/user.entity.ts",
         "../node_modules/typeorm/index.d.ts",
+        "../node_modules/delay/index.d.ts",
+        "../node_modules/random-int/index.d.ts",
+        "../src/bots/bots.service.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -6508,7 +6547,7 @@
         "../src/jobs/jobs.controller.ts",
         "../node_modules/@nestjs/typeorm/index.d.ts",
         "../src/jobs/job.entity.ts",
-        "../src/users/user.entity.ts",
+        "../src/bots/bots.module.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -10707,10 +10746,29 @@
         "../src/users/users.service.ts",
         "../node_modules/@types/passport-jwt/index.d.ts"
       ],
+      "../node_modules/moment/moment.d.ts": [
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../node_modules/@types/cron/index.d.ts": [
+        "../node_modules/moment/moment.d.ts",
+        "../node_modules/@types/node/child_process.d.ts",
+        "../node_modules/@types/node/ts3.2/index.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../node_modules/delay/index.d.ts": [
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../node_modules/random-int/index.d.ts": [
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "../src/jobs/jobs.service.ts": [
         "../node_modules/typeorm/index.d.ts",
         "../src/jobs/job.entity.ts",
-        "../src/users/user.entity.ts"
+        "../src/bots/bots.service.ts"
       ],
       "../src/jobs/jobs.controller.ts": [
         "../src/jobs/job.entity.ts",
@@ -11787,9 +11845,10 @@
       "../src/accounts/accounts.service.ts",
       "../src/accounts/accounts.controller.ts",
       "../src/accounts/accounts.module.ts",
-      "../src/jobs/jobs.controller.ts",
-      "../src/jobs/jobs.module.ts",
-      "../src/app.module.ts",
+      "../node_modules/moment/moment.d.ts",
+      "../node_modules/@types/cron/index.d.ts",
+      "../node_modules/delay/index.d.ts",
+      "../node_modules/random-int/index.d.ts",
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts",
       "../node_modules/@nestjs/core/adapters/index.d.ts",
       "../node_modules/@nestjs/core/constants.d.ts",
@@ -11836,8 +11895,6 @@
       "../src/bots/bots.controller.spec.ts",
       "../src/bots/bots.service.spec.ts",
       "../src/jobs/job.entity.spec.ts",
-      "../src/jobs/jobs.controller.spec.ts",
-      "../src/jobs/jobs.service.spec.ts",
       "../src/streaming/streaming.controller.spec.ts",
       "../src/streaming/streaming.service.spec.ts",
       "../src/users/user.entity.spec.ts",
@@ -11886,7 +11943,12 @@
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
       "../node_modules/@types/yargs/index.d.ts",
-      "../src/jobs/jobs.service.ts"
+      "../src/jobs/jobs.service.ts",
+      "../src/jobs/jobs.service.spec.ts",
+      "../src/jobs/jobs.module.ts",
+      "../src/jobs/jobs.controller.ts",
+      "../src/app.module.ts",
+      "../src/jobs/jobs.controller.spec.ts"
     ]
   },
   "version": "3.6.3"

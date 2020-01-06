@@ -35,11 +35,7 @@ __decorate([
 __decorate([
     typeorm_1.Column({ default: 0 }),
     __metadata("design:type", Number)
-], Job.prototype, "sleepMin", void 0);
-__decorate([
-    typeorm_1.Column({ default: 0 }),
-    __metadata("design:type", Number)
-], Job.prototype, "sleepMax", void 0);
+], Job.prototype, "maxDelaySeconds", void 0);
 __decorate([
     typeorm_1.Column(),
     __metadata("design:type", Number)

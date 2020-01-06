@@ -66,6 +66,8 @@ const devSupervisors = (page: Page) => ({
     log(await getVisiblePost(page)),
   logNextPost: async () =>
     log(await getNextPost(page)),
+  identity: (value?: any) =>
+    value
 })
 
 const getAllSupervisors = (page: Page) => ({
