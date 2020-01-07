@@ -20,9 +20,9 @@ AppModule = __decorate([
     common_1.Module({
         imports: [
             typeorm_1.TypeOrmModule.forRoot(),
+            auth_module_1.AuthModule,
             bots_module_1.BotsModule,
             streaming_module_1.StreamingModule,
-            auth_module_1.AuthModule,
             accounts_module_1.AccountsModule,
             jobs_module_1.JobsModule,
             users_module_1.UsersModule

@@ -53,7 +53,11 @@ export default () => {
             </IconButton>
           </Hidden>
           <Typography variant="h3" className={classes.logo}>
-            <Link href="/">Insta</Link>
+            <Link href="/">
+              <a>
+                Insta
+              </a>
+            </Link>
           </Typography>
         </Toolbar>
         { /* mobile drawer */ }

@@ -1,9 +1,16 @@
+import Router from 'next/router'
 import { Container, Typography, makeStyles, Theme, TextField, TextareaAutosize, Link, Button } from '@material-ui/core'
 import { useState } from 'react'
 import { isValidCron } from 'cron-validator'
 import Layout from '../components/Layout'
+import nextCookie from 'next-cookies'
+import { withAuthSync } from '../utils/auth'
+import getServerHost from '../utils/getServerHost'
+import getLoggedUser from '../utils/getLoggedUser'
 
-export default () => {
+const Jobs = ({ userId }) => {
+  console.log(userId)
+
   const [jobs, setJobs] = useState([{
     jobId: 0,
     cron: '0 * * * * *',
@@ -41,3 +48,12 @@ export default () => {
     </Layout>
   )
 }
+
+Jobs.getInitialProps = async ctx => {
+  return await getLoggedUser(ctx)
+
+  
+}
+
+//@ts-ignore
+export default withAuthSync(Jobs)

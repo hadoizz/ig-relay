@@ -2366,7 +2366,7 @@
         "signature": "fa149f760d057517965dd27c7d623bcb5104a8cc7c679cb043129edf7327f5d5"
       },
       "../src/jobs/jobs.controller.ts": {
-        "version": "862cd7552eee648dd00deb3d150750f971bc6a4c45db24e27e6dd7d6fd3e9086",
+        "version": "9f70ae76e8255ab58643355d0c51602de63f8bd66ca9ecfa94b2b81cd3a77d76",
         "signature": "f877351e2522ba5c34191bed2115f9a3d7cc6a4679b0ee3bc27950f691564834"
       },
       "../src/jobs/jobs.module.ts": {
@@ -2374,7 +2374,7 @@
         "signature": "d81f9b2b91d86572e1fa067c9ef5c3387b82322a064e0b9f81810085b52116e5"
       },
       "../src/app.module.ts": {
-        "version": "00f45eb1e544f22f8f4054119481d8783d5c02e9474bdaa11dca3dad3ab07323",
+        "version": "35ac0da7af895f58264bccf090d997c70c9d25f0cfe0cbbc8fec715e12362b2c",
         "signature": "9fc7f7b6ad854404973b8cba8e6d883f758237991968e9a3965d716d46f1da88"
       },
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts": {
@@ -11849,6 +11849,9 @@
       "../node_modules/@types/cron/index.d.ts",
       "../node_modules/delay/index.d.ts",
       "../node_modules/random-int/index.d.ts",
+      "../src/jobs/jobs.service.ts",
+      "../src/jobs/jobs.module.ts",
+      "../src/app.module.ts",
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts",
       "../node_modules/@nestjs/core/adapters/index.d.ts",
       "../node_modules/@nestjs/core/constants.d.ts",
@@ -11895,6 +11898,8 @@
       "../src/bots/bots.controller.spec.ts",
       "../src/bots/bots.service.spec.ts",
       "../src/jobs/job.entity.spec.ts",
+      "../src/jobs/jobs.controller.spec.ts",
+      "../src/jobs/jobs.service.spec.ts",
       "../src/streaming/streaming.controller.spec.ts",
       "../src/streaming/streaming.service.spec.ts",
       "../src/users/user.entity.spec.ts",
@@ -11943,12 +11948,7 @@
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
       "../node_modules/@types/yargs/index.d.ts",
-      "../src/jobs/jobs.service.ts",
-      "../src/jobs/jobs.service.spec.ts",
-      "../src/jobs/jobs.module.ts",
-      "../src/jobs/jobs.controller.ts",
-      "../src/app.module.ts",
-      "../src/jobs/jobs.controller.spec.ts"
+      "../src/jobs/jobs.controller.ts"
     ]
   },
   "version": "3.6.3"

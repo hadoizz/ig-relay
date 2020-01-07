@@ -10,9 +10,9 @@ import { UsersModule } from './users/users.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot(),
+    AuthModule,
     BotsModule,
     StreamingModule,
-    AuthModule,
     AccountsModule,
     JobsModule,
     UsersModule
