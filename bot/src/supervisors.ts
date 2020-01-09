@@ -20,6 +20,7 @@ import followingBot from './controllers/followingBot'
 import login from './controllers/login'
 import unfollowFollowed from './controllers/unfollowFollowed'
 import closeDialog from './services/dialog/closeDialog'
+import uploadPost from './services/uploadPost/uploadPost'
 
 const navigationSupervisors = (page: Page) => ({
   gotoIndex: () =>
@@ -67,7 +68,8 @@ const devSupervisors = (page: Page) => ({
   logNextPost: async () =>
     log(await getNextPost(page)),
   identity: (value?: any) =>
-    value
+    value,
+  uploadPost: uploadPost(page)
 })
 
 const getAllSupervisors = (page: Page) => ({

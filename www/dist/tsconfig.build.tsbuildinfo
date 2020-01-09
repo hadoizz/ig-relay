@@ -2334,15 +2334,15 @@
         "signature": "2e5d258cf85349b02b015c3f1b8873c152d182c3819a7ccc3aff16fc3037a5fc"
       },
       "../src/accounts/accounts.service.ts": {
-        "version": "f3ee5ee543535a17f94c1ab36ae52d50d5e7a157b9f76e8df9bb0278e3a512a3",
-        "signature": "c75dbc81e5943b101891393c79a981c27e6dbac59847267a77f8cf4ca6b407fd"
+        "version": "acbe8cbd9aec45b0d04aac83ce65ecdc81d516511a96c5d23debcd917e6f5573",
+        "signature": "ec03c3ab6eea8f08daa961446d8cb56d7ba07e463cc723c340d3b3e1a1747cdb"
       },
       "../src/accounts/accounts.controller.ts": {
         "version": "04c9f051f87250ee3c664babb5b0968020e72479129ba70fb35dd7b932bc58db",
         "signature": "aa4fc36370ab7c9647fcde1c3b4c988c569dca58d09f97d79da2720b9a3abfc4"
       },
       "../src/accounts/accounts.module.ts": {
-        "version": "fe33015f759ffaf0a31297d86e52fab0bb52d28a9df61ec475e4e6188a9a01e7",
+        "version": "680cf4b098e48f86e3f9567b17b52b80c8996e9ab9de780ed5599c93b4975adc",
         "signature": "98de1f66ea71edcebabff749b010a6768051978ec049d0cbabf5407b3781134e"
       },
       "../node_modules/moment/moment.d.ts": {
@@ -2370,7 +2370,7 @@
         "signature": "f877351e2522ba5c34191bed2115f9a3d7cc6a4679b0ee3bc27950f691564834"
       },
       "../src/jobs/jobs.module.ts": {
-        "version": "06952368c63dc2d619b6f9fc776974fc73de7566506d1f20d3173c401cc084d5",
+        "version": "af909a64305613d80d87eff3830e66e2f006a6a9d1281d043367ec20dcdd4b5d",
         "signature": "d81f9b2b91d86572e1fa067c9ef5c3387b82322a064e0b9f81810085b52116e5"
       },
       "../src/app.module.ts": {
@@ -6487,6 +6487,10 @@
       ],
       "../src/accounts/accounts.service.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/typeorm/index.d.ts",
+        "../src/users/user.entity.ts",
+        "../node_modules/typeorm/index.d.ts",
+        "../src/accounts/account.entity.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -6497,8 +6501,12 @@
       ],
       "../src/accounts/accounts.module.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/typeorm/index.d.ts",
         "../src/accounts/accounts.service.ts",
         "../src/accounts/accounts.controller.ts",
+        "../src/auth/auth.module.ts",
+        "../src/accounts/account.entity.ts",
+        "../src/users/user.entity.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -6548,6 +6556,7 @@
         "../node_modules/@nestjs/typeorm/index.d.ts",
         "../src/jobs/job.entity.ts",
         "../src/bots/bots.module.ts",
+        "../src/accounts/accounts.module.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -10746,6 +10755,11 @@
         "../src/users/users.service.ts",
         "../node_modules/@types/passport-jwt/index.d.ts"
       ],
+      "../src/accounts/accounts.service.ts": [
+        "../node_modules/typeorm/index.d.ts",
+        "../src/users/user.entity.ts",
+        "../src/accounts/account.entity.ts"
+      ],
       "../node_modules/moment/moment.d.ts": [
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
@@ -11850,6 +11864,7 @@
       "../node_modules/delay/index.d.ts",
       "../node_modules/random-int/index.d.ts",
       "../src/jobs/jobs.service.ts",
+      "../src/jobs/jobs.controller.ts",
       "../src/jobs/jobs.module.ts",
       "../src/app.module.ts",
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts",
@@ -11947,8 +11962,7 @@
       "../node_modules/@types/webpack-sources/index.d.ts",
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
-      "../node_modules/@types/yargs/index.d.ts",
-      "../src/jobs/jobs.controller.ts"
+      "../node_modules/@types/yargs/index.d.ts"
     ]
   },
   "version": "3.6.3"
