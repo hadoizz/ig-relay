@@ -23,11 +23,11 @@ __decorate([
     __metadata("design:type", String)
 ], Account.prototype, "login", void 0);
 __decorate([
-    typeorm_1.Column(),
+    typeorm_1.Column({ select: false }),
     __metadata("design:type", String)
 ], Account.prototype, "password", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => user_entity_1.User, user => user.account),
+    typeorm_1.ManyToOne(type => user_entity_1.User, user => user.accounts),
     __metadata("design:type", user_entity_1.User)
 ], Account.prototype, "user", void 0);
 __decorate([

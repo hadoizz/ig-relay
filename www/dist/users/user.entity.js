@@ -28,8 +28,8 @@ __decorate([
 ], User.prototype, "password", void 0);
 __decorate([
     typeorm_1.OneToMany(type => account_entity_1.Account, account => account.user),
-    __metadata("design:type", account_entity_1.Account)
-], User.prototype, "account", void 0);
+    __metadata("design:type", Array)
+], User.prototype, "accounts", void 0);
 User = __decorate([
     typeorm_1.Entity()
 ], User);

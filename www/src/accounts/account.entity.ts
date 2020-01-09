@@ -10,10 +10,10 @@ export class Account {
   @Column()
   login: string
 
-  @Column()
+  @Column({ select: false })
   password: string
 
-  @ManyToOne(type => User, user => user.account)
+  @ManyToOne(type => User, user => user.accounts)
   user: User
 
   @OneToMany(type => Job, job => job.account)

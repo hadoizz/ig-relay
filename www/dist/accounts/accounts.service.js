@@ -14,29 +14,38 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const ramda_1 = require("ramda");
-const user_entity_1 = require("../users/user.entity");
 const typeorm_2 = require("typeorm");
 const account_entity_1 = require("./account.entity");
 let AccountsService = class AccountsService {
-    constructor(userRepository, accountRepository) {
-        this.userRepository = userRepository;
+    constructor(accountRepository) {
         this.accountRepository = accountRepository;
-        this.getAccounts(1);
+        this.getCredentials(1, 1);
     }
     async getAccounts(userId) {
-        const accounts = await this.userRepository.find({ relations: ['account'] });
-        const accountsId = ramda_1.map(ramda_1.pipe(ramda_1.prop('account'), ramda_1.prop('accountId')), accounts);
-        console.log(accountsId);
-        return accountsId;
+        const accounts = await this.accountRepository
+            .createQueryBuilder('account')
+            .select(['login', 'accountId'])
+            .innerJoin('account.user', 'user')
+            .where('user.userId = :userId', { userId })
+            .getRawMany();
+        return accounts;
+    }
+    async getCredentials(userId, accountId) {
+        const credentials = await this.accountRepository
+            .createQueryBuilder('account')
+            .select(['account.login as login', 'account.password as password'])
+            .innerJoin('account.user', 'user')
+            .where('account.accountId = :accountId', { accountId })
+            .andWhere('user.userId = :userId', { userId })
+            .getRawMany();
+        console.log(credentials);
+        return credentials;
     }
 };
 AccountsService = __decorate([
     common_1.Injectable(),
-    __param(0, typeorm_1.InjectRepository(user_entity_1.User)),
-    __param(1, typeorm_1.InjectRepository(account_entity_1.Account)),
-    __metadata("design:paramtypes", [typeorm_2.Repository,
-        typeorm_2.Repository])
+    __param(0, typeorm_1.InjectRepository(account_entity_1.Account)),
+    __metadata("design:paramtypes", [typeorm_2.Repository])
 ], AccountsService);
 exports.AccountsService = AccountsService;
 //# sourceMappingURL=accounts.service.js.map

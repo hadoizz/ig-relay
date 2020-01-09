@@ -14,7 +14,8 @@ const createJob = (cron: string, fn: () => Promise<void>) =>
 @Injectable()
 export class JobsService {
   constructor(
-    @InjectRepository(Job) private readonly jobsRepository: Repository<Job>,
+    @InjectRepository(Job) private readonly jobRepository: Repository<Job>,
+    @InjectRepository(User) private readonly userRepository: Repository<User>,
     private readonly botsService: BotsService
   ){
     this.loadJobs()
@@ -22,8 +23,7 @@ export class JobsService {
 
   private loadedJobs = new Map<number, CronJob>()
   private async loadJobs(){
-    const jobs = await this.jobsRepository.find({ relations: ['account'] })
-    jobs.forEach(({ jobId, cron, supervisor, supervisorPayload, maxDelaySeconds, account: { login, password } }) => {
+    (await this.getAllJobs()).forEach(({ jobId, cron, supervisor, supervisorPayload, maxDelaySeconds, login, password }) => {
       const job = createJob(cron, async () => {
         console.log(`Starting job ${jobId}`)
         await delay(random(0, maxDelaySeconds*1000))
@@ -49,29 +49,44 @@ export class JobsService {
     })
   }
 
-  async getJobs(userId: number, accountId: number): Promise<Job[]>{
-    return await this.jobsRepository.find({
-      select: ['jobId','cron','supervisor','supervisorPayload','maxDelaySeconds'],
-      join: { 
-        alias: 'job', 
-        innerJoin: { 
-          'account': 'job.account',
-          'user': 'account.user'
-        } 
-      },
-      where: qb => {
-        qb
-          .where('account.accountId = :accountId', { accountId })
-          .andWhere('user.userId = :userId', { userId })
-      },
-      order: { createdAt: 'DESC' }
-    })
+  /**
+   * Returns all jobs. 
+   */
+  private async getAllJobs(){
+    const jobs = await this.jobRepository
+      .createQueryBuilder('job')
+      .select(['jobId', 'cron', 'supervisor', 'supervisorPayload', 'maxDelaySeconds', 'account.login as login', 'account.password as password'])
+      .innerJoin('job.account', 'account')
+      .orderBy('createdAt', 'DESC')
+      .getRawMany()
+
+    return jobs
+  }
+
+  /**
+   * Returns jobs related to user and account.
+   * @param userId 
+   * @param accountId 
+   */
+  async getJobs(userId: number, accountId: number){
+    const jobs = await this.userRepository
+      .createQueryBuilder('user')
+      .select(['jobId', 'cron', 'supervisor', 'supervisorPayload', 'maxDelaySeconds'])
+      .innerJoin('user.accounts', 'account')
+      .innerJoin('account.jobs', 'job')
+      .where('user.userId = :userId', { userId })
+      .andWhere('account.accountId = :accountId', { accountId })
+      .orderBy('job.createdAt', 'DESC')
+      .getRawMany()
+    
+    console.log(jobs)
+    return jobs
   }
 
   async deleteJob(jobId: number){
     if(this.loadedJobs.has(jobId))
       this.loadedJobs.get(jobId).stop()
 
-    this.jobsRepository.delete(jobId)
+    this.jobRepository.delete(jobId)
   }
 }

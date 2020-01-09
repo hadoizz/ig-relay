@@ -19,21 +19,22 @@ const common_1 = require("@nestjs/common");
 const cron_1 = require("cron");
 const job_entity_1 = require("./job.entity");
 const typeorm_1 = require("@nestjs/typeorm");
+const user_entity_1 = require("../users/user.entity");
 const typeorm_2 = require("typeorm");
 const delay_1 = __importDefault(require("delay"));
 const random_int_1 = __importDefault(require("random-int"));
 const bots_service_1 = require("../bots/bots.service");
 const createJob = (cron, fn) => new cron_1.CronJob(cron, fn, null, true, 'Europe/Warsaw');
 let JobsService = class JobsService {
-    constructor(jobsRepository, botsService) {
-        this.jobsRepository = jobsRepository;
+    constructor(jobRepository, userRepository, botsService) {
+        this.jobRepository = jobRepository;
+        this.userRepository = userRepository;
         this.botsService = botsService;
         this.loadedJobs = new Map();
         this.loadJobs();
     }
     async loadJobs() {
-        const jobs = await this.jobsRepository.find({ relations: ['account'] });
-        jobs.forEach(({ jobId, cron, supervisor, supervisorPayload, maxDelaySeconds, account: { login, password } }) => {
+        (await this.getAllJobs()).forEach(({ jobId, cron, supervisor, supervisorPayload, maxDelaySeconds, login, password }) => {
             const job = createJob(cron, async () => {
                 console.log(`Starting job ${jobId}`);
                 await delay_1.default(random_int_1.default(0, maxDelaySeconds * 1000));
@@ -52,34 +53,40 @@ let JobsService = class JobsService {
             console.log(`Loaded job ${jobId}`);
         });
     }
+    async getAllJobs() {
+        const jobs = await this.jobRepository
+            .createQueryBuilder('job')
+            .select(['jobId', 'cron', 'supervisor', 'supervisorPayload', 'maxDelaySeconds', 'account.login as login', 'account.password as password'])
+            .innerJoin('job.account', 'account')
+            .orderBy('createdAt', 'DESC')
+            .getRawMany();
+        return jobs;
+    }
     async getJobs(userId, accountId) {
-        return await this.jobsRepository.find({
-            select: ['jobId', 'cron', 'supervisor', 'supervisorPayload', 'maxDelaySeconds'],
-            join: {
-                alias: 'job',
-                innerJoin: {
-                    'account': 'job.account',
-                    'user': 'account.user'
-                }
-            },
-            where: qb => {
-                qb
-                    .where('account.accountId = :accountId', { accountId })
-                    .andWhere('user.userId = :userId', { userId });
-            },
-            order: { createdAt: 'DESC' }
-        });
+        const jobs = await this.userRepository
+            .createQueryBuilder('user')
+            .select(['jobId', 'cron', 'supervisor', 'supervisorPayload', 'maxDelaySeconds'])
+            .innerJoin('user.accounts', 'account')
+            .innerJoin('account.jobs', 'job')
+            .where('user.userId = :userId', { userId })
+            .andWhere('account.accountId = :accountId', { accountId })
+            .orderBy('job.createdAt', 'DESC')
+            .getRawMany();
+        console.log(jobs);
+        return jobs;
     }
     async deleteJob(jobId) {
         if (this.loadedJobs.has(jobId))
             this.loadedJobs.get(jobId).stop();
-        this.jobsRepository.delete(jobId);
+        this.jobRepository.delete(jobId);
     }
 };
 JobsService = __decorate([
     common_1.Injectable(),
     __param(0, typeorm_1.InjectRepository(job_entity_1.Job)),
+    __param(1, typeorm_1.InjectRepository(user_entity_1.User)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository,
         bots_service_1.BotsService])
 ], JobsService);
 exports.JobsService = JobsService;

@@ -14,5 +14,5 @@ export class User {
   password: string
 
   @OneToMany(type => Account, account => account.user)
-  account?: Account
+  accounts?: Account[]
 }
