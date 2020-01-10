@@ -18,7 +18,8 @@ export class JobsService {
     @InjectRepository(User) private readonly userRepository: Repository<User>,
     private readonly botsService: BotsService
   ){
-    this.loadJobs()
+    if(process.env.NODE_ENV === 'production')
+      this.loadJobs()
   }
 
   private loadedJobs = new Map<number, CronJob>()
@@ -83,7 +84,25 @@ export class JobsService {
     return jobs
   }
 
-  async deleteJob(jobId: number){
+  /**
+   * Deletes job by jobId related to user.
+   * @param userId 
+   * @param jobId 
+   */
+  async deleteJob(userId: number, jobId: number){
+    const hasJob = Boolean(await this.userRepository
+      .createQueryBuilder('user')
+      .select(['jobId'])
+      .innerJoin('user.accounts', 'account')
+      .innerJoin('account.jobs', 'job')
+      .where('user.userId = :userId', { userId })
+      .andWhere('job.jobId = :jobId', { jobId })
+      .getRawOne()
+    )
+
+    if(!hasJob)
+      return
+
     if(this.loadedJobs.has(jobId))
       this.loadedJobs.get(jobId).stop()
 

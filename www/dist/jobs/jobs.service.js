@@ -31,7 +31,8 @@ let JobsService = class JobsService {
         this.userRepository = userRepository;
         this.botsService = botsService;
         this.loadedJobs = new Map();
-        this.loadJobs();
+        if (process.env.NODE_ENV === 'production')
+            this.loadJobs();
     }
     async loadJobs() {
         (await this.getAllJobs()).forEach(({ jobId, cron, supervisor, supervisorPayload, maxDelaySeconds, login, password }) => {
@@ -75,7 +76,17 @@ let JobsService = class JobsService {
         console.log(jobs);
         return jobs;
     }
-    async deleteJob(jobId) {
+    async deleteJob(userId, jobId) {
+        const hasJob = Boolean(await this.userRepository
+            .createQueryBuilder('user')
+            .select(['jobId'])
+            .innerJoin('user.accounts', 'account')
+            .innerJoin('account.jobs', 'job')
+            .where('user.userId = :userId', { userId })
+            .andWhere('job.jobId = :jobId', { jobId })
+            .getRawOne());
+        if (!hasJob)
+            return;
         if (this.loadedJobs.has(jobId))
             this.loadedJobs.get(jobId).stop();
         this.jobRepository.delete(jobId);

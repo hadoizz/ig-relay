@@ -11,5 +11,5 @@ export declare class JobsService {
     private loadJobs;
     private getAllJobs;
     getJobs(userId: number, accountId: number): Promise<any[]>;
-    deleteJob(jobId: number): Promise<void>;
+    deleteJob(userId: number, jobId: number): Promise<void>;
 }
