@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const ms_1 = __importDefault(require("ms"));
+const stringio_1 = require("@rauschma/stringio");
 const createBot_1 = __importDefault(require("./utils/createBot"));
 const getId_1 = __importDefault(require("./utils/getId"));
 const config_service_1 = require("../config/config.service");
@@ -27,6 +28,7 @@ let BotsService = class BotsService {
         const id = getId_1.default();
         const bot = await createBot_1.default(credentials);
         this.bots.set(id, bot);
+        this.clearAfterExit(bot, id);
         return { id, bot };
     }
     getCredentialsFromConfig() {
@@ -42,6 +44,7 @@ let BotsService = class BotsService {
             this.devBot = { id, botPromise };
             const bot = await botPromise;
             this.bots.set(id, bot);
+            this.clearAfterExit(bot, id);
             return { id };
         }
         await this.devBot.botPromise;
@@ -49,13 +52,23 @@ let BotsService = class BotsService {
             id: this.devBot.id
         };
     }
+    async clearAfterExit(bot, id) {
+        try {
+            await stringio_1.onExit(bot.slave.fork);
+        }
+        catch (error) { }
+        this.clearBot(id);
+    }
+    clearBot(id) {
+        this.bots.delete(id);
+        if (this.devBot !== null && this.devBot.id === id)
+            this.devBot = null;
+    }
     exitBot(id) {
         if (!this.hasBot(id))
             return;
         this.bots.get(id).exit();
-        this.bots.delete(id);
-        if (this.devBot !== null && this.devBot.id === id)
-            this.devBot = null;
+        this.clearBot(id);
         console.log(`Exitted ${id} bot`);
     }
     async executeSupervisor(id, name, payload) {

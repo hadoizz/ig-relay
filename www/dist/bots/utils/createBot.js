@@ -60,7 +60,7 @@ const createBot = async ({ login, password }) => {
         info: {
             startedAt
         },
-        fork: bot,
+        slave: bot,
         exit() {
             bot.emit('exit');
         },

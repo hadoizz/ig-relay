@@ -2105,6 +2105,10 @@
         "version": "8f1241f5d9f0d3d72117768b3c974e462840fbd85026fb66685078945404cf2f",
         "signature": "8f1241f5d9f0d3d72117768b3c974e462840fbd85026fb66685078945404cf2f"
       },
+      "../node_modules/@rauschma/stringio/dist/src/index.d.ts": {
+        "version": "99bea34cecdd1778f93e992e214898e4c0b816b13c37ff34a9a316cb98f0cad3",
+        "signature": "99bea34cecdd1778f93e992e214898e4c0b816b13c37ff34a9a316cb98f0cad3"
+      },
       "../node_modules/chalk/types/index.d.ts": {
         "version": "091f417275a51ab3c47b949723e9e8a193012157ecc64a96e2d7b1505e82f395",
         "signature": "091f417275a51ab3c47b949723e9e8a193012157ecc64a96e2d7b1505e82f395"
@@ -2125,13 +2129,9 @@
         "version": "9112eacc19a5ca3fac9b445d7c651d7e24ee71e40073c7234da05f3803b022a1",
         "signature": "9112eacc19a5ca3fac9b445d7c651d7e24ee71e40073c7234da05f3803b022a1"
       },
-      "../node_modules/@rauschma/stringio/dist/src/index.d.ts": {
-        "version": "99bea34cecdd1778f93e992e214898e4c0b816b13c37ff34a9a316cb98f0cad3",
-        "signature": "99bea34cecdd1778f93e992e214898e4c0b816b13c37ff34a9a316cb98f0cad3"
-      },
       "../src/bots/utils/createbot.ts": {
-        "version": "eb8aef843d54b801639edde0f3c83765684ef43ef5573b0f9cefe8ef1bb0270c",
-        "signature": "c67a9a73487a358c96d541a1b05ecac04ad35c614119a5a3c3bea8ed07d1223b"
+        "version": "ec59e055f62037868576bc13f1e049a9391dc1c75ed55e900bc8219fa2eff4e1",
+        "signature": "cb4530f065251d5ef13e5570d777f5675f4f2b492ad5e748ad26014f5d313cf6"
       },
       "../src/bots/utils/getid.ts": {
         "version": "118347e48dfc29be59d822c7ddd818e7392c11819e6c673d69e0c5cf195bd692",
@@ -2146,8 +2146,8 @@
         "signature": "d9e32ee906bf5486cc43ea52f9764ffb7c8d6fc042caf569e89b51749d5340f8"
       },
       "../src/bots/bots.service.ts": {
-        "version": "d30d45474c3569520f2ac468f852d91ae8aa2ebf5f2c1d714e1c664b979a82ef",
-        "signature": "c0d762c17ca1f46d89d0c23afcf906d946b3184f8c0a5af496ff857fb0224a26"
+        "version": "7f2919bb9fbb8ef34de862a35af320dbed725d74dce5c58b65dff4108a817591",
+        "signature": "ec08ecb4c7d41af5824d20ca4b4f00e210431f5dda622292272c58668322d116"
       },
       "../src/bots/bots.controller.ts": {
         "version": "ab0ef63c3e6876b2be3d97321bd88c19fd1374db25c2bccccbda8e3614bfdf58",
@@ -2190,7 +2190,7 @@
         "signature": "1f92cdebe2b1e0e6309ccdb6e8700cfd2d3e7131c7842f91b38ed1e4ff2a7090"
       },
       "../src/streaming/streaming.service.ts": {
-        "version": "5a94b1f420b0d372119394a028d5b07b97f415be7d67267b2b4acac90261f3e4",
+        "version": "cd7e69e516304bf0b3f0a9cc37880c2797d910aa5a85e7ea612482115e305868",
         "signature": "0352b97a5d672b39d253fb2dcb6b2472166478b2d2fe6aa61ac48b2f9baa5690"
       },
       "../src/streaming/streaming.controller.ts": {
@@ -2334,7 +2334,7 @@
         "signature": "2e5d258cf85349b02b015c3f1b8873c152d182c3819a7ccc3aff16fc3037a5fc"
       },
       "../src/accounts/accounts.service.ts": {
-        "version": "ad944af49d09241ff9c2942b8387edf9332984bcb274765032d1e835bd7f58d8",
+        "version": "6b8d5fced9103c31c4f1a26d94276157d74b6cab8f4635a25450e04af9a87282",
         "signature": "1a2ab14fcfee8e382e238e498a4891072ff48c1e6b815b8543e1cdc4b5fdb01c"
       },
       "../src/accounts/accounts.controller.ts": {
@@ -6124,6 +6124,13 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "../node_modules/@rauschma/stringio/dist/src/index.d.ts": [
+        "../node_modules/@types/node/stream.d.ts",
+        "../node_modules/@types/node/child_process.d.ts",
+        "../node_modules/@types/node/ts3.2/index.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "../node_modules/chalk/types/index.d.ts": [
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
@@ -6147,13 +6154,6 @@
       "../node_modules/fork-with-emitter/dist/index.d.ts": [
         "../node_modules/fork-with-emitter/dist/lib/slave.d.ts",
         "../node_modules/fork-with-emitter/dist/lib/master.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../node_modules/@rauschma/stringio/dist/src/index.d.ts": [
-        "../node_modules/@types/node/stream.d.ts",
-        "../node_modules/@types/node/child_process.d.ts",
-        "../node_modules/@types/node/ts3.2/index.d.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -6182,6 +6182,7 @@
       ],
       "../src/bots/bots.service.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@rauschma/stringio/dist/src/index.d.ts",
         "../src/bots/utils/createbot.ts",
         "../src/bots/utils/getid.ts",
         "../src/config/config.service.ts",
@@ -10498,6 +10499,13 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "../node_modules/@rauschma/stringio/dist/src/index.d.ts": [
+        "../node_modules/@types/node/stream.d.ts",
+        "../node_modules/@types/node/child_process.d.ts",
+        "../node_modules/@types/node/ts3.2/index.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "../node_modules/chalk/types/index.d.ts": [
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
@@ -10521,13 +10529,6 @@
       "../node_modules/fork-with-emitter/dist/index.d.ts": [
         "../node_modules/fork-with-emitter/dist/lib/slave.d.ts",
         "../node_modules/fork-with-emitter/dist/lib/master.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../node_modules/@rauschma/stringio/dist/src/index.d.ts": [
-        "../node_modules/@types/node/stream.d.ts",
-        "../node_modules/@types/node/child_process.d.ts",
-        "../node_modules/@types/node/ts3.2/index.d.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -11799,17 +11800,16 @@
       "../node_modules/@nestjs/typeorm/dist/typeorm.module.d.ts",
       "../node_modules/@nestjs/typeorm/dist/index.d.ts",
       "../node_modules/@nestjs/typeorm/index.d.ts",
+      "../node_modules/@rauschma/stringio/dist/src/index.d.ts",
       "../node_modules/chalk/types/index.d.ts",
       "../node_modules/fork-with-emitter/dist/lib/types/handler.d.ts",
       "../node_modules/fork-with-emitter/dist/lib/slave.d.ts",
       "../node_modules/fork-with-emitter/dist/lib/master.d.ts",
       "../node_modules/fork-with-emitter/dist/index.d.ts",
-      "../node_modules/@rauschma/stringio/dist/src/index.d.ts",
       "../src/bots/utils/createbot.ts",
       "../src/bots/utils/getid.ts",
       "../node_modules/dotenv/types/index.d.ts",
       "../src/config/config.service.ts",
-      "../src/bots/bots.service.ts",
       "../src/bots/bots.controller.ts",
       "../src/config/config.module.ts",
       "../src/bots/bots.module.ts",
@@ -11863,6 +11863,7 @@
       "../node_modules/@types/cron/index.d.ts",
       "../node_modules/delay/index.d.ts",
       "../node_modules/random-int/index.d.ts",
+      "../src/jobs/jobs.service.ts",
       "../src/jobs/jobs.controller.ts",
       "../src/jobs/jobs.module.ts",
       "../src/app.module.ts",
@@ -11962,7 +11963,7 @@
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
       "../node_modules/@types/yargs/index.d.ts",
-      "../src/jobs/jobs.service.ts"
+      "../src/bots/bots.service.ts"
     ]
   },
   "version": "3.6.3"

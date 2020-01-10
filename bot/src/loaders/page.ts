@@ -21,10 +21,18 @@ export default async () => {
     ]
   })
   browser.on('disconnected', () => {
-    console.log(`Browser disconnected`)
-    process.exit(1)
+    throw 'Browser disconnected'
   })
+  
   const page = await browser.newPage()
+  try {
+    page.on('error', msg => {
+      throw 'Page crashed'
+    })
+  } catch(error) {
+    throw error
+  }
+
   await page.emulate(device)
   await exposeDevFns(page)
   await page.goto('https://instagram.com/')

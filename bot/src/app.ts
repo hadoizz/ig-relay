@@ -4,6 +4,7 @@ import loadSubscribers from './loaders/subscibers'
 
 process.on('unhandledRejection', err => {
   console.error(err)
+  process.exit(1)
 })
 
 const starting = (async () => {

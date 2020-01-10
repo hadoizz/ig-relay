@@ -47,28 +47,28 @@ export class StreamingService {
     if(!this.botsService.hasBot(id))
       return
 
-    this.botsService.getBot(id).fork.on('streaming', handler)
+    this.botsService.getBot(id).slave.on('streaming', handler)
   }
 
   private detachStreamingHandler(id: string, handler: (data: string) => void){
     if(!this.botsService.hasBot(id))
       return
 
-    this.botsService.getBot(id).fork.removeListener('streaming', handler)
+    this.botsService.getBot(id).slave.removeListener('streaming', handler)
   }
 
   private orderBotToStartStreaming(id: string){
     if(!this.botsService.hasBot(id))
       return
 
-    this.botsService.getBot(id).fork.emit('startStreaming')
+    this.botsService.getBot(id).slave.emit('startStreaming')
   }
 
   private orderBotToStopStreaming(id: string){
     if(!this.botsService.hasBot(id))
       return
       
-    this.botsService.getBot(id).fork.emit('stopStreaming')
+    this.botsService.getBot(id).slave.emit('stopStreaming')
   }
 
   createStreaming(id: string, handleData: (data: string) => void){

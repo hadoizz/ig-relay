@@ -6,9 +6,7 @@ import { Account } from './account.entity';
 
 @Injectable()
 export class AccountsService {
-  constructor(@InjectRepository(Account) private readonly accountRepository: Repository<Account>){
-    this.getCredentials(1, 1)
-  }
+  constructor(@InjectRepository(Account) private readonly accountRepository: Repository<Account>){}
 
   /**
    * Returns accounts related to user.
@@ -38,8 +36,6 @@ export class AccountsService {
       .where('account.accountId = :accountId', { accountId })
       .andWhere('user.userId = :userId', { userId })
       .getRawMany()
-
-    console.log(credentials)
 
     return credentials
   }

@@ -19,7 +19,6 @@ const account_entity_1 = require("./account.entity");
 let AccountsService = class AccountsService {
     constructor(accountRepository) {
         this.accountRepository = accountRepository;
-        this.getCredentials(1, 1);
     }
     async getAccounts(userId) {
         const accounts = await this.accountRepository
@@ -38,7 +37,6 @@ let AccountsService = class AccountsService {
             .where('account.accountId = :accountId', { accountId })
             .andWhere('user.userId = :userId', { userId })
             .getRawMany();
-        console.log(credentials);
         return credentials;
     }
 };

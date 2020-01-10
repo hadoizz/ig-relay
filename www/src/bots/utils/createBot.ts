@@ -15,7 +15,7 @@ export interface ExecuteSupervisorCommand {
 
 export type Bot = {
   info: { startedAt: number },
-  fork: Slave,
+  slave: Slave,
   exit: () => any,
   executeSupervisor: (ExecuteSupervisorCommand) => Promise<any>,
   getSupervisors: () => Promise<any>
@@ -50,7 +50,7 @@ const createBot = async ({ login, password }: Credentials) => {
     info: {
       startedAt
     },
-    fork: bot,
+    slave: bot,
     exit(){
       bot.emit('exit')
     },

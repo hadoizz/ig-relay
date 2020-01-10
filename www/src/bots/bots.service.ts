@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import ms from 'ms'
+import { onExit } from '@rauschma/stringio'
 import createBot, { Bot, Credentials } from './utils/createBot'
 import getId from './utils/getId'
 import { ConfigService } from '../config/config.service'
@@ -20,6 +21,7 @@ export class BotsService {
     const id = getId()
     const bot = await createBot(credentials)
     this.bots.set(id, bot)
+    this.clearAfterExit(bot, id)
 
     return { id, bot }
   }
@@ -39,6 +41,8 @@ export class BotsService {
 
       const bot = await botPromise
       this.bots.set(id, bot)
+      this.clearAfterExit(bot, id)
+
       return { id }
     }
 
@@ -49,16 +53,31 @@ export class BotsService {
     }
   }
 
+  /**
+   * Waits for bot's crash/exit and clears.
+   * @param bot 
+   * @param id 
+   */
+  private async clearAfterExit(bot: Bot, id: string){
+    try {
+      await onExit(bot.slave.fork)
+    } catch(error) {}
+
+    this.clearBot(id)
+  }
+
+  private clearBot(id: string){
+    this.bots.delete(id)
+    if(this.devBot !== null && this.devBot.id === id)
+      this.devBot = null
+  }
+
   exitBot(id: string){
     if(!this.hasBot(id))
       return
 
     this.bots.get(id).exit()
-    this.bots.delete(id)
-    
-    if(this.devBot !== null && this.devBot.id === id)
-      this.devBot = null
-
+    this.clearBot(id)
     console.log(`Exitted ${id} bot`)
   }
   

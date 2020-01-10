@@ -11,7 +11,7 @@ export declare type Bot = {
     info: {
         startedAt: number;
     };
-    fork: Slave;
+    slave: Slave;
     exit: () => any;
     executeSupervisor: (ExecuteSupervisorCommand: any) => Promise<any>;
     getSupervisors: () => Promise<any>;
@@ -20,7 +20,7 @@ declare const createBot: ({ login, password }: Credentials) => Promise<{
     info: {
         startedAt: number;
     };
-    fork: Slave;
+    slave: Slave;
     exit(): void;
     executeSupervisor(executeSupervisorCommand: ExecuteSupervisorCommand): Promise<unknown>;
     getSupervisors(): Promise<unknown>;

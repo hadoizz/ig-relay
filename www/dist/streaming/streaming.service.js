@@ -41,22 +41,22 @@ let StreamingService = class StreamingService {
     attachStreamingHandler(id, handler) {
         if (!this.botsService.hasBot(id))
             return;
-        this.botsService.getBot(id).fork.on('streaming', handler);
+        this.botsService.getBot(id).slave.on('streaming', handler);
     }
     detachStreamingHandler(id, handler) {
         if (!this.botsService.hasBot(id))
             return;
-        this.botsService.getBot(id).fork.removeListener('streaming', handler);
+        this.botsService.getBot(id).slave.removeListener('streaming', handler);
     }
     orderBotToStartStreaming(id) {
         if (!this.botsService.hasBot(id))
             return;
-        this.botsService.getBot(id).fork.emit('startStreaming');
+        this.botsService.getBot(id).slave.emit('startStreaming');
     }
     orderBotToStopStreaming(id) {
         if (!this.botsService.hasBot(id))
             return;
-        this.botsService.getBot(id).fork.emit('stopStreaming');
+        this.botsService.getBot(id).slave.emit('stopStreaming');
     }
     createStreaming(id, handleData) {
         if (!this.botsService.hasBot(id))

@@ -11,7 +11,7 @@ export declare class BotsService {
             info: {
                 startedAt: number;
             };
-            fork: import("fork-with-emitter").Slave;
+            slave: import("fork-with-emitter").Slave;
             exit(): void;
             executeSupervisor(executeSupervisorCommand: import("./utils/createBot").ExecuteSupervisorCommand): Promise<unknown>;
             getSupervisors(): Promise<unknown>;
@@ -21,6 +21,8 @@ export declare class BotsService {
     createDevBot(credentials?: Credentials): Promise<{
         id: string;
     }>;
+    private clearAfterExit;
+    private clearBot;
     exitBot(id: string): void;
     executeSupervisor(id: string, name: string, payload?: any): Promise<any>;
     hasBot(id: string): boolean;
