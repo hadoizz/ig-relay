@@ -17,8 +17,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   appBar: {
     backgroundColor: theme.palette.background.paper,
-    boxShadow: 'none',
-    borderBottom: '1px solid #ddd'
+    //boxShadow: 'none',
+    //borderBottom: '1px solid #ddd'
   },
   toolbar: {
     margin: 'auto',
@@ -97,30 +97,30 @@ export default () => {
         <Hidden smUp implementation="css">
           <SwipeableDrawer open={mobileDrawerOpen} onOpen={() => setMobileDrawerOpen(true)} onClose={() => setMobileDrawerOpen(false)} className={classes.drawer}>
             <List className={classes.drawer}>
-              <ListItem button>
-                <ListItemIcon>
-                  <PhonelinkSetupOutlined />
-                </ListItemIcon>
-                <ListItemText>
-                  <Link href="/dev">
-                    <a className={classes.link}>
+              <Link href="/dev">
+                <a className={classes.link}>
+                  <ListItem button>
+                    <ListItemIcon>
+                      <PhonelinkSetupOutlined />
+                    </ListItemIcon>
+                    <ListItemText>
                       Dev
-                    </a>
-                  </Link>
-                </ListItemText>
-              </ListItem>
-              <ListItem button>
-                <ListItemIcon>
-                  <AccountCircleOutlined />
-                </ListItemIcon>
-                <ListItemText>
-                  <Link href="/profile">
-                    <a className={classes.link}>
-                      My profile
-                    </a>
-                  </Link>
-                </ListItemText>
-              </ListItem>
+                    </ListItemText>
+                  </ListItem>
+                </a>
+              </Link>
+              <Link href="/profile">
+                <a className={classes.link}>
+                <ListItem button>
+                  <ListItemIcon>
+                    <AccountCircleOutlined />
+                  </ListItemIcon>
+                  <ListItemText>
+                    My profile
+                  </ListItemText>
+                </ListItem>
+                </a>
+              </Link>
               <ListItem button onClick={logout}>
                 <ListItemIcon>
                   <ExitToAppOutlined />

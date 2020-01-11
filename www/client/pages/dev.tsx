@@ -12,6 +12,7 @@ import fetch from 'isomorphic-unfetch'
 import nextCookie from 'next-cookies'
 import { withAuthSync } from '../utils/auth'
 import getServerHost from '../utils/getServerHost'
+import redirectOnError from '../utils/redirectOnError'
 import Layout from '../components/Layout'
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -145,11 +146,6 @@ Dev.getInitialProps = async ctx => {
   const { token } = nextCookie(ctx)
   const apiUrl = getServerHost(ctx.req) + '/bots/dev'
 
-  const redirectOnError = () =>
-    process.browser
-      ? Router.push('/login')
-      : ctx.res.writeHead(302, { Location: '/login' }).end()
-
   try {
     const response = await fetch(apiUrl, { headers: { Authorization: `Bearer ${token}` } })
 
@@ -159,11 +155,11 @@ Dev.getInitialProps = async ctx => {
       return js
     } else {
       // https://github.com/developit/unfetch#caveats
-      return await redirectOnError()
+      return await redirectOnError(ctx)
     }
   } catch (error) {
     // Implementation or Network error
-    return redirectOnError()
+    return redirectOnError(ctx)
   }
 }
 

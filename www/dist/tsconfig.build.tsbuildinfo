@@ -2338,8 +2338,8 @@
         "signature": "1a2ab14fcfee8e382e238e498a4891072ff48c1e6b815b8543e1cdc4b5fdb01c"
       },
       "../src/accounts/accounts.controller.ts": {
-        "version": "04c9f051f87250ee3c664babb5b0968020e72479129ba70fb35dd7b932bc58db",
-        "signature": "aa4fc36370ab7c9647fcde1c3b4c988c569dca58d09f97d79da2720b9a3abfc4"
+        "version": "c26e4bbf846d27de833e2bdeb672684c1f9aa7c231399ef0a455c4bc9cb6194b",
+        "signature": "96eb607287bf68c35a8240c018606c53cbc837802ffef8ac9c9b2702ee4df5cd"
       },
       "../src/accounts/accounts.module.ts": {
         "version": "680cf4b098e48f86e3f9567b17b52b80c8996e9ab9de780ed5599c93b4975adc",
@@ -6497,6 +6497,8 @@
       ],
       "../src/accounts/accounts.controller.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/passport/index.d.ts",
+        "../src/accounts/accounts.service.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -11271,6 +11273,9 @@
         "../node_modules/@types/yargs-parser/index.d.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/accounts/accounts.controller.ts": [
+        "../src/accounts/accounts.service.ts"
       ]
     },
     "semanticDiagnosticsPerFile": [
@@ -11858,8 +11863,6 @@
       "../src/auth/jwt.strategy.ts",
       "../src/auth/auth.module.ts",
       "../src/accounts/accounts.service.ts",
-      "../src/accounts/accounts.controller.ts",
-      "../src/accounts/accounts.module.ts",
       "../node_modules/moment/moment.d.ts",
       "../node_modules/@types/cron/index.d.ts",
       "../node_modules/delay/index.d.ts",
@@ -11907,7 +11910,6 @@
       "../node_modules/@nestjs/testing/interfaces/index.d.ts",
       "../node_modules/@nestjs/testing/test.d.ts",
       "../node_modules/@nestjs/testing/index.d.ts",
-      "../src/accounts/accounts.controller.spec.ts",
       "../src/accounts/accounts.service.spec.ts",
       "../src/auth/auth.controller.spec.ts",
       "../src/auth/auth.service.spec.ts",
@@ -11963,7 +11965,10 @@
       "../node_modules/@types/webpack-sources/index.d.ts",
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
-      "../node_modules/@types/yargs/index.d.ts"
+      "../node_modules/@types/yargs/index.d.ts",
+      "../src/accounts/accounts.controller.ts",
+      "../src/accounts/accounts.controller.spec.ts",
+      "../src/accounts/accounts.module.ts"
     ]
   },
   "version": "3.6.3"
