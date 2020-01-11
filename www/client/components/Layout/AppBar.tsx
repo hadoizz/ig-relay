@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { AppBar, Toolbar, Container, Typography, makeStyles, Theme, IconButton, Hidden, Drawer, SwipeableDrawer, useTheme, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core'
-import { Menu, Close, AccountCircleOutlined, ExitToAppOutlined } from '@material-ui/icons'
+import { Menu, PhonelinkSetupOutlined, AccountCircleOutlined, ExitToAppOutlined } from '@material-ui/icons'
 import { logout } from '../../utils/auth'
 
 const drawerWidth = 240
@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme: Theme) => ({
       backgroundColor: theme.palette.background.default
     }
   },
+  grow: {
+    flexGrow: 1
+  },
   appBar: {
     backgroundColor: theme.palette.background.paper,
     boxShadow: 'none',
@@ -21,7 +24,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     margin: 'auto',
     maxWidth: 960,
     width: '100%',
-    padding: `0 ${theme.spacing(4)}px`
+    padding: `0 ${theme.spacing(4)}px`,
+    [theme.breakpoints.down('sm')]: {
+      padding: `0 ${theme.spacing(1)}px`
+    },
+    [theme.breakpoints.down('xs')]: {
+      padding: 'unset'
+    }
   },
   logo: {
     display: 'inline',
@@ -32,6 +41,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   drawer: {
     width: drawerWidth
+  },
+  link: {
+    textDecoration: 'none',
+    color: 'inherit'
   }
 }))
 
@@ -55,10 +68,30 @@ export default () => {
           <Typography variant="h3" className={classes.logo}>
             <Link href="/">
               <a>
-                Insta
+                InstaBot
               </a>
             </Link>
           </Typography>
+          <div className={classes.grow} />
+          <Hidden smDown implementation="css">
+            <Link href="/dev">
+              <a>
+                <IconButton color="primary">
+                  <PhonelinkSetupOutlined />
+                </IconButton>
+              </a>
+            </Link>
+            <Link href="/profile">
+              <a>
+                <IconButton color="primary">
+                  <AccountCircleOutlined />
+                </IconButton>
+              </a>
+            </Link>
+            <IconButton color="secondary" onClick={logout}>
+              <ExitToAppOutlined />
+            </IconButton>
+          </Hidden>
         </Toolbar>
         { /* mobile drawer */ }
         <Hidden smUp implementation="css">
@@ -66,10 +99,26 @@ export default () => {
             <List className={classes.drawer}>
               <ListItem button>
                 <ListItemIcon>
+                  <PhonelinkSetupOutlined />
+                </ListItemIcon>
+                <ListItemText>
+                  <Link href="/dev">
+                    <a className={classes.link}>
+                      Dev
+                    </a>
+                  </Link>
+                </ListItemText>
+              </ListItem>
+              <ListItem button>
+                <ListItemIcon>
                   <AccountCircleOutlined />
                 </ListItemIcon>
                 <ListItemText>
-                  Profile
+                  <Link href="/profile">
+                    <a className={classes.link}>
+                      My profile
+                    </a>
+                  </Link>
                 </ListItemText>
               </ListItem>
               <ListItem button onClick={logout}>

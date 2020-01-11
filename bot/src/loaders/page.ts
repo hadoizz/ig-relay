@@ -25,13 +25,9 @@ export default async () => {
   })
   
   const page = await browser.newPage()
-  try {
-    page.on('error', msg => {
-      throw 'Page crashed'
-    })
-  } catch(error) {
-    throw error
-  }
+  page.on('error', msg => {
+    throw 'Page crashed'
+  })
 
   await page.emulate(device)
   await exposeDevFns(page)
