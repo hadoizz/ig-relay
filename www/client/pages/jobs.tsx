@@ -55,5 +55,4 @@ Jobs.getInitialProps = async ctx => {
   
 }
 
-//@ts-ignore
 export default withAuthSync(Jobs)

@@ -32,7 +32,7 @@ export const logout = () => {
   Router.push('/login')
 }
 
-export const withAuthSync = (WrappedComponent: NextPage) => {
+export const withAuthSync = (WrappedComponent: NextPage<any>) => {
   const Wrapper = props => {
     const syncLogout = event => {
       if (event.key === 'logout') {

@@ -1,5 +1,5 @@
 import { Typography, Container } from '@material-ui/core'
-import Layout from '../components/Layout/Layout'
+import Layout from '../components/Layout'
 
 export default () => {
 
