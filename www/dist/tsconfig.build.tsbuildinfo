@@ -2362,11 +2362,11 @@
         "signature": "20aa24ce3ffe34fb1b563122479449c6330fac5509d3d076680ec657c4eb949f"
       },
       "../src/jobs/jobs.service.ts": {
-        "version": "26adff1389bc20c5b2fbe7e21f6f1dce3efae5811ddc95b7b3e5a80abc8bc6c8",
+        "version": "e962a300d8bbfbfbe0492f540ea0f224ff49992d6a735d04295b23886db8d6e6",
         "signature": "94d2444ff9f9738179436a244f04cd5cdb608d27f564024ccdca19a32a328ffa"
       },
       "../src/jobs/jobs.controller.ts": {
-        "version": "9f70ae76e8255ab58643355d0c51602de63f8bd66ca9ecfa94b2b81cd3a77d76",
+        "version": "02f55b99f55de1156c1c5a6dac91e7a9d80ec60b8a21c508f82c6efbe2af4c15",
         "signature": "f143d5eca3e98f0ca7be2c3eb140abcb60f31d9ab9cbe181d0767011eab1ccd6"
       },
       "../src/jobs/jobs.module.ts": {
@@ -11869,7 +11869,6 @@
       "../node_modules/@types/cron/index.d.ts",
       "../node_modules/delay/index.d.ts",
       "../node_modules/random-int/index.d.ts",
-      "../src/jobs/jobs.service.ts",
       "../src/jobs/jobs.controller.ts",
       "../src/jobs/jobs.module.ts",
       "../src/app.module.ts",
@@ -11968,7 +11967,8 @@
       "../node_modules/@types/webpack-sources/index.d.ts",
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
-      "../node_modules/@types/yargs/index.d.ts"
+      "../node_modules/@types/yargs/index.d.ts",
+      "../src/jobs/jobs.service.ts"
     ]
   },
   "version": "3.6.3"

@@ -20,8 +20,6 @@ let JobsController = class JobsController {
         this.jobsService = jobsService;
     }
     async getJobs(accountId, req) {
-        if (!accountId || !req.user)
-            return [];
         return await this.jobsService.getJobs(parseInt(req.user.userId), parseInt(accountId));
     }
 };

@@ -14,8 +14,6 @@ interface Account {
 }
 
 const Index = ({ accounts, account = accounts[0] }: { accounts: Account[], account: Account }) => {
-  console.log(accounts)
-
   const [menuEl, setMenuEl] = useState(null)
   const handleOpenMenu = event =>
     setMenuEl(event.currentTarget)

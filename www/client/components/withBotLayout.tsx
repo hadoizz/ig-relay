@@ -10,6 +10,7 @@ import redirectOnError from '../utils/redirectOnError'
 import { Card, CardContent, Grid } from '@material-ui/core'
 import { FormatListBulletedOutlined, TrendingUpOutlined } from '@material-ui/icons'
 import { NextPage } from 'next'
+import { connect } from 'react-redux'
 
 const routes = [{
   name: 'Jobs',
@@ -21,15 +22,20 @@ const routes = [{
   icon: <FormatListBulletedOutlined />
 }]
 
-const BotLayout = ({ children, accounts, account }) => {
-  const { route: currentRoute } = useRouter()
-  const [currentLogin, setCurrentLogin] = useState(account.login)
+const mapStateToProps = state => ({ account: state.account })
+const mapDispatchToProps = dispatch => ({
+  setAccount: account => dispatch({ type: 'setAccount', payload: account })
+})
+
+const BotLayout = connect(mapStateToProps, mapDispatchToProps)(({ children, accounts, account, setAccount }) => {
+  const { route: currentRoute, replace, pathname } = useRouter()
 
   const changeAccount = (accountId: number) => useCallback(() => {
     cookie.set('account', accountId)
-    setCurrentLogin(accounts.find(account => account.accountId === accountId).login)
+    setAccount(accounts.find(account => account.accountId === accountId))
     handleCloseMenu()
-  }, [currentLogin])
+    replace(pathname, pathname)
+  }, [])
 
   const [menuEl, setMenuEl] = useState(null)
   const handleOpenMenu = useCallback(event =>
@@ -42,7 +48,7 @@ const BotLayout = ({ children, accounts, account }) => {
     <>
       <Button aria-controls="accounts-menu" aria-haspopup="true" onClick={handleOpenMenu}>
       {
-        currentLogin
+        account.login
       }
       </Button>
       <Menu id="accounts-menu" anchorEl={menuEl} keepMounted open={Boolean(menuEl)} onClose={handleCloseMenu}>
@@ -96,19 +102,20 @@ const BotLayout = ({ children, accounts, account }) => {
       </Grid>
     </Layout>
   )
-}
+})
 
 export default (WrappedComponent: NextPage<any>) => {
-  const Wrapper = ({ accounts, account, ...props }) =>
-    <BotLayout accounts={accounts} account={account}>
+  const Wrapper = ({ accounts, ...props }) =>
+    <BotLayout accounts={accounts}>
       <WrappedComponent {...props} />
     </BotLayout>
 
   Wrapper.getInitialProps = async ctx => {
-    const [accounts, componentProps] = await Promise.all([getAccounts(ctx), WrappedComponent.getInitialProps && WrappedComponent.getInitialProps(ctx)])
+    const accounts = await getAccounts(ctx)
     if(accounts === null){
       redirectOnError(ctx)
 
+      const componentProps = await (WrappedComponent.getInitialProps && WrappedComponent.getInitialProps(ctx))
       return { ...componentProps, accounts: [], account: null }
     }
 
@@ -116,7 +123,10 @@ export default (WrappedComponent: NextPage<any>) => {
     //@ts-ignore
     const account = (accountId && accounts.find(account => account.accountId === accountId)) || accounts[0]
 
-    return { ...componentProps, accounts, account }
+    ctx.store.dispatch({ type: 'setAccount', payload: account })
+
+    const componentProps = await (WrappedComponent.getInitialProps && WrappedComponent.getInitialProps(ctx))
+    return { ...componentProps, accounts }
   }
 
   return Wrapper

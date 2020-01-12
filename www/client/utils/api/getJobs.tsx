@@ -1,20 +1,27 @@
 import nextCookie from 'next-cookies'
 import getServerHost from '../getServerHost'
 
-interface Job {
-  login: string
-  accountId: number
+export interface Job {
+  jobId: number
+  cron: string
+  supervisor: string
+  supervisorPayload: string
+  maxDelaySeconds: string
 }
 
 export default async (ctx) => {
+  const { account } = ctx.store.getState()
+  if(account === null)
+    return null
+
   const { token } = nextCookie(ctx)
-  const apiUrl = getServerHost(ctx.req) + '/accounts'
+  const apiUrl = `${getServerHost(ctx.req)}/jobs/${account.accountId}`
 
   try {
     const response = await fetch(apiUrl, { headers: { Authorization: `Bearer ${token}` } })
     if(response.ok){
-      const accounts: Account[] = await response.json()
-      return accounts
+      const jobs = await response.json() as Job[]
+      return jobs
     } else {
       return null
     }

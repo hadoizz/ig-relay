@@ -80,7 +80,6 @@ export class JobsService {
       .orderBy('job.createdAt', 'DESC')
       .getRawMany()
     
-    console.log(jobs)
     return jobs
   }
 

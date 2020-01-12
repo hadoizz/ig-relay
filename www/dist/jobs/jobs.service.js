@@ -73,7 +73,6 @@ let JobsService = class JobsService {
             .andWhere('account.accountId = :accountId', { accountId })
             .orderBy('job.createdAt', 'DESC')
             .getRawMany();
-        console.log(jobs);
         return jobs;
     }
     async deleteJob(userId, jobId) {

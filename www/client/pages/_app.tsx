@@ -7,10 +7,15 @@ import {createStore} from "redux"
 import {Provider} from "react-redux"
 import withRedux from "next-redux-wrapper"
 
-const reducer = (state = {foo: ''}, action) => {
+const initialState = () => ({
+  user: null,
+  account: null
+})
+
+const reducer = (state = initialState(), action) => {
   switch (action.type) {
-    case 'FOO':
-      return {...state, foo: action.payload};
+    case 'setAccount':
+      return {...state, account: action.payload};
     default:
       return state
   }
@@ -41,6 +46,17 @@ class MyApp extends App {
   //
   //   return { ...appProps }
   // }
+
+  static async getInitialProps({Component, ctx}) {
+
+    // we can dispatch from here too
+    ctx.store.dispatch({type: 'FOO', payload: 'foo'});
+
+    const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
+
+    return {pageProps};
+
+}
 
   render() {
     //@ts-ignore
