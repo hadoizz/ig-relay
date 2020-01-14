@@ -1,4 +1,5 @@
 import nextCookie from 'next-cookies'
+import fetch from 'isomorphic-unfetch'
 import getServerHost from '../getServerHost'
 
 export interface Job {
