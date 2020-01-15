@@ -13,6 +13,6 @@ export class User {
   @Column()
   password: string
 
-  @OneToMany(type => Account, account => account.user)
+  @OneToMany(type => Account, account => account.user, { cascade: ['insert'] })
   accounts?: Account[]
 }

@@ -24,9 +24,9 @@ let BotsService = class BotsService {
         this.bots = new Map();
         this.devBot = null;
     }
-    async createBot(credentials) {
+    async createBot(credentials, beforeLoad) {
         const id = getId_1.default();
-        const bot = await createBot_1.default(credentials);
+        const bot = await createBot_1.default(credentials, beforeLoad);
         this.bots.set(id, bot);
         this.clearAfterExit(bot, id);
         return { id, bot };

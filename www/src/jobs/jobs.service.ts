@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 import delay from 'delay'
 import random from 'random-int'
 import { BotsService } from '../bots/bots.service';
+import { LogsService } from '../logs/logs.service';
 
 const createJob = (cron: string, fn: () => Promise<void>) =>
   new CronJob(cron, fn, null, true, 'Europe/Warsaw')
@@ -16,7 +17,8 @@ export class JobsService {
   constructor(
     @InjectRepository(Job) private readonly jobRepository: Repository<Job>,
     @InjectRepository(User) private readonly userRepository: Repository<User>,
-    private readonly botsService: BotsService
+    private readonly botsService: BotsService,
+    private readonly logsService: LogsService
   ){
     if(process.env.NODE_ENV === 'production')
       this.loadJobs()
@@ -24,7 +26,7 @@ export class JobsService {
 
   private loadedJobs = new Map<number, CronJob>()
   private async loadJobs(){
-    (await this.getAllJobs()).forEach(({ jobId, cron, supervisor, supervisorPayload, maxDelaySeconds, login, password }) => {
+    (await this.getAllJobs()).forEach(({ jobId, cron, supervisor, supervisorPayload, maxDelaySeconds, accountId, login, password }) => {
       const job = createJob(cron, async () => {
         console.log(`Starting job ${jobId}`)
         await delay(random(0, maxDelaySeconds*1000))
@@ -33,7 +35,9 @@ export class JobsService {
         if(!this.loadedJobs.has(jobId))
           return
 
-        const { id } = await this.botsService.createBot({ login, password })
+        const { id } = await this.botsService.createBot({ login, password },
+          slave => this.logsService.attachLogsListenersToSlave(slave, accountId)  
+        )
         const result = await this.botsService.executeSupervisor(id, supervisor, supervisorPayload)
         await this.botsService.exitBot(id)
 
@@ -56,7 +60,7 @@ export class JobsService {
   private async getAllJobs(){
     const jobs = await this.jobRepository
       .createQueryBuilder('job')
-      .select(['jobId', 'cron', 'supervisor', 'supervisorPayload', 'maxDelaySeconds', 'account.login as login', 'account.password as password'])
+      .select(['jobId', 'cron', 'supervisor', 'supervisorPayload', 'maxDelaySeconds', 'accountId', 'account.login as login', 'account.password as password'])
       .innerJoin('job.account', 'account')
       .orderBy('createdAt', 'DESC')
       .getRawMany()

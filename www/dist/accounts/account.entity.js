@@ -29,19 +29,19 @@ __decorate([
     __metadata("design:type", String)
 ], Account.prototype, "password", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => user_entity_1.User, user => user.accounts),
+    typeorm_1.ManyToOne(type => user_entity_1.User, user => user.accounts, { cascade: ['insert'] }),
     __metadata("design:type", user_entity_1.User)
 ], Account.prototype, "user", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => job_entity_1.Job, job => job.account),
+    typeorm_1.OneToMany(type => job_entity_1.Job, job => job.account, { cascade: ['insert'] }),
     __metadata("design:type", Array)
 ], Account.prototype, "jobs", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => log_entity_1.Log, log => log.account),
+    typeorm_1.OneToMany(type => log_entity_1.Log, log => log.account, { cascade: ['insert'] }),
     __metadata("design:type", Array)
 ], Account.prototype, "logs", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => followed_entity_1.Followed, Followed => Followed.account),
+    typeorm_1.OneToMany(type => followed_entity_1.Followed, Followed => Followed.account, { cascade: ['insert'] }),
     __metadata("design:type", Array)
 ], Account.prototype, "followed", void 0);
 Account = __decorate([

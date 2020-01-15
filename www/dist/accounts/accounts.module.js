@@ -19,7 +19,8 @@ AccountsModule = __decorate([
     common_1.Module({
         imports: [typeorm_1.TypeOrmModule.forFeature([account_entity_1.Account, user_entity_1.User]), auth_module_1.AuthModule],
         providers: [accounts_service_1.AccountsService],
-        controllers: [accounts_controller_1.AccountsController]
+        controllers: [accounts_controller_1.AccountsController],
+        exports: [accounts_service_1.AccountsService]
     })
 ], AccountsModule);
 exports.AccountsModule = AccountsModule;

@@ -5,19 +5,7 @@ import { Repository } from 'typeorm'
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectRepository(User) private readonly usersRepository: Repository<User>){
-    this.createDevUser()
-  }
-
-  async createDevUser(){
-    const username = 'admin'
-    const password = 'admin'
-
-    if(await this.getUser({ username }))
-      return
-
-    this.createUser({ username, password })
-  }
+  constructor(@InjectRepository(User) private readonly usersRepository: Repository<User>){}
 
   async getUsers(): Promise<User[]>{
     return await this.usersRepository.find()

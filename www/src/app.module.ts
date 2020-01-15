@@ -7,6 +7,10 @@ import { AccountsModule } from './accounts/accounts.module';
 import { JobsModule } from './jobs/jobs.module';
 import { UsersModule } from './users/users.module';
 import { LogsModule } from './logs/logs.module';
+import { AppService } from './app.service';
+import { User } from './users/user.entity';
+import { Account } from './accounts/account.entity';
+import { Job } from './jobs/job.entity';
 
 @Module({
   imports: [
@@ -17,7 +21,11 @@ import { LogsModule } from './logs/logs.module';
     AccountsModule,
     JobsModule,
     UsersModule,
-    LogsModule
-  ]
+    LogsModule,
+
+    //appservice
+    TypeOrmModule.forFeature([User, Account, Job])
+  ],
+  providers: [AppService]
 })
 export class AppModule {}

@@ -38,7 +38,7 @@ __decorate([
     __metadata("design:type", String)
 ], Job.prototype, "createdAt", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => account_entity_1.Account, account => account.jobs),
+    typeorm_1.ManyToOne(type => account_entity_1.Account, account => account.jobs, { cascade: ['insert'] }),
     __metadata("design:type", account_entity_1.Account)
 ], Job.prototype, "account", void 0);
 Job = __decorate([

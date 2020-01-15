@@ -21,6 +21,6 @@ export class Job {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
   createdAt?: string
 
-  @ManyToOne(type => Account, account => account.jobs)
+  @ManyToOne(type => Account, account => account.jobs, { cascade: ['insert'] })
   account: Account
 }

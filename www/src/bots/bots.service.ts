@@ -4,6 +4,7 @@ import { onExit } from '@rauschma/stringio'
 import createBot, { Bot, Credentials } from './utils/createBot'
 import getId from './utils/getId'
 import { ConfigService } from '../config/config.service'
+import { Slave } from 'fork-with-emitter'
 
 type DevBot = null | {
   id: string,
@@ -17,9 +18,9 @@ export class BotsService {
   private readonly bots = new Map<string, Bot>()
   private devBot: DevBot = null
 
-  async createBot(credentials: Credentials){
+  async createBot(credentials: Credentials, beforeLoad?: (Slave) => any){
     const id = getId()
-    const bot = await createBot(credentials)
+    const bot = await createBot(credentials, beforeLoad)
     this.bots.set(id, bot)
     this.clearAfterExit(bot, id)
 

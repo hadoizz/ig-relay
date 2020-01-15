@@ -16,7 +16,7 @@ export declare type Bot = {
     executeSupervisor: (ExecuteSupervisorCommand: any) => Promise<any>;
     getSupervisors: () => Promise<any>;
 };
-declare const createBot: ({ login, password }: Credentials) => Promise<{
+declare const createBot: ({ login, password }: Credentials, beforeLoad?: (Slave: any) => any) => Promise<{
     info: {
         startedAt: number;
     };

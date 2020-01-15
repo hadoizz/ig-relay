@@ -15,6 +15,10 @@ const accounts_module_1 = require("./accounts/accounts.module");
 const jobs_module_1 = require("./jobs/jobs.module");
 const users_module_1 = require("./users/users.module");
 const logs_module_1 = require("./logs/logs.module");
+const app_service_1 = require("./app.service");
+const user_entity_1 = require("./users/user.entity");
+const account_entity_1 = require("./accounts/account.entity");
+const job_entity_1 = require("./jobs/job.entity");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -27,8 +31,10 @@ AppModule = __decorate([
             accounts_module_1.AccountsModule,
             jobs_module_1.JobsModule,
             users_module_1.UsersModule,
-            logs_module_1.LogsModule
-        ]
+            logs_module_1.LogsModule,
+            typeorm_1.TypeOrmModule.forFeature([user_entity_1.User, account_entity_1.Account, job_entity_1.Job])
+        ],
+        providers: [app_service_1.AppService]
     })
 ], AppModule);
 exports.AppModule = AppModule;

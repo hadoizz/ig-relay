@@ -27,7 +27,7 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => account_entity_1.Account, account => account.user),
+    typeorm_1.OneToMany(type => account_entity_1.Account, account => account.user, { cascade: ['insert'] }),
     __metadata("design:type", Array)
 ], User.prototype, "accounts", void 0);
 User = __decorate([

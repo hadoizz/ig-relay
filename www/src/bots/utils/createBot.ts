@@ -21,7 +21,7 @@ export type Bot = {
   getSupervisors: () => Promise<any>
 }
 
-const createBot = async ({ login, password }: Credentials) => {
+const createBot = async ({ login, password }: Credentials, beforeLoad?: (Slave) => any) => {
   const bot = createSlave('app.js', {
     cwd: resolve('../bot/dist/'),
     env: {
@@ -31,6 +31,9 @@ const createBot = async ({ login, password }: Credentials) => {
       PASSWORD: password
     }
   })
+
+  if(beforeLoad !== undefined)
+    beforeLoad(bot)
 
   ;(async () => {
     for await (const line of chunksToLinesAsync(bot.fork.stdout))

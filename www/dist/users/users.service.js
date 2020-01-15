@@ -19,14 +19,6 @@ const typeorm_2 = require("typeorm");
 let UsersService = class UsersService {
     constructor(usersRepository) {
         this.usersRepository = usersRepository;
-        this.createDevUser();
-    }
-    async createDevUser() {
-        const username = 'admin';
-        const password = 'admin';
-        if (await this.getUser({ username }))
-            return;
-        this.createUser({ username, password });
     }
     async getUsers() {
         return await this.usersRepository.find();

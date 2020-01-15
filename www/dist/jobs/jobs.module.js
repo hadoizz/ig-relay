@@ -14,11 +14,12 @@ const job_entity_1 = require("./job.entity");
 const bots_module_1 = require("../bots/bots.module");
 const accounts_module_1 = require("../accounts/accounts.module");
 const user_entity_1 = require("../users/user.entity");
+const logs_module_1 = require("../logs/logs.module");
 let JobsModule = class JobsModule {
 };
 JobsModule = __decorate([
     common_1.Module({
-        imports: [typeorm_1.TypeOrmModule.forFeature([job_entity_1.Job, user_entity_1.User]), bots_module_1.BotsModule, accounts_module_1.AccountsModule],
+        imports: [typeorm_1.TypeOrmModule.forFeature([job_entity_1.Job, user_entity_1.User]), bots_module_1.BotsModule, accounts_module_1.AccountsModule, logs_module_1.LogsModule],
         providers: [jobs_service_1.JobsService],
         controllers: [jobs_controller_1.JobsController]
     })

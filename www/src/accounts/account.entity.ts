@@ -15,15 +15,15 @@ export class Account {
   @Column({ select: false })
   password: string
 
-  @ManyToOne(type => User, user => user.accounts)
+  @ManyToOne(type => User, user => user.accounts, { cascade: ['insert'] })
   user: User
 
-  @OneToMany(type => Job, job => job.account)
+  @OneToMany(type => Job, job => job.account, { cascade: ['insert'] })
   jobs?: Job[]
 
-  @OneToMany(type => Log, log => log.account)
+  @OneToMany(type => Log, log => log.account, { cascade: ['insert'] })
   logs?: Log[]
 
-  @OneToMany(type => Followed, Followed => Followed.account)
+  @OneToMany(type => Followed, Followed => Followed.account, { cascade: ['insert'] })
   followed?: Followed[]
 }

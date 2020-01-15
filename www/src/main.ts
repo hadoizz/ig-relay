@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { NestFactory } from '@nestjs/core'
 import cors from 'cors'
 import { AppModule } from './app.module'
