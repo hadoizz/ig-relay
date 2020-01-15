@@ -18,13 +18,8 @@ export class Job {
   @Column({ default: 0 })
   maxDelaySeconds?: number
 
-  @Column()
-  createdAt?: number
-
-  @BeforeInsert()
-  updateDateCreation(){
-    this.createdAt = Math.round(new Date().getTime() / 1000)
-  }
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
+  createdAt?: string
 
   @ManyToOne(type => Account, account => account.jobs)
   account: Account

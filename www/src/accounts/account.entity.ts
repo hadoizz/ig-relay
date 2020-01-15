@@ -1,6 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from 'typeorm'
 import { Job } from '../jobs/job.entity'
 import { User } from '../users/user.entity'
+import { Log } from '../logs/log.entity'
+import { Followed } from '../logs/followed.entity'
 
 @Entity()
 export class Account {
@@ -18,4 +20,10 @@ export class Account {
 
   @OneToMany(type => Job, job => job.account)
   jobs?: Job[]
+
+  @OneToMany(type => Log, log => log.account)
+  logs?: Log[]
+
+  @OneToMany(type => Followed, Followed => Followed.account)
+  followed?: Followed[]
 }

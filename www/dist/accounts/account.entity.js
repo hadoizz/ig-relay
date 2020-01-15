@@ -12,6 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const job_entity_1 = require("../jobs/job.entity");
 const user_entity_1 = require("../users/user.entity");
+const log_entity_1 = require("../logs/log.entity");
+const followed_entity_1 = require("../logs/followed.entity");
 let Account = class Account {
 };
 __decorate([
@@ -34,6 +36,14 @@ __decorate([
     typeorm_1.OneToMany(type => job_entity_1.Job, job => job.account),
     __metadata("design:type", Array)
 ], Account.prototype, "jobs", void 0);
+__decorate([
+    typeorm_1.OneToMany(type => log_entity_1.Log, log => log.account),
+    __metadata("design:type", Array)
+], Account.prototype, "logs", void 0);
+__decorate([
+    typeorm_1.OneToMany(type => followed_entity_1.Followed, Followed => Followed.account),
+    __metadata("design:type", Array)
+], Account.prototype, "followed", void 0);
 Account = __decorate([
     typeorm_1.Entity()
 ], Account);

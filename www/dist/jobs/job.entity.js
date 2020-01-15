@@ -12,9 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const account_entity_1 = require("../accounts/account.entity");
 let Job = class Job {
-    updateDateCreation() {
-        this.createdAt = Math.round(new Date().getTime() / 1000);
-    }
 };
 __decorate([
     typeorm_1.PrimaryGeneratedColumn(),
@@ -37,15 +34,9 @@ __decorate([
     __metadata("design:type", Number)
 ], Job.prototype, "maxDelaySeconds", void 0);
 __decorate([
-    typeorm_1.Column(),
-    __metadata("design:type", Number)
+    typeorm_1.Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' }),
+    __metadata("design:type", String)
 ], Job.prototype, "createdAt", void 0);
-__decorate([
-    typeorm_1.BeforeInsert(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], Job.prototype, "updateDateCreation", null);
 __decorate([
     typeorm_1.ManyToOne(type => account_entity_1.Account, account => account.jobs),
     __metadata("design:type", account_entity_1.Account)

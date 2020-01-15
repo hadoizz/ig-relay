@@ -5,7 +5,6 @@ export declare class Job {
     supervisor: string;
     supervisorPayload?: string;
     maxDelaySeconds?: number;
-    createdAt?: number;
-    updateDateCreation(): void;
+    createdAt?: string;
     account: Account;
 }
