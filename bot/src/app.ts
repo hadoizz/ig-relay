@@ -1,6 +1,7 @@
 import { isSlave, master } from 'fork-with-emitter'
 import loadPage from './loaders/page'
 import loadSubscribers from './loaders/subscibers'
+import log from './logs/log'
 
 process.on('unhandledRejection', err => {
   console.error(err)
@@ -12,6 +13,8 @@ const starting = (async () => {
   const page = await loadPage()
   console.log('Page loaded')
   await loadSubscribers(page)
+
+  log('started')
 })()
 
 if(isSlave){
