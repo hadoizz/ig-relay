@@ -34,7 +34,7 @@ const BotLayout = connect(mapStateToProps, mapDispatchToProps)(({ children, acco
     cookie.set('account', accountId)
     setAccount(accounts.find(account => account.accountId === accountId))
     handleCloseMenu()
-    replace(pathname, pathname)
+    replace(pathname, pathname, { shallow: false })
   }, [])
 
   const [menuEl, setMenuEl] = useState(null)

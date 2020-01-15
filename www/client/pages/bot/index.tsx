@@ -3,8 +3,16 @@ import { TextField, Typography, Button } from '@material-ui/core'
 import withBotLayout from '../../components/withBotLayout'
 import getJobs, { Job } from '../../utils/api/getJobs'
 
-const Jobs = ({ jobs: initialJobs }: { jobs: Job[] }) => {
-  const [jobs, setJobs] = useState(initialJobs)
+const Jobs = ({ jobs: fetchedJobs }: { jobs: Job[] }) => {
+  const [jobs, setJobs] = useState(fetchedJobs)
+
+  /**
+   * When account is changed new jobs are fetched.
+   * All jobs belongs to specific user, so job id's are user specific.
+   */
+  const wasAccountChanged = (jobs[0] || {}).jobId !== (fetchedJobs[0] || {}).jobId
+  if(wasAccountChanged)
+    setJobs(fetchedJobs)
 
   if(jobs === null)
     return 'Cannot fetch jobs'
