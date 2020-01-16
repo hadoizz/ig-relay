@@ -12026,6 +12026,7 @@
       "../node_modules/delay/index.d.ts",
       "../node_modules/random-int/index.d.ts",
       "../src/logs/logs.service.ts",
+      "../src/jobs/jobs.service.ts",
       "../src/jobs/jobs.controller.ts",
       "../src/logs/logs.controller.ts",
       "../src/logs/logs.module.ts",
@@ -12131,8 +12132,7 @@
       "../node_modules/@types/webpack-sources/index.d.ts",
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
-      "../node_modules/@types/yargs/index.d.ts",
-      "../src/jobs/jobs.service.ts"
+      "../node_modules/@types/yargs/index.d.ts"
     ]
   },
   "version": "3.6.3"

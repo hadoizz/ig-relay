@@ -5,6 +5,8 @@ import getJobs, { Job } from '../../utils/api/getJobs'
 
 const Jobs = ({ jobs: fetchedJobs }: { jobs: Job[] }) => {
   const [jobs, setJobs] = useState(fetchedJobs)
+  if(jobs === null)
+    return 'Error'
 
   /**
    * When account is changed new jobs are fetched.
@@ -13,9 +15,6 @@ const Jobs = ({ jobs: fetchedJobs }: { jobs: Job[] }) => {
   const wasAccountChanged = (jobs[0] || {}).jobId !== (fetchedJobs[0] || {}).jobId
   if(wasAccountChanged)
     setJobs(fetchedJobs)
-
-  if(jobs === null)
-    return 'Cannot fetch jobs'
 
   const updateJob = (jobId: number, key: string) => ({ target: { value } }) =>
     setJobs(jobs => {
