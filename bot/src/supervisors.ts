@@ -3,8 +3,8 @@ import log from './utils/elements/log'
 
 //navigation
 import gotoIndex from './services/index/gotoIndex'
-import gotoProfile from './services/profile/gotoProfile'
-import gotoFollowing from './services/profile/following/gotoFollowing'
+import gotoProfile from './services/myProfile/gotoProfile'
+import gotoFollowing from './services/myProfile/following/gotoFollowing'
 import gotoLikedBy from './services/post/gotoLikedBy'
 import goBackFromLikedBy from './services/likedBy/goBack'
 
@@ -54,7 +54,7 @@ const servicesSupervisors = (page: Page) => ({
 const controllersSupervisors = (page: Page) => ({
   //followPersonsWhoLiked: (maximum?: number) =>
   //  followPersonsWhoLiked(page, maximum),
-  followingBot: (maximum?: number) =>
+  followingBot: (maximum: number) =>
     followingBot(page, maximum),
   login: () =>
     login(page),

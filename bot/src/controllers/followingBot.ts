@@ -2,16 +2,71 @@ import { Page } from 'puppeteer'
 import getVisiblePost from '../services/post/selectors/getVisiblePost'
 import scrollToNextPost from '../services/post/scrollToNextPost'
 import getLikes from '../services/post/getLikes'
-import openLikesDialog from '../services/likesDialog/openLikesDialog'
-import followPersonsWhoLiked from './followPersonsWhoLiked'
-import closeDialog from '../services/dialog/closeDialog'
-import likePost from '../services/post/likePost'
-import { onLikePost } from '../emitter'
 import sleep from '../utils/sleep'
-import Counter from '../lib/Counter'
+import gotoLikedBy from '../services/post/gotoLikedBy'
+import getNextElement from '../utils/elements/getNextElement'
+import getPersonList from '../services/likedBy/selectors/getPersonList'
+import getPerson from '../services/personRow/getPerson'
+import isFollowed from '../logs/isFollowed'
+import log from '../logs/log'
+import follow from '../services/personRow/follow'
+import goBack from '../services/likedBy/goBack'
+import scrollTo from '../utils/elements/scrollTo'
 
-export default async (page: Page, maximum?: number) => {
-  let followCount = new Counter
+export default async (page: Page, maximumLikes: number) => {
+  if(!maximumLikes)
+    throw `Missing maximumLikes`
+
+  let firstTick = true
+  while(true){
+    const post = await getVisiblePost(page)
+    if(firstTick){
+      await scrollTo(post)
+      firstTick = false
+    }
+    await sleep(100, 1000)
+
+    const likes = await getLikes(post)
+    console.log(`Likes: ${likes}`)
+    if(!likes || likes > 100){
+      await scrollToNextPost(page)
+      await sleep(100, 1000)
+      continue
+    }
+
+    await gotoLikedBy(post)
+    await sleep(1000, 2000)
+
+    const personList = await getPersonList(page)
+    let personRow
+    while(personRow = await getNextElement(personList, { noScroll: true })){
+      const person = await getPerson(personRow)
+      console.log(person)
+      if(person.isSelf || person.isFollowed || await isFollowed(person.login)){
+        await scrollTo(personRow)
+        continue
+      }
+
+      await sleep(250, 750)
+
+      await follow(personRow)
+      log('followed', person.login)
+
+      await sleep(500, 2000)
+
+      if(--maximumLikes === 0){
+        await goBack(page)
+        await sleep(500, 2000)
+        return
+      }
+
+      await scrollTo(personRow)
+    }
+
+    await goBack(page)
+  }
+
+  /*let followCount = new Counter
 
   while(true){
     const post = await getVisiblePost(page)
@@ -45,5 +100,5 @@ export default async (page: Page, maximum?: number) => {
 
     await scrollToNextPost(page)
     await sleep(500, 2000)
-  }
+  }*/
 }

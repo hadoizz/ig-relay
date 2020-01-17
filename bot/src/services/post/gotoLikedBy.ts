@@ -10,7 +10,8 @@ export default async (post: Post) => {
     return 0
   }
 
-  const likedByLink = await likesBox.$('a')
+  const aTags = await likesBox.$$('a')
+  const likedByLink = aTags[aTags.length-1]
   if(likedByLink === null)
     throw `Nie ma linku do osób, które polubiły post`
 

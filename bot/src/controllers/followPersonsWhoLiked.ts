@@ -14,7 +14,7 @@ import PersonRow from '../types/personRow/PersonRow'
   Make sure that likes dialog is opened.
 */
 export default async (page: Page, maximum?: number) => {
-  let followCount = new Counter
+  /*let followCount = new Counter
 
   const likePersonFromPersonRow = async (personRow: PersonRow) => {
     //get data from row
@@ -64,5 +64,5 @@ export default async (page: Page, maximum?: number) => {
   }
   
   console.log(`Done!`)
-  return followCount.getCount()
+  return followCount.getCount()*/
 }

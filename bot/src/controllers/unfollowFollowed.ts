@@ -1,8 +1,8 @@
 import { Page } from 'puppeteer'
 import getNextElement from '../utils/elements/getNextElement'
-import getFollowingContainer from '../services/profile/following/selectors/getFollowingContainer'
+import getFollowingContainer from '../services/myProfile/following/selectors/getFollowingContainer'
 import getPerson from '../services/personRow/getPerson'
-import gotoFollowing from '../services/profile/following/gotoFollowing'
+import gotoFollowing from '../services/myProfile/following/gotoFollowing'
 import sleep from '../utils/sleep'
 
 export default async (page: Page) => {

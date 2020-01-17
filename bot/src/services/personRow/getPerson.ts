@@ -12,7 +12,7 @@ export default async (personRow: PersonRow): Promise<Person> => {
     return {
       login,
       ...followText !== undefined && { description },
-      isUser: true,
+      isSelf: true,
       isFollowed: false
     }
   }
@@ -20,7 +20,7 @@ export default async (personRow: PersonRow): Promise<Person> => {
   return { 
     login, 
     ...followText !== undefined && { description },
-    isUser: false,
+    isSelf: false,
     isFollowed: await isFollowed(personRow)
   }
 }
