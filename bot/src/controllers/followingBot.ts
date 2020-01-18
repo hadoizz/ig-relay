@@ -12,6 +12,15 @@ import log from '../logs/log'
 import follow from '../services/personRow/follow'
 import goBack from '../services/likedBy/goBack'
 import scrollTo from '../utils/elements/scrollTo'
+import getFollowers from '../services/profile/getFollowers'
+
+const getFollowersFromLogin = async (page: Page, login: string) => {
+  const _page = await page.browser().newPage()
+  await _page.goto(`https://instagram.com/${login}`)
+  const followers = await getFollowers(_page)
+  await _page.close()
+  return followers
+}
 
 export default async (page: Page, maximumLikes: number) => {
   if(!maximumLikes)
@@ -42,7 +51,7 @@ export default async (page: Page, maximumLikes: number) => {
     while(personRow = await getNextElement(personList, { noScroll: true })){
       const person = await getPerson(personRow)
       console.log(person)
-      if(person.isSelf || person.isFollowed || await isFollowed(person.login)){
+      if(person.isSelf || person.isFollowed || await isFollowed(person.login) || await getFollowersFromLogin(page, person.login) > 500){
         await scrollTo(personRow)
         continue
       }
