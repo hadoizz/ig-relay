@@ -22,9 +22,9 @@ const getFollowersFromLogin = async (page: Page, login: string) => {
   return followers
 }
 
-export default async (page: Page, maximumLikes: number) => {
-  if(!maximumLikes)
-    throw `Missing maximumLikes`
+export default async (page: Page, maximumFollows: number) => {
+  if(!maximumFollows)
+    throw `Missing maximumFollows`
 
   let firstTick = true
   while(true){
@@ -53,6 +53,7 @@ export default async (page: Page, maximumLikes: number) => {
       console.log(person)
       if(person.isSelf || person.isFollowed || await isFollowed(person.login) || await getFollowersFromLogin(page, person.login) > 500){
         await scrollTo(personRow)
+        await sleep(100, 300)
         continue
       }
 
@@ -63,7 +64,7 @@ export default async (page: Page, maximumLikes: number) => {
 
       await sleep(500, 2000)
 
-      if(--maximumLikes === 0){
+      if(--maximumFollows === 0){
         await goBack(page)
         await sleep(500, 2000)
         return
