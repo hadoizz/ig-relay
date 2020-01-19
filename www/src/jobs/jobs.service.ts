@@ -8,6 +8,7 @@ import delay from 'delay'
 import random from 'random-int'
 import { BotsService } from '../bots/bots.service';
 import { LogsService } from '../logs/logs.service';
+import { Account } from '../accounts/account.entity';
 
 const createJob = (cron: string, fn: () => Promise<void>) =>
   new CronJob(cron, fn, null, true, 'Europe/Warsaw')
@@ -17,6 +18,7 @@ export class JobsService {
   constructor(
     @InjectRepository(Job) private readonly jobRepository: Repository<Job>,
     @InjectRepository(User) private readonly userRepository: Repository<User>,
+    @InjectRepository(Account) private readonly accountRepository: Repository<Account>,
     private readonly botsService: BotsService,
     private readonly logsService: LogsService
   ){
@@ -138,5 +140,18 @@ export class JobsService {
       //@ts-ignore
       this.loadJob(await this.jobRepository.findOne(jobId))
     }
+  }
+
+  async createJob(userId: number, accountId: number, job){
+    const account = await this.accountRepository
+      .createQueryBuilder('account')
+      .where('account.user = :userId', { userId })
+      .andWhere('account.accountId = :accountId', { accountId })
+      .getOne()
+
+    this.jobRepository.insert({
+      ...job,
+      account
+    })
   }
 }

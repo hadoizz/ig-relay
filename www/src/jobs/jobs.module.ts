@@ -7,9 +7,10 @@ import { BotsModule } from '../bots/bots.module';
 import { AccountsModule } from '../accounts/accounts.module';
 import { User } from '../users/user.entity';
 import { LogsModule } from '../logs/logs.module';
+import { Account } from '../accounts/account.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Job, User]), BotsModule, AccountsModule, LogsModule],
+  imports: [TypeOrmModule.forFeature([Job, User, Account]), BotsModule, AccountsModule, LogsModule],
   providers: [JobsService],
   controllers: [JobsController]
 }) 

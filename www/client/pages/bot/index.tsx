@@ -1,10 +1,45 @@
 import { useState, useCallback } from 'react'
-import { TextField, Typography, Button } from '@material-ui/core'
+import { TextField, Typography, Button, DialogTitle, Dialog, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
 import withBotLayout from '../../components/withBotLayout'
 import getJobs, { Job } from '../../utils/api/getJobs'
 import updateJob from '../../api/jobs/update'
+import deleteJob from '../../api/jobs/delete'
+import createJob from '../../api/jobs/create'
+import { connect } from 'react-redux'
 
-const JobForm = ({ index, job, handleSaveChanges }: { index: number, job: Job, handleSaveChanges: (any) => void }) => {
+const mapStateToProps = state => ({
+  accountId: state.account.accountId
+})
+
+const CreateJob = connect(mapStateToProps)(({ accountId, open, handleExit }: { accountId: number, open: boolean, handleExit: (any) => void }) => {
+  const [state, setState] = useState({ cron: '', maxDelaySeconds: 0, supervisor: '', supervisorPayload: '' })
+
+  const update = (key: keyof Job) => ({ target: { value } }) =>
+    setState(state => ({
+      ...state,
+      [key]: value
+    }))
+
+  return (
+    <Dialog open={open} onClose={handleExit}>
+      <DialogTitle>Create new job</DialogTitle>
+      <DialogContent>
+        <TextField label="cron" value={state.cron} onChange={update('cron')} />
+        <TextField label="maximum delay seconds" type="number" inputProps={{ min: "0" }} value={state.maxDelaySeconds} onChange={update('maxDelaySeconds')} />
+        <br />
+        <TextField label="supervisor" value={state.supervisor} onChange={update('supervisor')} />
+        <TextField label="payload" value={state.supervisorPayload} onChange={update('supervisorPayload')} />
+      </DialogContent>
+      <DialogActions>
+        <Button color="primary" onClick={() => createJob(accountId, state)}>
+          Create
+        </Button>
+      </DialogActions>
+    </Dialog>
+  )
+})
+
+const JobForm = ({ index, job }: { index: number, job: Job }) => {
   const [state, setState] = useState(job)
 
   const handleSubmit = event => {
@@ -23,9 +58,14 @@ const JobForm = ({ index, job, handleSaveChanges }: { index: number, job: Job, h
     <form noValidate autoComplete="off" onSubmit={handleSubmit}>
       <Typography variant="h6">
         #{ index + 1 }
-        <Button color="secondary" variant="contained" size="small" style={{ float: 'right' }} type="submit">
-          Save changes
-        </Button>
+        <div style={{ float: 'right' }}>
+          <Button color="secondary" variant="contained" size="small" onClick={() => deleteJob(job)}>
+            Delete
+          </Button>
+          <Button color="secondary" variant="contained" size="small" type="submit">
+            Save changes
+          </Button>
+        </div>
       </Typography>
       <TextField label="cron" value={state.cron} onChange={update('cron')} />
       <TextField label="maximum delay seconds" type="number" inputProps={{ min: "0" }} value={state.maxDelaySeconds} onChange={update('maxDelaySeconds')} />
@@ -38,6 +78,11 @@ const JobForm = ({ index, job, handleSaveChanges }: { index: number, job: Job, h
 
 const Jobs = ({ jobs: fetchedJobs }: { jobs: Job[] }) => {
   const [jobs, setJobs] = useState(fetchedJobs)
+  const [createJobDialog, setCreateJobDialog] = useState(false)
+
+  const toggleJobDialog = () => 
+    setCreateJobDialog(createJobDialog => !createJobDialog)
+
   if(jobs === null)
     return 'Error'
 
@@ -51,16 +96,16 @@ const Jobs = ({ jobs: fetchedJobs }: { jobs: Job[] }) => {
 
   return (
     <>
+      <CreateJob open={createJobDialog} handleExit={toggleJobDialog} />
       {jobs.map((job, index) => (
         <JobForm 
           index={index}
           job={job}
-          handleSaveChanges={console.log} 
           key={index}
         />
       ))}
       <br />
-      <Button color="primary" variant="contained">Add job</Button>
+      <Button color="primary" variant="contained" onClick={toggleJobDialog}>Create job</Button>
     </>
   )
 }

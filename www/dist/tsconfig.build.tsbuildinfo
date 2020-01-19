@@ -2374,12 +2374,12 @@
         "signature": "90a7bb38544c1d5d48d175df4757b7abe52216b4d41e78df61332db2af87b14a"
       },
       "../src/jobs/jobs.service.ts": {
-        "version": "6224f141a291801ed5ff0239ef9641db5f63beb9475c7404787ce8938308f8c1",
-        "signature": "a1338f773542cb736b45213c000f7a851fb73982bf791be823aaab38e62010ae"
+        "version": "9aef3b843aeb98ce81dbfb542246a342aecf14db4a56e0ceb6f68f5abdfa13e9",
+        "signature": "4962ed61e7beee84f0566c84a1e10bdee6ada94148e38707a06236da6298a37a"
       },
       "../src/jobs/jobs.controller.ts": {
-        "version": "95d93723fc8678d8861565d84acf375322029c6a08a611e5c6bdaa8e0a862e11",
-        "signature": "0db8d1fd74d34903813ca2372c9b5eb3e569f3dd84e311e84bb0668ef2cb4a56"
+        "version": "ca8ccbe202a6f32f0231d44a0d82f02601a1765139aa26c6f253d36a233ef9ff",
+        "signature": "80bfb7d38fb1d5236ee9edd22900a14e7de6e52f463411757940c3c50bebaae4"
       },
       "../src/logs/logs.controller.ts": {
         "version": "f763ceb9abfbc17c2b0339821f49b3bb77ef4fc145c6cf76900c355868cc81c7",
@@ -2390,7 +2390,7 @@
         "signature": "abbdc2d962b74ab88da0be038930c9ae50279d88c205276fbb8b72d1c002a77e"
       },
       "../src/jobs/jobs.module.ts": {
-        "version": "b769ab1927d1f5e08a4adc43476215f293687d043d76ee866b08b7e2b24c4f9d",
+        "version": "4106a66f0118f328ffdfe53d9221eb3e742e3dd3cde2694ac5ba82c1d612e066",
         "signature": "d81f9b2b91d86572e1fa067c9ef5c3387b82322a064e0b9f81810085b52116e5"
       },
       "../src/app.service.ts": {
@@ -6610,6 +6610,7 @@
         "../node_modules/random-int/index.d.ts",
         "../src/bots/bots.service.ts",
         "../src/logs/logs.service.ts",
+        "../src/accounts/account.entity.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -6649,6 +6650,7 @@
         "../src/accounts/accounts.module.ts",
         "../src/users/user.entity.ts",
         "../src/logs/logs.module.ts",
+        "../src/accounts/account.entity.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -10930,6 +10932,7 @@
         "../node_modules/typeorm/index.d.ts",
         "../src/jobs/job.entity.ts",
         "../src/users/user.entity.ts",
+        "../src/accounts/account.entity.ts",
         "../src/bots/bots.service.ts",
         "../src/logs/logs.service.ts"
       ],
@@ -12026,9 +12029,12 @@
       "../node_modules/delay/index.d.ts",
       "../node_modules/random-int/index.d.ts",
       "../src/logs/logs.service.ts",
+      "../src/jobs/jobs.service.ts",
       "../src/logs/logs.controller.ts",
       "../src/logs/logs.module.ts",
+      "../src/jobs/jobs.module.ts",
       "../src/app.service.ts",
+      "../src/app.module.ts",
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts",
       "../node_modules/@nestjs/core/adapters/index.d.ts",
       "../node_modules/@nestjs/core/constants.d.ts",
@@ -12075,6 +12081,8 @@
       "../src/bots/bots.controller.spec.ts",
       "../src/bots/bots.service.spec.ts",
       "../src/jobs/job.entity.spec.ts",
+      "../src/jobs/jobs.controller.spec.ts",
+      "../src/jobs/jobs.service.spec.ts",
       "../src/logs/followed.entity.spec.ts",
       "../src/logs/log.entity.spec.ts",
       "../src/logs/logs.controller.spec.ts",
@@ -12127,12 +12135,7 @@
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
       "../node_modules/@types/yargs/index.d.ts",
-      "../src/jobs/jobs.service.ts",
-      "../src/jobs/jobs.service.spec.ts",
-      "../src/jobs/jobs.module.ts",
-      "../src/jobs/jobs.controller.ts",
-      "../src/app.module.ts",
-      "../src/jobs/jobs.controller.spec.ts"
+      "../src/jobs/jobs.controller.ts"
     ]
   },
   "version": "3.6.3"

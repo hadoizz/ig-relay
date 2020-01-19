@@ -25,11 +25,13 @@ const delay_1 = __importDefault(require("delay"));
 const random_int_1 = __importDefault(require("random-int"));
 const bots_service_1 = require("../bots/bots.service");
 const logs_service_1 = require("../logs/logs.service");
+const account_entity_1 = require("../accounts/account.entity");
 const createJob = (cron, fn) => new cron_1.CronJob(cron, fn, null, true, 'Europe/Warsaw');
 let JobsService = class JobsService {
-    constructor(jobRepository, userRepository, botsService, logsService) {
+    constructor(jobRepository, userRepository, accountRepository, botsService, logsService) {
         this.jobRepository = jobRepository;
         this.userRepository = userRepository;
+        this.accountRepository = accountRepository;
         this.botsService = botsService;
         this.logsService = logsService;
         this.loadedJobs = new Map();
@@ -114,12 +116,22 @@ let JobsService = class JobsService {
             this.loadJob(await this.jobRepository.findOne(jobId));
         }
     }
+    async createJob(userId, accountId, job) {
+        const account = await this.accountRepository
+            .createQueryBuilder('account')
+            .where('account.user = :userId', { userId })
+            .andWhere('account.accountId = :accountId', { accountId })
+            .getOne();
+        this.jobRepository.insert(Object.assign(Object.assign({}, job), { account }));
+    }
 };
 JobsService = __decorate([
     common_1.Injectable(),
     __param(0, typeorm_1.InjectRepository(job_entity_1.Job)),
     __param(1, typeorm_1.InjectRepository(user_entity_1.User)),
+    __param(2, typeorm_1.InjectRepository(account_entity_1.Account)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository,
         typeorm_2.Repository,
         bots_service_1.BotsService,
         logs_service_1.LogsService])

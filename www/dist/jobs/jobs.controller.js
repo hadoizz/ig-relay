@@ -22,8 +22,14 @@ let JobsController = class JobsController {
     async getJobs(accountId, req) {
         return await this.jobsService.getJobs(parseInt(req.user.userId), parseInt(accountId));
     }
+    async createJob(accountId, req, body) {
+        return await this.jobsService.createJob(parseInt(req.user.userId), parseInt(accountId), body);
+    }
     async updateJob(jobId, req, body) {
         return await this.jobsService.updateJob(parseInt(req.user.userId), parseInt(jobId), body);
+    }
+    async deleteJob(jobId, req) {
+        return await this.jobsService.deleteJob(parseInt(req.user.userId), parseInt(jobId));
     }
 };
 __decorate([
@@ -36,12 +42,28 @@ __decorate([
 ], JobsController.prototype, "getJobs", null);
 __decorate([
     common_1.UseGuards(passport_1.AuthGuard('jwt')),
-    common_1.Post('/:jobId/update'),
+    common_1.Post('/account/:accountId'),
+    __param(0, common_1.Param('accountId')), __param(1, common_1.Request()), __param(2, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object, Object]),
+    __metadata("design:returntype", Promise)
+], JobsController.prototype, "createJob", null);
+__decorate([
+    common_1.UseGuards(passport_1.AuthGuard('jwt')),
+    common_1.Put('/:jobId'),
     __param(0, common_1.Param('jobId')), __param(1, common_1.Request()), __param(2, common_1.Body()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object, Object]),
     __metadata("design:returntype", Promise)
 ], JobsController.prototype, "updateJob", null);
+__decorate([
+    common_1.UseGuards(passport_1.AuthGuard('jwt')),
+    common_1.Delete('/:jobId'),
+    __param(0, common_1.Param('jobId')), __param(1, common_1.Request()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], JobsController.prototype, "deleteJob", null);
 JobsController = __decorate([
     common_1.Controller('jobs'),
     __metadata("design:paramtypes", [jobs_service_1.JobsService])
