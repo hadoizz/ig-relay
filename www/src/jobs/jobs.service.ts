@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CronJob } from 'cron'
+import { CronJob, job } from 'cron'
 import { Job } from './job.entity'
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../users/user.entity';
@@ -25,33 +25,43 @@ export class JobsService {
   }
 
   private loadedJobs = new Map<number, CronJob>()
-  private async loadJobs(){
-    (await this.getAllJobs()).forEach(({ jobId, cron, supervisor, supervisorPayload, maxDelaySeconds, accountId, login, password }) => {
-      const job = createJob(cron, async () => {
-        console.log(`Starting job ${jobId}`)
-        await delay(random(0, maxDelaySeconds*1000))
-        
-        //Job may became deleted after delay
-        if(!this.loadedJobs.has(jobId))
-          return
 
-        const { id } = await this.botsService.createBot({ login, password },
-          slave => this.logsService.attachLogsListenersToSlave(slave, accountId)  
-        )
-        const result = await this.botsService.executeSupervisor(id, supervisor, supervisorPayload)
-        await this.botsService.exitBot(id)
+  private async loadJob({ jobId, cron, supervisor, supervisorPayload, maxDelaySeconds, accountId, login, password }){
+    const job = createJob(cron, async () => {
+      console.log(`Starting job ${jobId}`)
+      await delay(random(0, maxDelaySeconds*1000))
+      
+      //Job may became deleted after delay
+      if(!this.loadedJobs.has(jobId))
+        return
 
-        if(result){
-          console.log(`Ended job ${jobId} with result ${result}`)
-          return
-        }
+      const { id } = await this.botsService.createBot({ login, password },
+        slave => this.logsService.attachLogsListenersToSlave(slave, accountId)  
+      )
+      const result = await this.botsService.executeSupervisor(id, supervisor, supervisorPayload)
+      await this.botsService.exitBot(id)
 
-        console.log(`Ended job ${jobId}`)
-      })
+      if(result){
+        console.log(`Ended job ${jobId} with result ${result}`)
+        return
+      }
 
-      this.loadedJobs.set(jobId, job)
-      console.log(`Loaded job ${jobId}`)
+      console.log(`Ended job ${jobId}`)
     })
+
+    this.loadedJobs.set(jobId, job)
+    console.log(`Loaded job ${jobId}`)
+  }
+
+  private unloadJob(jobId: number){
+    if(this.loadedJobs.has(jobId))
+      this.loadedJobs.get(jobId).stop()
+  }
+
+  private async loadJobs(){
+    const jobs = await this.getAllJobs()
+    for(const job of jobs)
+      await this.loadJob(job)
   }
 
   /**
@@ -66,6 +76,18 @@ export class JobsService {
       .getRawMany()
 
     return jobs
+  }
+
+  private async hasJob(userId: number, jobId: number){
+    return Boolean(await this.userRepository
+      .createQueryBuilder('user')
+      .select(['jobId'])
+      .innerJoin('user.accounts', 'account')
+      .innerJoin('account.jobs', 'job')
+      .where('user.userId = :userId', { userId })
+      .andWhere('job.jobId = :jobId', { jobId })
+      .getRawOne()
+    )
   }
 
   /**
@@ -93,22 +115,28 @@ export class JobsService {
    * @param jobId 
    */
   async deleteJob(userId: number, jobId: number){
-    const hasJob = Boolean(await this.userRepository
-      .createQueryBuilder('user')
-      .select(['jobId'])
-      .innerJoin('user.accounts', 'account')
-      .innerJoin('account.jobs', 'job')
-      .where('user.userId = :userId', { userId })
-      .andWhere('job.jobId = :jobId', { jobId })
-      .getRawOne()
-    )
-
-    if(!hasJob)
+    if(!(await this.hasJob(userId, jobId)))
       return
 
-    if(this.loadedJobs.has(jobId))
-      this.loadedJobs.get(jobId).stop()
-
+    this.unloadJob(jobId)
     this.jobRepository.delete(jobId)
+  }
+
+  async updateJob(userId: number, jobId: number, body: any){
+    if(!(await this.hasJob(userId, jobId)))
+      return
+
+    await this.jobRepository
+      .createQueryBuilder('job')
+      .update('job')
+      .set(body)
+      .where('job.jobId = :jobId', { jobId })
+      .execute()
+
+    if(process.env.NODE_ENV === 'production'){
+      this.unloadJob(jobId)
+      //@ts-ignore
+      this.loadJob(await this.jobRepository.findOne(jobId))
+    }
   }
 }

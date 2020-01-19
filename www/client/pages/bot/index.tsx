@@ -2,6 +2,39 @@ import { useState, useCallback } from 'react'
 import { TextField, Typography, Button } from '@material-ui/core'
 import withBotLayout from '../../components/withBotLayout'
 import getJobs, { Job } from '../../utils/api/getJobs'
+import updateJob from '../../api/jobs/update'
+
+const JobForm = ({ index, job, handleSaveChanges }: { index: number, job: Job, handleSaveChanges: (any) => void }) => {
+  const [state, setState] = useState(job)
+
+  const handleSubmit = event => {
+    event.preventDefault()
+
+    updateJob(state)
+  }
+
+  const update = (key: keyof Job) => ({ target: { value } }) =>
+    setState(state => ({
+      ...state,
+      [key]: value
+    }))
+
+  return (
+    <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+      <Typography variant="h6">
+        #{ index + 1 }
+        <Button color="secondary" variant="contained" size="small" style={{ float: 'right' }} type="submit">
+          Save changes
+        </Button>
+      </Typography>
+      <TextField label="cron" value={state.cron} onChange={update('cron')} />
+      <TextField label="maximum delay seconds" type="number" inputProps={{ min: "0" }} value={state.maxDelaySeconds} onChange={update('maxDelaySeconds')} />
+      <br />
+      <TextField label="supervisor" value={state.supervisor} onChange={update('supervisor')} />
+      <TextField label="payload" value={state.supervisorPayload} onChange={update('supervisorPayload')} />
+    </form>
+  )
+}
 
 const Jobs = ({ jobs: fetchedJobs }: { jobs: Job[] }) => {
   const [jobs, setJobs] = useState(fetchedJobs)
@@ -16,34 +49,16 @@ const Jobs = ({ jobs: fetchedJobs }: { jobs: Job[] }) => {
   if(wasAccountChanged)
     setJobs(fetchedJobs)
 
-  const updateJob = (jobId: number, key: string) => ({ target: { value } }) =>
-    setJobs(jobs => {
-      const _jobs = [...jobs]
-      for(const job of _jobs){
-        if(job.jobId !== jobId)
-          continue
-        job[key] = value
-        break
-      }
-      return _jobs
-    })
-
   return (
-    <>    {
-      jobs.map(({ jobId, cron, supervisor, supervisorPayload, maxDelaySeconds }, index) => (
-        <form noValidate autoComplete="off" key={jobId}>
-          <Typography variant="h6">
-            #{ index + 1 }
-            <Button color="secondary" variant="contained" size="small" style={{ float: 'right' }}>Save changes</Button>
-          </Typography>
-          <TextField label="cron" value={cron} onChange={updateJob(jobId, 'cron')} />
-          <TextField label="maximum delay seconds" type="number" inputProps={{ min: "0" }} value={maxDelaySeconds} onChange={updateJob(jobId, 'maxDelaySeconds')} />
-          <br />
-          <TextField label="supervisor" value={supervisor} onChange={updateJob(jobId, 'supervisor')} />
-          <TextField label="payload" value={supervisorPayload} onChange={updateJob(jobId, 'supervisorPayload')} />
-        </form>
-      ))
-    }
+    <>
+      {jobs.map((job, index) => (
+        <JobForm 
+          index={index}
+          job={job}
+          handleSaveChanges={console.log} 
+          key={index}
+        />
+      ))}
       <br />
       <Button color="primary" variant="contained">Add job</Button>
     </>

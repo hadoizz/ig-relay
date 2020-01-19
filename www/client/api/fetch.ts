@@ -1,20 +1,11 @@
-import getServerUrl from '../config/getServerUrl'
+import fetch from 'isomorphic-unfetch'
+import cookie from 'js-cookie'
 
-export const getFullUrl = (path: string) => {
-  if(!path.startsWith('/'))
-    path = `/${path}`
+export default async (input: RequestInfo, init: RequestInit = {}) => {
+  init.headers = {
+    ...init.headers,
+    Authorization: `Bearer ${cookie.get('token')}`
+  }
 
-  return `${getServerUrl()}${path}`
-}
-
-export default async (path: string, data?: RequestInit) => {
-  const headers = data?.headers || {}
-
-  if(localStorage.getItem('access_token'))
-    headers['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`
-
-  return await fetch(getFullUrl(path), {
-    ...data,
-    headers
-  })
+  return await fetch(input, init)
 }

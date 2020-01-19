@@ -7,8 +7,14 @@ export class JobsController {
   constructor(private readonly jobsService: JobsService){}
 
   @UseGuards(AuthGuard('jwt'))
-  @Get('/:accountId')
+  @Get('/account/:accountId')
   async getJobs(@Param('accountId') accountId: string, @Request() req){
     return await this.jobsService.getJobs(parseInt(req.user.userId), parseInt(accountId))
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post('/:jobId/update')
+  async updateJob(@Param('jobId') jobId: string, @Request() req, @Body() body){
+    return await this.jobsService.updateJob(parseInt(req.user.userId), parseInt(jobId), body)
   }
 }

@@ -14,7 +14,7 @@ export default async (ctx) => {
     return null
 
   const { token } = nextCookie(ctx)
-  const apiUrl = `${getServerHost(ctx.req)}/logs/${account.accountId}`
+  const apiUrl = `${getServerHost(ctx.req)}/logs/account/${account.accountId}`
 
   try {
     const response = await fetch(apiUrl, { headers: { Authorization: `Bearer ${token}` } })

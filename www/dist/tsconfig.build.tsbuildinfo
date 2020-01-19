@@ -2374,15 +2374,15 @@
         "signature": "90a7bb38544c1d5d48d175df4757b7abe52216b4d41e78df61332db2af87b14a"
       },
       "../src/jobs/jobs.service.ts": {
-        "version": "5f9d54c78ac37c371221f1c591efb801d5677a837237c106f22122aab37da32b",
-        "signature": "a882bf8137415cebfd6b728b7fc90fb445552ce483d5ad3900cea28a18d9f15d"
+        "version": "6224f141a291801ed5ff0239ef9641db5f63beb9475c7404787ce8938308f8c1",
+        "signature": "a1338f773542cb736b45213c000f7a851fb73982bf791be823aaab38e62010ae"
       },
       "../src/jobs/jobs.controller.ts": {
-        "version": "02f55b99f55de1156c1c5a6dac91e7a9d80ec60b8a21c508f82c6efbe2af4c15",
-        "signature": "f143d5eca3e98f0ca7be2c3eb140abcb60f31d9ab9cbe181d0767011eab1ccd6"
+        "version": "95d93723fc8678d8861565d84acf375322029c6a08a611e5c6bdaa8e0a862e11",
+        "signature": "0db8d1fd74d34903813ca2372c9b5eb3e569f3dd84e311e84bb0668ef2cb4a56"
       },
       "../src/logs/logs.controller.ts": {
-        "version": "4c10dd1d7aa7ec1c280ce4b6dd0829776a92212d15e57c412a05c5c2ed1a5ee5",
+        "version": "f763ceb9abfbc17c2b0339821f49b3bb77ef4fc145c6cf76900c355868cc81c7",
         "signature": "b5d7eee0b884d4e7cbc08fa6c63738301f744af7773db657284ed09bf9de3801"
       },
       "../src/logs/logs.module.ts": {
@@ -12025,13 +12025,10 @@
       "../node_modules/@types/cron/index.d.ts",
       "../node_modules/delay/index.d.ts",
       "../node_modules/random-int/index.d.ts",
-      "../src/jobs/jobs.service.ts",
-      "../src/jobs/jobs.controller.ts",
+      "../src/logs/logs.service.ts",
       "../src/logs/logs.controller.ts",
       "../src/logs/logs.module.ts",
-      "../src/jobs/jobs.module.ts",
       "../src/app.service.ts",
-      "../src/app.module.ts",
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts",
       "../node_modules/@nestjs/core/adapters/index.d.ts",
       "../node_modules/@nestjs/core/constants.d.ts",
@@ -12078,8 +12075,6 @@
       "../src/bots/bots.controller.spec.ts",
       "../src/bots/bots.service.spec.ts",
       "../src/jobs/job.entity.spec.ts",
-      "../src/jobs/jobs.controller.spec.ts",
-      "../src/jobs/jobs.service.spec.ts",
       "../src/logs/followed.entity.spec.ts",
       "../src/logs/log.entity.spec.ts",
       "../src/logs/logs.controller.spec.ts",
@@ -12132,7 +12127,12 @@
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
       "../node_modules/@types/yargs/index.d.ts",
-      "../src/logs/logs.service.ts"
+      "../src/jobs/jobs.service.ts",
+      "../src/jobs/jobs.service.spec.ts",
+      "../src/jobs/jobs.module.ts",
+      "../src/jobs/jobs.controller.ts",
+      "../src/app.module.ts",
+      "../src/jobs/jobs.controller.spec.ts"
     ]
   },
   "version": "3.6.3"

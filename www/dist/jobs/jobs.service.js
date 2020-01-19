@@ -36,25 +36,32 @@ let JobsService = class JobsService {
         if (process.env.NODE_ENV === 'production')
             this.loadJobs();
     }
-    async loadJobs() {
-        (await this.getAllJobs()).forEach(({ jobId, cron, supervisor, supervisorPayload, maxDelaySeconds, accountId, login, password }) => {
-            const job = createJob(cron, async () => {
-                console.log(`Starting job ${jobId}`);
-                await delay_1.default(random_int_1.default(0, maxDelaySeconds * 1000));
-                if (!this.loadedJobs.has(jobId))
-                    return;
-                const { id } = await this.botsService.createBot({ login, password }, slave => this.logsService.attachLogsListenersToSlave(slave, accountId));
-                const result = await this.botsService.executeSupervisor(id, supervisor, supervisorPayload);
-                await this.botsService.exitBot(id);
-                if (result) {
-                    console.log(`Ended job ${jobId} with result ${result}`);
-                    return;
-                }
-                console.log(`Ended job ${jobId}`);
-            });
-            this.loadedJobs.set(jobId, job);
-            console.log(`Loaded job ${jobId}`);
+    async loadJob({ jobId, cron, supervisor, supervisorPayload, maxDelaySeconds, accountId, login, password }) {
+        const job = createJob(cron, async () => {
+            console.log(`Starting job ${jobId}`);
+            await delay_1.default(random_int_1.default(0, maxDelaySeconds * 1000));
+            if (!this.loadedJobs.has(jobId))
+                return;
+            const { id } = await this.botsService.createBot({ login, password }, slave => this.logsService.attachLogsListenersToSlave(slave, accountId));
+            const result = await this.botsService.executeSupervisor(id, supervisor, supervisorPayload);
+            await this.botsService.exitBot(id);
+            if (result) {
+                console.log(`Ended job ${jobId} with result ${result}`);
+                return;
+            }
+            console.log(`Ended job ${jobId}`);
         });
+        this.loadedJobs.set(jobId, job);
+        console.log(`Loaded job ${jobId}`);
+    }
+    unloadJob(jobId) {
+        if (this.loadedJobs.has(jobId))
+            this.loadedJobs.get(jobId).stop();
+    }
+    async loadJobs() {
+        const jobs = await this.getAllJobs();
+        for (const job of jobs)
+            await this.loadJob(job);
     }
     async getAllJobs() {
         const jobs = await this.jobRepository
@@ -64,6 +71,16 @@ let JobsService = class JobsService {
             .orderBy('createdAt', 'DESC')
             .getRawMany();
         return jobs;
+    }
+    async hasJob(userId, jobId) {
+        return Boolean(await this.userRepository
+            .createQueryBuilder('user')
+            .select(['jobId'])
+            .innerJoin('user.accounts', 'account')
+            .innerJoin('account.jobs', 'job')
+            .where('user.userId = :userId', { userId })
+            .andWhere('job.jobId = :jobId', { jobId })
+            .getRawOne());
     }
     async getJobs(userId, accountId) {
         const jobs = await this.userRepository
@@ -78,19 +95,24 @@ let JobsService = class JobsService {
         return jobs;
     }
     async deleteJob(userId, jobId) {
-        const hasJob = Boolean(await this.userRepository
-            .createQueryBuilder('user')
-            .select(['jobId'])
-            .innerJoin('user.accounts', 'account')
-            .innerJoin('account.jobs', 'job')
-            .where('user.userId = :userId', { userId })
-            .andWhere('job.jobId = :jobId', { jobId })
-            .getRawOne());
-        if (!hasJob)
+        if (!(await this.hasJob(userId, jobId)))
             return;
-        if (this.loadedJobs.has(jobId))
-            this.loadedJobs.get(jobId).stop();
+        this.unloadJob(jobId);
         this.jobRepository.delete(jobId);
+    }
+    async updateJob(userId, jobId, body) {
+        if (!(await this.hasJob(userId, jobId)))
+            return;
+        await this.jobRepository
+            .createQueryBuilder('job')
+            .update('job')
+            .set(body)
+            .where('job.jobId = :jobId', { jobId })
+            .execute();
+        if (process.env.NODE_ENV === 'production') {
+            this.unloadJob(jobId);
+            this.loadJob(await this.jobRepository.findOne(jobId));
+        }
     }
 };
 JobsService = __decorate([
