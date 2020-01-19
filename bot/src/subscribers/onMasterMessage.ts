@@ -3,6 +3,7 @@ import sleep from 'sleep-promise'
 import decamelize from 'decamelize'
 import { master } from 'fork-with-emitter'
 import { getSupervisorsWithTypes } from '../supervisors'
+import log from '../logs/log'
 
 const exit = async (page: Page) => {
   try {
@@ -70,11 +71,13 @@ export default (page: Page) => {
   )
 
   master.onRequest('executeSupervisor', async ({ name, payload }: { name: string, payload: any }) => {    
-    console.log({ name, payload })
+    log(name, payload)
     if(!supervisors.hasOwnProperty(name))
       throw 'Invalid supervisor name'
 
-    return await supervisors[name].supervisor(payload)
+    const value = await supervisors[name].supervisor(payload)
+    log('success')
+    return value
   })
 
   const { startStreaming, stopStreaming } = createStreaming(page)

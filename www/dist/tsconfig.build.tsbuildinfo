@@ -2370,7 +2370,7 @@
         "signature": "20aa24ce3ffe34fb1b563122479449c6330fac5509d3d076680ec657c4eb949f"
       },
       "../src/logs/logs.service.ts": {
-        "version": "86fb3c75b0c11e7cf5a81529a5583e4a219bc215fdf70d67c8be5a61bfc47778",
+        "version": "5fd38b2594a9d2167124c07559d402853540c2178544ae1ced2c7df6fd13d64d",
         "signature": "90a7bb38544c1d5d48d175df4757b7abe52216b4d41e78df61332db2af87b14a"
       },
       "../src/jobs/jobs.service.ts": {
@@ -2394,7 +2394,7 @@
         "signature": "d81f9b2b91d86572e1fa067c9ef5c3387b82322a064e0b9f81810085b52116e5"
       },
       "../src/app.service.ts": {
-        "version": "f459076f2536ac0bf1e9ff3ddb33e494b61eb3f1f6a1d5a5a3936da5f3437bc9",
+        "version": "a7ed4751245b56fef5961f69e9e2b1c2e01102ced3400cee409ebfb5ddb18309",
         "signature": "302a51c961f9bd8a11545da79ba823e1b0fce2bb010b6d891518957f0dcaae98"
       },
       "../src/app.module.ts": {
@@ -12030,10 +12030,10 @@
       "../node_modules/random-int/index.d.ts",
       "../src/logs/logs.service.ts",
       "../src/jobs/jobs.service.ts",
+      "../src/jobs/jobs.controller.ts",
       "../src/logs/logs.controller.ts",
       "../src/logs/logs.module.ts",
       "../src/jobs/jobs.module.ts",
-      "../src/app.service.ts",
       "../src/app.module.ts",
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts",
       "../node_modules/@nestjs/core/adapters/index.d.ts",
@@ -12135,7 +12135,7 @@
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
       "../node_modules/@types/yargs/index.d.ts",
-      "../src/jobs/jobs.controller.ts"
+      "../src/app.service.ts"
     ]
   },
   "version": "3.6.3"

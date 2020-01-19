@@ -20,7 +20,7 @@ export class AppService {
     if((await this.userRepository.findOne({ username: 'admin' })) !== undefined)
       return
 
-    const user = this.userRepository.create({ username: 'admin', password: 'admin' })
+    const user = this.userRepository.create({ username: 'admin', password: 'kolorowemaslojestnajlepsze' })
 
     const account = this.accountRepository.create({ login: 'jaca7_', password: 'Panasonic7', user })
     user.accounts = [account] 

@@ -1,7 +1,10 @@
 import { master, isSlave } from 'fork-with-emitter'
 
 export default (type: string, payload?: any) => {
-  console.log(type, payload)
+  if(type === 'error')
+    console.error(type, payload)
+  else
+    console.log(type, payload)
 
   if(!isSlave)
     return
