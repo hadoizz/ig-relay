@@ -59,7 +59,7 @@ const JobForm = ({ index, job }: { index: number, job: Job }) => {
       <Typography variant="h6">
         #{ index + 1 }
         <div style={{ float: 'right' }}>
-          <Button color="secondary" variant="contained" size="small" onClick={() => deleteJob(job)}>
+          <Button color="secondary" variant="contained" size="small" onClick={() => deleteJob(job)} style={{ marginRight: '0.5rem' }}>
             Delete
           </Button>
           <Button color="secondary" variant="contained" size="small" type="submit">
