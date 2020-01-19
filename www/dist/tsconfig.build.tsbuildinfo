@@ -2370,8 +2370,8 @@
         "signature": "20aa24ce3ffe34fb1b563122479449c6330fac5509d3d076680ec657c4eb949f"
       },
       "../src/logs/logs.service.ts": {
-        "version": "730939f7a895e69b173f25d8e08e4685e770d924c3abdc406506ccacfc61ce1c",
-        "signature": "9a3af0b073334b9efb43052e163fdf10798727ff0213d3d20dddbdce4eae70a2"
+        "version": "a433150ef3aced9651107addb6615b2654bdb2c4d269ef6e435a9862ee6feeaf",
+        "signature": "90a7bb38544c1d5d48d175df4757b7abe52216b4d41e78df61332db2af87b14a"
       },
       "../src/jobs/jobs.service.ts": {
         "version": "5f9d54c78ac37c371221f1c591efb801d5677a837237c106f22122aab37da32b",
@@ -2382,8 +2382,8 @@
         "signature": "f143d5eca3e98f0ca7be2c3eb140abcb60f31d9ab9cbe181d0767011eab1ccd6"
       },
       "../src/logs/logs.controller.ts": {
-        "version": "1c32861dc5c996ea2b10cc357e646dc3222c811a94c1e51f148e3d1a2b6d237b",
-        "signature": "2f50e5ed5b4d2274d869696a037cf6d0d2c8de158fcd90cd49ab68ce57213de4"
+        "version": "4c10dd1d7aa7ec1c280ce4b6dd0829776a92212d15e57c412a05c5c2ed1a5ee5",
+        "signature": "b5d7eee0b884d4e7cbc08fa6c63738301f744af7773db657284ed09bf9de3801"
       },
       "../src/logs/logs.module.ts": {
         "version": "89a7e3f5434209c7451a1036234d28685791ff5be9cc6178e905006c2dcd0c82",
@@ -12025,7 +12025,6 @@
       "../node_modules/@types/cron/index.d.ts",
       "../node_modules/delay/index.d.ts",
       "../node_modules/random-int/index.d.ts",
-      "../src/logs/logs.service.ts",
       "../src/jobs/jobs.service.ts",
       "../src/jobs/jobs.controller.ts",
       "../src/logs/logs.controller.ts",
@@ -12132,7 +12131,8 @@
       "../node_modules/@types/webpack-sources/index.d.ts",
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
-      "../node_modules/@types/yargs/index.d.ts"
+      "../node_modules/@types/yargs/index.d.ts",
+      "../src/logs/logs.service.ts"
     ]
   },
   "version": "3.6.3"
