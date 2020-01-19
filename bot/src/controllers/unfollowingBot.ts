@@ -7,6 +7,7 @@ import { master } from 'fork-with-emitter';
 import log from '../logs/log';
 import unfollow from '../services/personRow/unfollow';
 import sleep from '../utils/sleep';
+import gotoIndex from '../services/index/gotoIndex';
 
 export default async (page: Page, maximumUnfollows: number) => {
   if(!maximumUnfollows)
@@ -25,6 +26,11 @@ export default async (page: Page, maximumUnfollows: number) => {
       log('unfollowed', person.login)
       await sleep(250, 750)
       continue
+    }
+
+    if(--maximumUnfollows === 0){
+      await gotoIndex(page)
+      return
     }
 
     await sleep(100, 300)

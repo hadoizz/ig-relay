@@ -14,13 +14,11 @@ import getNextPost from './services/post/selectors/getNextPost'
 import getLikes from './services/post/getLikes'
 import likePost from './services/post/likePost'
 import unlikePost from './services/post/unlikePost'
-import openLikesDialog from './services/likesDialog/openLikesDialog'
-import followPersonsWhoLiked from './controllers/followPersonsWhoLiked'
 import followingBot from './controllers/followingBot'
 import login from './controllers/login'
-import unfollowFollowed from './controllers/unfollowFollowed'
 import closeDialog from './services/dialog/closeDialog'
 import uploadPost from './services/uploadPost/uploadPost'
+import unfollowingBot from './controllers/unfollowingBot'
 
 const navigationSupervisors = (page: Page) => ({
   gotoIndex: () =>
@@ -56,6 +54,8 @@ const controllersSupervisors = (page: Page) => ({
   //  followPersonsWhoLiked(page, maximum),
   followingBot: (maximum: number) =>
     followingBot(page, maximum),
+  unfollowingBot: (maximum: number) =>  
+    unfollowingBot(page, maximum),
   login: () =>
     login(page),
   //unfollowFollowed: () =>
