@@ -14,6 +14,7 @@ export declare class JobsService {
     private loadedJobs;
     private loadJob;
     private unloadJob;
+    private unloadJobs;
     private loadJobs;
     private getAllJobs;
     private hasJob;

@@ -32,11 +32,25 @@ export class LogsService {
       this.logRepository.insert({ type, payload, account })
     })
 
+    slave.onRequest('isFollowed', async (login: string) => {
+      const row = await this.followedRepository
+        .createQueryBuilder('followed')
+        .innerJoin('followed.account', 'account')
+        .andWhere('followed.login = :login', { login })
+        .andWhere('account.accountId = :accountId', { accountId })
+        .getRawOne()
+
+      if(row === undefined)
+        return false
+
+      return true
+    })
+
     slave.onRequest('shouldBeUnfollowed', async (login: string) => {
       const row = await this.followedRepository
         .createQueryBuilder('followed')
         .innerJoin('followed.account', 'account')
-        .where('followed.createdAt <= now() - interval 1 day')
+        .where('followed.createdAt <= now() - interval 2 day')
         .andWhere('followed.login = :login', { login })
         .andWhere('account.accountId = :accountId', { accountId })
         .getRawOne()

@@ -60,6 +60,10 @@ let JobsService = class JobsService {
         if (this.loadedJobs.has(jobId))
             this.loadedJobs.get(jobId).stop();
     }
+    unloadJobs() {
+        this.loadedJobs.forEach(job => job.stop());
+        this.loadedJobs.clear();
+    }
     async loadJobs() {
         const jobs = await this.getAllJobs();
         for (const job of jobs)
@@ -112,8 +116,8 @@ let JobsService = class JobsService {
             .where('job.jobId = :jobId', { jobId })
             .execute();
         if (process.env.NODE_ENV === 'production') {
-            this.unloadJob(jobId);
-            this.loadJob(await this.jobRepository.findOne(jobId));
+            this.unloadJobs();
+            await this.loadJobs();
         }
     }
     async createJob(userId, accountId, job) {

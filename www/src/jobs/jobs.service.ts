@@ -60,6 +60,11 @@ export class JobsService {
       this.loadedJobs.get(jobId).stop()
   }
 
+  private unloadJobs(){
+    this.loadedJobs.forEach(job => job.stop())
+    this.loadedJobs.clear()
+  }
+
   private async loadJobs(){
     const jobs = await this.getAllJobs()
     for(const job of jobs)
@@ -136,9 +141,8 @@ export class JobsService {
       .execute()
 
     if(process.env.NODE_ENV === 'production'){
-      this.unloadJob(jobId)
-      //@ts-ignore
-      this.loadJob(await this.jobRepository.findOne(jobId))
+      this.unloadJobs()
+      await this.loadJobs()
     }
   }
 

@@ -2370,12 +2370,12 @@
         "signature": "20aa24ce3ffe34fb1b563122479449c6330fac5509d3d076680ec657c4eb949f"
       },
       "../src/logs/logs.service.ts": {
-        "version": "0071bd56d457f56a86c86a998db319a2294e8124ac90a9887b17f2116443b707",
+        "version": "27e3a2a3795c5715106dda0862dc91e4931c2c1c0fd59e9ae93b4c9f3d1a5e7d",
         "signature": "fa8b63ef539309cae069c84b7c9da6ee1423d5f2b88e567e02b8c2df0ff98612"
       },
       "../src/jobs/jobs.service.ts": {
-        "version": "c717538930cefacc521592ce23364107a589849be87deb7755d5c070ffd1dac5",
-        "signature": "3fb2207bb5b7b14ac6dcecc1d810f47ec1ef28cea8cb331c56bc5766be3e7207"
+        "version": "d31922400f4372a833b0ea1d90ae05e9fac9d2848cebf9b98773315297d1f8c3",
+        "signature": "0cbcbbdbab6199888b16a09e982fb120986a7e6e755c0ee22709ad0b24733db2"
       },
       "../src/jobs/jobs.controller.ts": {
         "version": "ca8ccbe202a6f32f0231d44a0d82f02601a1765139aa26c6f253d36a233ef9ff",
@@ -10939,12 +10939,12 @@
         "../node_modules/fork-with-emitter/dist/index.d.ts"
       ],
       "../src/jobs/jobs.service.ts": [
+        "../node_modules/typeorm/index.d.ts",
         "../src/entities/job.entity.ts",
         "../src/entities/user.entity.ts",
-        "../node_modules/typeorm/index.d.ts",
+        "../src/entities/account.entity.ts",
         "../src/bots/bots.service.ts",
-        "../src/logs/logs.service.ts",
-        "../src/entities/account.entity.ts"
+        "../src/logs/logs.service.ts"
       ],
       "../src/jobs/jobs.controller.ts": [
         "../src/jobs/jobs.service.ts"
@@ -11997,6 +11997,7 @@
       "../src/streaming/streaming.controller.ts",
       "../src/streaming/streaming.module.ts",
       "../src/entities/job.entity.ts",
+      "../src/entities/log.entity.ts",
       "../src/entities/followed.entity.ts",
       "../src/entities/account.entity.ts",
       "../src/entities/user.entity.ts",
@@ -12038,7 +12039,6 @@
       "../node_modules/delay/index.d.ts",
       "../node_modules/random-int/index.d.ts",
       "../src/logs/logs.service.ts",
-      "../src/jobs/jobs.service.ts",
       "../src/jobs/jobs.controller.ts",
       "../src/logs/logs.controller.ts",
       "../src/logs/logs.module.ts",
@@ -12146,7 +12146,7 @@
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
       "../node_modules/@types/yargs/index.d.ts",
-      "../src/entities/log.entity.ts"
+      "../src/jobs/jobs.service.ts"
     ]
   },
   "version": "3.6.3"
