@@ -2206,7 +2206,7 @@
         "signature": "a60b90b874462e68c3f62696af74e4991f10b684579b1da5bf226451303398fe"
       },
       "../src/entities/log.entity.ts": {
-        "version": "283a694d7e01da33b50c9a82cdbefeb840f637cd6f396e5c4b5d030e0e898a2e",
+        "version": "78defb97508a9e8e2442934aa209e42b9a09ae2f3b9291401c876b791becd69f",
         "signature": "43be43862c7c795027c8251360ac586bcc57fa28acc889d21e54cc30d8469e2b"
       },
       "../src/entities/followed.entity.ts": {
@@ -11997,7 +11997,6 @@
       "../src/streaming/streaming.controller.ts",
       "../src/streaming/streaming.module.ts",
       "../src/entities/job.entity.ts",
-      "../src/entities/log.entity.ts",
       "../src/entities/followed.entity.ts",
       "../src/entities/account.entity.ts",
       "../src/entities/user.entity.ts",
@@ -12146,7 +12145,8 @@
       "../node_modules/@types/webpack-sources/index.d.ts",
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
-      "../node_modules/@types/yargs/index.d.ts"
+      "../node_modules/@types/yargs/index.d.ts",
+      "../src/entities/log.entity.ts"
     ]
   },
   "version": "3.6.3"

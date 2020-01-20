@@ -27,7 +27,7 @@ __decorate([
     __metadata("design:type", String)
 ], Log.prototype, "type", void 0);
 __decorate([
-    typeorm_1.Column(),
+    typeorm_1.Column({ default: null }),
     __metadata("design:type", String)
 ], Log.prototype, "payload", void 0);
 __decorate([

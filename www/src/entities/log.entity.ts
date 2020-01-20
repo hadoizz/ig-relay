@@ -13,7 +13,7 @@ export class Log {
   @Column()
   type: string
 
-  @Column({ nullable: true })
+  @Column({ default: null })
   payload?: string
 
   @ManyToOne(type => Account, account => account.logs, { cascade: ['insert'] })
