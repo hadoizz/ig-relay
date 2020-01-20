@@ -2518,7 +2518,7 @@
         "signature": "2608cfd623840916e664e68c3dc5eb4347ccae822f808d899bf00e73cbab2bfe"
       },
       "../src/main.ts": {
-        "version": "3deaeae34f42be8b85fb3461886028d045c7aa57c889d3afa27efc833af57732",
+        "version": "93b5ff6d30aa0a72ebcf48e57b8c21ae9d810e012a99f9649ba382c33a634d55",
         "signature": "3b3cbe89219f5c7208870ae9336c27c597cc0148fa7858e25ee8561172abbec9"
       },
       "../src/accounts/account.entity.spec.ts": {
@@ -2766,8 +2766,8 @@
         "signature": "02a185b5e8d74b38264ffb77baa99e83969ba558958df28f971528dcbdd94876"
       },
       "../node_modules/@types/tapable/index.d.ts": {
-        "version": "c3175d4a7894de56cdc5e62f4269f1f57c2f08da88d3a91ad47bc0652ac8cb46",
-        "signature": "c3175d4a7894de56cdc5e62f4269f1f57c2f08da88d3a91ad47bc0652ac8cb46"
+        "version": "963e0182287755a18c98493cd70f6747b776f1a54c8620353e1f8e2e17b6cd3a",
+        "signature": "963e0182287755a18c98493cd70f6747b776f1a54c8620353e1f8e2e17b6cd3a"
       },
       "../node_modules/@types/uglify-js/node_modules/source-map/source-map.d.ts": {
         "version": "2887592574fcdfd087647c539dcb0fbe5af2521270dad4a37f9d17c16190d579",
@@ -2786,12 +2786,12 @@
         "signature": "2887592574fcdfd087647c539dcb0fbe5af2521270dad4a37f9d17c16190d579"
       },
       "../node_modules/@types/webpack-sources/index.d.ts": {
-        "version": "7429e36c7e860a83e1166d6f0977fa4938b7a7a346255169a678939594394375",
-        "signature": "7429e36c7e860a83e1166d6f0977fa4938b7a7a346255169a678939594394375"
+        "version": "ab95c4625e16499b8181731576984bcdfd0438a9a87b5f7de8299de5c912a241",
+        "signature": "ab95c4625e16499b8181731576984bcdfd0438a9a87b5f7de8299de5c912a241"
       },
       "../node_modules/@types/webpack/index.d.ts": {
-        "version": "84917f715b4c49b51423bda91142e090ba5a955e64f83a32ca6092fb91a58363",
-        "signature": "84917f715b4c49b51423bda91142e090ba5a955e64f83a32ca6092fb91a58363"
+        "version": "ac5c629fbc699258ee8d5218d0daaaa2cdf8544ce6d826313ed74db23184e1e4",
+        "signature": "ac5c629fbc699258ee8d5218d0daaaa2cdf8544ce6d826313ed74db23184e1e4"
       },
       "../node_modules/@types/yargs-parser/index.d.ts": {
         "version": "e65fca93c26b09681d33dad7b3af32ae42bf0d114d859671ffed30a92691439c",
@@ -12034,6 +12034,7 @@
       "../src/logs/logs.controller.ts",
       "../src/logs/logs.module.ts",
       "../src/jobs/jobs.module.ts",
+      "../src/app.service.ts",
       "../src/app.module.ts",
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts",
       "../node_modules/@nestjs/core/adapters/index.d.ts",
@@ -12064,7 +12065,6 @@
       "../node_modules/@nestjs/core/services/reflector.service.d.ts",
       "../node_modules/@nestjs/core/services/index.d.ts",
       "../node_modules/@nestjs/core/index.d.ts",
-      "../src/main.ts",
       "../src/accounts/account.entity.spec.ts",
       "../node_modules/@nestjs/testing/interfaces/override-by-factory-options.interface.d.ts",
       "../node_modules/@nestjs/core/metadata-scanner.d.ts",
@@ -12126,16 +12126,16 @@
       "../node_modules/@types/stack-utils/index.d.ts",
       "../node_modules/@types/superagent/index.d.ts",
       "../node_modules/@types/supertest/index.d.ts",
-      "../node_modules/@types/tapable/index.d.ts",
       "../node_modules/@types/uglify-js/node_modules/source-map/source-map.d.ts",
       "../node_modules/@types/uglify-js/index.d.ts",
       "../node_modules/@types/webpack/node_modules/source-map/source-map.d.ts",
       "../node_modules/@types/webpack-sources/node_modules/source-map/source-map.d.ts",
-      "../node_modules/@types/webpack-sources/index.d.ts",
-      "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
       "../node_modules/@types/yargs/index.d.ts",
-      "../src/app.service.ts"
+      "../src/main.ts",
+      "../node_modules/@types/tapable/index.d.ts",
+      "../node_modules/@types/webpack/index.d.ts",
+      "../node_modules/@types/webpack-sources/index.d.ts"
     ]
   },
   "version": "3.6.3"

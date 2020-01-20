@@ -71,7 +71,7 @@ export default (page: Page) => {
   )
 
   master.onRequest('executeSupervisor', async ({ name, payload }: { name: string, payload: any }) => {    
-    log(name, payload)
+    log('supervisor', payload === undefined ? `${name}()` : `${name}(${payload})`)
     if(!supervisors.hasOwnProperty(name))
       throw 'Invalid supervisor name'
 
