@@ -22,7 +22,7 @@ declare const createBot: ({ login, password }: Credentials, beforeLoad?: (Slave:
     };
     slave: Slave;
     exit(): void;
-    executeSupervisor(executeSupervisorCommand: ExecuteSupervisorCommand): Promise<unknown>;
-    getSupervisors(): Promise<unknown>;
+    executeSupervisor(executeSupervisorCommand: ExecuteSupervisorCommand): Promise<{}>;
+    getSupervisors(): Promise<{}>;
 }>;
 export default createBot;

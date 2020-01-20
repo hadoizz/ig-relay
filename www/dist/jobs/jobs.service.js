@@ -122,7 +122,7 @@ let JobsService = class JobsService {
             .where('account.user = :userId', { userId })
             .andWhere('account.accountId = :accountId', { accountId })
             .getOne();
-        this.jobRepository.insert(Object.assign(Object.assign({}, job), { account }));
+        this.jobRepository.insert(Object.assign({}, job, { account }));
     }
 };
 JobsService = __decorate([
