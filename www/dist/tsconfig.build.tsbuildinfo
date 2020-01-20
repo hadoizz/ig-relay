@@ -2374,7 +2374,7 @@
         "signature": "fa8b63ef539309cae069c84b7c9da6ee1423d5f2b88e567e02b8c2df0ff98612"
       },
       "../src/jobs/jobs.service.ts": {
-        "version": "9d2849c83245ee787b8039abdc325a8bbde7849290e059a0a4c777f1da4b10dc",
+        "version": "c717538930cefacc521592ce23364107a589849be87deb7755d5c070ffd1dac5",
         "signature": "3fb2207bb5b7b14ac6dcecc1d810f47ec1ef28cea8cb331c56bc5766be3e7207"
       },
       "../src/jobs/jobs.controller.ts": {

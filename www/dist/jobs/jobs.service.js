@@ -35,7 +35,8 @@ let JobsService = class JobsService {
         this.botsService = botsService;
         this.logsService = logsService;
         this.loadedJobs = new Map();
-        this.loadJobs();
+        if (process.env.NODE_ENV === 'production')
+            this.loadJobs();
     }
     async loadJob({ jobId, cron, supervisor, supervisorPayload, maxDelaySeconds, accountId, login, password }) {
         const job = createJob(cron, async () => {
