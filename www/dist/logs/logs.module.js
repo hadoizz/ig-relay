@@ -11,9 +11,9 @@ const logs_service_1 = require("./logs.service");
 const logs_controller_1 = require("./logs.controller");
 const typeorm_1 = require("@nestjs/typeorm");
 const auth_module_1 = require("../auth/auth.module");
-const log_entity_1 = require("./log.entity");
-const followed_entity_1 = require("./followed.entity");
-const account_entity_1 = require("../accounts/account.entity");
+const log_entity_1 = require("../entities/log.entity");
+const followed_entity_1 = require("../entities/followed.entity");
+const account_entity_1 = require("../entities/account.entity");
 let LogsModule = class LogsModule {
 };
 LogsModule = __decorate([

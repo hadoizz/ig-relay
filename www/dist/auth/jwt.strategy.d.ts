@@ -4,6 +4,6 @@ declare const JwtStrategy_base: new (...args: any[]) => typeof Strategy;
 export declare class JwtStrategy extends JwtStrategy_base {
     private readonly usersService;
     constructor(usersService: UsersService);
-    validate(payload: any): Promise<import("../users/user.entity").User>;
+    validate(payload: any): Promise<import("../entities/user.entity").User>;
 }
 export {};

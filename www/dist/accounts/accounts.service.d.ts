@@ -1,5 +1,5 @@
 import { Repository } from 'typeorm';
-import { Account } from './account.entity';
+import { Account } from '../entities/account.entity';
 export declare class AccountsService {
     private readonly accountRepository;
     constructor(accountRepository: Repository<Account>);

@@ -1,8 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from 'typeorm'
-import { Job } from '../jobs/job.entity'
-import { User } from '../users/user.entity'
-import { Log } from '../logs/log.entity'
-import { Followed } from '../logs/followed.entity'
+import { Job } from './job.entity'
+import { User } from './user.entity'
+import { Log } from './log.entity'
+import { Followed } from './followed.entity'
 
 @Entity()
 export class Account {

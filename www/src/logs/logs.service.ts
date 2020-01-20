@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { Bot } from '../bots/utils/createBot'
 import { InjectRepository } from '@nestjs/typeorm';
-import { Log } from './log.entity';
+import { Log } from '../entities/log.entity';
 import { Repository } from 'typeorm';
-import { Followed } from './followed.entity';
-import { Account } from '../accounts/account.entity';
+import { Followed } from '../entities/followed.entity';
+import { Account } from '../entities/account.entity';
 import { Slave } from 'fork-with-emitter';
 
 @Injectable()

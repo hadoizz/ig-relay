@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, ManyToOne, Column, BeforeInsert } from 'typeorm';
-import { Account } from '../accounts/account.entity'
+import { Account } from './account.entity'
 
 @Entity()
 export class Job {

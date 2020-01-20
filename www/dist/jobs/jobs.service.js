@@ -17,15 +17,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const cron_1 = require("cron");
-const job_entity_1 = require("./job.entity");
+const job_entity_1 = require("../entities/job.entity");
 const typeorm_1 = require("@nestjs/typeorm");
-const user_entity_1 = require("../users/user.entity");
+const user_entity_1 = require("../entities/user.entity");
 const typeorm_2 = require("typeorm");
 const delay_1 = __importDefault(require("delay"));
 const random_int_1 = __importDefault(require("random-int"));
 const bots_service_1 = require("../bots/bots.service");
 const logs_service_1 = require("../logs/logs.service");
-const account_entity_1 = require("../accounts/account.entity");
+const account_entity_1 = require("../entities/account.entity");
 const createJob = (cron, fn) => new cron_1.CronJob(cron, fn, null, true, 'Europe/Warsaw');
 let JobsService = class JobsService {
     constructor(jobRepository, userRepository, accountRepository, botsService, logsService) {
@@ -122,7 +122,7 @@ let JobsService = class JobsService {
             .where('account.user = :userId', { userId })
             .andWhere('account.accountId = :accountId', { accountId })
             .getOne();
-        this.jobRepository.insert(Object.assign({}, job, { account }));
+        this.jobRepository.insert(Object.assign(Object.assign({}, job), { account }));
     }
 };
 JobsService = __decorate([

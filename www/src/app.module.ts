@@ -8,9 +8,9 @@ import { JobsModule } from './jobs/jobs.module';
 import { UsersModule } from './users/users.module';
 import { LogsModule } from './logs/logs.module';
 import { AppService } from './app.service';
-import { User } from './users/user.entity';
-import { Account } from './accounts/account.entity';
-import { Job } from './jobs/job.entity';
+import { User } from './entities/user.entity';
+import { Account } from './entities/account.entity';
+import { Job } from './entities/job.entity';
 
 @Module({
   imports: [

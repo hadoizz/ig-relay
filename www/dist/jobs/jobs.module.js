@@ -10,12 +10,12 @@ const common_1 = require("@nestjs/common");
 const jobs_service_1 = require("./jobs.service");
 const jobs_controller_1 = require("./jobs.controller");
 const typeorm_1 = require("@nestjs/typeorm");
-const job_entity_1 = require("./job.entity");
+const job_entity_1 = require("../entities/job.entity");
 const bots_module_1 = require("../bots/bots.module");
 const accounts_module_1 = require("../accounts/accounts.module");
-const user_entity_1 = require("../users/user.entity");
+const user_entity_1 = require("../entities/user.entity");
 const logs_module_1 = require("../logs/logs.module");
-const account_entity_1 = require("../accounts/account.entity");
+const account_entity_1 = require("../entities/account.entity");
 let JobsModule = class JobsModule {
 };
 JobsModule = __decorate([

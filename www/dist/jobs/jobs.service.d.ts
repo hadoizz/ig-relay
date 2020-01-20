@@ -1,9 +1,9 @@
-import { Job } from './job.entity';
-import { User } from '../users/user.entity';
+import { Job } from '../entities/job.entity';
+import { User } from '../entities/user.entity';
 import { Repository } from 'typeorm';
 import { BotsService } from '../bots/bots.service';
 import { LogsService } from '../logs/logs.service';
-import { Account } from '../accounts/account.entity';
+import { Account } from '../entities/account.entity';
 export declare class JobsService {
     private readonly jobRepository;
     private readonly userRepository;

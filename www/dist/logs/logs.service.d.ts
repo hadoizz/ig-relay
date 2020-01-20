@@ -1,7 +1,7 @@
-import { Log } from './log.entity';
+import { Log } from '../entities/log.entity';
 import { Repository } from 'typeorm';
-import { Followed } from './followed.entity';
-import { Account } from '../accounts/account.entity';
+import { Followed } from '../entities/followed.entity';
+import { Account } from '../entities/account.entity';
 import { Slave } from 'fork-with-emitter';
 export declare class LogsService {
     private readonly logRepository;

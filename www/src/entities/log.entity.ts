@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, Index, ManyToOne } from 'typeorm'
-import { Account } from '../accounts/account.entity'
+import { Account } from './account.entity'
 
 @Entity()
 export class Log {

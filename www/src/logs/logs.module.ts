@@ -3,9 +3,9 @@ import { LogsService } from './logs.service';
 import { LogsController } from './logs.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from '../auth/auth.module';
-import { Log } from './log.entity';
-import { Followed } from './followed.entity';
-import { Account } from '../accounts/account.entity';
+import { Log } from '../entities/log.entity';
+import { Followed } from '../entities/followed.entity';
+import { Account } from '../entities/account.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Log, Followed, Account]), AuthModule],

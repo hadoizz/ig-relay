@@ -1,7 +1,7 @@
-import { User } from './users/user.entity';
+import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
-import { Account } from './accounts/account.entity';
-import { Job } from './jobs/job.entity';
+import { Account } from './entities/account.entity';
+import { Job } from './entities/job.entity';
 export declare class AppService {
     private readonly userRepository;
     private readonly accountRepository;

@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { CronJob, job } from 'cron'
-import { Job } from './job.entity'
+import { Job } from '../entities/job.entity'
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../users/user.entity';
+import { User } from '../entities/user.entity';
 import { Repository } from 'typeorm';
 import delay from 'delay'
 import random from 'random-int'
 import { BotsService } from '../bots/bots.service';
 import { LogsService } from '../logs/logs.service';
-import { Account } from '../accounts/account.entity';
+import { Account } from '../entities/account.entity';
 
 const createJob = (cron: string, fn: () => Promise<void>) =>
   new CronJob(cron, fn, null, true, 'Europe/Warsaw')

@@ -11,8 +11,8 @@ const typeorm_1 = require("@nestjs/typeorm");
 const accounts_service_1 = require("./accounts.service");
 const accounts_controller_1 = require("./accounts.controller");
 const auth_module_1 = require("../auth/auth.module");
-const account_entity_1 = require("./account.entity");
-const user_entity_1 = require("../users/user.entity");
+const account_entity_1 = require("../entities/account.entity");
+const user_entity_1 = require("../entities/user.entity");
 let AccountsModule = class AccountsModule {
 };
 AccountsModule = __decorate([

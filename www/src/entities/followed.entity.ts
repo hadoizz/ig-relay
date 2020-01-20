@@ -1,5 +1,5 @@
 import { Entity, Column, OneToMany, Index, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm'
-import { Account } from '../accounts/account.entity'
+import { Account } from './account.entity'
 
 @Entity()
 @Index(['account','login'], { unique: true })
