@@ -22,7 +22,7 @@ export class JobsService {
     private readonly botsService: BotsService,
     private readonly logsService: LogsService
   ){
-    if(process.env.NODE_ENV === 'production')
+    //if(process.env.NODE_ENV === 'production')
       this.loadJobs()
   }
 

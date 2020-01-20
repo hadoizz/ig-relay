@@ -13,7 +13,9 @@ const device = devices['Pixel 2']
 
 export default async () => {
   const browser = await puppeteer.launch({
-    headless: getEnvData().headless,
+    headless: getEnvData().production 
+      ? true 
+      : getEnvData().headless,
     userDataDir: resolve('data'),
     args: [
       '--no-sandbox',
