@@ -19,12 +19,22 @@ const app_service_1 = require("./app.service");
 const user_entity_1 = require("./entities/user.entity");
 const account_entity_1 = require("./entities/account.entity");
 const job_entity_1 = require("./entities/job.entity");
+const connectionOptions = {
+    "type": "mysql",
+    "host": process.env.MYSQL_HOST || "localhost",
+    "port": 3306,
+    "username": process.env.MYSQL_USERNAME || "root",
+    "password": process.env.MYSQL_PASSWORD || "",
+    "database": process.env.MYSQL_DB || "insta",
+    "entities": [__dirname + "/entities/*.entity{.js,.ts}"],
+    "synchronize": true
+};
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     common_1.Module({
         imports: [
-            typeorm_1.TypeOrmModule.forRoot(),
+            typeorm_1.TypeOrmModule.forRoot(connectionOptions),
             auth_module_1.AuthModule,
             bots_module_1.BotsModule,
             streaming_module_1.StreamingModule,

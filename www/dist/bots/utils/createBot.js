@@ -20,7 +20,7 @@ exports.Credentials = Credentials;
 const createBot = async ({ login, password }, beforeLoad) => {
     const bot = fork_with_emitter_1.createSlave('app.js', {
         cwd: path_1.resolve('../bot/dist/'),
-        env: Object.assign({}, process.env, { CONTROLLED: '1', LOGIN: login, PASSWORD: password })
+        env: Object.assign(Object.assign({}, process.env), { CONTROLLED: '1', LOGIN: login, PASSWORD: password })
     });
     if (beforeLoad !== undefined)
         beforeLoad(bot);

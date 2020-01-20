@@ -11,10 +11,22 @@ import { AppService } from './app.service';
 import { User } from './entities/user.entity';
 import { Account } from './entities/account.entity';
 import { Job } from './entities/job.entity';
+import { ConnectionOptions } from 'typeorm';
+
+const connectionOptions: ConnectionOptions = {
+  "type": "mysql",
+  "host": process.env.MYSQL_HOST || "localhost",
+  "port": 3306,
+  "username": process.env.MYSQL_USERNAME || "root",
+  "password": process.env.MYSQL_PASSWORD || "",
+  "database": process.env.MYSQL_DB || "insta",
+  "entities": [__dirname + "/entities/*.entity{.js,.ts}"],
+  "synchronize": true
+}
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(),
+    TypeOrmModule.forRoot(connectionOptions),
     AuthModule,
     BotsModule,
     StreamingModule,

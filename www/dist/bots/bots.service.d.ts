@@ -14,8 +14,8 @@ export declare class BotsService {
             };
             slave: Slave;
             exit(): void;
-            executeSupervisor(executeSupervisorCommand: import("./utils/createBot").ExecuteSupervisorCommand): Promise<{}>;
-            getSupervisors(): Promise<{}>;
+            executeSupervisor(executeSupervisorCommand: import("./utils/createBot").ExecuteSupervisorCommand): Promise<unknown>;
+            getSupervisors(): Promise<unknown>;
         };
     }>;
     private getCredentialsFromConfig;

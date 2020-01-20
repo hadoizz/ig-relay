@@ -2398,7 +2398,7 @@
         "signature": "78b4c07ca8775723b6cbf7fb1080cef23202a716f6302fb3a2d65c5ff864faa3"
       },
       "../src/app.module.ts": {
-        "version": "26abf026d99177ceb73ee914cce3e82c8302a2fb7a160ac2fdd76c242ef118fd",
+        "version": "9efef1fb65393635731cb57657c37b7b3a9f202140b7c7573b3288af584684bb",
         "signature": "9fc7f7b6ad854404973b8cba8e6d883f758237991968e9a3965d716d46f1da88"
       },
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts": {
@@ -6682,6 +6682,7 @@
         "../src/entities/user.entity.ts",
         "../src/entities/account.entity.ts",
         "../src/entities/job.entity.ts",
+        "../node_modules/typeorm/index.d.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -10733,8 +10734,8 @@
         "../src/bots/bots.service.ts"
       ],
       "../src/streaming/streaming.controller.ts": [
-        "../src/streaming/streaming.service.ts",
-        "../node_modules/@types/express/index.d.ts"
+        "../node_modules/@types/express/index.d.ts",
+        "../src/streaming/streaming.service.ts"
       ],
       "../src/streaming/streaming.module.ts": [
         "../node_modules/@nestjs/common/index.d.ts"
@@ -10749,8 +10750,8 @@
         "../src/entities/account.entity.ts"
       ],
       "../src/entities/account.entity.ts": [
-        "../src/entities/user.entity.ts",
         "../src/entities/job.entity.ts",
+        "../src/entities/user.entity.ts",
         "../src/entities/log.entity.ts",
         "../src/entities/followed.entity.ts"
       ],
@@ -10758,8 +10759,8 @@
         "../src/entities/account.entity.ts"
       ],
       "../src/users/users.service.ts": [
-        "../node_modules/typeorm/index.d.ts",
-        "../src/entities/user.entity.ts"
+        "../src/entities/user.entity.ts",
+        "../node_modules/typeorm/index.d.ts"
       ],
       "../node_modules/@types/jsonwebtoken/index.d.ts": [
         "../node_modules/@types/node/ts3.2/index.d.ts",
@@ -10886,8 +10887,8 @@
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "../src/auth/local.strategy.ts": [
-        "../src/auth/auth.service.ts",
-        "../node_modules/@types/passport-local/index.d.ts"
+        "../node_modules/@types/passport-local/index.d.ts",
+        "../src/auth/auth.service.ts"
       ],
       "../src/auth/auth.controller.ts": [
         "../src/auth/auth.service.ts"
@@ -10900,9 +10901,9 @@
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "../src/auth/jwt.strategy.ts": [
-        "../src/entities/user.entity.ts",
+        "../node_modules/@types/passport-jwt/index.d.ts",
         "../src/users/users.service.ts",
-        "../node_modules/@types/passport-jwt/index.d.ts"
+        "../src/entities/user.entity.ts"
       ],
       "../src/accounts/accounts.service.ts": [
         "../node_modules/typeorm/index.d.ts",
@@ -10931,19 +10932,19 @@
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "../src/logs/logs.service.ts": [
-        "../node_modules/typeorm/index.d.ts",
         "../src/entities/log.entity.ts",
+        "../node_modules/typeorm/index.d.ts",
         "../src/entities/followed.entity.ts",
         "../src/entities/account.entity.ts",
         "../node_modules/fork-with-emitter/dist/index.d.ts"
       ],
       "../src/jobs/jobs.service.ts": [
-        "../node_modules/typeorm/index.d.ts",
         "../src/entities/job.entity.ts",
         "../src/entities/user.entity.ts",
-        "../src/entities/account.entity.ts",
+        "../node_modules/typeorm/index.d.ts",
         "../src/bots/bots.service.ts",
-        "../src/logs/logs.service.ts"
+        "../src/logs/logs.service.ts",
+        "../src/entities/account.entity.ts"
       ],
       "../src/jobs/jobs.controller.ts": [
         "../src/jobs/jobs.service.ts"
@@ -10952,8 +10953,8 @@
         "../src/logs/logs.service.ts"
       ],
       "../src/app.service.ts": [
-        "../node_modules/typeorm/index.d.ts",
         "../src/entities/user.entity.ts",
+        "../node_modules/typeorm/index.d.ts",
         "../src/entities/account.entity.ts",
         "../src/entities/job.entity.ts"
       ],
