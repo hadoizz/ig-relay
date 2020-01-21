@@ -12,6 +12,7 @@ puppeteer.use(AdblockerPlugin())
 const device = devices['Pixel 2']
 
 export default async () => {
+  console.log('x1')
   const browser = await puppeteer.launch({
     headless: getEnvData().production 
       ? true 
@@ -26,13 +27,17 @@ export default async () => {
     throw 'Browser disconnected'
   })
   
+  console.log('x2')
   const page = await browser.newPage()
   page.on('error', msg => {
     throw 'Page crashed'
   })
 
+  console.log('x3')
   await page.emulate(device)
+  console.log('x4')
   await exposeDevFns(page)
+  console.log('x5')
   await page.goto('https://instagram.com/')
 
   return page
