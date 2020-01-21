@@ -56,7 +56,7 @@ const createBot = async ({ login, password }, beforeLoad) => {
             finally { if (e_2) throw e_2.error; }
         }
     })();
-    await bot.request('start');
+    await bot.request('start', null, 120);
     const startedAt = +new Date;
     return {
         info: {
@@ -68,7 +68,7 @@ const createBot = async ({ login, password }, beforeLoad) => {
         },
         async executeSupervisor(executeSupervisorCommand) {
             try {
-                return await bot.request('executeSupervisor', executeSupervisorCommand, 1000 * 60 * 30);
+                return await bot.request('executeSupervisor', executeSupervisorCommand, 60 * 30);
             }
             catch (error) {
                 throw new Error(error);
