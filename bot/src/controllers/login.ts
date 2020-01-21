@@ -4,6 +4,7 @@ import typeCredentials from '../services/login/typeCredentials'
 import submitCredentials from '../services/login/submitCredentials'
 import sleep from '../utils/sleep'
 import { onLogin, onFailedLogin } from '../emitter'
+import log from '../logs/log'
 
 
 const path = '/accounts/login'
@@ -28,8 +29,8 @@ export default async (page: Page) => {
 
   if(page.url().includes(path)){
     await onFailedLogin.emit(credentials)
-    throw `Nie można zalogować (login ${credentials.login})`
+    throw `Nie można zalogować (${credentials.login})`
   }
 
-  onLogin.emit(credentials)
+  log('logged', credentials.login)
 } 
