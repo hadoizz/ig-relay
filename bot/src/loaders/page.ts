@@ -17,7 +17,9 @@ export default async () => {
     headless: getEnvData().production 
       ? true 
       : getEnvData().headless,
-    userDataDir: resolve('data'),
+    userDataDir: getEnvData().production
+      ? undefined
+      : resolve('data'),
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',

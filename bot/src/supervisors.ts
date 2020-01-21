@@ -52,8 +52,10 @@ const servicesSupervisors = (page: Page) => ({
 const controllersSupervisors = (page: Page) => ({
   //followPersonsWhoLiked: (maximum?: number) =>
   //  followPersonsWhoLiked(page, maximum),
-  followingBot: (maximum: number) =>
-    followingBot(page, maximum),
+  followingBot: async (maximum: number) => {
+    await login(page)
+    await followingBot(page, maximum)
+  },
   unfollowingBot: (maximum: number) =>  
     unfollowingBot(page, maximum),
   login: () =>
