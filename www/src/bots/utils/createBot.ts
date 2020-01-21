@@ -45,7 +45,7 @@ const createBot = async ({ login, password }: Credentials, beforeLoad?: (Slave) 
       console.log(chalk.red(chomp(line)))
   })()
 
-  await bot.request('start')
+  await bot.request('start', null, 120)
 
   const startedAt = +new Date
 
@@ -59,7 +59,7 @@ const createBot = async ({ login, password }: Credentials, beforeLoad?: (Slave) 
     },
     async executeSupervisor(executeSupervisorCommand: ExecuteSupervisorCommand){
       try {
-        return await bot.request('executeSupervisor', executeSupervisorCommand, 1000*60*30)
+        return await bot.request('executeSupervisor', executeSupervisorCommand, 60*30)
       } catch(error) {
         throw new Error(error)
       }
