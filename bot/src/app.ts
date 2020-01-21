@@ -14,8 +14,6 @@ const starting = (async () => {
   const page = await loadPage()
   console.log('Page loaded')
   await loadSubscribers(page)
-
-  log('start')
 })()
 
 if(isSlave){
