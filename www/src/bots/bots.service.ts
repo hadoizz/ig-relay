@@ -30,7 +30,10 @@ export class BotsService {
   async createDevBot(cookies = { 'sessionid': '2859946592%3AYzIhmdX9OP2bYr%3A29' }){
     if(this.devBot === null){
       const id = getId()
-      const botPromise = createBot(cookies)
+      const botPromise = createBot(cookies, slave => {
+        slave.onRequest('isFollowed', async () => true)
+        slave.onRequest('shouldBeUnfollowed', async () => false)
+      })
       this.devBot = { id, botPromise }
 
       const bot = await botPromise

@@ -2146,7 +2146,7 @@
         "signature": "d9e32ee906bf5486cc43ea52f9764ffb7c8d6fc042caf569e89b51749d5340f8"
       },
       "../src/bots/bots.service.ts": {
-        "version": "ab65f7c0d6936dcdc113307b86904dee56c6c6643d42e9720a1dd8f15ac6b081",
+        "version": "3dfcb7b270be770448a95f0744dfa2e00ff26738bc03860111f523bde56bb342",
         "signature": "3bdc09b851cd175103bf1698fb0da0e34d759bbff8b025fa83f12bf4b4edb940"
       },
       "../src/bots/bots.controller.ts": {
@@ -2374,7 +2374,7 @@
         "signature": "fa8b63ef539309cae069c84b7c9da6ee1423d5f2b88e567e02b8c2df0ff98612"
       },
       "../src/jobs/jobs.service.ts": {
-        "version": "37f823aeb1413c835dc95e793151cdaf4667a3d37804c5159f85429a49061c71",
+        "version": "2dafdeeb2db841fdc70fe5fc197883c189cb823b12db888a78956d2ac7a67c0e",
         "signature": "0cbcbbdbab6199888b16a09e982fb120986a7e6e755c0ee22709ad0b24733db2"
       },
       "../src/jobs/jobs.controller.ts": {
@@ -11982,7 +11982,6 @@
       "../src/bots/utils/getid.ts",
       "../node_modules/dotenv/types/index.d.ts",
       "../src/config/config.service.ts",
-      "../src/bots/bots.service.ts",
       "../src/bots/bots.controller.ts",
       "../src/config/config.module.ts",
       "../src/bots/bots.module.ts",
@@ -12039,6 +12038,7 @@
       "../node_modules/delay/index.d.ts",
       "../node_modules/random-int/index.d.ts",
       "../src/logs/logs.service.ts",
+      "../src/jobs/jobs.service.ts",
       "../src/jobs/jobs.controller.ts",
       "../src/logs/logs.controller.ts",
       "../src/logs/logs.module.ts",
@@ -12146,7 +12146,7 @@
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
       "../node_modules/@types/yargs/index.d.ts",
-      "../src/jobs/jobs.service.ts"
+      "../src/bots/bots.service.ts"
     ]
   },
   "version": "3.6.3"
