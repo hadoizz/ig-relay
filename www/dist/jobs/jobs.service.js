@@ -26,6 +26,7 @@ const random_int_1 = __importDefault(require("random-int"));
 const bots_service_1 = require("../bots/bots.service");
 const logs_service_1 = require("../logs/logs.service");
 const account_entity_1 = require("../entities/account.entity");
+const delay_2 = __importDefault(require("delay"));
 const createJob = (cron, fn) => new cron_1.CronJob(cron, fn, null, true, 'Europe/Warsaw');
 let JobsService = class JobsService {
     constructor(jobRepository, userRepository, accountRepository, botsService, logsService) {
@@ -45,6 +46,7 @@ let JobsService = class JobsService {
             if (!this.loadedJobs.has(jobId))
                 return;
             const { id } = await this.botsService.createBot(cookies, slave => this.logsService.attachLogsListenersToSlave(slave, accountId));
+            await delay_2.default(5000);
             const result = await this.botsService.executeSupervisor(id, supervisor, supervisorPayload);
             await this.botsService.exitBot(id);
             if (result) {

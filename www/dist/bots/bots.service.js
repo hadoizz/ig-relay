@@ -66,7 +66,7 @@ let BotsService = class BotsService {
     async executeSupervisor(id, name, payload) {
         if (!this.hasBot(id))
             return;
-        return this.getBot(id).executeSupervisor({ name, payload });
+        return await this.getBot(id).executeSupervisor({ name, payload });
     }
     hasBot(id) {
         return this.bots.has(id);

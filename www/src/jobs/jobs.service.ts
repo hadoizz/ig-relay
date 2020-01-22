@@ -9,6 +9,7 @@ import random from 'random-int'
 import { BotsService } from '../bots/bots.service';
 import { LogsService } from '../logs/logs.service';
 import { Account } from '../entities/account.entity';
+import sleep from 'delay'
 
 const createJob = (cron: string, fn: () => Promise<void>) =>
   new CronJob(cron, fn, null, true, 'Europe/Warsaw')
@@ -38,6 +39,7 @@ export class JobsService {
         return
 
       const { id } = await this.botsService.createBot(cookies, slave => this.logsService.attachLogsListenersToSlave(slave, accountId))
+      await sleep(5000)
       const result = await this.botsService.executeSupervisor(id, supervisor, supervisorPayload)
       await this.botsService.exitBot(id)
 

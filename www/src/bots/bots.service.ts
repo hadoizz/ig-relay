@@ -77,7 +77,7 @@ export class BotsService {
     if(!this.hasBot(id))
       return
 
-    return this.getBot(id).executeSupervisor({ name, payload })
+    return await this.getBot(id).executeSupervisor({ name, payload })
   }
 
   hasBot(id: string){
