@@ -75,9 +75,14 @@ export default (page: Page) => {
     if(!supervisors.hasOwnProperty(name))
       throw 'Invalid supervisor name'
 
-    const value = await supervisors[name].supervisor(payload)
-    log('success')
-    return value
+    try {
+      const value = await supervisors[name].supervisor(payload)
+      log('success')
+      return value
+    } catch(error) {
+      await page.screenshot({ path: 'error.png' })
+      log('error', error.split('\n')[0])
+    }
   })
 
   const { startStreaming, stopStreaming } = createStreaming(page)
