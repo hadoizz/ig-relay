@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
+const ms_1 = __importDefault(require("ms"));
 const stringio_1 = require("@rauschma/stringio");
 const createBot_1 = __importDefault(require("./utils/createBot"));
 const getId_1 = __importDefault(require("./utils/getId"));
@@ -21,6 +22,7 @@ let BotsService = class BotsService {
     constructor(configService) {
         this.configService = configService;
         this.bots = new Map();
+        this.devBot = null;
     }
     async createBot(cookies, beforeLoad) {
         const id = getId_1.default();
@@ -28,6 +30,21 @@ let BotsService = class BotsService {
         this.bots.set(id, bot);
         this.clearAfterExit(bot, id);
         return { id, bot };
+    }
+    async createDevBot(cookies = { 'sessionid': '2859946592%3AYzIhmdX9OP2bYr%3A29' }) {
+        if (this.devBot === null) {
+            const id = getId_1.default();
+            const botPromise = createBot_1.default(cookies);
+            this.devBot = { id, botPromise };
+            const bot = await botPromise;
+            this.bots.set(id, bot);
+            this.clearAfterExit(bot, id);
+            return { id };
+        }
+        await this.devBot.botPromise;
+        return {
+            id: this.devBot.id
+        };
     }
     async clearAfterExit(bot, id) {
         try {
@@ -56,6 +73,27 @@ let BotsService = class BotsService {
     }
     getBot(id) {
         return this.bots.get(id);
+    }
+    getBotStatus(id) {
+        if (!this.hasBot(id))
+            return {
+                alive: false
+            };
+        const { info: { startedAt } } = this.getBot(id);
+        return {
+            alive: true,
+            aliveFor: ms_1.default(+new Date - startedAt, { long: true })
+        };
+    }
+    getDevBotStatus() {
+        if (this.devBot === null)
+            return {
+                alive: false
+            };
+        return Object.assign({ id: this.devBot.id }, this.getBotStatus(this.devBot.id));
+    }
+    getBotsCount() {
+        return this.bots.size;
     }
 };
 BotsService = __decorate([

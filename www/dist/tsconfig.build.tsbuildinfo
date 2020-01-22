@@ -2146,12 +2146,12 @@
         "signature": "d9e32ee906bf5486cc43ea52f9764ffb7c8d6fc042caf569e89b51749d5340f8"
       },
       "../src/bots/bots.service.ts": {
-        "version": "c1ff41c65be862615493dee56e17335e8d315695052d0d910db89d3e936402e6",
-        "signature": "d9ebc09dff66f0bf49b31d0f9f2fa2fd3c89777a692aef6264ae8caba6e4019a"
+        "version": "1bafb676dea665e98baedd68f16c9587b26a2190ca1aaf96badcb38bbfb034dc",
+        "signature": "3bdc09b851cd175103bf1698fb0da0e34d759bbff8b025fa83f12bf4b4edb940"
       },
       "../src/bots/bots.controller.ts": {
-        "version": "5cbbc6eb79895d7d1b23b174a26a1566c3c360968fd462b001b823ec51a86e6f",
-        "signature": "5f6406a879b31a1aaa9051d6451b3cbf07f2606d1cbdafbb1b5226c980aea8ac"
+        "version": "72e6aa2829419a7d1bef56ae6116d1ed28691bd30a1b8fa423a087daf28d2f7f",
+        "signature": "303f8d06124fb40edadf273a6e3f4700608e7fc412cc66309077982326c18034"
       },
       "../src/config/config.module.ts": {
         "version": "badc9ce74abecbe48a13225d256130cdcfed9fba0e399afc974eb8d6d7d0b0af",

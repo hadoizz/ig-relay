@@ -12,24 +12,20 @@ export class BotsController {
     }
   }*/
 
-  /*@Get('dev')
+  @Get('dev')
   devBot(){
     return this.botsService.getDevBotStatus()
   }
 
   @Get('dev/start')
-  createDevBot(@Query('login') login?: string, @Query('password') password?: string){
-    const credentials = login && password
-      ? { login, password }
-      : undefined
+  createDevBot(){
+    return this.botsService.createDevBot()
+  }
 
-    return this.botsService.createDevBot(credentials)
-  }*/
-
-  /*@Get(':id')
+  @Get(':id')
   getBotStatus(@Param('id') id: string){
     return this.botsService.getBotStatus(id)
-  } */
+  } 
 
   @Get(':id/exit')
   exit(@Param('id') id: string){

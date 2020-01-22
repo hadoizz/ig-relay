@@ -5,6 +5,7 @@ export declare class BotsService {
     private readonly configService;
     constructor(configService: ConfigService);
     private readonly bots;
+    private devBot;
     createBot(cookies: Object, beforeLoad?: (Slave: any) => any): Promise<{
         id: string;
         bot: {
@@ -17,10 +18,34 @@ export declare class BotsService {
             getSupervisors(): Promise<unknown>;
         };
     }>;
+    createDevBot(cookies?: {
+        'sessionid': string;
+    }): Promise<{
+        id: string;
+    }>;
     private clearAfterExit;
     private clearBot;
     exitBot(id: string): void;
     executeSupervisor(id: string, name: string, payload?: any): Promise<any>;
     hasBot(id: string): boolean;
     getBot(id: string): Bot;
+    getBotStatus(id: string): {
+        alive: boolean;
+        aliveFor?: undefined;
+    } | {
+        alive: boolean;
+        aliveFor: any;
+    };
+    getDevBotStatus(): {
+        alive: boolean;
+    } | {
+        alive: boolean;
+        aliveFor?: undefined;
+        id: string;
+    } | {
+        alive: boolean;
+        aliveFor: any;
+        id: string;
+    };
+    getBotsCount(): number;
 }

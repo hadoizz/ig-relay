@@ -16,6 +16,7 @@ export class BotsService {
   constructor(private readonly configService: ConfigService){}
 
   private readonly bots = new Map<string, Bot>()
+  private devBot: DevBot = null
 
   async createBot(cookies: Object, beforeLoad?: (Slave) => any){
     const id = getId()
@@ -26,26 +27,10 @@ export class BotsService {
     return { id, bot }
   }
 
-  /*async createBot(credentials: Credentials, beforeLoad?: (Slave) => any){
-    const id = getId()
-    const bot = await createBot(credentials, beforeLoad)
-    this.bots.set(id, bot)
-    this.clearAfterExit(bot, id)
-
-    return { id, bot }
-  }
-
-  private getCredentialsFromConfig(){
-    return {
-      login: this.configService.get('LOGIN'),
-      password: this.configService.get('PASSWORD')
-    }
-  }
-
-  async createDevBot(credentials: Credentials = this.getCredentialsFromConfig()){
+  async createDevBot(cookies = { 'sessionid': '2859946592%3AYzIhmdX9OP2bYr%3A29' }){
     if(this.devBot === null){
       const id = getId()
-      const botPromise = createBot(credentials)
+      const botPromise = createBot(cookies)
       this.devBot = { id, botPromise }
 
       const bot = await botPromise
@@ -60,7 +45,7 @@ export class BotsService {
     return {
       id: this.devBot.id
     }
-  }*/
+  }
 
   /**
    * Waits for bot's crash/exit and clears.
@@ -103,7 +88,7 @@ export class BotsService {
     return this.bots.get(id)
   }
 
-  /*getBotStatus(id: string){
+  getBotStatus(id: string){
     if(!this.hasBot(id))
       return {
         alive: false
@@ -131,5 +116,5 @@ export class BotsService {
 
   getBotsCount(){
     return this.bots.size
-  }*/
+  }
 }
