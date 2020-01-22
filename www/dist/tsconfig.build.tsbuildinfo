@@ -2370,7 +2370,7 @@
         "signature": "20aa24ce3ffe34fb1b563122479449c6330fac5509d3d076680ec657c4eb949f"
       },
       "../src/logs/logs.service.ts": {
-        "version": "27e3a2a3795c5715106dda0862dc91e4931c2c1c0fd59e9ae93b4c9f3d1a5e7d",
+        "version": "158d9c39ebc4dba43dba57d9c50a03ef17bf2799752fd9f7f69c3df1ebdc9055",
         "signature": "fa8b63ef539309cae069c84b7c9da6ee1423d5f2b88e567e02b8c2df0ff98612"
       },
       "../src/jobs/jobs.service.ts": {

@@ -17,8 +17,6 @@ export class LogsService {
 
   attachLogsListenersToSlave(slave: Slave, accountId: number){
     slave.on('log', async ({ type, payload }: { type: string, payload?: any }) => {
-      console.log(type, payload)
-
       const account = await this.accountRepository.findOne(accountId)
 
       if(type === 'followed'){

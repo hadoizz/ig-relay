@@ -26,7 +26,6 @@ let LogsService = class LogsService {
     }
     attachLogsListenersToSlave(slave, accountId) {
         slave.on('log', async ({ type, payload }) => {
-            console.log(type, payload);
             const account = await this.accountRepository.findOne(accountId);
             if (type === 'followed') {
                 this.followedRepository.insert({ login: payload, account });
