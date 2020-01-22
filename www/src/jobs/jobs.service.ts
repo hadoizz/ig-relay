@@ -39,9 +39,11 @@ export class JobsService {
         return
 
       const { id } = await this.botsService.createBot(cookies, slave => this.logsService.attachLogsListenersToSlave(slave, accountId))
-      await sleep(5000)
+      
+      //cheap vps needs more time to fully load page
+      await sleep(30000)
+
       const result = await this.botsService.executeSupervisor(id, supervisor, supervisorPayload)
-      //await this.botsService.exitBot(id)
 
       if(result){
         console.log(`Ended job ${jobId} with result ${result}`)

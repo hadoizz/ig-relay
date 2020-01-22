@@ -46,7 +46,7 @@ let JobsService = class JobsService {
             if (!this.loadedJobs.has(jobId))
                 return;
             const { id } = await this.botsService.createBot(cookies, slave => this.logsService.attachLogsListenersToSlave(slave, accountId));
-            await delay_2.default(5000);
+            await delay_2.default(30000);
             const result = await this.botsService.executeSupervisor(id, supervisor, supervisorPayload);
             if (result) {
                 console.log(`Ended job ${jobId} with result ${result}`);
