@@ -31,8 +31,8 @@ export default async () => {
     throw 'Page crashed'
   })
 
-  Object.entries(getEnvData().cookies).map(([ name, value ]) =>
-    page.setCookie({
+  /*const cookies = Object.entries(getEnvData().cookies).reduce((cookies: any[], [name, value]) => {
+    cookies.push({
       name,
       //@ts-ignore
       value,
@@ -42,11 +42,26 @@ export default async () => {
       secure: true,
       expires: Math.round(+new Date(new Date().setFullYear(new Date().getFullYear() + 1))/1000)
     })
-  )
+    return cookies
+  }, [])
+
+  console.log(getEnvData().cookies, cookies)*/
+
+  //await page.setCookie(...cookies)
+
 
   await page.emulate(devices['Pixel 2'])
   await exposeDevFns(page)
   await page.goto('https://instagram.com/')
+
+  //await page.evaluate(sessionid => document.cookie = `sessionid=${sessionid}`, '2859946592%3AYzIhmdX9OP2bYr%3A29')
+  //@ts-ignore
+  await page.evaluate(cookies => cookies.map(([name, value]) => { document.cookie=`${name}=${value}` }), Object.entries(getEnvData().cookies))
+
+  await page.reload()
+
+  //sometimes weird shit happens and page loads infinitely (but is usable)
+  await page.evaluate(() => window.stop())
 
   return page
 }

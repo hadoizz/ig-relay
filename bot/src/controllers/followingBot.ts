@@ -10,11 +10,12 @@ import getPerson from '../services/personRow/getPerson'
 import isFollowed from '../logs/isFollowed'
 import log from '../logs/log'
 import follow from '../services/personRow/follow'
-import goBack from '../services/likedBy/goBack'
+import goBack from '../services/navigation/goBack'
 import scrollTo from '../utils/elements/scrollTo'
 import getFollowers from '../services/profile/getFollowers'
-import gotoIndex from '../services/index/gotoIndex'
 import getFirstPost from '../services/post/selectors/getFirstPost'
+import closeDialog from '../services/dialog/closeDialog'
+import isDialog from '../services/dialog/isDialog'
 
 const getFollowersFromLogin = async (page: Page, login: string) => {
   const _page = await page.browser().newPage()
@@ -28,10 +29,12 @@ export default async (page: Page, maximumFollows: number) => {
   if(!maximumFollows)
     throw `Missing maximumFollows`
 
-  await gotoIndex(page)
-
   let firstTick = true
   while(true){
+    //make sure some shit doesn't interrupt job
+    if(await isDialog(page))
+      await closeDialog(page)
+
     let post
     if(firstTick){
       post = await getFirstPost(page)
