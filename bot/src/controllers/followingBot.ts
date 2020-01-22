@@ -13,6 +13,7 @@ import follow from '../services/personRow/follow'
 import goBack from '../services/likedBy/goBack'
 import scrollTo from '../utils/elements/scrollTo'
 import getFollowers from '../services/profile/getFollowers'
+import gotoIndex from '../services/index/gotoIndex'
 
 const getFollowersFromLogin = async (page: Page, login: string) => {
   const _page = await page.browser().newPage()
@@ -25,6 +26,8 @@ const getFollowersFromLogin = async (page: Page, login: string) => {
 export default async (page: Page, maximumFollows: number) => {
   if(!maximumFollows)
     throw `Missing maximumFollows`
+
+  await gotoIndex(page)
 
   let firstTick = true
   while(true){
