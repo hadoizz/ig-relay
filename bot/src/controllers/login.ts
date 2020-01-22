@@ -33,4 +33,11 @@ export default async (page: Page) => {
   }
 
   log('logged', credentials.login)
+  
+  const cookie = (await page.cookies()).find(cookie => cookie.name === 'sessionid')
+  console.log(cookie, null, ' ')
+  if(cookie)
+    return cookie.value
+
+  return null
 } 

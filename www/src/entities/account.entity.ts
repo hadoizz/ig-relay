@@ -12,8 +12,10 @@ export class Account {
   @Column()
   login: string
 
-  @Column({ select: false })
-  password: string
+  @Column('simple-json')
+  cookies: {
+    sessionid: string
+  }
 
   @ManyToOne(type => User, user => user.accounts, { cascade: ['insert'] })
   user: User

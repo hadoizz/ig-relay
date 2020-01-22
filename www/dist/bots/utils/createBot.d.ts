@@ -1,8 +1,4 @@
 import { Slave } from 'fork-with-emitter';
-export declare class Credentials {
-    login: string;
-    password: string;
-}
 export interface ExecuteSupervisorCommand {
     name: string;
     payload?: string;
@@ -16,7 +12,7 @@ export declare type Bot = {
     executeSupervisor: (ExecuteSupervisorCommand: any) => Promise<any>;
     getSupervisors: () => Promise<any>;
 };
-declare const createBot: ({ login, password }: Credentials, beforeLoad?: (Slave: any) => any) => Promise<{
+declare const createBot: (cookies?: Object, beforeLoad?: (Slave: any) => any) => Promise<{
     info: {
         startedAt: number;
     };

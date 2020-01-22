@@ -19,5 +19,3 @@ const starting = (async () => {
 if(isSlave){
   master.onRequest('start', () => starting)
 }
-
-console.log(JSON.stringify(getCredentials(), null, ' '))

@@ -38,13 +38,13 @@ let JobsService = class JobsService {
         if (process.env.NODE_ENV === 'production')
             this.loadJobs();
     }
-    async loadJob({ jobId, cron, supervisor, supervisorPayload, maxDelaySeconds, accountId, login, password }) {
+    async loadJob({ jobId, cron, supervisor, supervisorPayload, maxDelaySeconds, accountId, cookies }) {
         const job = createJob(cron, async () => {
             console.log(`Starting job ${jobId}`);
             await delay_1.default(random_int_1.default(0, maxDelaySeconds * 1000));
             if (!this.loadedJobs.has(jobId))
                 return;
-            const { id } = await this.botsService.createBot({ login, password }, slave => this.logsService.attachLogsListenersToSlave(slave, accountId));
+            const { id } = await this.botsService.createBot(cookies, slave => this.logsService.attachLogsListenersToSlave(slave, accountId));
             const result = await this.botsService.executeSupervisor(id, supervisor, supervisorPayload);
             await this.botsService.exitBot(id);
             if (result) {
@@ -72,7 +72,7 @@ let JobsService = class JobsService {
     async getAllJobs() {
         const jobs = await this.jobRepository
             .createQueryBuilder('job')
-            .select(['jobId', 'cron', 'supervisor', 'supervisorPayload', 'maxDelaySeconds', 'accountId', 'account.login as login', 'account.password as password'])
+            .select(['jobId', 'cron', 'supervisor', 'supervisorPayload', 'maxDelaySeconds', 'accountId', 'account.cookies as cookies'])
             .innerJoin('job.account', 'account')
             .orderBy('createdAt', 'DESC')
             .getRawMany();

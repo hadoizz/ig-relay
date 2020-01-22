@@ -9,10 +9,7 @@ import getEnvData from '../config/getEnvData'
 puppeteer.use(StealthPlugin())
 puppeteer.use(AdblockerPlugin())
 
-const device = devices['Pixel 2']
-
 export default async () => {
-  console.log('x1')
   const browser = await puppeteer.launch({
     headless: getEnvData().production 
       ? true 
@@ -29,17 +26,26 @@ export default async () => {
     throw 'Browser disconnected'
   })
   
-  console.log('x2')
   const page = await browser.newPage()
   page.on('error', msg => {
     throw 'Page crashed'
   })
 
-  console.log('x3')
-  await page.emulate(device)
-  console.log('x4')
+  Object.entries(getEnvData().cookies).map(([ name, value ]) =>
+    page.setCookie({
+      name,
+      //@ts-ignore
+      value,
+      domain: '.instagram.com',
+      path: '/',
+      httpOnly: true,
+      secure: true,
+      expires: Math.round(+new Date(new Date().setFullYear(new Date().getFullYear() + 1))/1000)
+    })
+  )
+
+  await page.emulate(devices['Pixel 2'])
   await exposeDevFns(page)
-  console.log('x5')
   await page.goto('https://instagram.com/')
 
   return page

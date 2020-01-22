@@ -19,6 +19,7 @@ import login from './controllers/login'
 import closeDialog from './services/dialog/closeDialog'
 import uploadPost from './services/uploadPost/uploadPost'
 import unfollowingBot from './controllers/unfollowingBot'
+import getSessionid from './controllers/getSessionid'
 
 const navigationSupervisors = (page: Page) => ({
   gotoIndex: () =>
@@ -62,6 +63,8 @@ const controllersSupervisors = (page: Page) => ({
     login(page),
   //unfollowFollowed: () =>
   //  unfollowFollowed(page)
+  getSessionid: async ({ login, password }: { login: string, password: string }) =>
+    await getSessionid(page, { login, password })
 })
 
 const devSupervisors = (page: Page) => ({

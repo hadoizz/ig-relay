@@ -3,11 +3,6 @@ import chalk from 'chalk'
 import { createSlave, Slave } from 'fork-with-emitter'
 import { chunksToLinesAsync, chomp } from '@rauschma/stringio'
 
-export class Credentials {
-  login: string
-  password: string
-}
-
 export interface ExecuteSupervisorCommand {
   name: string
   payload?: string
@@ -21,14 +16,13 @@ export type Bot = {
   getSupervisors: () => Promise<any>
 }
 
-const createBot = async ({ login, password }: Credentials, beforeLoad?: (Slave) => any) => {
+const createBot = async (cookies: Object = {}, beforeLoad?: (Slave) => any) => {
   const bot = createSlave('app.js', {
     cwd: resolve('../bot/dist/'),
     env: {
-      ...process.env,
+      HEADLESS: '1',
       CONTROLLED: '1',
-      LOGIN: login,
-      PASSWORD: password
+      COOKIES: JSON.stringify(cookies)
     }
   })
 

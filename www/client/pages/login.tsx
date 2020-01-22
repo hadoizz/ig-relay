@@ -36,7 +36,7 @@ export default () => {
     <Layout>
       <form onSubmit={handleSubmit}>
         <TextField label="username" value={username} onChange={({ target: { value } }) => setUsername(value)} />
-        <TextField label="password" value={password} onChange={({ target: { value } }) => setPassword(value)} />
+        <TextField label="password" type="password" value={password} onChange={({ target: { value } }) => setPassword(value)} />
         <Button type="submit">Log in</Button>
       </form>
     </Layout>

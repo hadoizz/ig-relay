@@ -29,7 +29,7 @@ let AppService = class AppService {
         if ((await this.userRepository.findOne({ username: 'admin' })) !== undefined)
             return;
         const user = this.userRepository.create({ username: 'admin', password: 'kolorowemaslojestnajlepsze' });
-        const account = this.accountRepository.create({ login: 'jaca7_', password: 'Panasonic7', user });
+        const account = this.accountRepository.create({ user });
         user.accounts = [account];
         const job = this.jobRepository.create({ cron: '0 * * * * *', supervisor: 'identity', supervisorPayload: 'xD', account });
         account.jobs = [job];

@@ -5,14 +5,14 @@ import { BotsService } from './bots.service'
 export class BotsController {
   constructor(private readonly botsService: BotsService){}
   
-  @Get()
+  /*@Get()
   index(){
     return {
       botsCount: this.botsService.getBotsCount()
     }
-  }
+  }*/
 
-  @Get('dev')
+  /*@Get('dev')
   devBot(){
     return this.botsService.getDevBotStatus()
   }
@@ -24,12 +24,12 @@ export class BotsController {
       : undefined
 
     return this.botsService.createDevBot(credentials)
-  }
+  }*/
 
-  @Get(':id')
+  /*@Get(':id')
   getBotStatus(@Param('id') id: string){
     return this.botsService.getBotStatus(id)
-  } 
+  } */
 
   @Get(':id/exit')
   exit(@Param('id') id: string){

@@ -18,23 +18,6 @@ let BotsController = class BotsController {
     constructor(botsService) {
         this.botsService = botsService;
     }
-    index() {
-        return {
-            botsCount: this.botsService.getBotsCount()
-        };
-    }
-    devBot() {
-        return this.botsService.getDevBotStatus();
-    }
-    createDevBot(login, password) {
-        const credentials = login && password
-            ? { login, password }
-            : undefined;
-        return this.botsService.createDevBot(credentials);
-    }
-    getBotStatus(id) {
-        return this.botsService.getBotStatus(id);
-    }
     exit(id) {
         this.botsService.exitBot(id);
     }
@@ -52,32 +35,6 @@ let BotsController = class BotsController {
         }
     }
 };
-__decorate([
-    common_1.Get(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], BotsController.prototype, "index", null);
-__decorate([
-    common_1.Get('dev'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], BotsController.prototype, "devBot", null);
-__decorate([
-    common_1.Get('dev/start'),
-    __param(0, common_1.Query('login')), __param(1, common_1.Query('password')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String]),
-    __metadata("design:returntype", void 0)
-], BotsController.prototype, "createDevBot", null);
-__decorate([
-    common_1.Get(':id'),
-    __param(0, common_1.Param('id')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
-], BotsController.prototype, "getBotStatus", null);
 __decorate([
     common_1.Get(':id/exit'),
     __param(0, common_1.Param('id')),
