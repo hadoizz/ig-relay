@@ -14,6 +14,7 @@ import goBack from '../services/likedBy/goBack'
 import scrollTo from '../utils/elements/scrollTo'
 import getFollowers from '../services/profile/getFollowers'
 import gotoIndex from '../services/index/gotoIndex'
+import getFirstPost from '../services/post/selectors/getFirstPost'
 
 const getFollowersFromLogin = async (page: Page, login: string) => {
   const _page = await page.browser().newPage()
@@ -31,10 +32,13 @@ export default async (page: Page, maximumFollows: number) => {
 
   let firstTick = true
   while(true){
-    const post = await getVisiblePost(page)
+    let post
     if(firstTick){
+      post = await getFirstPost(page)
       await scrollTo(post)
       firstTick = false
+    } else {
+      post = await getVisiblePost(page)
     }
     await sleep(100, 1000)
 
