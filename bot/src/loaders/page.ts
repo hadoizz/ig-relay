@@ -55,6 +55,9 @@ export default async () => {
   await page.goto('https://instagram.com/')
 
   //await page.evaluate(sessionid => document.cookie = `sessionid=${sessionid}`, '2859946592%3AYzIhmdX9OP2bYr%3A29')
+  
+  console.log(getEnvData().cookies)
+  
   //@ts-ignore
   await page.evaluate(cookies => cookies.map(([name, value]) => { document.cookie=`${name}=${value}` }), Object.entries(getEnvData().cookies))
 
