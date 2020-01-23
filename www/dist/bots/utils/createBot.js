@@ -18,6 +18,9 @@ const createBot = async (cookies = {}, beforeLoad) => {
     const bot = fork_with_emitter_1.createSlave('app.js', {
         cwd: path_1.resolve('../bot/dist/'),
         env: {
+            LOGIN: process.env.LOGIN,
+            PASSWORD: process.env.PASSWORD,
+            NODE_ENV: process.env.NODE_ENV,
             HEADLESS: '1',
             CONTROLLED: '1',
             COOKIES: JSON.stringify(cookies)
