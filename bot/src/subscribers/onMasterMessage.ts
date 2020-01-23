@@ -74,6 +74,8 @@ export default (page: Page) => {
     log('supervisor', payload === undefined ? `${name}()` : `${name}(${payload})`)
     if(!supervisors.hasOwnProperty(name))
       throw 'Invalid supervisor name'
+    
+    console.log(`at ${page.url()}`)
 
     try {
       const value = await supervisors[name].supervisor(payload)
