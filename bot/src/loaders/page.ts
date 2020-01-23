@@ -31,7 +31,7 @@ export default async () => {
     throw 'Page crashed'
   })
 
-  /*const cookies = Object.entries(getEnvData().cookies).reduce((cookies: any[], [name, value]) => {
+  const cookies = Object.entries(getEnvData().cookies).reduce((cookies: any[], [name, value]) => {
     cookies.push({
       name,
       //@ts-ignore
@@ -45,13 +45,10 @@ export default async () => {
     return cookies
   }, [])
 
-  console.log(getEnvData().cookies, cookies)*/
-
-  //await page.setCookie(...cookies)
-
-
   await page.emulate(devices['Pixel 2'])
   await exposeDevFns(page)
+
+  await page.setCookie(...cookies)
   await page.goto('https://instagram.com/')
 
   //await page.evaluate(sessionid => document.cookie = `sessionid=${sessionid}`, '2859946592%3AYzIhmdX9OP2bYr%3A29')

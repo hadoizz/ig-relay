@@ -31,7 +31,7 @@ let BotsService = class BotsService {
         this.clearAfterExit(bot, id);
         return { id, bot };
     }
-    async createDevBot(cookies = { 'sessionid': '2859946592%3AYzIhmdX9OP2bYr%3A29' }) {
+    async createDevBot(cookies = { 'sessionid': '2859946592%3AhnG76pcgR2XuFI%3A23' }) {
         if (this.devBot === null) {
             const id = getId_1.default();
             const botPromise = createBot_1.default(cookies, slave => {
