@@ -56,8 +56,13 @@ export default async (page: Page, maximumFollows: number) => {
           await scrollToNextPost(page)
           await sleep(1000, 2000)
           break
-        } catch(eror) {
+        } catch(error) {
+          if(i === 2)
+            throw error
+
+          console.log('Next post is not visible, trying again...')
           await scrollTo(post)
+          await sleep(5000)
         }
       }
 
