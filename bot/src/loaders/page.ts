@@ -10,17 +10,15 @@ puppeteer.use(StealthPlugin())
 puppeteer.use(AdblockerPlugin())
 
 export default async () => {
+  const userDataDir = resolve(getEnvData().dataDir, 'chrome')
+  console.log(`userDataDir: ${userDataDir}`)
+
   const browser = await puppeteer.launch({
     headless: getEnvData().production 
       ? true 
       : getEnvData().headless,
-    userDataDir: getEnvData().production
-      ? undefined
-      : resolve('data'),
-    args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-    ]
+    userDataDir,
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
   })
   browser.on('disconnected', () => {
     throw 'Browser disconnected'
@@ -31,7 +29,7 @@ export default async () => {
     throw 'Page crashed'
   })
 
-  const cookies = Object.entries(getEnvData().cookies).reduce((cookies: any[], [name, value]) => {
+  /*const cookies = Object.entries(getEnvData().cookies).reduce((cookies: any[], [name, value]) => {
     cookies.push({
       name,
       //@ts-ignore
@@ -43,20 +41,20 @@ export default async () => {
       expires: Math.round(+new Date(new Date().setFullYear(new Date().getFullYear() + 1))/1000)
     })
     return cookies
-  }, [])
+  }, [])*/
 
   await page.emulate(devices['Pixel 2'])
   await exposeDevFns(page)
 
-  await page.setCookie(...cookies)
+  //await page.setCookie(...cookies)
   await page.goto('https://instagram.com/')
 
   //await page.evaluate(sessionid => document.cookie = `sessionid=${sessionid}`, '2859946592%3AYzIhmdX9OP2bYr%3A29')
   
-  console.log(getEnvData().cookies)
+  //console.log(getEnvData().cookies)
   
   //@ts-ignore
-  await page.evaluate(cookies => cookies.map(([name, value]) => { document.cookie=`${name}=${value}` }), Object.entries(getEnvData().cookies))
+  //await page.evaluate(cookies => cookies.map(([name, value]) => { document.cookie=`${name}=${value}` }), Object.entries(getEnvData().cookies))
 
   await page.reload()
 

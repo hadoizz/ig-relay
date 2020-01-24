@@ -27,6 +27,7 @@ const bots_service_1 = require("../bots/bots.service");
 const logs_service_1 = require("../logs/logs.service");
 const account_entity_1 = require("../entities/account.entity");
 const delay_2 = __importDefault(require("delay"));
+const path_1 = __importDefault(require("path"));
 const createJob = (cron, fn) => new cron_1.CronJob(cron, fn, null, true, 'Europe/Warsaw');
 let JobsService = class JobsService {
     constructor(jobRepository, userRepository, accountRepository, botsService, logsService) {
@@ -45,7 +46,8 @@ let JobsService = class JobsService {
             await delay_1.default(random_int_1.default(0, maxDelaySeconds * 1000));
             if (!this.loadedJobs.has(jobId))
                 return;
-            const { id } = await this.botsService.createBot(cookies, slave => this.logsService.attachLogsListenersToSlave(slave, accountId));
+            const dataDir = path_1.default.resolve(__dirname, `../../../data`);
+            const { id } = await this.botsService.createBot({ cookies, dataDir }, slave => this.logsService.attachLogsListenersToSlave(slave, accountId));
             await delay_2.default(30000);
             const result = await this.botsService.executeSupervisor(id, supervisor, supervisorPayload);
             if (result) {

@@ -14,7 +14,7 @@ const path_1 = require("path");
 const chalk_1 = __importDefault(require("chalk"));
 const fork_with_emitter_1 = require("fork-with-emitter");
 const stringio_1 = require("@rauschma/stringio");
-const createBot = async (cookies = {}, beforeLoad) => {
+const createBot = async ({ cookies, dataDir, beforeLoad }) => {
     const bot = fork_with_emitter_1.createSlave('app.js', {
         cwd: path_1.resolve('../bot/dist/'),
         env: {
@@ -23,7 +23,8 @@ const createBot = async (cookies = {}, beforeLoad) => {
             NODE_ENV: process.env.NODE_ENV,
             HEADLESS: '1',
             CONTROLLED: '1',
-            COOKIES: JSON.stringify(cookies)
+            COOKIES: JSON.stringify(cookies),
+            DATA_DIR: dataDir
         }
     });
     if (beforeLoad !== undefined)

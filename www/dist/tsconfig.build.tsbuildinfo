@@ -2130,8 +2130,8 @@
         "signature": "9112eacc19a5ca3fac9b445d7c651d7e24ee71e40073c7234da05f3803b022a1"
       },
       "../src/bots/utils/createbot.ts": {
-        "version": "6289085e882f37604132afbacb53b2bc87dae80cc573f95326cde78eb2d291a6",
-        "signature": "62601e1308dd85bded0dc44b4a028597500f3604efab7f8d2d6b35d70f1b5169"
+        "version": "4890f3a69690a0996d31a6da0403cc7fb0bd158abb8da2a0ab42162657c03c50",
+        "signature": "9da9fd052b0ff08d7b9319371e795f73540eb79b20b3f79e0fe9bd13c38b8f42"
       },
       "../src/bots/utils/getid.ts": {
         "version": "118347e48dfc29be59d822c7ddd818e7392c11819e6c673d69e0c5cf195bd692",
@@ -2146,8 +2146,8 @@
         "signature": "d9e32ee906bf5486cc43ea52f9764ffb7c8d6fc042caf569e89b51749d5340f8"
       },
       "../src/bots/bots.service.ts": {
-        "version": "79d50917de3b32ca991f039e0ceb25e4a8185d186215389580cc9c8634d04f77",
-        "signature": "3bdc09b851cd175103bf1698fb0da0e34d759bbff8b025fa83f12bf4b4edb940"
+        "version": "f83566e1137243f0f83b0f8396eca79643d76099859b9918fef68e23c046fed6",
+        "signature": "83d927b78c295261db77b68cec15d1b8c3422bc5ac53cdca86f3aaf686de3206"
       },
       "../src/bots/bots.controller.ts": {
         "version": "72e6aa2829419a7d1bef56ae6116d1ed28691bd30a1b8fa423a087daf28d2f7f",
@@ -2374,7 +2374,7 @@
         "signature": "fa8b63ef539309cae069c84b7c9da6ee1423d5f2b88e567e02b8c2df0ff98612"
       },
       "../src/jobs/jobs.service.ts": {
-        "version": "3456fc7f75bddefc69235c3566f4669eb3f24924458daccf8c6748c2996f18cc",
+        "version": "19c08884d29e07fb1870de0690f66af49d701e4126d780dfc0f00f37bfc2718d",
         "signature": "0cbcbbdbab6199888b16a09e982fb120986a7e6e755c0ee22709ad0b24733db2"
       },
       "../src/jobs/jobs.controller.ts": {
@@ -6231,6 +6231,7 @@
         "../src/bots/utils/getid.ts",
         "../src/config/config.service.ts",
         "../node_modules/fork-with-emitter/dist/index.d.ts",
+        "../node_modules/@types/node/path.d.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -6615,6 +6616,7 @@
         "../src/bots/bots.service.ts",
         "../src/logs/logs.service.ts",
         "../src/entities/account.entity.ts",
+        "../node_modules/@types/node/path.d.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -11982,10 +11984,7 @@
       "../src/bots/utils/getid.ts",
       "../node_modules/dotenv/types/index.d.ts",
       "../src/config/config.service.ts",
-      "../src/bots/bots.service.ts",
-      "../src/bots/bots.controller.ts",
       "../src/config/config.module.ts",
-      "../src/bots/bots.module.ts",
       "../node_modules/@types/range-parser/index.d.ts",
       "../node_modules/@types/express-serve-static-core/index.d.ts",
       "../node_modules/@types/mime/index.d.ts",
@@ -11993,9 +11992,6 @@
       "../node_modules/@types/connect/index.d.ts",
       "../node_modules/@types/body-parser/index.d.ts",
       "../node_modules/@types/express/index.d.ts",
-      "../src/streaming/streaming.service.ts",
-      "../src/streaming/streaming.controller.ts",
-      "../src/streaming/streaming.module.ts",
       "../src/entities/job.entity.ts",
       "../src/entities/log.entity.ts",
       "../src/entities/followed.entity.ts",
@@ -12039,13 +12035,9 @@
       "../node_modules/delay/index.d.ts",
       "../node_modules/random-int/index.d.ts",
       "../src/logs/logs.service.ts",
-      "../src/jobs/jobs.service.ts",
-      "../src/jobs/jobs.controller.ts",
       "../src/logs/logs.controller.ts",
       "../src/logs/logs.module.ts",
-      "../src/jobs/jobs.module.ts",
       "../src/app.service.ts",
-      "../src/app.module.ts",
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts",
       "../node_modules/@nestjs/core/adapters/index.d.ts",
       "../node_modules/@nestjs/core/constants.d.ts",
@@ -12089,19 +12081,13 @@
       "../src/accounts/accounts.service.spec.ts",
       "../src/auth/auth.controller.spec.ts",
       "../src/auth/auth.service.spec.ts",
-      "../src/bots/bots.controller.spec.ts",
-      "../src/bots/bots.service.spec.ts",
       "../src/entities/account.entity.spec.ts",
       "../src/entities/followed.entity.spec.ts",
       "../src/entities/job.entity.spec.ts",
       "../src/entities/log.entity.spec.ts",
       "../src/entities/user.entity.spec.ts",
-      "../src/jobs/jobs.controller.spec.ts",
-      "../src/jobs/jobs.service.spec.ts",
       "../src/logs/logs.controller.spec.ts",
       "../src/logs/logs.service.spec.ts",
-      "../src/streaming/streaming.controller.spec.ts",
-      "../src/streaming/streaming.service.spec.ts",
       "../src/users/users.controller.spec.ts",
       "../src/users/users.service.spec.ts",
       "../node_modules/@types/anymatch/index.d.ts",
@@ -12146,7 +12132,23 @@
       "../node_modules/@types/webpack-sources/index.d.ts",
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
-      "../node_modules/@types/yargs/index.d.ts"
+      "../node_modules/@types/yargs/index.d.ts",
+      "../src/bots/bots.service.ts",
+      "../src/bots/bots.service.spec.ts",
+      "../src/jobs/jobs.service.ts",
+      "../src/streaming/streaming.service.ts",
+      "../src/bots/bots.module.ts",
+      "../src/bots/bots.controller.ts",
+      "../src/streaming/streaming.controller.ts",
+      "../src/streaming/streaming.module.ts",
+      "../src/jobs/jobs.controller.ts",
+      "../src/jobs/jobs.module.ts",
+      "../src/app.module.ts",
+      "../src/bots/bots.controller.spec.ts",
+      "../src/jobs/jobs.controller.spec.ts",
+      "../src/jobs/jobs.service.spec.ts",
+      "../src/streaming/streaming.controller.spec.ts",
+      "../src/streaming/streaming.service.spec.ts"
     ]
   },
   "version": "3.6.3"

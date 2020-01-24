@@ -12,7 +12,11 @@ export declare type Bot = {
     executeSupervisor: (ExecuteSupervisorCommand: any) => Promise<any>;
     getSupervisors: () => Promise<any>;
 };
-declare const createBot: (cookies?: Object, beforeLoad?: (Slave: any) => any) => Promise<{
+declare const createBot: ({ cookies, dataDir, beforeLoad }: {
+    cookies: any;
+    dataDir: any;
+    beforeLoad: any;
+}) => Promise<{
     info: {
         startedAt: number;
     };

@@ -5,6 +5,7 @@ import createBot, { Bot } from './utils/createBot'
 import getId from './utils/getId'
 import { ConfigService } from '../config/config.service'
 import { Slave } from 'fork-with-emitter'
+import path from 'path'
 
 type DevBot = null | {
   id: string,
@@ -18,21 +19,25 @@ export class BotsService {
   private readonly bots = new Map<string, Bot>()
   private devBot: DevBot = null
 
-  async createBot(cookies: Object, beforeLoad?: (Slave) => any){
+  async createBot({ cookies, dataDir }, beforeLoad?: (Slave) => any){
     const id = getId()
-    const bot = await createBot(cookies, beforeLoad)
+    const bot = await createBot({ cookies, dataDir, beforeLoad })
     this.bots.set(id, bot)
     this.clearAfterExit(bot, id)
 
     return { id, bot }
   }
 
-  async createDevBot(cookies = { 'sessionid': '2859946592%3AhnG76pcgR2XuFI%3A23' }){
+  async createDevBot(){
     if(this.devBot === null){
       const id = getId()
-      const botPromise = createBot(cookies, slave => {
-        slave.onRequest('isFollowed', async () => true)
-        slave.onRequest('shouldBeUnfollowed', async () => false)
+      const botPromise = createBot({ 
+        cookies: { 'sessionid': '2859946592%3AhnG76pcgR2XuFI%3A23' },
+        dataDir: path.resolve(__dirname, `../../../data`),
+        beforeLoad: slave => {
+          slave.onRequest('isFollowed', async () => true)
+          slave.onRequest('shouldBeUnfollowed', async () => false)
+        }
       })
       this.devBot = { id, botPromise }
 

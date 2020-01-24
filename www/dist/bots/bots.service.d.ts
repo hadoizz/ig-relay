@@ -6,7 +6,10 @@ export declare class BotsService {
     constructor(configService: ConfigService);
     private readonly bots;
     private devBot;
-    createBot(cookies: Object, beforeLoad?: (Slave: any) => any): Promise<{
+    createBot({ cookies, dataDir }: {
+        cookies: any;
+        dataDir: any;
+    }, beforeLoad?: (Slave: any) => any): Promise<{
         id: string;
         bot: {
             info: {
@@ -18,9 +21,7 @@ export declare class BotsService {
             getSupervisors(): Promise<unknown>;
         };
     }>;
-    createDevBot(cookies?: {
-        'sessionid': string;
-    }): Promise<{
+    createDevBot(): Promise<{
         id: string;
     }>;
     private clearAfterExit;

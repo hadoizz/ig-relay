@@ -18,25 +18,30 @@ const stringio_1 = require("@rauschma/stringio");
 const createBot_1 = __importDefault(require("./utils/createBot"));
 const getId_1 = __importDefault(require("./utils/getId"));
 const config_service_1 = require("../config/config.service");
+const path_1 = __importDefault(require("path"));
 let BotsService = class BotsService {
     constructor(configService) {
         this.configService = configService;
         this.bots = new Map();
         this.devBot = null;
     }
-    async createBot(cookies, beforeLoad) {
+    async createBot({ cookies, dataDir }, beforeLoad) {
         const id = getId_1.default();
-        const bot = await createBot_1.default(cookies, beforeLoad);
+        const bot = await createBot_1.default({ cookies, dataDir, beforeLoad });
         this.bots.set(id, bot);
         this.clearAfterExit(bot, id);
         return { id, bot };
     }
-    async createDevBot(cookies = { 'sessionid': '2859946592%3AhnG76pcgR2XuFI%3A23' }) {
+    async createDevBot() {
         if (this.devBot === null) {
             const id = getId_1.default();
-            const botPromise = createBot_1.default(cookies, slave => {
-                slave.onRequest('isFollowed', async () => true);
-                slave.onRequest('shouldBeUnfollowed', async () => false);
+            const botPromise = createBot_1.default({
+                cookies: { 'sessionid': '2859946592%3AhnG76pcgR2XuFI%3A23' },
+                dataDir: path_1.default.resolve(__dirname, `../../../data`),
+                beforeLoad: slave => {
+                    slave.onRequest('isFollowed', async () => true);
+                    slave.onRequest('shouldBeUnfollowed', async () => false);
+                }
             });
             this.devBot = { id, botPromise };
             const bot = await botPromise;

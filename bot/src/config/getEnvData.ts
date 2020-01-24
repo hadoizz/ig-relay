@@ -20,11 +20,14 @@ const cookies = process.env.COOKIES
       ? { sessionid: process.argv[2] }
       : {}
 
+const dataDir = process.env.DATA_DIR || process.cwd()
+
 export default () => ({
   login,
   password,
   controlled,
   headless,
   production,
-  cookies
+  cookies,
+  dataDir
 })
