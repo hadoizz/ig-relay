@@ -1,5 +1,4 @@
 import { Page } from 'puppeteer'
-import page from '../../loaders/page'
 
 const getBtn = async (page: Page) => {
   const header = await page.$('header')

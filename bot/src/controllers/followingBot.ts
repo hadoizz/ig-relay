@@ -16,6 +16,7 @@ import getFollowers from '../services/profile/getFollowers'
 import getFirstPost from '../services/post/selectors/getFirstPost'
 import closeDialog from '../services/dialog/closeDialog'
 import isDialog from '../services/dialog/isDialog'
+import getNextPost from '../services/post/selectors/getNextPost'
 
 const getFollowersFromLogin = async (page: Page, login: string) => {
   const _page = await page.browser().newPage()
@@ -42,7 +43,7 @@ export default async (page: Page, maximumFollows: number) => {
       await scrollTo(post)
       firstTick = false
     } else {
-      post = await getVisiblePost(page)
+      post = await getNextPost(page)
     }
     //await sleep(100, 1000)
     await sleep(1000, 2000)
