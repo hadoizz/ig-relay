@@ -22,6 +22,7 @@ const getFollowersFromLogin = async (page: Page, login: string) => {
   await _page.goto(`https://instagram.com/${login}`)
   const followers = await getFollowers(_page)
   await _page.close()
+  console.log(`${login}: ${followers} followers`)
   return followers
 }
 
@@ -69,6 +70,7 @@ export default async (page: Page, maximumFollows: number) => {
       continue
     }
 
+    console.log('Going to liked by')
     await gotoLikedBy(post)
     await sleep(1000, 2000)
 
@@ -99,7 +101,10 @@ export default async (page: Page, maximumFollows: number) => {
       await scrollTo(personRow)
     }
 
+    console.log('Going back')
     await goBack(page)
+    await sleep(3000, 5000)
+    console.log('Scrolling to next post')
   }
 
   /*let followCount = new Counter
