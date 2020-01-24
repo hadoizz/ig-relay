@@ -49,9 +49,18 @@ export default async (page: Page, maximumFollows: number) => {
     const likes = await getLikes(post)
     console.log(`Likes: ${likes}`)
     if(!likes || likes > 100){
-      await scrollToNextPost(page)
-      //await sleep(100, 1000)
-      await sleep(1000, 2000)
+      
+      for(let i = 0; i < 3; i++){
+        //on cheap vps sometimes next post is not visible - weird shit, try few times
+        try {
+          await scrollToNextPost(page)
+          await sleep(1000, 2000)
+          break
+        } catch(eror) {
+          await scrollTo(post)
+        }
+      }
+
       continue
     }
 
