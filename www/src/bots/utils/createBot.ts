@@ -56,11 +56,7 @@ const createBot = async ({ cookies, dataDir, beforeLoad }) => {
       bot.emit('exit')
     },
     async executeSupervisor(executeSupervisorCommand: ExecuteSupervisorCommand){
-      try {
-        return await bot.request('executeSupervisor', executeSupervisorCommand, 60*30)
-      } catch(error) {
-        throw new Error(error)
-      }
+      await bot.request('executeSupervisor', executeSupervisorCommand, 60*30)
     },
     async getSupervisors(){
       return bot.request('getSupervisors')

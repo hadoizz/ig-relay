@@ -46,14 +46,14 @@ export class JobsService {
       //cheap vps needs more time to fully load page
       await sleep(30000)
 
-      const result = await this.botsService.executeSupervisor(id, supervisor, supervisorPayload)
-
-      if(result){
-        console.log(`Ended job ${jobId} with result ${result}`)
-        return
+      try {
+        const result = await this.botsService.executeSupervisor(id, supervisor, supervisorPayload)
+        console.log(`Ended job ${jobId}`, result ? `with result ${result}` : undefined)
+      } catch(error) {
+        console.log(`Ended job ${jobId} with error ${error}`)
+      } finally {
+        this.botsService.exitBot(id)
       }
-
-      console.log(`Ended job ${jobId}`)
     })
 
     this.loadedJobs.set(jobId, job)
