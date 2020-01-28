@@ -89,8 +89,6 @@ export default connect(mapStateToProps)(({ currentAccount }: { currentAccount: A
   if(jobs === null)
     return <CircularProgress />
 
-  console.log(currentAccount.accountId)
-
   return (
     <>
       <CreateJob open={createJobDialog} handleExit={toggleJobDialog} />
