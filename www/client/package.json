@@ -34,5 +34,7 @@
     "redux": "^4.0.5",
     "typescript": "^3.7.4"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/react-redux": "^7.1.7"
+  }
 }

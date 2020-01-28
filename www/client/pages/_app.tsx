@@ -6,16 +6,32 @@ import theme from '@material-ui/core/styles/defaultTheme'
 import {createStore} from "redux"
 import {Provider} from "react-redux"
 import withRedux from "next-redux-wrapper"
+import { Account } from '../types/Account'
 
-const initialState = () => ({
+type State = {
+  user: null
+  bot: {
+    currentAccount: null | Account
+  }
+}
+
+const initialState = (): State => ({
   user: null,
-  account: null
+  bot: {
+    currentAccount: null
+  }
 })
 
 const reducer = (state = initialState(), action) => {
   switch (action.type) {
-    case 'setAccount':
-      return {...state, account: action.payload};
+    case 'setCurrentAccount':
+      return {
+        ...state, 
+        bot: {
+          ...state.bot,
+          currentAccount: action.payload
+        }
+      }
     default:
       return state
   }

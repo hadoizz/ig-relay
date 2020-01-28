@@ -49,12 +49,16 @@ let JobsService = class JobsService {
             const dataDir = path_1.default.resolve(__dirname, `../../../data`);
             const { id } = await this.botsService.createBot({ cookies, dataDir }, slave => this.logsService.attachLogsListenersToSlave(slave, accountId));
             await delay_2.default(30000);
-            const result = await this.botsService.executeSupervisor(id, supervisor, supervisorPayload);
-            if (result) {
-                console.log(`Ended job ${jobId} with result ${result}`);
-                return;
+            try {
+                const result = await this.botsService.executeSupervisor(id, supervisor, supervisorPayload);
+                console.log(`Ended job ${jobId}`, result ? `with result ${result}` : undefined);
             }
-            console.log(`Ended job ${jobId}`);
+            catch (error) {
+                console.log(`Ended job ${jobId} with error ${error}`);
+            }
+            finally {
+                this.botsService.exitBot(id);
+            }
         });
         this.loadedJobs.set(jobId, job);
         console.log(`Loaded job ${jobId}`);

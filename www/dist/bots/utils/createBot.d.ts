@@ -22,7 +22,7 @@ declare const createBot: ({ cookies, dataDir, beforeLoad }: {
     };
     slave: Slave;
     exit(): void;
-    executeSupervisor(executeSupervisorCommand: ExecuteSupervisorCommand): Promise<unknown>;
+    executeSupervisor(executeSupervisorCommand: ExecuteSupervisorCommand): Promise<void>;
     getSupervisors(): Promise<unknown>;
 }>;
 export default createBot;

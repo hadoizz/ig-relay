@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { AppBar, Toolbar, Container, Typography, makeStyles, Theme, IconButton, Hidden, Drawer, SwipeableDrawer, useTheme, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core'
-import { Menu, PhonelinkSetupOutlined, AccountCircleOutlined, ExitToAppOutlined } from '@material-ui/icons'
+import { Menu, PhonelinkSetupOutlined, AccountCircleOutlined, ExitToAppOutlined, HomeOutlined } from '@material-ui/icons'
 import { logout } from '../../utils/auth'
 
 const drawerWidth = 240
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexGrow: 1
   },
   appBar: {
-    backgroundColor: theme.palette.background.paper,
+    //backgroundColor: theme.palette.background.paper,
     //boxShadow: 'none',
     //borderBottom: '1px solid #ddd'
   },
@@ -34,7 +34,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   logo: {
     display: 'inline',
-    background: `radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%)`,
+    //background: `radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%)`,
+    background: `radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 55%, #d6249f 90%)`,
     backgroundClip: 'text',
     '-webkit-background-clip': 'text',
     '-webkit-text-fill-color': 'transparent'
@@ -45,6 +46,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   link: {
     textDecoration: 'none',
     color: 'inherit'
+  },
+  burgerIcon: {
+    color: '#fd5949'
   }
 }))
 
@@ -58,17 +62,17 @@ export default () => {
   const classes = useStyles({})
   return (
     <>
-      <AppBar className={classes.appBar} position="fixed">
+      <AppBar className={classes.appBar} position="fixed" color="primary">
         <Toolbar className={classes.toolbar}>
           <Hidden implementation="css" mdUp>
-            <IconButton color="secondary" onClick={toggleDrawer}>
+            <IconButton className={classes.burgerIcon} onClick={toggleDrawer}>
               <Menu />
             </IconButton>
           </Hidden>
           <Typography variant="h3" className={classes.logo}>
             <Link href="/">
               <a>
-                InstaBot
+                InstaFeed
               </a>
             </Link>
           </Typography>
@@ -76,14 +80,14 @@ export default () => {
           <Hidden smDown implementation="css">
             <Link href="/dev">
               <a>
-                <IconButton color="primary">
+                <IconButton color="secondary">
                   <PhonelinkSetupOutlined />
                 </IconButton>
               </a>
             </Link>
             <Link href="/profile">
               <a>
-                <IconButton color="primary">
+                <IconButton color="secondary">
                   <AccountCircleOutlined />
                 </IconButton>
               </a>
@@ -97,11 +101,23 @@ export default () => {
         <Hidden smUp implementation="css">
           <SwipeableDrawer open={mobileDrawerOpen} onOpen={() => setMobileDrawerOpen(true)} onClose={() => setMobileDrawerOpen(false)} className={classes.drawer}>
             <List className={classes.drawer}>
+              <Link href="/bot">
+                <a className={classes.link}>
+                  <ListItem button>
+                    <ListItemIcon>
+                      <HomeOutlined color="secondary" />
+                    </ListItemIcon>
+                    <ListItemText>
+                      Bot
+                    </ListItemText>
+                  </ListItem>
+                </a>
+              </Link>
               <Link href="/dev">
                 <a className={classes.link}>
                   <ListItem button>
                     <ListItemIcon>
-                      <PhonelinkSetupOutlined />
+                      <PhonelinkSetupOutlined color="secondary" />
                     </ListItemIcon>
                     <ListItemText>
                       Dev
@@ -113,7 +129,7 @@ export default () => {
                 <a className={classes.link}>
                 <ListItem button>
                   <ListItemIcon>
-                    <AccountCircleOutlined />
+                    <AccountCircleOutlined color="secondary" />
                   </ListItemIcon>
                   <ListItemText>
                     My profile
@@ -123,7 +139,7 @@ export default () => {
               </Link>
               <ListItem button onClick={logout}>
                 <ListItemIcon>
-                  <ExitToAppOutlined />
+                  <ExitToAppOutlined color="secondary" />
                 </ListItemIcon>
                 <ListItemText>
                   Log out

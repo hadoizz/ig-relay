@@ -1,11 +1,7 @@
 import nextCookie from 'next-cookies'
 import fetch from 'isomorphic-unfetch'
 import getServerHost from '../getServerHost'
-
-interface Account {
-  login: string
-  accountId: number
-}
+import {Account} from '../../types/Account'
 
 export default async (ctx) => {
   const { token } = nextCookie(ctx)

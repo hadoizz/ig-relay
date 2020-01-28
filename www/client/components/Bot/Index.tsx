@@ -1,17 +1,18 @@
-import { useState, useCallback } from 'react'
-import { TextField, Typography, Button, DialogTitle, Dialog, DialogContent, DialogContentText, DialogActions } from '@material-ui/core'
-import withBotLayout from '../../components/withBotLayout'
-import getJobs, { Job } from '../../utils/api/getJobs'
+import { useState, useCallback, useEffect } from 'react'
+import { TextField, Typography, Button, DialogTitle, Dialog, DialogContent, DialogContentText, DialogActions, CircularProgress } from '@material-ui/core'
+import getJobs from '../../api/jobs/get'
 import updateJob from '../../api/jobs/update'
 import deleteJob from '../../api/jobs/delete'
 import createJob from '../../api/jobs/create'
 import { connect } from 'react-redux'
+import { Job } from '../../types/Job'
+import { Account } from '../../types/Account'
 
 const mapStateToProps = state => ({
-  accountId: state.account.accountId
+  currentAccount: state.bot.currentAccount
 })
 
-const CreateJob = connect(mapStateToProps)(({ accountId, open, handleExit }: { accountId: number, open: boolean, handleExit: (any) => void }) => {
+const CreateJob = connect(mapStateToProps)(({ currentAccount, open, handleExit }: { currentAccount: Account, open: boolean, handleExit: (any) => void }) => {
   const [state, setState] = useState({ cron: '', maxDelaySeconds: 0, supervisor: '', supervisorPayload: '' })
 
   const update = (key: keyof Job) => ({ target: { value } }) =>
@@ -31,7 +32,7 @@ const CreateJob = connect(mapStateToProps)(({ accountId, open, handleExit }: { a
         <TextField label="payload" value={state.supervisorPayload} onChange={update('supervisorPayload')} />
       </DialogContent>
       <DialogActions>
-        <Button color="primary" onClick={() => createJob(accountId, state)}>
+        <Button color="primary" onClick={() => createJob(currentAccount.accountId, state)}>
           Create
         </Button>
       </DialogActions>
@@ -76,23 +77,17 @@ const JobForm = ({ index, job }: { index: number, job: Job }) => {
   )
 }
 
-const Jobs = ({ jobs: fetchedJobs }: { jobs: Job[] }) => {
-  const [jobs, setJobs] = useState(fetchedJobs)
-  const [createJobDialog, setCreateJobDialog] = useState(false)
+export default connect(mapStateToProps)(({ currentAccount }: { currentAccount: Account }) => {
+  const [jobs, setJobs] = useState(null)
+  useEffect(() => {
+    getJobs(currentAccount.accountId).then(setJobs)
+  }, [currentAccount.accountId])
 
-  const toggleJobDialog = () => 
-    setCreateJobDialog(createJobDialog => !createJobDialog)
+  const [createJobDialog, setCreateJobDialog] = useState(false)
+  const toggleJobDialog = () => setCreateJobDialog(createJobDialog => !createJobDialog)
 
   if(jobs === null)
-    return 'Error'
-
-  /**
-   * When account is changed new jobs are fetched.
-   * All jobs belongs to specific user, so job id's are user specific.
-   */
-  const wasAccountChanged = (jobs[0] || {}).jobId !== (fetchedJobs[0] || {}).jobId
-  if(wasAccountChanged)
-    setJobs(fetchedJobs)
+    return <CircularProgress />
 
   return (
     <>
@@ -108,13 +103,4 @@ const Jobs = ({ jobs: fetchedJobs }: { jobs: Job[] }) => {
       <Button color="primary" variant="contained" onClick={toggleJobDialog}>Create job</Button>
     </>
   )
-}
-
-Jobs.getInitialProps = async ctx => {
-  return {
-    jobs: await getJobs(ctx)
-  }
-}
-
-//@ts-ignore
-export default withBotLayout(Jobs)
+})
