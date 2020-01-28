@@ -96,7 +96,7 @@ export default connect(mapStateToProps)(({ currentAccount }: { currentAccount: A
         <JobForm 
           index={index}
           job={job}
-          key={index}
+          key={currentAccount.accountId+index}
         />
       ))}
       <br />

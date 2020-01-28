@@ -37,9 +37,10 @@ let BotsService = class BotsService {
             const id = getId_1.default();
             const botPromise = createBot_1.default({
                 cookies: { 'sessionid': '2859946592%3AhnG76pcgR2XuFI%3A23' },
-                dataDir: path_1.default.resolve(__dirname, `../../../data`),
+                dataDir: path_1.default.resolve(__dirname, `../../../accounts_data/dev`),
                 beforeLoad: slave => {
                     slave.onRequest('isFollowed', async () => true);
+                    slave.onRequest('oldestFollowed', async () => null);
                     slave.onRequest('shouldBeUnfollowed', async () => false);
                 }
             });

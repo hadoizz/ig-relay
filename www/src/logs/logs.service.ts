@@ -44,6 +44,21 @@ export class LogsService {
       return true
     })
 
+    slave.onRequest('oldestFollowed', async () => {
+      const row = await this.followedRepository
+        .createQueryBuilder('followed')
+        .select('followed.login')
+        .innerJoin('followed.account', 'account')
+        .where('account.accountId = :accountId', { accountId })
+        .orderBy('followed.createdAt', 'ASC')
+        .getRawOne()
+
+      if(row === undefined)
+        return null
+
+      return row.login
+    })
+
     slave.onRequest('shouldBeUnfollowed', async (login: string) => {
       const row = await this.followedRepository
         .createQueryBuilder('followed')
