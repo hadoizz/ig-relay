@@ -134,14 +134,14 @@ export class JobsService {
     this.jobRepository.delete(jobId)
   }
 
-  async updateJob(userId: number, jobId: number, body: any){
+  async updateJob(userId: number, jobId: number, changes: any){
     if(!(await this.hasJob(userId, jobId)))
       return
 
     await this.jobRepository
       .createQueryBuilder('job')
       .update('job')
-      .set(body)
+      .set(changes)
       .where('job.jobId = :jobId', { jobId })
       .execute()
 
@@ -162,5 +162,10 @@ export class JobsService {
       ...job,
       account
     })
+
+    if(process.env.NODE_ENV === 'production'){
+      this.unloadJobs()
+      await this.loadJobs()
+    }
   }
 }

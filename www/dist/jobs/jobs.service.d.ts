@@ -20,6 +20,6 @@ export declare class JobsService {
     private hasJob;
     getJobs(userId: number, accountId: number): Promise<any[]>;
     deleteJob(userId: number, jobId: number): Promise<void>;
-    updateJob(userId: number, jobId: number, body: any): Promise<void>;
+    updateJob(userId: number, jobId: number, changes: any): Promise<void>;
     createJob(userId: number, accountId: number, job: any): Promise<void>;
 }

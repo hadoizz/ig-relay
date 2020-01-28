@@ -113,13 +113,13 @@ let JobsService = class JobsService {
         this.unloadJob(jobId);
         this.jobRepository.delete(jobId);
     }
-    async updateJob(userId, jobId, body) {
+    async updateJob(userId, jobId, changes) {
         if (!(await this.hasJob(userId, jobId)))
             return;
         await this.jobRepository
             .createQueryBuilder('job')
             .update('job')
-            .set(body)
+            .set(changes)
             .where('job.jobId = :jobId', { jobId })
             .execute();
         if (process.env.NODE_ENV === 'production') {
@@ -134,6 +134,10 @@ let JobsService = class JobsService {
             .andWhere('account.accountId = :accountId', { accountId })
             .getOne();
         this.jobRepository.insert(Object.assign(Object.assign({}, job), { account }));
+        if (process.env.NODE_ENV === 'production') {
+            this.unloadJobs();
+            await this.loadJobs();
+        }
     }
 };
 JobsService = __decorate([
