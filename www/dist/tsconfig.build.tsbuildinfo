@@ -2374,7 +2374,7 @@
         "signature": "fa8b63ef539309cae069c84b7c9da6ee1423d5f2b88e567e02b8c2df0ff98612"
       },
       "../src/jobs/jobs.service.ts": {
-        "version": "41f85ee2ff087451c84d8cbdcefc1b586b13f4510c9463e2cb4f0bc44ba6e119",
+        "version": "abff6025231e6943e71914aea6a6e57265213f578db007bc19b4124a5e6a50fa",
         "signature": "39bbfc3e59884fe9d195f566bb26a68c1779a85f12e47fd085bc4bc1f2d65816"
       },
       "../src/jobs/jobs.controller.ts": {
@@ -12041,9 +12041,12 @@
       "../node_modules/delay/index.d.ts",
       "../node_modules/random-int/index.d.ts",
       "../src/logs/logs.service.ts",
+      "../src/jobs/jobs.controller.ts",
       "../src/logs/logs.controller.ts",
       "../src/logs/logs.module.ts",
+      "../src/jobs/jobs.module.ts",
       "../src/app.service.ts",
+      "../src/app.module.ts",
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts",
       "../node_modules/@nestjs/core/adapters/index.d.ts",
       "../node_modules/@nestjs/core/constants.d.ts",
@@ -12094,6 +12097,8 @@
       "../src/entities/job.entity.spec.ts",
       "../src/entities/log.entity.spec.ts",
       "../src/entities/user.entity.spec.ts",
+      "../src/jobs/jobs.controller.spec.ts",
+      "../src/jobs/jobs.service.spec.ts",
       "../src/logs/logs.controller.spec.ts",
       "../src/logs/logs.service.spec.ts",
       "../src/streaming/streaming.controller.spec.ts",
@@ -12143,12 +12148,7 @@
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
       "../node_modules/@types/yargs/index.d.ts",
-      "../src/jobs/jobs.service.ts",
-      "../src/jobs/jobs.service.spec.ts",
-      "../src/jobs/jobs.module.ts",
-      "../src/jobs/jobs.controller.ts",
-      "../src/app.module.ts",
-      "../src/jobs/jobs.controller.spec.ts"
+      "../src/jobs/jobs.service.ts"
     ]
   },
   "version": "3.6.3"

@@ -46,7 +46,7 @@ let JobsService = class JobsService {
             await delay_1.default(random_int_1.default(0, maxDelaySeconds * 1000));
             if (!this.loadedJobs.has(jobId))
                 return;
-            const dataDir = path_1.default.resolve(__dirname, `../../../data`);
+            const dataDir = path_1.default.resolve(__dirname, `../../../accounts_data/${accountId}`);
             const { id } = await this.botsService.createBot({ cookies, dataDir }, slave => this.logsService.attachLogsListenersToSlave(slave, accountId));
             await delay_2.default(30000);
             try {

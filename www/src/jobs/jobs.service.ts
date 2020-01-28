@@ -40,7 +40,7 @@ export class JobsService {
         return
 
       //./insta/data
-      const dataDir = path.resolve(__dirname, `../../../data`)
+      const dataDir = path.resolve(__dirname, `../../../accounts_data/${accountId}`)
       const { id } = await this.botsService.createBot({ cookies, dataDir }, slave => this.logsService.attachLogsListenersToSlave(slave, accountId))
       
       //cheap vps needs more time to fully load page
