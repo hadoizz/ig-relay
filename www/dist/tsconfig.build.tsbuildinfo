@@ -11984,6 +11984,7 @@
       "../src/bots/utils/getid.ts",
       "../node_modules/dotenv/types/index.d.ts",
       "../src/config/config.service.ts",
+      "../src/bots/bots.service.ts",
       "../src/bots/bots.controller.ts",
       "../src/config/config.module.ts",
       "../src/bots/bots.module.ts",
@@ -12147,8 +12148,7 @@
       "../node_modules/@types/webpack-sources/index.d.ts",
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
-      "../node_modules/@types/yargs/index.d.ts",
-      "../src/bots/bots.service.ts"
+      "../node_modules/@types/yargs/index.d.ts"
     ]
   },
   "version": "3.6.3"

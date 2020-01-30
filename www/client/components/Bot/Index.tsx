@@ -43,6 +43,8 @@ const CreateJob = connect(mapStateToProps)(({ currentAccount, open, handleExit }
 const JobForm = ({ index, job }: { index: number, job: Job }) => {
   const [state, setState] = useState(job)
 
+  useEffect(() => setState(job), [job])
+
   const handleSubmit = event => {
     event.preventDefault()
 
@@ -96,7 +98,7 @@ export default connect(mapStateToProps)(({ currentAccount }: { currentAccount: A
         <JobForm 
           index={index}
           job={job}
-          key={`${currentAccount.accountId}${index}`}
+          key={`${currentAccount}${index}`}
         />
       ))}
       <br />
