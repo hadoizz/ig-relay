@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react'
 import nextCookie from 'next-cookies'
 import cookie from 'js-cookie'
-import { Button, Menu, MenuItem, Typography, ListItem, ListItemText, List, ListItemIcon } from '@material-ui/core'
+import { Button, Menu, MenuItem, Typography, ListItem, ListItemText, List, ListItemIcon, makeStyles, Theme } from '@material-ui/core'
 import Layout from '../components/Layout'
 import getAccounts from '../utils/api/getAccounts'
 import redirectOnError from '../utils/redirectOnError'
@@ -11,6 +11,16 @@ import { connect } from 'react-redux'
 import { Account } from '../types/Account'
 import Index from '../components/Bot/Index'
 import Logs from '../components/Bot/Logs'
+
+const useStyles = makeStyles((theme: Theme) => ({
+  menuRow: {
+    display: 'flex',
+    alignItems: 'center'
+  },
+  menuLabel: {
+    marginRight: theme.spacing(1)
+  }
+}))
 
 const tabs = [{
   name: 'Jobs',
@@ -55,32 +65,24 @@ const Bot = connect(mapStateToProps, mapDispatchToProps)(({ currentAccount, acco
   const openMenu = useCallback(event => setMenuElement(event.currentTarget), [])
   const closeMenu = useCallback(() => setMenuElement(null), [])
 
-  const menu = (
-    <>
-      <Button aria-controls="accounts-menu" aria-haspopup="true" onClick={openMenu}>
-      {
-        currentAccount.login
-      }
-      </Button>
-      <Menu id="accounts-menu" anchorEl={menuElement} keepMounted open={Boolean(menuElement)} onClose={closeMenu}>
-      {
-        accounts.map(({ login, accountId }) =>
-          <MenuItem key={accountId} onClick={changeAccount(accountId)}>
-          {
-            login
-          } 
-          </MenuItem>
-        )
-      }
-      </Menu>
-    </>
-  )
-
+  const classes = useStyles({})
   return (
     <Layout>
       <Grid container direction="row-reverse" spacing={2}>
         <Grid item xs={12} md={4}>
-          <Typography variant="body1">Current account: { menu }</Typography>
+          <div className={classes.menuRow}>
+            <Typography variant="body1" className={classes.menuLabel}>Current account:</Typography>
+            <Button color="primary" variant="outlined" aria-controls="accounts-menu" aria-haspopup="true" onClick={openMenu}>
+              {currentAccount.login}
+            </Button>
+            <Menu id="accounts-menu" anchorEl={menuElement} keepMounted open={Boolean(menuElement)} onClose={closeMenu}>
+              {accounts.map(({ login, accountId }) =>
+                <MenuItem key={accountId} onClick={changeAccount(accountId)}>
+                  {login} 
+                </MenuItem>
+              )}
+            </Menu>
+          </div>
           <List>
             {tabs.map(({ name, icon }, index) =>
               <ListItem button selected={index === tabIndex} onClick={changeTab(index)} key={index}>
@@ -127,7 +129,7 @@ Bot.getInitialProps = async ctx => {
     payload: account 
   })
 
-  const tab = Number(nextCookie(ctx).tab) || 0
+  const tab = Math.min(Number(nextCookie(ctx).tab) || 0, tabs.length - 1)
 
   return { 
     accounts,

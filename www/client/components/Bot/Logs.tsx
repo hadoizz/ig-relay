@@ -1,9 +1,15 @@
-import { useState, useEffect } from 'react'
-import { Table, TableHead, TableRow, TableCell, TableBody, Typography, makeStyles, CircularProgress } from '@material-ui/core'
+import { useState, useEffect, memo } from 'react'
+import { Table, TableHead, TableRow, TableCell, TableBody, Typography, makeStyles, CircularProgress, Tooltip } from '@material-ui/core'
 import getLogs from '../../api/logs/getLogs'
 import getFollowedCounts from '../../api/logs/getFollowedCounts'
 import {Account} from '../../types/Account'
 import { connect } from 'react-redux'
+import ms from 'ms'
+
+const getTimeAgo = (date: Date) => {
+  const diff = Date.now() - date.getTime()
+  return `${ms(diff, { long: true })} ago`
+}
 
 const useStyles = makeStyles(() => ({
   row: {
@@ -21,7 +27,7 @@ const mapStateToProps = state => ({
   currentAccount: state.bot.currentAccount
 })
 
-export default connect(mapStateToProps)(({ currentAccount }: { currentAccount: Account }) => {
+export default connect(mapStateToProps)(memo(({ currentAccount }: { currentAccount: Account }) => {
   const [logs, setLogs] = useState(null)
   useEffect(() => {
     getLogs(currentAccount.accountId).then(setLogs)
@@ -65,11 +71,17 @@ export default connect(mapStateToProps)(({ currentAccount }: { currentAccount: A
             <TableRow key={index} className={classes.row}>
               <TableCell>{ type }</TableCell>
               <TableCell>{ payload }</TableCell>
-              <TableCell>{ new Date(createdAt).toLocaleString('en-GB') }</TableCell>
+              <TableCell>
+                <Tooltip title={new Date(createdAt).toLocaleString('en-GB')} placement="right">
+                  <span>
+                    { getTimeAgo(new Date(createdAt)) }
+                  </span>
+                </Tooltip>
+              </TableCell>
             </TableRow> 
           )}
         </TableBody>
       </Table>
     </>
   )
-})
+}))
