@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import nextCookie from 'next-cookies'
 import cookie from 'js-cookie'
 import { Button, Menu, MenuItem, Typography, ListItem, ListItemText, List, ListItemIcon } from '@material-ui/core'
@@ -34,19 +34,26 @@ const mapDispatchToProps = dispatch => ({
     })
 })
 
-const Bot = connect(mapStateToProps, mapDispatchToProps)(({ currentAccount, accounts, setCurrentAccount }: { currentAccount: Account, accounts: Account[], setCurrentAccount: Function }) => {
-  const [tabIndex, changeTabIndex] = useState(0)
+const Bot = connect(mapStateToProps, mapDispatchToProps)(({ currentAccount, accounts, tab, setCurrentAccount }: { currentAccount: Account, accounts: Account[], setCurrentAccount: Function, tab: number }) => {
+  const [tabIndex, changeTabIndex] = useState(tab)
+
+  const changeTab = (index: number) => () => {
+    if(index === tabIndex)
+      return
+
+    changeTabIndex(index)
+    cookie.set('tab', index)
+  }
 
   const changeAccount = (accountId: number) => useCallback(() => {
-    cookie.set('accountId', accountId)
     setCurrentAccount(accounts.find(account => account.accountId === accountId))
     closeMenu()
+    cookie.set('accountId', accountId, { expires: 365 })
   }, [])
 
   const [menuElement, setMenuElement] = useState(null)
   const openMenu = useCallback(event => setMenuElement(event.currentTarget), [])
   const closeMenu = useCallback(() => setMenuElement(null), [])
-
 
   const menu = (
     <>
@@ -76,7 +83,7 @@ const Bot = connect(mapStateToProps, mapDispatchToProps)(({ currentAccount, acco
           <Typography variant="body1">Current account: { menu }</Typography>
           <List>
             {tabs.map(({ name, icon }, index) =>
-              <ListItem button selected={index === tabIndex} onClick={index === tabIndex ? undefined : () => changeTabIndex(index)}>
+              <ListItem button selected={index === tabIndex} onClick={changeTab(index)} key={index}>
                 <ListItemIcon children={icon} />
                 <ListItemText primary={name} />
               </ListItem>
@@ -105,7 +112,8 @@ Bot.getInitialProps = async ctx => {
     redirectOnError(ctx)
 
     return { 
-      accounts: []
+      accounts: [],
+      tab: 0
     }
   }
 
@@ -119,8 +127,11 @@ Bot.getInitialProps = async ctx => {
     payload: account 
   })
 
+  const tab = Number(nextCookie(ctx).tab) || 0
+
   return { 
-    accounts 
+    accounts,
+    tab
   }
 }
 
