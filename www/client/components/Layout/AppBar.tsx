@@ -72,7 +72,7 @@ export default () => {
           <Typography variant="h3" className={classes.logo}>
             <Link href="/">
               <a>
-                InstaFeed
+                IFeed
               </a>
             </Link>
           </Typography>
