@@ -3,22 +3,25 @@ import getCredentials from '../config/getCredentials'
 import typeCredentials from '../services/login/typeCredentials'
 import submitCredentials from '../services/login/submitCredentials'
 import sleep from '../utils/sleep'
-import { onLogin, onFailedLogin } from '../emitter'
 import log from '../logs/log'
-
+import isChallenge from '../services/login/isChallenge'
+import submitForm from '../services/navigation/submitForm'
 
 const path = '/accounts/login'
 
-export default async (page: Page) => {
+type Response = 'success' | 'challenge' | 'error'
+
+export default async (page: Page, credentials = getCredentials()): Promise<Response> => {
+  console.log(`Login as ${credentials.login}`)
+
   await page.goto(`https://instagram.com${path}?source=auth_switcher`)
   
   //page was redirected to main page - user already logged in
   if(!page.url().includes(path)){
     console.log(`User was already logged in`)
-    return
+    log('login', 'already_logged_in')
+    return 'success'
   }
-
-  const credentials = await getCredentials()
 
   await sleep(1000, 3000)
 
@@ -28,16 +31,24 @@ export default async (page: Page) => {
   await sleep(3000, 6000)
 
   if(page.url().includes(path)){
-    await onFailedLogin.emit(credentials)
-    throw `Nie można zalogować (${credentials.login})`
+    console.log(`Can't log in (${credentials.login})`)
+    log('login', 'error')
+    return 'error'
   }
 
-  log('logged', credentials.login)
-  
-  const cookie = (await page.cookies()).find(cookie => cookie.name === 'sessionid')
+  if(await isChallenge(page)){
+    //skip info about challenge
+    await submitForm(page)
+    await sleep(3000, 6000)
+    log('login', 'challenge')
+    return 'challenge'
+  }
+
+  /*const cookie = (await page.cookies()).find(cookie => cookie.name === 'sessionid')
   console.log(cookie, null, ' ')
   if(cookie)
-    return cookie.value
+    return cookie.value*/
 
-  return null
+  log('login', 'success')
+  return 'success'
 } 

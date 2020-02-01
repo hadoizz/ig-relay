@@ -1,10 +1,6 @@
-const login = process.env.LOGIN 
-  ? process.env.LOGIN 
-  : 'jaca7_'
+const login = process.env.LOGIN || 'arturz__'
 
-const password = process.env.PASSWORD 
-  ? process.env.PASSWORD 
-  : 'Panasonic7'
+const password = process.env.PASSWORD || ''
 
 const controlled = process.env.CONTROLLED === '1'
 
