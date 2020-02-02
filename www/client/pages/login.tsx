@@ -1,9 +1,29 @@
 import { useState } from 'react'
-import { TextField, Button } from '@material-ui/core'
+import { TextField, Button, Theme, makeStyles, Card, CardContent, Typography, Avatar } from '@material-ui/core'
 import fetch from 'isomorphic-unfetch'
 import { login } from '../utils/auth'
 import getServerHost from '../utils/getServerHost'
 import Layout from '../components/Layout'
+import { LockOutlined } from '@material-ui/icons'
+
+const useStyles = makeStyles((theme: Theme) => ({
+  card: {
+    maxWidth: 380,
+    margin: '0 auto'
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    margin: theme.spacing(2)
+  },
+  title: {
+    margin: theme.spacing(2, 0)
+  },
+  button: {
+    marginTop: theme.spacing(4)
+  }
+}))
 
 export default () => {
   const [username, setUsername] = useState('')
@@ -32,13 +52,22 @@ export default () => {
     }
   }
 
+  const classes = useStyles({})
   return (
     <Layout>
-      <form onSubmit={handleSubmit}>
-        <TextField label="username" value={username} onChange={({ target: { value } }) => setUsername(value)} />
-        <TextField label="password" type="password" value={password} onChange={({ target: { value } }) => setPassword(value)} />
-        <Button type="submit">Log in</Button>
-      </form>
+      <Card className={classes.card}>
+        <CardContent>
+          <form className={classes.form} onSubmit={handleSubmit}>
+            <Avatar>
+              <LockOutlined />
+            </Avatar>
+            <Typography component="h1" variant="h3" className={classes.title}>Log in</Typography>
+            <TextField label="username" value={username} onChange={({ target: { value } }) => setUsername(value)} />
+            <TextField label="password" type="password" value={password} onChange={({ target: { value } }) => setPassword(value)} />
+            <Button type="submit" variant="contained" color="primary" className={classes.button}>Log in</Button>
+          </form>
+        </CardContent>
+      </Card>
     </Layout>
   )
 }

@@ -77,7 +77,7 @@ const Bot = connect(mapStateToProps, mapDispatchToProps)(({ currentAccount, acco
             </Button>
             <Menu id="accounts-menu" anchorEl={menuElement} keepMounted open={Boolean(menuElement)} onClose={closeMenu}>
               {accounts.map(({ login, accountId }) =>
-                <MenuItem key={accountId} onClick={changeAccount(accountId)}>
+                <MenuItem key={accountId} onClick={changeAccount(accountId)} {...currentAccount.accountId === accountId && { selected: true }}>
                   {login} 
                 </MenuItem>
               )}
@@ -119,10 +119,9 @@ Bot.getInitialProps = async ctx => {
     }
   }
 
-  const accountId = parseInt(nextCookie(ctx).accountId)
+  const accountId = Number(nextCookie(ctx).accountId)
 
-  //@ts-ignore
-  const account = (accountId && accounts.find(account => account.accountId === accountId)) || accounts[0]
+  const account = (isNaN(accountId) || accounts.find(account => account.accountId === accountId)) || accounts[0]
 
   ctx.store.dispatch({ 
     type: 'setCurrentAccount', 
