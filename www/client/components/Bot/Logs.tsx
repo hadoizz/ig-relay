@@ -20,6 +20,9 @@ const useStyles = makeStyles(() => ({
     '& > *:last-of-type': {
       paddingRight: '0'
     }
+  },
+  createdAt: {
+    userSelect: 'none'
   }
 }))
 
@@ -72,8 +75,8 @@ export default connect(mapStateToProps)(memo(({ currentAccount }: { currentAccou
               <TableCell>{ type }</TableCell>
               <TableCell>{ payload }</TableCell>
               <TableCell>
-                <Tooltip title={new Date(createdAt).toLocaleString('en-GB')} placement="right">
-                  <span>
+                <Tooltip title={new Date(createdAt).toLocaleString('en-GB')} placement="right" enterTouchDelay={50}>
+                  <span className={classes.createdAt}>
                     { getTimeAgo(new Date(createdAt)) }
                   </span>
                 </Tooltip>

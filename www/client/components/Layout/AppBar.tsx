@@ -49,12 +49,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
+
 export default () => {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false)
 
   const toggleDrawer = () =>
     setMobileDrawerOpen(mobileDrawerOpen => !mobileDrawerOpen)
 
+  const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent)
   const classes = useStyles({})
   return (
     <AppBar position="fixed" color="primary">
@@ -94,7 +96,7 @@ export default () => {
       </Toolbar>
       { /* mobile drawer */ }
       <Hidden smUp implementation="css">
-        <SwipeableDrawer open={mobileDrawerOpen} onOpen={toggleDrawer} onClose={toggleDrawer} className={classes.drawer}>
+        <SwipeableDrawer open={mobileDrawerOpen} onOpen={toggleDrawer} onClose={toggleDrawer} className={classes.drawer} disableBackdropTransition={!iOS} disableDiscovery={iOS}>
           <List className={classes.drawer}>
             <Link href="/bot">
               <a className={classes.link}>

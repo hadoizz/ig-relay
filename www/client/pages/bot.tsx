@@ -121,7 +121,7 @@ Bot.getInitialProps = async ctx => {
 
   const accountId = Number(nextCookie(ctx).accountId)
 
-  const account = (isNaN(accountId) || accounts.find(account => account.accountId === accountId)) || accounts[0]
+  const account = (accountId && accounts.find(account => account.accountId === accountId)) || accounts[0]
 
   ctx.store.dispatch({ 
     type: 'setCurrentAccount', 

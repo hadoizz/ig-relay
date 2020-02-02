@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { TextField, Button, Theme, makeStyles, Card, CardContent, Typography, Avatar } from '@material-ui/core'
 import fetch from 'isomorphic-unfetch'
 import { login } from '../utils/auth'
@@ -29,7 +29,7 @@ export default () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleSubmit = async event => {
+  const handleSubmit = useCallback(async event => {
     event.preventDefault()
 
     try {
@@ -50,7 +50,7 @@ export default () => {
         error
       )
     }
-  }
+  }, [username, password])
 
   const classes = useStyles({})
   return (

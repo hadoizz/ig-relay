@@ -5,8 +5,11 @@ import Footer from './Layout/Footer'
 const useStyles = makeStyles((theme: Theme) => ({
   '@global': {
     //for footer
+    'html, body, #__next':{
+      width: '100%',
+      height: '100%'
+    },
     '#__next': {
-      minHeight: '100vh',
       display: 'flex',
       flexDirection: 'column',
     },
@@ -41,9 +44,7 @@ export default ({ children }) => {
       <CssBaseline />
       <AppBar />
       <Container maxWidth="md" className={classes.main}>
-      {
-        children
-      }
+        {children}
       </Container>
       <div className={classes.spacer} />
       <Footer />
