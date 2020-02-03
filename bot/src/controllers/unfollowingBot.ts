@@ -20,10 +20,11 @@ export default async (page: Page, maximumUnfollows: number) => {
     await sleep(2000, 4000)
     try {
       await unfollow(page)
-      log('unfollowed', login)
     } catch(error) {
       //user may changed login or was unfollowed manually
       console.log(`Can't unfollow ${login}`)
+    } finally {
+      log('unfollowed', login)
     }
 
     await sleep(2000, 4000)

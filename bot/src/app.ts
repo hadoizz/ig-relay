@@ -2,7 +2,6 @@ import { isSlave, master } from 'fork-with-emitter'
 import loadPage from './loaders/page'
 import loadSubscribers from './loaders/subscibers'
 import log from './logs/log'
-import getCredentials from './config/getCredentials'
 
 process.on('unhandledRejection', err => {
   log('error', err)

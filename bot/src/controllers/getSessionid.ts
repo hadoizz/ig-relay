@@ -1,10 +1,8 @@
 import { Page } from 'puppeteer'
-import getCredentials from '../config/getCredentials'
 import typeCredentials from '../services/login/typeCredentials'
 import submitCredentials from '../services/login/submitCredentials'
 import sleep from '../utils/sleep'
 import log from '../logs/log'
-
 
 const path = 'instagram.com/accounts/login'
 
