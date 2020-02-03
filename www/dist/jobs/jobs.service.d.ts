@@ -2,15 +2,15 @@ import { Job } from '../entities/job.entity';
 import { User } from '../entities/user.entity';
 import { Repository } from 'typeorm';
 import { BotsService } from '../bots/bots.service';
-import { LogsService } from '../logs/logs.service';
 import { Account } from '../entities/account.entity';
+import { ConfigService } from '../config/config.service';
 export declare class JobsService {
     private readonly jobRepository;
     private readonly userRepository;
     private readonly accountRepository;
     private readonly botsService;
-    private readonly logsService;
-    constructor(jobRepository: Repository<Job>, userRepository: Repository<User>, accountRepository: Repository<Account>, botsService: BotsService, logsService: LogsService);
+    private readonly configService;
+    constructor(jobRepository: Repository<Job>, userRepository: Repository<User>, accountRepository: Repository<Account>, botsService: BotsService, configService: ConfigService);
     private loadedJobs;
     private loadJob;
     private unloadJob;

@@ -23,9 +23,7 @@ let LogsService = class LogsService {
         this.logRepository = logRepository;
         this.followedRepository = followedRepository;
         this.accountRepository = accountRepository;
-    }
-    attachLogsListenersToSlave(slave, accountId) {
-        slave.on('log', async ({ type, payload }) => {
+        this.handleLog = (accountId) => async ({ type, payload }) => {
             const account = await this.accountRepository.findOne(accountId);
             if (type === 'followed') {
                 this.followedRepository.insert({ login: payload, account });
@@ -36,8 +34,8 @@ let LogsService = class LogsService {
                 return;
             }
             this.logRepository.insert({ type, payload, account });
-        });
-        slave.onRequest('isFollowed', async (login) => {
+        };
+        this.handleRequestIsFollowed = (accountId) => async (login) => {
             const row = await this.followedRepository
                 .createQueryBuilder('followed')
                 .innerJoin('followed.account', 'account')
@@ -47,32 +45,20 @@ let LogsService = class LogsService {
             if (row === undefined)
                 return false;
             return true;
-        });
-        slave.onRequest('oldestFollowed', async () => {
+        };
+        this.handleRequestOldestFollowed = (accountId) => async () => {
             const row = await this.followedRepository
                 .createQueryBuilder('followed')
-                .select('followed.login')
+                .select('followed.login as login')
                 .innerJoin('followed.account', 'account')
-                .where('account.accountId = :accountId', { accountId })
+                .where('followed.unfollowed != 1')
+                .andWhere('account.accountId = :accountId', { accountId })
                 .orderBy('followed.createdAt', 'ASC')
                 .getRawOne();
             if (row === undefined)
                 return null;
             return row.login;
-        });
-        slave.onRequest('shouldBeUnfollowed', async (login) => {
-            const row = await this.followedRepository
-                .createQueryBuilder('followed')
-                .innerJoin('followed.account', 'account')
-                .where('followed.createdAt <= now() - interval 2 day')
-                .andWhere('followed.login = :login', { login })
-                .andWhere('account.accountId = :accountId', { accountId })
-                .getRawOne();
-            if (row === undefined)
-                return false;
-            return true;
-        });
-        console.log('attached logs listeners to slave');
+        };
     }
     async getLogs(userId, accountId) {
         return await this.logRepository

@@ -14,25 +14,16 @@ const path_1 = require("path");
 const chalk_1 = __importDefault(require("chalk"));
 const fork_with_emitter_1 = require("fork-with-emitter");
 const stringio_1 = require("@rauschma/stringio");
-const createBot = async ({ cookies, dataDir, beforeLoad }) => {
-    const bot = fork_with_emitter_1.createSlave('app.js', {
+const createBot = async ({ dataDir, env = {}, cookies = {}, beforeLoad = slave => { } }) => {
+    const slave = fork_with_emitter_1.createSlave('app.js', {
         cwd: path_1.resolve('../bot/dist/'),
-        env: {
-            LOGIN: process.env.LOGIN,
-            PASSWORD: process.env.PASSWORD,
-            NODE_ENV: process.env.NODE_ENV,
-            HEADLESS: '1',
-            CONTROLLED: '1',
-            COOKIES: JSON.stringify(cookies),
-            DATA_DIR: dataDir
-        }
+        env: Object.assign(Object.assign({ HEADLESS: '1' }, env), { CONTROLLED: '1', COOKIES: JSON.stringify(cookies), DATA_DIR: dataDir })
     });
-    if (beforeLoad !== undefined)
-        beforeLoad(bot);
+    beforeLoad(slave);
     (async () => {
         var e_1, _a;
         try {
-            for (var _b = __asyncValues(stringio_1.chunksToLinesAsync(bot.fork.stdout)), _c; _c = await _b.next(), !_c.done;) {
+            for (var _b = __asyncValues(stringio_1.chunksToLinesAsync(slave.fork.stdout)), _c; _c = await _b.next(), !_c.done;) {
                 const line = _c.value;
                 console.log(chalk_1.default.yellow(stringio_1.chomp(line)));
             }
@@ -48,7 +39,7 @@ const createBot = async ({ cookies, dataDir, beforeLoad }) => {
     (async () => {
         var e_2, _a;
         try {
-            for (var _b = __asyncValues(stringio_1.chunksToLinesAsync(bot.fork.stderr)), _c; _c = await _b.next(), !_c.done;) {
+            for (var _b = __asyncValues(stringio_1.chunksToLinesAsync(slave.fork.stderr)), _c; _c = await _b.next(), !_c.done;) {
                 const line = _c.value;
                 console.log(chalk_1.default.red(stringio_1.chomp(line)));
             }
@@ -61,21 +52,17 @@ const createBot = async ({ cookies, dataDir, beforeLoad }) => {
             finally { if (e_2) throw e_2.error; }
         }
     })();
-    await bot.request('start', null, 120);
-    const startedAt = +new Date;
+    await slave.request('start', null, 120);
     return {
-        info: {
-            startedAt
-        },
-        slave: bot,
+        slave,
         exit() {
-            bot.emit('exit');
+            slave.emit('exit');
         },
         async executeSupervisor(executeSupervisorCommand) {
-            await bot.request('executeSupervisor', executeSupervisorCommand, 60 * 30);
+            await slave.request('executeSupervisor', executeSupervisorCommand, 60 * 30);
         },
         async getSupervisors() {
-            return bot.request('getSupervisors');
+            return slave.request('getSupervisors');
         }
     };
 };

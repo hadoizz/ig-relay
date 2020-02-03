@@ -13,101 +13,62 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
-const ms_1 = __importDefault(require("ms"));
-const stringio_1 = require("@rauschma/stringio");
 const createBot_1 = __importDefault(require("./utils/createBot"));
 const getId_1 = __importDefault(require("./utils/getId"));
 const config_service_1 = require("../config/config.service");
 const path_1 = __importDefault(require("path"));
+const mkdirp_1 = __importDefault(require("mkdirp"));
+const logs_service_1 = require("../logs/logs.service");
 let BotsService = class BotsService {
-    constructor(configService) {
+    constructor(configService, logsService) {
         this.configService = configService;
-        this.bots = new Map();
-        this.devBot = null;
+        this.logsService = logsService;
+        this.botInstances = new Map();
     }
-    async createBot({ cookies, dataDir }, beforeLoad) {
+    async createBot({ accountId }) {
         const id = getId_1.default();
-        const bot = await createBot_1.default({ cookies, dataDir, beforeLoad });
-        this.bots.set(id, bot);
-        this.clearAfterExit(bot, id);
-        return { id, bot };
+        const dataDir = path_1.default.resolve(__dirname, `../../../accounts_data/${accountId}`);
+        await mkdirp_1.default(dataDir);
+        const cleanup = () => this.botInstances.delete(id);
+        const bot = await createBot_1.default({
+            dataDir,
+            env: Object.assign({ LOGIN: this.configService.get('LOGIN'), PASSWORD: this.configService.get('PASSWORD'), NODE_ENV: this.configService.get('NODE_ENV') }, this.configService.get('HEADLESS') && { HEADLESS: this.configService.get('HEADLESS') }),
+            beforeLoad: (slave) => {
+                slave.on('log', this.logsService.handleLog(accountId));
+                slave.onRequest('isFollowed', this.logsService.handleRequestIsFollowed(accountId));
+                slave.onRequest('oldestFollowed', this.logsService.handleRequestOldestFollowed(accountId));
+                slave.fork.once('exit', cleanup);
+                slave.fork.once('error', cleanup);
+            }
+        });
+        this.botInstances.set(id, {
+            bot,
+            accountId,
+            createdAt: new Date
+        });
+        console.log(`Created ${id} bot`);
+        return id;
     }
-    async createDevBot() {
-        if (this.devBot === null) {
-            const id = getId_1.default();
-            const botPromise = createBot_1.default({
-                cookies: { 'sessionid': '2859946592%3AhnG76pcgR2XuFI%3A23' },
-                dataDir: path_1.default.resolve(__dirname, `../../../accounts_data/dev`),
-                beforeLoad: slave => {
-                    slave.onRequest('isFollowed', async () => true);
-                    slave.onRequest('oldestFollowed', async () => null);
-                    slave.onRequest('shouldBeUnfollowed', async () => false);
-                }
-            });
-            this.devBot = { id, botPromise };
-            const bot = await botPromise;
-            this.bots.set(id, bot);
-            this.clearAfterExit(bot, id);
-            return { id };
+    exit(id) {
+        if (this.botInstances.has(id)) {
+            this.botInstances.get(id).bot.exit();
+            this.botInstances.delete(id);
+            console.log(`Exitted ${id} bot`);
         }
-        await this.devBot.botPromise;
-        return {
-            id: this.devBot.id
-        };
     }
-    async clearAfterExit(bot, id) {
-        try {
-            await stringio_1.onExit(bot.slave.fork);
-        }
-        catch (error) { }
-        this.clearBot(id);
+    get(id) {
+        if (this.botInstances.has(id))
+            return this.botInstances.get(id).bot;
+        return null;
     }
-    clearBot(id) {
-        this.bots.delete(id);
-    }
-    exitBot(id) {
-        if (!this.hasBot(id))
-            return;
-        this.bots.get(id).exit();
-        this.clearBot(id);
-        console.log(`Exitted ${id} bot`);
-    }
-    async executeSupervisor(id, name, payload) {
-        if (!this.hasBot(id))
-            return;
-        return await this.getBot(id).executeSupervisor({ name, payload });
-    }
-    hasBot(id) {
-        return this.bots.has(id);
-    }
-    getBot(id) {
-        return this.bots.get(id);
-    }
-    getBotStatus(id) {
-        if (!this.hasBot(id))
-            return {
-                alive: false
-            };
-        const { info: { startedAt } } = this.getBot(id);
-        return {
-            alive: true,
-            aliveFor: ms_1.default(+new Date - startedAt, { long: true })
-        };
-    }
-    getDevBotStatus() {
-        if (this.devBot === null)
-            return {
-                alive: false
-            };
-        return Object.assign({ id: this.devBot.id }, this.getBotStatus(this.devBot.id));
-    }
-    getBotsCount() {
-        return this.bots.size;
+    getCreatedAt(id) {
+        return (this.botInstances.has(id) && this.botInstances.get(id).createdAt) || null;
     }
 };
 BotsService = __decorate([
     common_1.Injectable(),
-    __metadata("design:paramtypes", [config_service_1.ConfigService])
+    __metadata("design:paramtypes", [config_service_1.ConfigService,
+        logs_service_1.LogsService])
 ], BotsService);
 exports.BotsService = BotsService;
 //# sourceMappingURL=bots.service.js.map

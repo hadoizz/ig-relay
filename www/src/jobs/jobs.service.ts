@@ -11,6 +11,7 @@ import { LogsService } from '../logs/logs.service';
 import { Account } from '../entities/account.entity';
 import sleep from 'delay'
 import path from 'path'
+import { ConfigService } from '../config/config.service';
 
 const createJob = (cron: string, fn: () => Promise<void>) =>
   new CronJob(cron, fn, null, true, 'Europe/Warsaw')
@@ -22,15 +23,15 @@ export class JobsService {
     @InjectRepository(User) private readonly userRepository: Repository<User>,
     @InjectRepository(Account) private readonly accountRepository: Repository<Account>,
     private readonly botsService: BotsService,
-    private readonly logsService: LogsService
+    private readonly configService: ConfigService
   ){
-    if(process.env.NODE_ENV === 'production')
+    if(this.configService.isProduction())
       this.loadJobs()
   }
 
   private loadedJobs = new Map<number, CronJob>()
 
-  private async loadJob({ jobId, cron, supervisor, supervisorPayload, maxDelaySeconds, accountId, cookies }){
+  private async loadJob({ jobId, cron, supervisor, supervisorPayload, maxDelaySeconds, accountId }){
     const job = createJob(cron, async () => {
       console.log(`Starting job ${jobId}`)
       await delay(random(0, maxDelaySeconds*1000))
@@ -39,20 +40,18 @@ export class JobsService {
       if(!this.loadedJobs.has(jobId))
         return
 
-      //./insta/data
-      const dataDir = path.resolve(__dirname, `../../../accounts_data/${accountId}`)
-      const { id } = await this.botsService.createBot({ cookies, dataDir }, slave => this.logsService.attachLogsListenersToSlave(slave, accountId))
+      const id = await this.botsService.createBot({ accountId })
       
       //cheap vps needs more time to fully load page
-      await sleep(30000)
+      await sleep(10000)
 
       try {
-        const result = await this.botsService.executeSupervisor(id, supervisor, supervisorPayload)
+        const result = await this.botsService.get(id).executeSupervisor({ name: supervisor, payload: supervisorPayload })
         console.log(`Ended job ${jobId}`, result ? `with result ${result}` : undefined)
       } catch(error) {
         console.log(`Ended job ${jobId} with error ${error}`)
       } finally {
-        this.botsService.exitBot(id)
+        this.botsService.exit(id)
       }
     })
 
@@ -145,7 +144,7 @@ export class JobsService {
       .where('job.jobId = :jobId', { jobId })
       .execute()
 
-    if(process.env.NODE_ENV === 'production'){
+    if(this.configService.isProduction()){
       this.unloadJobs()
       await this.loadJobs()
     }
@@ -163,7 +162,7 @@ export class JobsService {
       account
     })
 
-    if(process.env.NODE_ENV === 'production'){
+    if(this.configService.isProduction()){
       this.unloadJobs()
       await this.loadJobs()
     }

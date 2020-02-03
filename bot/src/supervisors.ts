@@ -109,6 +109,7 @@ export const getSupervisorsWithTypes = (page: Page): SupervisorsWithTypes => {
       //@ts-ignore
       acc[name] = { type, supervisor }
     })
+    
     return acc
   }, {})
 }

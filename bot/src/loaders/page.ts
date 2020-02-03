@@ -14,9 +14,7 @@ export default async () => {
   console.log(`userDataDir: ${userDataDir}`)
 
   const browser = await puppeteer.launch({
-    headless: getEnvData().production 
-      ? true 
-      : getEnvData().headless,
+    headless: getEnvData().headless,
     userDataDir,
     args: ['--no-sandbox', '--disable-setuid-sandbox']
   })

@@ -1,52 +1,15 @@
 import { Bot } from './utils/createBot';
 import { ConfigService } from '../config/config.service';
-import { Slave } from 'fork-with-emitter';
+import { LogsService } from '../logs/logs.service';
 export declare class BotsService {
     private readonly configService;
-    constructor(configService: ConfigService);
-    private readonly bots;
-    private devBot;
-    createBot({ cookies, dataDir }: {
-        cookies: any;
-        dataDir: any;
-    }, beforeLoad?: (Slave: any) => any): Promise<{
-        id: string;
-        bot: {
-            info: {
-                startedAt: number;
-            };
-            slave: Slave;
-            exit(): void;
-            executeSupervisor(executeSupervisorCommand: import("./utils/createBot").ExecuteSupervisorCommand): Promise<void>;
-            getSupervisors(): Promise<unknown>;
-        };
-    }>;
-    createDevBot(): Promise<{
-        id: string;
-    }>;
-    private clearAfterExit;
-    private clearBot;
-    exitBot(id: string): void;
-    executeSupervisor(id: string, name: string, payload?: any): Promise<any>;
-    hasBot(id: string): boolean;
-    getBot(id: string): Bot;
-    getBotStatus(id: string): {
-        alive: boolean;
-        aliveFor?: undefined;
-    } | {
-        alive: boolean;
-        aliveFor: any;
-    };
-    getDevBotStatus(): {
-        alive: boolean;
-    } | {
-        alive: boolean;
-        aliveFor?: undefined;
-        id: string;
-    } | {
-        alive: boolean;
-        aliveFor: any;
-        id: string;
-    };
-    getBotsCount(): number;
+    private readonly logsService;
+    constructor(configService: ConfigService, logsService: LogsService);
+    private readonly botInstances;
+    createBot({ accountId }: {
+        accountId: number;
+    }): Promise<string>;
+    exit(id: string): void;
+    get(id: string): Bot;
+    getCreatedAt(id: string): Date;
 }

@@ -24,40 +24,38 @@ const typeorm_2 = require("typeorm");
 const delay_1 = __importDefault(require("delay"));
 const random_int_1 = __importDefault(require("random-int"));
 const bots_service_1 = require("../bots/bots.service");
-const logs_service_1 = require("../logs/logs.service");
 const account_entity_1 = require("../entities/account.entity");
 const delay_2 = __importDefault(require("delay"));
-const path_1 = __importDefault(require("path"));
+const config_service_1 = require("../config/config.service");
 const createJob = (cron, fn) => new cron_1.CronJob(cron, fn, null, true, 'Europe/Warsaw');
 let JobsService = class JobsService {
-    constructor(jobRepository, userRepository, accountRepository, botsService, logsService) {
+    constructor(jobRepository, userRepository, accountRepository, botsService, configService) {
         this.jobRepository = jobRepository;
         this.userRepository = userRepository;
         this.accountRepository = accountRepository;
         this.botsService = botsService;
-        this.logsService = logsService;
+        this.configService = configService;
         this.loadedJobs = new Map();
-        if (process.env.NODE_ENV === 'production')
+        if (this.configService.isProduction())
             this.loadJobs();
     }
-    async loadJob({ jobId, cron, supervisor, supervisorPayload, maxDelaySeconds, accountId, cookies }) {
+    async loadJob({ jobId, cron, supervisor, supervisorPayload, maxDelaySeconds, accountId }) {
         const job = createJob(cron, async () => {
             console.log(`Starting job ${jobId}`);
             await delay_1.default(random_int_1.default(0, maxDelaySeconds * 1000));
             if (!this.loadedJobs.has(jobId))
                 return;
-            const dataDir = path_1.default.resolve(__dirname, `../../../accounts_data/${accountId}`);
-            const { id } = await this.botsService.createBot({ cookies, dataDir }, slave => this.logsService.attachLogsListenersToSlave(slave, accountId));
-            await delay_2.default(30000);
+            const id = await this.botsService.createBot({ accountId });
+            await delay_2.default(10000);
             try {
-                const result = await this.botsService.executeSupervisor(id, supervisor, supervisorPayload);
+                const result = await this.botsService.get(id).executeSupervisor({ name: supervisor, payload: supervisorPayload });
                 console.log(`Ended job ${jobId}`, result ? `with result ${result}` : undefined);
             }
             catch (error) {
                 console.log(`Ended job ${jobId} with error ${error}`);
             }
             finally {
-                this.botsService.exitBot(id);
+                this.botsService.exit(id);
             }
         });
         this.loadedJobs.set(jobId, job);
@@ -122,7 +120,7 @@ let JobsService = class JobsService {
             .set(changes)
             .where('job.jobId = :jobId', { jobId })
             .execute();
-        if (process.env.NODE_ENV === 'production') {
+        if (this.configService.isProduction()) {
             this.unloadJobs();
             await this.loadJobs();
         }
@@ -134,7 +132,7 @@ let JobsService = class JobsService {
             .andWhere('account.accountId = :accountId', { accountId })
             .getOne();
         this.jobRepository.insert(Object.assign(Object.assign({}, job), { account }));
-        if (process.env.NODE_ENV === 'production') {
+        if (this.configService.isProduction()) {
             this.unloadJobs();
             await this.loadJobs();
         }
@@ -149,7 +147,7 @@ JobsService = __decorate([
         typeorm_2.Repository,
         typeorm_2.Repository,
         bots_service_1.BotsService,
-        logs_service_1.LogsService])
+        config_service_1.ConfigService])
 ], JobsService);
 exports.JobsService = JobsService;
 //# sourceMappingURL=jobs.service.js.map

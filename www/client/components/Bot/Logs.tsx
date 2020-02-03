@@ -75,7 +75,7 @@ export default connect(mapStateToProps)(memo(({ currentAccount }: { currentAccou
               <TableCell>{ type }</TableCell>
               <TableCell>{ payload }</TableCell>
               <TableCell>
-                <Tooltip title={new Date(createdAt).toLocaleString('en-GB')} placement="right" enterTouchDelay={50}>
+                <Tooltip title={new Date(createdAt).toLocaleString('en-GB')} placement="right" enterTouchDelay={0}>
                   <span className={classes.createdAt}>
                     { getTimeAgo(new Date(createdAt)) }
                   </span>

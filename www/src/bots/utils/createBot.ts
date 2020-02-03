@@ -9,57 +9,48 @@ export interface ExecuteSupervisorCommand {
 }
 
 export type Bot = {
-  info: { startedAt: number },
   slave: Slave,
   exit: () => any,
   executeSupervisor: (ExecuteSupervisorCommand) => Promise<any>,
   getSupervisors: () => Promise<any>
 }
 
-const createBot = async ({ cookies, dataDir, beforeLoad }) => {
-  const bot = createSlave('app.js', {
+const createBot = async ({ dataDir, env = {}, cookies = {}, beforeLoad = slave => {} }) => {
+  const slave = createSlave('app.js', {
     cwd: resolve('../bot/dist/'),
     env: {
-      LOGIN: process.env.LOGIN,
-      PASSWORD: process.env.PASSWORD,
-      NODE_ENV: process.env.NODE_ENV,
       HEADLESS: '1',
+      ...env,
       CONTROLLED: '1',
       COOKIES: JSON.stringify(cookies),
       DATA_DIR: dataDir
     }
   })
 
-  if(beforeLoad !== undefined)
-    beforeLoad(bot)
+  beforeLoad(slave)
 
   ;(async () => {
-    for await (const line of chunksToLinesAsync(bot.fork.stdout))
+    for await (const line of chunksToLinesAsync(slave.fork.stdout))
       console.log(chalk.yellow(chomp(line)))
   })()
 
   ;(async () => {
-    for await (const line of chunksToLinesAsync(bot.fork.stderr))
+    for await (const line of chunksToLinesAsync(slave.fork.stderr))
       console.log(chalk.red(chomp(line)))
   })()
 
-  await bot.request('start', null, 120)
-
-  const startedAt = +new Date
+  await slave.request('start', null, 120)
 
   return {
-    info: {
-      startedAt
-    },
-    slave: bot,
+    slave,
     exit(){
-      bot.emit('exit')
+      slave.emit('exit')
     },
     async executeSupervisor(executeSupervisorCommand: ExecuteSupervisorCommand){
-      await bot.request('executeSupervisor', executeSupervisorCommand, 60*30)
+      await slave.request('executeSupervisor', executeSupervisorCommand, 60*30)
     },
     async getSupervisors(){
-      return bot.request('getSupervisors')
+      return slave.request('getSupervisors')
     }
   }
 }

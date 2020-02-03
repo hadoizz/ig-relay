@@ -18,7 +18,7 @@ const cookies = process.env.COOKIES
 
 const dataDir = process.env.DATA_DIR || process.cwd()
 
-export default () => ({
+const getEnvData = () => ({
   login,
   password,
   controlled,
@@ -27,3 +27,7 @@ export default () => ({
   cookies,
   dataDir
 })
+
+export default getEnvData
+
+console.log(getEnvData())

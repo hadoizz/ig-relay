@@ -1,129 +1,80 @@
 import { Injectable } from '@nestjs/common'
-import ms from 'ms'
-import { onExit } from '@rauschma/stringio'
 import createBot, { Bot } from './utils/createBot'
 import getId from './utils/getId'
 import { ConfigService } from '../config/config.service'
 import { Slave } from 'fork-with-emitter'
 import path from 'path'
+import mkdirp from 'mkdirp'
+import { LogsService } from '../logs/logs.service'
 
-type DevBot = null | {
-  id: string,
-  botPromise: Promise<Bot>
+type BotInstance = {
+  bot: Bot
+  accountId: number
+  createdAt: Date
 }
 
 @Injectable()
 export class BotsService {
-  constructor(private readonly configService: ConfigService){}
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly logsService: LogsService
+  ){}
 
-  private readonly bots = new Map<string, Bot>()
-  private devBot: DevBot = null
+  private readonly botInstances = new Map<string, BotInstance>()
 
-  async createBot({ cookies, dataDir }, beforeLoad?: (Slave) => any){
+  async createBot({ accountId }: { accountId: number }){
     const id = getId()
-    const bot = await createBot({ cookies, dataDir, beforeLoad })
-    this.bots.set(id, bot)
-    this.clearAfterExit(bot, id)
 
-    return { id, bot }
-  }
+    const dataDir = path.resolve(__dirname, `../../../accounts_data/${accountId}`)
+    await mkdirp(dataDir)     
+    
+    const cleanup = () =>
+      this.botInstances.delete(id)
 
-  async createDevBot(){
-    if(this.devBot === null){
-      const id = getId()
-      const botPromise = createBot({ 
-        cookies: { 'sessionid': '2859946592%3AhnG76pcgR2XuFI%3A23' },
-        dataDir: path.resolve(__dirname, `../../../accounts_data/dev`),
-        beforeLoad: slave => {
-          slave.onRequest('isFollowed', async () => true)
-          slave.onRequest('oldestFollowed', async () => null)
-          slave.onRequest('shouldBeUnfollowed', async () => false)
-        }
-      })
-      this.devBot = { id, botPromise }
-
-      const bot = await botPromise
-      this.bots.set(id, bot)
-      this.clearAfterExit(bot, id)
-
-      return { id }
-    }
-
-    await this.devBot.botPromise
-
-    return {
-      id: this.devBot.id
-    }
-  }
-
-  /**
-   * Waits for bot's crash/exit and clears.
-   * @param bot 
-   * @param id 
-   */
-  private async clearAfterExit(bot: Bot, id: string){
-    try {
-      await onExit(bot.slave.fork)
-    } catch(error) {}
-
-    this.clearBot(id)
-  }
-
-  private clearBot(id: string){
-    this.bots.delete(id)
-  }
-
-  exitBot(id: string){
-    if(!this.hasBot(id))
-      return
-
-    this.bots.get(id).exit()
-    this.clearBot(id)
-    console.log(`Exitted ${id} bot`)
-  }
-  
-  async executeSupervisor(id: string, name: string, payload?: any){
-    if(!this.hasBot(id))
-      return
-
-    return await this.getBot(id).executeSupervisor({ name, payload })
-  }
-
-  hasBot(id: string){
-    return this.bots.has(id)
-  }
-
-  getBot(id: string){
-    return this.bots.get(id)
-  }
-
-  getBotStatus(id: string){
-    if(!this.hasBot(id))
-      return {
-        alive: false
+    const bot = await createBot({
+      dataDir,
+      env: {
+        LOGIN: this.configService.get('LOGIN'),
+        PASSWORD: this.configService.get('PASSWORD'),
+        NODE_ENV: this.configService.get('NODE_ENV'),
+        ...this.configService.get('HEADLESS') && { HEADLESS: this.configService.get('HEADLESS') }
+      },
+      beforeLoad: (slave: Slave) => {
+        slave.on('log', this.logsService.handleLog(accountId))
+        slave.onRequest('isFollowed', this.logsService.handleRequestIsFollowed(accountId))
+        slave.onRequest('oldestFollowed', this.logsService.handleRequestOldestFollowed(accountId))
+        slave.fork.once('exit', cleanup)
+        slave.fork.once('error', cleanup)
       }
+    })
 
-    const { info: { startedAt } } = this.getBot(id)
+    this.botInstances.set(id, { 
+      bot, 
+      accountId,
+      createdAt: new Date
+    })
 
-    return {
-      alive: true,
-      aliveFor: ms(+new Date - startedAt, { long: true })
+    console.log(`Created ${id} bot`)
+
+    return id
+  }
+
+  exit(id: string){
+    if(this.botInstances.has(id)){
+      this.botInstances.get(id).bot.exit()
+      this.botInstances.delete(id)
+      console.log(`Exitted ${id} bot`)
     }
   }
 
-  getDevBotStatus(){
-    if(this.devBot === null)
-      return {
-        alive: false
-      }
+  get(id: string){
+    if(this.botInstances.has(id))
+      return this.botInstances.get(id).bot
 
-    return {
-      id: this.devBot.id,
-      ...this.getBotStatus(this.devBot.id)
-    }
+    return null
   }
 
-  getBotsCount(){
-    return this.bots.size
+  getCreatedAt(id: string){
+    return (this.botInstances.has(id) && this.botInstances.get(id).createdAt) || null
   }
 }

@@ -6,11 +6,11 @@ import { Job } from '../entities/job.entity';
 import { BotsModule } from '../bots/bots.module';
 import { AccountsModule } from '../accounts/accounts.module';
 import { User } from '../entities/user.entity';
-import { LogsModule } from '../logs/logs.module';
 import { Account } from '../entities/account.entity';
+import { ConfigModule } from '../config/config.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Job, User, Account]), BotsModule, AccountsModule, LogsModule],
+  imports: [TypeOrmModule.forFeature([Job, User, Account]), BotsModule, AccountsModule, ConfigModule],
   providers: [JobsService],
   controllers: [JobsController]
 }) 

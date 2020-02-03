@@ -4,22 +4,17 @@ export interface ExecuteSupervisorCommand {
     payload?: string;
 }
 export declare type Bot = {
-    info: {
-        startedAt: number;
-    };
     slave: Slave;
     exit: () => any;
     executeSupervisor: (ExecuteSupervisorCommand: any) => Promise<any>;
     getSupervisors: () => Promise<any>;
 };
-declare const createBot: ({ cookies, dataDir, beforeLoad }: {
-    cookies: any;
+declare const createBot: ({ dataDir, env, cookies, beforeLoad }: {
     dataDir: any;
-    beforeLoad: any;
+    env?: {};
+    cookies?: {};
+    beforeLoad?: (slave: any) => void;
 }) => Promise<{
-    info: {
-        startedAt: number;
-    };
     slave: Slave;
     exit(): void;
     executeSupervisor(executeSupervisorCommand: ExecuteSupervisorCommand): Promise<void>;

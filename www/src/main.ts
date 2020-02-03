@@ -9,4 +9,6 @@ import { AppModule } from './app.module'
   await app.listen(process.env.PORT || 8080)
    
   console.log(`Server listening on port: ${process.env.PORT || 8080}`)
+  if(process.env.NODE_ENV === 'production')
+    console.log('Production mode')
 })()

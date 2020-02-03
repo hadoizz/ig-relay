@@ -4,45 +4,30 @@ import { BotsService } from './bots.service'
 @Controller('bots')
 export class BotsController {
   constructor(private readonly botsService: BotsService){}
-  
-  /*@Get()
-  index(){
-    return {
-      botsCount: this.botsService.getBotsCount()
-    }
-  }*/
-
-  @Get('dev')
-  devBot(){
-    return this.botsService.getDevBotStatus()
-  }
-
-  @Get('dev/start')
-  createDevBot(){
-    return this.botsService.createDevBot()
-  }
 
   @Get(':id')
-  getBotStatus(@Param('id') id: string){
-    return this.botsService.getBotStatus(id)
+  getBotInfo(@Param('id') id: string){
+    return {
+      createdAt: this.botsService.getCreatedAt(id)
+    }
   } 
 
   @Get(':id/exit')
   exit(@Param('id') id: string){
-    this.botsService.exitBot(id)
+    this.botsService.exit(id)
   }
 
   @Post(':id/executeSupervisor')
   async executeSupervisor(@Param('id') id: string, @Body('name') name: string, @Body('payload') payload: string){
     return { 
-      result: await this.botsService.executeSupervisor(id, name, payload)
+      result: await this.botsService.get(id).executeSupervisor({ name, payload })
     }
   }
 
   @Get(':id/getSupervisors')
   async getSupervisors(@Param('id') id: string){
     try {
-      return await this.botsService.getBot(id).getSupervisors()
+      return await this.botsService.get(id).getSupervisors()
     } catch(error){
       return []
     }

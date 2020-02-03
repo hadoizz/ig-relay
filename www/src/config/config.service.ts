@@ -5,15 +5,16 @@ export class ConfigService {
   private readonly env: { [key: string]: string };
 
   constructor(){
-    if(process.env.NODE_ENV === 'production'){
-      this.env = process.env
-      return 
-    }
-
-    this.env = dotenv.parse(fs.readFileSync('.env'))
+    const parsed = dotenv.parse(fs.readFileSync('.env'))
+    Object.assign(process.env, parsed)
+    this.env = process.env
   }
 
   get(key: string): string {
     return this.env[key]
+  }
+
+  isProduction(){
+    return this.get('NODE_ENV') === 'production'
   }
 }

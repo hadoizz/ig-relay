@@ -10,13 +10,14 @@ const common_1 = require("@nestjs/common");
 const bots_service_1 = require("./bots.service");
 const bots_controller_1 = require("./bots.controller");
 const config_module_1 = require("../config/config.module");
+const logs_module_1 = require("../logs/logs.module");
 let BotsModule = class BotsModule {
 };
 BotsModule = __decorate([
     common_1.Module({
         providers: [bots_service_1.BotsService],
         controllers: [bots_controller_1.BotsController],
-        imports: [config_module_1.ConfigModule],
+        imports: [config_module_1.ConfigModule, logs_module_1.LogsModule],
         exports: [bots_service_1.BotsService]
     })
 ], BotsModule);

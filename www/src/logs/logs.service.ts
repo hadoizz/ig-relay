@@ -1,11 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { Bot } from '../bots/utils/createBot'
 import { InjectRepository } from '@nestjs/typeorm';
 import { Log } from '../entities/log.entity';
 import { Repository } from 'typeorm';
 import { Followed } from '../entities/followed.entity';
 import { Account } from '../entities/account.entity';
-import { Slave } from 'fork-with-emitter';
 
 @Injectable()
 export class LogsService {
@@ -15,66 +13,48 @@ export class LogsService {
     @InjectRepository(Account) private readonly accountRepository: Repository<Account>
   ){}
 
-  attachLogsListenersToSlave(slave: Slave, accountId: number){
-    slave.on('log', async ({ type, payload }: { type: string, payload?: any }) => {
-      const account = await this.accountRepository.findOne(accountId)
+  handleLog = (accountId: number) => async ({ type, payload }: { type: string, payload: any }) => {
+    const account = await this.accountRepository.findOne(accountId)
 
-      if(type === 'followed'){
-        this.followedRepository.insert({ login: payload, account })
-        return
-      } else if(type ==='unfollowed'){
-        this.followedRepository.update({ login: payload, account }, { unfollowed: true })
-        return
-      }
+    if(type === 'followed'){
+      this.followedRepository.insert({ login: payload, account })
+      return
+    } else if(type ==='unfollowed'){
+      this.followedRepository.update({ login: payload, account }, { unfollowed: true })
+      return
+    }
 
-      this.logRepository.insert({ type, payload, account })
-    })
+    this.logRepository.insert({ type, payload, account })
+  }
 
-    slave.onRequest('isFollowed', async (login: string) => {
-      const row = await this.followedRepository
-        .createQueryBuilder('followed')
-        .innerJoin('followed.account', 'account')
-        .andWhere('followed.login = :login', { login })
-        .andWhere('account.accountId = :accountId', { accountId })
-        .getRawOne()
+  handleRequestIsFollowed = (accountId: number) => async (login: string) => {
+    const row = await this.followedRepository
+      .createQueryBuilder('followed')
+      .innerJoin('followed.account', 'account')
+      .andWhere('followed.login = :login', { login })
+      .andWhere('account.accountId = :accountId', { accountId })
+      .getRawOne()
 
-      if(row === undefined)
-        return false
+    if(row === undefined)
+      return false
 
-      return true
-    })
+    return true
+  }
 
-    slave.onRequest('oldestFollowed', async () => {
-      const row = await this.followedRepository
-        .createQueryBuilder('followed')
-        .select('followed.login')
-        .innerJoin('followed.account', 'account')
-        .where('account.accountId = :accountId', { accountId })
-        .orderBy('followed.createdAt', 'ASC')
-        .getRawOne()
+  handleRequestOldestFollowed = (accountId: number) => async () => {
+    const row = await this.followedRepository
+      .createQueryBuilder('followed')
+      .select('followed.login as login')
+      .innerJoin('followed.account', 'account')
+      .where('followed.unfollowed != 1')
+      .andWhere('account.accountId = :accountId', { accountId })
+      .orderBy('followed.createdAt', 'ASC')
+      .getRawOne()
+    
+    if(row === undefined)
+      return null
 
-      if(row === undefined)
-        return null
-
-      return row.login
-    })
-
-    slave.onRequest('shouldBeUnfollowed', async (login: string) => {
-      const row = await this.followedRepository
-        .createQueryBuilder('followed')
-        .innerJoin('followed.account', 'account')
-        .where('followed.createdAt <= now() - interval 2 day')
-        .andWhere('followed.login = :login', { login })
-        .andWhere('account.accountId = :accountId', { accountId })
-        .getRawOne()
-
-      if(row === undefined)
-        return false
-
-      return true
-    })
-
-    console.log('attached logs listeners to slave')
+    return row.login
   }
 
   async getLogs(userId: number, accountId: number){

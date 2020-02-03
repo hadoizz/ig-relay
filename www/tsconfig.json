@@ -9,8 +9,7 @@
     "sourceMap": true,
     "outDir": "./dist",
     "incremental": true,
-    "esModuleInterop": true,
-    "baseUrl": "./"
+    "esModuleInterop": true
    },
    "include": ["src/**/*"]
 }

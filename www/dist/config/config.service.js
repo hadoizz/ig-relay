@@ -7,14 +7,15 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const fs_1 = __importDefault(require("fs"));
 class ConfigService {
     constructor() {
-        if (process.env.NODE_ENV === 'production') {
-            this.env = process.env;
-            return;
-        }
-        this.env = dotenv_1.default.parse(fs_1.default.readFileSync('.env'));
+        const parsed = dotenv_1.default.parse(fs_1.default.readFileSync('.env'));
+        Object.assign(process.env, parsed);
+        this.env = process.env;
     }
     get(key) {
         return this.env[key];
+    }
+    isProduction() {
+        return this.get('NODE_ENV') === 'production';
     }
 }
 exports.ConfigService = ConfigService;

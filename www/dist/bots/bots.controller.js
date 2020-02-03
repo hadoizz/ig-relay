@@ -18,26 +18,22 @@ let BotsController = class BotsController {
     constructor(botsService) {
         this.botsService = botsService;
     }
-    devBot() {
-        return this.botsService.getDevBotStatus();
-    }
-    createDevBot() {
-        return this.botsService.createDevBot();
-    }
-    getBotStatus(id) {
-        return this.botsService.getBotStatus(id);
+    getBotInfo(id) {
+        return {
+            createdAt: this.botsService.getCreatedAt(id)
+        };
     }
     exit(id) {
-        this.botsService.exitBot(id);
+        this.botsService.exit(id);
     }
     async executeSupervisor(id, name, payload) {
         return {
-            result: await this.botsService.executeSupervisor(id, name, payload)
+            result: await this.botsService.get(id).executeSupervisor({ name, payload })
         };
     }
     async getSupervisors(id) {
         try {
-            return await this.botsService.getBot(id).getSupervisors();
+            return await this.botsService.get(id).getSupervisors();
         }
         catch (error) {
             return [];
@@ -45,24 +41,12 @@ let BotsController = class BotsController {
     }
 };
 __decorate([
-    common_1.Get('dev'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], BotsController.prototype, "devBot", null);
-__decorate([
-    common_1.Get('dev/start'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], BotsController.prototype, "createDevBot", null);
-__decorate([
     common_1.Get(':id'),
     __param(0, common_1.Param('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
-], BotsController.prototype, "getBotStatus", null);
+], BotsController.prototype, "getBotInfo", null);
 __decorate([
     common_1.Get(':id/exit'),
     __param(0, common_1.Param('id')),

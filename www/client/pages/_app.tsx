@@ -80,7 +80,7 @@ class MyApp extends App {
     return (
       <Provider store={store}>
         <Head>
-          <title>Insta</title>
+          <title>InstaFeed</title>
         </Head>
         <ThemeProvider theme={theme}>
           <Component {...pageProps} />

@@ -44,36 +44,24 @@ export class StreamingService {
   }
 
   private attachStreamingHandler(id: string, handler: (data: string) => void){
-    if(!this.botsService.hasBot(id))
-      return
-
-    this.botsService.getBot(id).slave.on('streaming', handler)
+    this.botsService.get(id) && this.botsService.get(id).slave.on('streaming', handler)
   }
 
   private detachStreamingHandler(id: string, handler: (data: string) => void){
-    if(!this.botsService.hasBot(id))
-      return
-
-    this.botsService.getBot(id).slave.removeListener('streaming', handler)
+    this.botsService.get(id) && this.botsService.get(id).slave.removeListener('streaming', handler)
   }
 
   private orderBotToStartStreaming(id: string){
-    if(!this.botsService.hasBot(id))
-      return
-
-    this.botsService.getBot(id).slave.emit('startStreaming')
+    this.botsService.get(id) && this.botsService.get(id).slave.emit('startStreaming')
   }
 
   private orderBotToStopStreaming(id: string){
-    if(!this.botsService.hasBot(id))
-      return
-      
-    this.botsService.getBot(id).slave.emit('stopStreaming')
+    this.botsService.get(id) && this.botsService.get(id).slave.emit('stopStreaming')
   }
 
   createStreaming(id: string, handleData: (data: string) => void){
     //bot doesn't exist
-    if(!this.botsService.hasBot(id))
+    if(this.botsService.get(id) === null)
       return
 
     if(!this.streams[id])

@@ -39,27 +39,19 @@ let StreamingService = class StreamingService {
         console.log(`Stop streaming ${id}`);
     }
     attachStreamingHandler(id, handler) {
-        if (!this.botsService.hasBot(id))
-            return;
-        this.botsService.getBot(id).slave.on('streaming', handler);
+        this.botsService.get(id) && this.botsService.get(id).slave.on('streaming', handler);
     }
     detachStreamingHandler(id, handler) {
-        if (!this.botsService.hasBot(id))
-            return;
-        this.botsService.getBot(id).slave.removeListener('streaming', handler);
+        this.botsService.get(id) && this.botsService.get(id).slave.removeListener('streaming', handler);
     }
     orderBotToStartStreaming(id) {
-        if (!this.botsService.hasBot(id))
-            return;
-        this.botsService.getBot(id).slave.emit('startStreaming');
+        this.botsService.get(id) && this.botsService.get(id).slave.emit('startStreaming');
     }
     orderBotToStopStreaming(id) {
-        if (!this.botsService.hasBot(id))
-            return;
-        this.botsService.getBot(id).slave.emit('stopStreaming');
+        this.botsService.get(id) && this.botsService.get(id).slave.emit('stopStreaming');
     }
     createStreaming(id, handleData) {
-        if (!this.botsService.hasBot(id))
+        if (this.botsService.get(id) === null)
             return;
         if (!this.streams[id])
             this.startStreaming(id);
