@@ -7,9 +7,19 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const fs_1 = __importDefault(require("fs"));
 class ConfigService {
     constructor() {
-        const parsed = dotenv_1.default.parse(fs_1.default.readFileSync('.env'));
-        Object.assign(process.env, parsed);
-        this.env = process.env;
+        this.env = {};
+        fs_1.default.readFile('.env', (err, data) => {
+            if (err)
+                return;
+            const parsed = dotenv_1.default.parse(data);
+            Object.entries(parsed).forEach(([key, value]) => {
+                this.env[key] = value;
+                if (!Object.prototype.hasOwnProperty.call(process.env, key))
+                    process.env[key] = value;
+                else
+                    console.log(`"${key}" is already defined in \`process.env\` and will not be overwritten`);
+            });
+        });
     }
     get(key) {
         return this.env[key];

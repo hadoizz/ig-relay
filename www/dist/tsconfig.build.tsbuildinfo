@@ -2142,7 +2142,7 @@
         "signature": "c9ae0b351a07b52f29a28e869d8c7c8d29743bbb5eeddc7c0b5b2a69a2450528"
       },
       "../src/config/config.service.ts": {
-        "version": "18d0854faaa943da4c63cfb998c4e70c1c07bc70b352168a4923d2eee7644b8f",
+        "version": "062b07915e48faf408f97ccae8380c32ab113546ec5f52c95e7174470bdcb5df",
         "signature": "0802519b1699b89092f0a8220ae215b341eb6cfe70eb5e2a6d2b23ecd4dfb0e3"
       },
       "../src/entities/job.entity.ts": {
@@ -11981,7 +11981,6 @@
       "../src/bots/utils/createbot.ts",
       "../src/bots/utils/getid.ts",
       "../node_modules/dotenv/types/index.d.ts",
-      "../src/config/config.service.ts",
       "../src/entities/job.entity.ts",
       "../src/entities/user.entity.ts",
       "../src/entities/followed.entity.ts",
@@ -12146,7 +12145,8 @@
       "../node_modules/@types/webpack-sources/index.d.ts",
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
-      "../node_modules/@types/yargs/index.d.ts"
+      "../node_modules/@types/yargs/index.d.ts",
+      "../src/config/config.service.ts"
     ]
   },
   "version": "3.6.3"
