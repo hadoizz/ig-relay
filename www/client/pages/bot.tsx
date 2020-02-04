@@ -72,7 +72,7 @@ const Bot = connect(mapStateToProps, mapDispatchToProps)(({ currentAccount, acco
         <Grid item xs={12} md={4}>
           <div className={classes.menuRow}>
             <Typography variant="body1" className={classes.menuLabel}>Current account:</Typography>
-            <Button color="primary" variant="outlined" aria-controls="accounts-menu" aria-haspopup="true" onClick={openMenu}>
+            <Button color="primary" variant="contained" aria-controls="accounts-menu" aria-haspopup="true" onClick={openMenu}>
               {currentAccount.login}
             </Button>
             <Menu id="accounts-menu" anchorEl={menuElement} keepMounted open={Boolean(menuElement)} onClose={closeMenu}>
@@ -83,6 +83,8 @@ const Bot = connect(mapStateToProps, mapDispatchToProps)(({ currentAccount, acco
               )}
             </Menu>
           </div>
+          <br />
+          <Typography variant="h5" gutterBottom>Navigation</Typography>
           <List>
             {tabs.map(({ name, icon }, index) =>
               <ListItem button selected={index === tabIndex} onClick={changeTab(index)} key={index}>

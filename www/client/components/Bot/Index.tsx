@@ -58,7 +58,7 @@ const JobForm = ({ index, job }: { index: number, job: Job }) => {
     }))
 
   return (
-    <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+    <form noValidate autoComplete="off" onSubmit={handleSubmit} style={{ marginBottom: '16px' }}>
       <Typography variant="h6">
         #{ index + 1 }
         <div style={{ float: 'right' }}>
