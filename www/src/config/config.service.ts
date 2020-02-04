@@ -5,7 +5,13 @@ export class ConfigService {
   private readonly env: { [key: string]: string };
 
   constructor(){
-    const parsed = dotenv.parse(fs.readFileSync('.env'))
+    const parsed = dotenv.parse((() => {
+      try {
+        return fs.readFileSync('.env')
+      } catch(error) {
+        return Buffer.from('')
+      }
+    })())
     Object.assign(process.env, parsed)
     this.env = process.env
   }
