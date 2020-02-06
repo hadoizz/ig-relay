@@ -2158,8 +2158,8 @@
         "signature": "5890050e1b14806118d2841f2080b8f8c5aeb07e791424fc85ae69e180024693"
       },
       "../src/entities/account.entity.ts": {
-        "version": "89d1b1eb182e5028c5426a9d067df9bd996f9896d4e90ca3e5c03091ce0bc3ff",
-        "signature": "4723957f441bd1389e97103a491e11c363b56c74b8c061dd0ada2da76b1b0d39"
+        "version": "99fa59ff465a694c282baaf96e5b27e0953e75409c916c9bf7c2d609af1b4c4a",
+        "signature": "c5784e813957ee0060ef6fd35fb06fbaa57848f5cf610056dc3544481a9eb7dd"
       },
       "../src/entities/log.entity.ts": {
         "version": "78defb97508a9e8e2442934aa209e42b9a09ae2f3b9291401c876b791becd69f",
@@ -2382,7 +2382,7 @@
         "signature": "20aa24ce3ffe34fb1b563122479449c6330fac5509d3d076680ec657c4eb949f"
       },
       "../src/jobs/jobs.service.ts": {
-        "version": "cf4e049c982517d39f6a689af39042d5c2a957752761602a23d68cbc2bdfe94c",
+        "version": "fec7ed2044e4de275ce7a7d6caed251f9d142ad748bac9ee7a626af46d1df2df",
         "signature": "62dd511afd1de07434cf865ba82d2bb0bc061864688595f7de5225cab1424982"
       },
       "../src/jobs/jobs.controller.ts": {
@@ -11981,6 +11981,7 @@
       "../src/bots/utils/createbot.ts",
       "../src/bots/utils/getid.ts",
       "../node_modules/dotenv/types/index.d.ts",
+      "../src/config/config.service.ts",
       "../src/entities/job.entity.ts",
       "../src/entities/user.entity.ts",
       "../src/entities/followed.entity.ts",
@@ -12145,8 +12146,7 @@
       "../node_modules/@types/webpack-sources/index.d.ts",
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
-      "../node_modules/@types/yargs/index.d.ts",
-      "../src/config/config.service.ts"
+      "../node_modules/@types/yargs/index.d.ts"
     ]
   },
   "version": "3.6.3"

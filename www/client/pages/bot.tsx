@@ -11,6 +11,7 @@ import { connect } from 'react-redux'
 import { Account } from '../types/Account'
 import Index from '../components/Bot/Index'
 import Logs from '../components/Bot/Logs'
+import AddAccountDialog from '../components/AddAccountDialog'
 
 const useStyles = makeStyles((theme: Theme) => ({
   menuRow: {
@@ -65,9 +66,14 @@ const Bot = connect(mapStateToProps, mapDispatchToProps)(({ currentAccount, acco
   const openMenu = useCallback(event => setMenuElement(event.currentTarget), [])
   const closeMenu = useCallback(() => setMenuElement(null), [])
 
+  const [addAccountDialog, setAddAccountDialog] = useState(false)
+  const toggleAddAccountDialog = () =>
+    setAddAccountDialog(value => !value)
+
   const classes = useStyles({})
   return (
     <Layout>
+      <AddAccountDialog open={addAccountDialog} handleExit={toggleAddAccountDialog} />
       <Grid container direction="row-reverse" spacing={2}>
         <Grid item xs={12} md={4}>
           <div className={classes.menuRow}>
@@ -81,6 +87,10 @@ const Bot = connect(mapStateToProps, mapDispatchToProps)(({ currentAccount, acco
                   {login} 
                 </MenuItem>
               )}
+              <hr />
+              <MenuItem onClick={() => { closeMenu(); toggleAddAccountDialog() }}>
+                Add account
+              </MenuItem>
             </Menu>
           </div>
           <br />

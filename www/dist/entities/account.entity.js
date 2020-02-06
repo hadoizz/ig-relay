@@ -25,9 +25,9 @@ __decorate([
     __metadata("design:type", String)
 ], Account.prototype, "login", void 0);
 __decorate([
-    typeorm_1.Column('simple-json'),
-    __metadata("design:type", Object)
-], Account.prototype, "cookies", void 0);
+    typeorm_1.Column({ default: false }),
+    __metadata("design:type", Boolean)
+], Account.prototype, "logged", void 0);
 __decorate([
     typeorm_1.ManyToOne(type => user_entity_1.User, user => user.accounts, { cascade: ['insert'] }),
     __metadata("design:type", user_entity_1.User)

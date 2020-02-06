@@ -12,10 +12,8 @@ export class Account {
   @Column()
   login: string
 
-  @Column('simple-json')
-  cookies: {
-    sessionid: string
-  }
+  @Column({ default: false })
+  logged: boolean
 
   @ManyToOne(type => User, user => user.accounts, { cascade: ['insert'] })
   user: User

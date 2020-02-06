@@ -81,7 +81,7 @@ export class JobsService {
   private async getAllJobs(){
     const jobs = await this.jobRepository
       .createQueryBuilder('job')
-      .select(['jobId', 'cron', 'supervisor', 'supervisorPayload', 'maxDelaySeconds', 'accountId', 'account.cookies as cookies'])
+      .select(['jobId', 'cron', 'supervisor', 'supervisorPayload', 'maxDelaySeconds', 'accountId'])
       .innerJoin('job.account', 'account')
       .orderBy('createdAt', 'DESC')
       .getRawMany()

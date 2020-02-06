@@ -5,9 +5,7 @@ import { Followed } from './followed.entity';
 export declare class Account {
     accountId?: number;
     login: string;
-    cookies: {
-        sessionid: string;
-    };
+    logged: boolean;
     user: User;
     jobs?: Job[];
     logs?: Log[];

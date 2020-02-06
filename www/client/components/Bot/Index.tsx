@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react'
-import { TextField, Typography, Button, DialogTitle, Dialog, DialogContent, DialogContentText, DialogActions, CircularProgress } from '@material-ui/core'
+import { TextField, Typography, Button, DialogTitle, DialogContent, DialogContentText, DialogActions, CircularProgress } from '@material-ui/core'
 import getJobs from '../../api/jobs/get'
 import updateJob from '../../api/jobs/update'
 import deleteJob from '../../api/jobs/delete'
@@ -7,6 +7,7 @@ import createJob from '../../api/jobs/create'
 import { connect } from 'react-redux'
 import { Job } from '../../types/Job'
 import { Account } from '../../types/Account'
+import Dialog from '../Dialog'
 
 const mapStateToProps = state => ({
   currentAccount: state.bot.currentAccount
