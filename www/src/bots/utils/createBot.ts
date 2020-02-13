@@ -47,7 +47,7 @@ const createBot = async ({ dataDir, env = {}, cookies = {}, beforeLoad = slave =
       slave.emit('exit')
     },
     async executeSupervisor(executeSupervisorCommand: ExecuteSupervisorCommand){
-      await slave.request('executeSupervisor', executeSupervisorCommand, 60*30)
+      return await slave.request('executeSupervisor', executeSupervisorCommand, 60*30)
     },
     async getSupervisors(){
       return slave.request('getSupervisors')

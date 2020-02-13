@@ -2130,8 +2130,8 @@
         "signature": "99bea34cecdd1778f93e992e214898e4c0b816b13c37ff34a9a316cb98f0cad3"
       },
       "../src/bots/utils/createbot.ts": {
-        "version": "409f875df53e7a6bffd133c048ee7fbda2537e597d16d8f9ac19e8f2fea31945",
-        "signature": "bf5aa1742d783ba56282acf8cd921ce402611a4537b32f3e881960f946f4ac93"
+        "version": "5bc27610a67d29affc4e7d074c8bbc87f8192ab36f7a7b1323ea3fe9515d7f27",
+        "signature": "4e95c9686c552c97c4720166fc293e422ea5f1242eeabfe3f2cb966e2e029876"
       },
       "../src/bots/utils/getid.ts": {
         "version": "d579d9774618691939a9e19af94271309b3b6f88f6408334769389eec2858751",
@@ -12004,6 +12004,7 @@
       "../node_modules/@nestjs/passport/dist/index.d.ts",
       "../node_modules/@nestjs/passport/index.d.ts",
       "../src/accounts/accounts.service.ts",
+      "../src/bots/bots.controller.ts",
       "../src/config/config.module.ts",
       "../src/logs/logs.controller.ts",
       "../src/users/users.service.ts",
@@ -12036,6 +12037,7 @@
       "../src/logs/logs.module.ts",
       "../src/accounts/accounts.controller.ts",
       "../src/accounts/accounts.module.ts",
+      "../src/bots/bots.module.ts",
       "../src/streaming/streaming.service.ts",
       "../src/streaming/streaming.controller.ts",
       "../src/streaming/streaming.module.ts",
@@ -12091,6 +12093,7 @@
       "../src/accounts/accounts.service.spec.ts",
       "../src/auth/auth.controller.spec.ts",
       "../src/auth/auth.service.spec.ts",
+      "../src/bots/bots.controller.spec.ts",
       "../src/bots/bots.service.spec.ts",
       "../src/entities/account.entity.spec.ts",
       "../src/entities/followed.entity.spec.ts",
@@ -12147,10 +12150,7 @@
       "../node_modules/@types/webpack-sources/index.d.ts",
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
-      "../node_modules/@types/yargs/index.d.ts",
-      "../src/bots/bots.controller.ts",
-      "../src/bots/bots.controller.spec.ts",
-      "../src/bots/bots.module.ts"
+      "../node_modules/@types/yargs/index.d.ts"
     ]
   },
   "version": "3.6.3"

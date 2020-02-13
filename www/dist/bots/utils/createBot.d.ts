@@ -17,7 +17,7 @@ declare const createBot: ({ dataDir, env, cookies, beforeLoad }: {
 }) => Promise<{
     slave: Slave;
     exit(): void;
-    executeSupervisor(executeSupervisorCommand: ExecuteSupervisorCommand): Promise<void>;
+    executeSupervisor(executeSupervisorCommand: ExecuteSupervisorCommand): Promise<unknown>;
     getSupervisors(): Promise<unknown>;
 }>;
 export default createBot;

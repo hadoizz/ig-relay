@@ -34,8 +34,7 @@ export default connect(mapStateToProps)(({ currentAccount }: { currentAccount: A
       ? await executeSupervisor(botId, name)
       : await executeSupervisor(botId, name, prompt('Parameter:'))
 
-    if(response)
-      setResponse(response)
+    setResponse(response == null ? null : response)
   }
 
   const [supervisors, setSupervisors] = useState([])
@@ -98,12 +97,11 @@ export default connect(mapStateToProps)(({ currentAccount }: { currentAccount: A
           </div>
         )}
         <br />
+        <Typography variant="h5" gutterBottom>Odpowiedź: { response === null ? 'brak' : `"${response}"` }</Typography>
         <Typography variant="h4" gutterBottom>Podgląd</Typography>
         <Streaming botId={bot} />
       </>
     )}
-    <br />
-    {response !== null && <Typography variant="h4">Response {response}</Typography>}
     </div>
   ) 
 })
