@@ -97,6 +97,8 @@ export default connect(mapStateToProps)(({ currentAccount }: { currentAccount: A
             )}
           </div>
         )}
+        <br />
+        <Typography variant="h4" gutterBottom>Podgląd</Typography>
         <Streaming botId={bot} />
       </>
     )}
