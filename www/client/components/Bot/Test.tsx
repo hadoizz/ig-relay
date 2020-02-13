@@ -19,6 +19,7 @@ enum States {
 export default connect(mapStateToProps)(({ currentAccount }: { currentAccount: Account }) => {
   const [bot, setBot] = useState<States | string>(States.Initial)
   const startBot = async () => {
+    setBot(States.Starting)
     const id = await start(currentAccount.accountId)
     if(id)
       setBot(id)
