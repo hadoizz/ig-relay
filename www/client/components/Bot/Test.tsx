@@ -6,6 +6,7 @@ import start from '../../api/bots/start'
 import executeSupervisor from '../../api/bots/executeSupervisor'
 import getSupervisors from '../../api/bots/getSupervisors'
 import exit from '../../api/bots/exit'
+import Streaming from '../Streaming'
 
 const mapStateToProps = state => ({
   currentAccount: state.bot.currentAccount
@@ -96,6 +97,7 @@ export default connect(mapStateToProps)(({ currentAccount }: { currentAccount: A
             )}
           </div>
         )}
+        <Streaming botId={bot} />
       </>
     )}
     <br />
