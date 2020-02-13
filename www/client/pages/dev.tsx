@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react'
 import Router from 'next/router'
 import getSupervisors from '../api/bots/getSupervisors'
 import executeSupervisor from '../api/bots/executeSupervisor'
-import fetchStart from '../api/bots/dev/start'
+import fetchStart from '../api/bots/start'
 import fetchExit from '../api/bots/exit'
 import Streaming from '../components/Streaming'
 
@@ -52,9 +52,9 @@ const Dev = ({ id: startingId, alive }: { id: string, alive: boolean }) => {
 
   const start = useCallback(() => {
     setBotStatus(BotStatus.Starting)
-    fetchStart()
-      .then(setId)
-      .then(() => setBotStatus(BotStatus.On))
+    //fetchStart()
+    //  .then(setId)
+    //  .then(() => setBotStatus(BotStatus.On))
   }, [])
 
   const exit = useCallback(() => {

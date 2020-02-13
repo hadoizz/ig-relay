@@ -14,26 +14,34 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const bots_service_1 = require("./bots.service");
+const accounts_service_1 = require("../accounts/accounts.service");
 let BotsController = class BotsController {
-    constructor(botsService) {
+    constructor(botsService, accountsService) {
         this.botsService = botsService;
+        this.accountsService = accountsService;
     }
-    getBotInfo(id) {
+    getList() {
+        return this.botsService.getList();
+    }
+    async start(req, accountId) {
+        accountId = Number(accountId);
+        const id = await this.botsService.createBot({ accountId });
+        return { id };
+    }
+    exit(botId) {
+        this.botsService.exit(botId);
+    }
+    exit_post(botId) {
+        this.botsService.exit(botId);
+    }
+    async executeSupervisor(botId, name, payload) {
         return {
-            createdAt: this.botsService.getCreatedAt(id)
+            result: await this.botsService.get(botId).executeSupervisor({ name, payload })
         };
     }
-    exit(id) {
-        this.botsService.exit(id);
-    }
-    async executeSupervisor(id, name, payload) {
-        return {
-            result: await this.botsService.get(id).executeSupervisor({ name, payload })
-        };
-    }
-    async getSupervisors(id) {
+    async getSupervisors(botId) {
         try {
-            return await this.botsService.get(id).getSupervisors();
+            return await this.botsService.get(botId).getSupervisors();
         }
         catch (error) {
             return [];
@@ -41,36 +49,50 @@ let BotsController = class BotsController {
     }
 };
 __decorate([
-    common_1.Get(':id'),
-    __param(0, common_1.Param('id')),
+    common_1.Get('/'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
-], BotsController.prototype, "getBotInfo", null);
+], BotsController.prototype, "getList", null);
 __decorate([
-    common_1.Get(':id/exit'),
-    __param(0, common_1.Param('id')),
+    common_1.Get('start/account/:accountId'),
+    __param(0, common_1.Request()), __param(1, common_1.Param('accountId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], BotsController.prototype, "start", null);
+__decorate([
+    common_1.Get(':botId/exit'),
+    __param(0, common_1.Param('botId')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], BotsController.prototype, "exit", null);
 __decorate([
-    common_1.Post(':id/executeSupervisor'),
-    __param(0, common_1.Param('id')), __param(1, common_1.Body('name')), __param(2, common_1.Body('payload')),
+    common_1.Post(':botId/exit'),
+    __param(0, common_1.Param('botId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], BotsController.prototype, "exit_post", null);
+__decorate([
+    common_1.Post(':botId/executeSupervisor'),
+    __param(0, common_1.Param('botId')), __param(1, common_1.Body('name')), __param(2, common_1.Body('payload')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, String]),
     __metadata("design:returntype", Promise)
 ], BotsController.prototype, "executeSupervisor", null);
 __decorate([
-    common_1.Get(':id/getSupervisors'),
-    __param(0, common_1.Param('id')),
+    common_1.Get(':botId/supervisors'),
+    __param(0, common_1.Param('botId')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], BotsController.prototype, "getSupervisors", null);
 BotsController = __decorate([
     common_1.Controller('bots'),
-    __metadata("design:paramtypes", [bots_service_1.BotsService])
+    __metadata("design:paramtypes", [bots_service_1.BotsService,
+        accounts_service_1.AccountsService])
 ], BotsController);
 exports.BotsController = BotsController;
 //# sourceMappingURL=bots.controller.js.map

@@ -2134,8 +2134,8 @@
         "signature": "bf5aa1742d783ba56282acf8cd921ce402611a4537b32f3e881960f946f4ac93"
       },
       "../src/bots/utils/getid.ts": {
-        "version": "118347e48dfc29be59d822c7ddd818e7392c11819e6c673d69e0c5cf195bd692",
-        "signature": "6340d3011788f367957c7bcd80a77c08ed55fb63b03b782e2407cfa6034f71a1"
+        "version": "d579d9774618691939a9e19af94271309b3b6f88f6408334769389eec2858751",
+        "signature": "c152ed1fdaa3764d0c03db216117f8d92de1dd82079d7878e2c6f35a56bd4f8c"
       },
       "../node_modules/dotenv/types/index.d.ts": {
         "version": "c9ae0b351a07b52f29a28e869d8c7c8d29743bbb5eeddc7c0b5b2a69a2450528",
@@ -2170,16 +2170,8 @@
         "signature": "4d04d8371788e6e100b8ade3333ca8544585d5611717e0a75381dca730badad0"
       },
       "../src/bots/bots.service.ts": {
-        "version": "529e4083353016df264aba12c6783cfda3eaf517fac12c1b6fa66730b41ce639",
-        "signature": "1db297b07741e589fb040fc6fa6f045e26622b1202928f769e8a70d7cc7a1df6"
-      },
-      "../src/bots/bots.controller.ts": {
-        "version": "39a9ea28cb9045ad09cb9aaaaa677e11560da9808c02d8302dc2120e2ba7abee",
-        "signature": "e2c6da16e591e83a5a76cbbf686a9fda8f10b31126f6d8cc64a5ba50f8f22bee"
-      },
-      "../src/config/config.module.ts": {
-        "version": "badc9ce74abecbe48a13225d256130cdcfed9fba0e399afc974eb8d6d7d0b0af",
-        "signature": "ffade0409a282999ad0e1c1fecd4c0010a2aff097bdcc44ec192014ba167e447"
+        "version": "0dd6643d8efdb09a9146ab67af61cc3e96a9c62b1db4e96ef1b974fcdb9d09da",
+        "signature": "01fc6439007e55f3b346a9f4a57f5b4a1206c1c5db6b6fe538c8c17a8d9938d1"
       },
       "../node_modules/@nestjs/passport/dist/abstract.strategy.d.ts": {
         "version": "ba63131c5e91f797736444933af16ffa42f9f8c150d859ec65f568f037a416ea",
@@ -2220,6 +2212,18 @@
       "../node_modules/@nestjs/passport/index.d.ts": {
         "version": "a2b176f66f0b708241265fb3b417597c9c9d21912bbb7f5cc00d99af551c2078",
         "signature": "a2b176f66f0b708241265fb3b417597c9c9d21912bbb7f5cc00d99af551c2078"
+      },
+      "../src/accounts/accounts.service.ts": {
+        "version": "bfe00a14241b36b0bbbb2a2681b4db70be610edbc35b6e8ab0b17f7129e863bd",
+        "signature": "cba3e7a50261632cd4eb95ad341df284305b64d3b3950ee387eb95e4f2d19ba8"
+      },
+      "../src/bots/bots.controller.ts": {
+        "version": "6ffb871853df65f012bb3cde7bdd2ff1f70a8aaeb95f8dd42b4cc4d7e6946e9e",
+        "signature": "5dc908393b9453aa11f2666e36ea2f102abb1e88ec6b7242381e0737f5936448"
+      },
+      "../src/config/config.module.ts": {
+        "version": "badc9ce74abecbe48a13225d256130cdcfed9fba0e399afc974eb8d6d7d0b0af",
+        "signature": "ffade0409a282999ad0e1c1fecd4c0010a2aff097bdcc44ec192014ba167e447"
       },
       "../src/logs/logs.controller.ts": {
         "version": "f763ceb9abfbc17c2b0339821f49b3bb77ef4fc145c6cf76900c355868cc81c7",
@@ -2337,8 +2341,16 @@
         "version": "3de36a56cafa0247d8718292f9d99cac43f0f65d78c0178b9cf413500223087c",
         "signature": "abbdc2d962b74ab88da0be038930c9ae50279d88c205276fbb8b72d1c002a77e"
       },
+      "../src/accounts/accounts.controller.ts": {
+        "version": "c26e4bbf846d27de833e2bdeb672684c1f9aa7c231399ef0a455c4bc9cb6194b",
+        "signature": "96eb607287bf68c35a8240c018606c53cbc837802ffef8ac9c9b2702ee4df5cd"
+      },
+      "../src/accounts/accounts.module.ts": {
+        "version": "089e085e0305f2480508b87c9ce4634ad4e28277d94421a6250186d82741612c",
+        "signature": "98de1f66ea71edcebabff749b010a6768051978ec049d0cbabf5407b3781134e"
+      },
       "../src/bots/bots.module.ts": {
-        "version": "c0cf19992b953d54e2b8de2c845ca3f8484bdc761d1d03ff2962d50174883fba",
+        "version": "73821721534817b5d64cf822be4093acd154f4883e8977952d8ee57edc053525",
         "signature": "4beb360ccc3dde41d1810797c2219f2a473e89b487f925e518fca581456334ab"
       },
       "../src/streaming/streaming.service.ts": {
@@ -2352,18 +2364,6 @@
       "../src/streaming/streaming.module.ts": {
         "version": "79fab33b54f15bde5ba422f72111821f94b3d220cee1fd73859d5763e75c4bc2",
         "signature": "7d54718db86e3daa944209fe4806e1541aed39f9b329959d6bc44f799693b1c2"
-      },
-      "../src/accounts/accounts.service.ts": {
-        "version": "bfe00a14241b36b0bbbb2a2681b4db70be610edbc35b6e8ab0b17f7129e863bd",
-        "signature": "cba3e7a50261632cd4eb95ad341df284305b64d3b3950ee387eb95e4f2d19ba8"
-      },
-      "../src/accounts/accounts.controller.ts": {
-        "version": "c26e4bbf846d27de833e2bdeb672684c1f9aa7c231399ef0a455c4bc9cb6194b",
-        "signature": "96eb607287bf68c35a8240c018606c53cbc837802ffef8ac9c9b2702ee4df5cd"
-      },
-      "../src/accounts/accounts.module.ts": {
-        "version": "089e085e0305f2480508b87c9ce4634ad4e28277d94421a6250186d82741612c",
-        "signature": "98de1f66ea71edcebabff749b010a6768051978ec049d0cbabf5407b3781134e"
       },
       "../node_modules/moment/moment.d.ts": {
         "version": "d62fa6fe33566fa743b3d6715a1a2fe46e937ba9d2ba158563c5744315d438a7",
@@ -6277,18 +6277,6 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
-      "../src/bots/bots.controller.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
-        "../src/bots/bots.service.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/config/config.module.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
-        "../src/config/config.service.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
       "../node_modules/@nestjs/passport/dist/abstract.strategy.d.ts": [
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
@@ -6341,6 +6329,29 @@
       ],
       "../node_modules/@nestjs/passport/index.d.ts": [
         "../node_modules/@nestjs/passport/dist/index.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/accounts/accounts.service.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/typeorm/index.d.ts",
+        "../src/entities/user.entity.ts",
+        "../node_modules/typeorm/index.d.ts",
+        "../src/entities/account.entity.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/bots/bots.controller.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/passport/index.d.ts",
+        "../src/bots/bots.service.ts",
+        "../src/accounts/accounts.service.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/config/config.module.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../src/config/config.service.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -6545,12 +6556,31 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "../src/accounts/accounts.controller.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/passport/index.d.ts",
+        "../src/accounts/accounts.service.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/accounts/accounts.module.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/typeorm/index.d.ts",
+        "../src/accounts/accounts.service.ts",
+        "../src/accounts/accounts.controller.ts",
+        "../src/auth/auth.module.ts",
+        "../src/entities/account.entity.ts",
+        "../src/entities/user.entity.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "../src/bots/bots.module.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../src/bots/bots.service.ts",
         "../src/bots/bots.controller.ts",
         "../src/config/config.module.ts",
         "../src/logs/logs.module.ts",
+        "../src/accounts/accounts.module.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -6572,33 +6602,6 @@
         "../src/streaming/streaming.controller.ts",
         "../src/bots/bots.module.ts",
         "../src/streaming/streaming.service.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/accounts/accounts.service.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
-        "../node_modules/@nestjs/typeorm/index.d.ts",
-        "../src/entities/user.entity.ts",
-        "../node_modules/typeorm/index.d.ts",
-        "../src/entities/account.entity.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/accounts/accounts.controller.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
-        "../node_modules/@nestjs/passport/index.d.ts",
-        "../src/accounts/accounts.service.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/accounts/accounts.module.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
-        "../node_modules/@nestjs/typeorm/index.d.ts",
-        "../src/accounts/accounts.service.ts",
-        "../src/accounts/accounts.controller.ts",
-        "../src/auth/auth.module.ts",
-        "../src/entities/account.entity.ts",
-        "../src/entities/user.entity.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -10710,9 +10713,6 @@
         "../src/logs/logs.service.ts",
         "../src/bots/utils/createbot.ts"
       ],
-      "../src/bots/bots.controller.ts": [
-        "../src/bots/bots.service.ts"
-      ],
       "../node_modules/@nestjs/passport/dist/abstract.strategy.d.ts": [
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
@@ -10767,6 +10767,14 @@
         "../node_modules/@nestjs/passport/dist/index.d.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/accounts/accounts.service.ts": [
+        "../node_modules/typeorm/index.d.ts",
+        "../src/entities/account.entity.ts"
+      ],
+      "../src/bots/bots.controller.ts": [
+        "../src/bots/bots.service.ts",
+        "../src/accounts/accounts.service.ts"
       ],
       "../src/logs/logs.controller.ts": [
         "../src/logs/logs.service.ts"
@@ -10905,6 +10913,9 @@
         "../src/users/users.service.ts",
         "../src/entities/user.entity.ts"
       ],
+      "../src/accounts/accounts.controller.ts": [
+        "../src/accounts/accounts.service.ts"
+      ],
       "../src/streaming/streaming.service.ts": [
         "../src/bots/bots.service.ts"
       ],
@@ -10914,13 +10925,6 @@
       ],
       "../src/streaming/streaming.module.ts": [
         "../node_modules/@nestjs/common/index.d.ts"
-      ],
-      "../src/accounts/accounts.service.ts": [
-        "../node_modules/typeorm/index.d.ts",
-        "../src/entities/account.entity.ts"
-      ],
-      "../src/accounts/accounts.controller.ts": [
-        "../src/accounts/accounts.service.ts"
       ],
       "../node_modules/moment/moment.d.ts": [
         "../node_modules/@types/node/util.d.ts",
@@ -11989,8 +11993,6 @@
       "../src/entities/log.entity.ts",
       "../src/logs/logs.service.ts",
       "../src/bots/bots.service.ts",
-      "../src/bots/bots.controller.ts",
-      "../src/config/config.module.ts",
       "../node_modules/@nestjs/passport/dist/abstract.strategy.d.ts",
       "../node_modules/@nestjs/passport/dist/interfaces/auth-module.options.d.ts",
       "../node_modules/@nestjs/passport/dist/interfaces/type.interface.d.ts",
@@ -12001,6 +12003,8 @@
       "../node_modules/@nestjs/passport/dist/passport/passport.strategy.d.ts",
       "../node_modules/@nestjs/passport/dist/index.d.ts",
       "../node_modules/@nestjs/passport/index.d.ts",
+      "../src/accounts/accounts.service.ts",
+      "../src/config/config.module.ts",
       "../src/logs/logs.controller.ts",
       "../src/users/users.service.ts",
       "../node_modules/@types/jsonwebtoken/index.d.ts",
@@ -12030,13 +12034,11 @@
       "../src/auth/jwt.strategy.ts",
       "../src/auth/auth.module.ts",
       "../src/logs/logs.module.ts",
-      "../src/bots/bots.module.ts",
+      "../src/accounts/accounts.controller.ts",
+      "../src/accounts/accounts.module.ts",
       "../src/streaming/streaming.service.ts",
       "../src/streaming/streaming.controller.ts",
       "../src/streaming/streaming.module.ts",
-      "../src/accounts/accounts.service.ts",
-      "../src/accounts/accounts.controller.ts",
-      "../src/accounts/accounts.module.ts",
       "../node_modules/moment/moment.d.ts",
       "../node_modules/@types/cron/index.d.ts",
       "../node_modules/delay/index.d.ts",
@@ -12089,7 +12091,6 @@
       "../src/accounts/accounts.service.spec.ts",
       "../src/auth/auth.controller.spec.ts",
       "../src/auth/auth.service.spec.ts",
-      "../src/bots/bots.controller.spec.ts",
       "../src/bots/bots.service.spec.ts",
       "../src/entities/account.entity.spec.ts",
       "../src/entities/followed.entity.spec.ts",
@@ -12146,7 +12147,10 @@
       "../node_modules/@types/webpack-sources/index.d.ts",
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
-      "../node_modules/@types/yargs/index.d.ts"
+      "../node_modules/@types/yargs/index.d.ts",
+      "../src/bots/bots.controller.ts",
+      "../src/bots/bots.controller.spec.ts",
+      "../src/bots/bots.module.ts"
     ]
   },
   "version": "3.6.3"

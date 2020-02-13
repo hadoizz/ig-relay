@@ -1,17 +1,18 @@
 import { useState, useCallback, useEffect } from 'react'
 import nextCookie from 'next-cookies'
 import cookie from 'js-cookie'
-import { Button, Menu, MenuItem, Typography, ListItem, ListItemText, List, ListItemIcon, makeStyles, Theme } from '@material-ui/core'
+import { Button, Menu, MenuItem, Typography, ListItem, ListItemText, List, ListItemIcon, makeStyles, Theme, Divider } from '@material-ui/core'
 import Layout from '../components/Layout'
 import getAccounts from '../utils/api/getAccounts'
 import redirectOnError from '../utils/redirectOnError'
 import { Card, CardContent, Grid } from '@material-ui/core'
-import { FormatListBulletedOutlined, TrendingUpOutlined } from '@material-ui/icons'
+import { FormatListBulletedOutlined, TrendingUpOutlined, ThreeSixtyOutlined } from '@material-ui/icons'
 import { connect } from 'react-redux'
 import { Account } from '../types/Account'
 import Index from '../components/Bot/Index'
 import Logs from '../components/Bot/Logs'
 import AddAccountDialog from '../components/AddAccountDialog'
+import Test from '../components/Bot/Test'
 
 const useStyles = makeStyles((theme: Theme) => ({
   menuRow: {
@@ -31,6 +32,10 @@ const tabs = [{
   name: 'Logs',
   icon: <FormatListBulletedOutlined />,
   getContent: (props?: any) => <Logs {...props} />
+}, {
+  name: 'Test',
+  icon: <ThreeSixtyOutlined />,
+  getContent: (props?: any) => <Test {...props} />
 }]
 
 const mapStateToProps = state => ({ 
@@ -107,9 +112,11 @@ const Bot = connect(mapStateToProps, mapDispatchToProps)(({ currentAccount, acco
         <Grid item xs={12} md={8}>
           <Card>
             <CardContent>
-              <Typography variant="h5" gutterBottom>
+              <Typography variant="h4" gutterBottom>
                 { tabs[tabIndex].name }
               </Typography>
+              <Divider variant="middle" />
+              <br />
               { tabs[tabIndex].getContent() }
             </CardContent>
           </Card>

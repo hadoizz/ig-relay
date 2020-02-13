@@ -18,6 +18,7 @@ const getId_1 = __importDefault(require("./utils/getId"));
 const config_service_1 = require("../config/config.service");
 const path_1 = __importDefault(require("path"));
 const mkdirp_1 = __importDefault(require("mkdirp"));
+const ms_1 = __importDefault(require("ms"));
 const logs_service_1 = require("../logs/logs.service");
 let BotsService = class BotsService {
     constructor(configService, logsService) {
@@ -26,7 +27,7 @@ let BotsService = class BotsService {
         this.botInstances = new Map();
     }
     async createBot({ accountId }) {
-        const id = getId_1.default();
+        const id = await getId_1.default();
         const dataDir = path_1.default.resolve(__dirname, `../../../accounts_data/${accountId}`);
         await mkdirp_1.default(dataDir);
         const cleanup = () => this.botInstances.delete(id);
@@ -61,8 +62,12 @@ let BotsService = class BotsService {
             return this.botInstances.get(id).bot;
         return null;
     }
-    getCreatedAt(id) {
-        return (this.botInstances.has(id) && this.botInstances.get(id).createdAt) || null;
+    getList() {
+        return [...this.botInstances.entries()].map(([id, botInstance]) => ({
+            id,
+            created: ms_1.default(Date.now() - botInstance.createdAt.getTime()),
+            accountId: botInstance.accountId
+        }));
     }
 };
 BotsService = __decorate([

@@ -5,6 +5,7 @@ import { ConfigService } from '../config/config.service'
 import { Slave } from 'fork-with-emitter'
 import path from 'path'
 import mkdirp from 'mkdirp'
+import ms from 'ms'
 import { LogsService } from '../logs/logs.service'
 
 type BotInstance = {
@@ -23,7 +24,7 @@ export class BotsService {
   private readonly botInstances = new Map<string, BotInstance>()
 
   async createBot({ accountId }: { accountId: number }){
-    const id = getId()
+    const id = await getId()
 
     const dataDir = path.resolve(__dirname, `../../../accounts_data/${accountId}`)
     await mkdirp(dataDir)     
@@ -74,7 +75,11 @@ export class BotsService {
     return null
   }
 
-  getCreatedAt(id: string){
-    return (this.botInstances.has(id) && this.botInstances.get(id).createdAt) || null
+  getList(){
+    return [...this.botInstances.entries()].map(([ id, botInstance ]: [ string, BotInstance ]) => ({
+      id,
+      created: ms(Date.now() - botInstance.createdAt.getTime()),
+      accountId: botInstance.accountId
+    }))
   }
 }

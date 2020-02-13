@@ -11,5 +11,9 @@ export declare class BotsService {
     }): Promise<string>;
     exit(id: string): void;
     get(id: string): Bot;
-    getCreatedAt(id: string): Date;
+    getList(): {
+        id: string;
+        created: any;
+        accountId: number;
+    }[];
 }
