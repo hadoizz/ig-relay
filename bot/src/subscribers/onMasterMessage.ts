@@ -83,7 +83,9 @@ export default (page: Page) => {
       return value
     } catch(error) {
       await page.screenshot({ path: 'error.png' })
-      log('error', error.split('\n')[0])
+      log('error', error instanceof Error
+        ? error.message
+        : error.split('\n')[0])
     }
   })
 
