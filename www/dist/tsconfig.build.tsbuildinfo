@@ -2354,7 +2354,7 @@
         "signature": "4beb360ccc3dde41d1810797c2219f2a473e89b487f925e518fca581456334ab"
       },
       "../src/streaming/streaming.service.ts": {
-        "version": "fc5212af1bf27a8d5a4fbe7806fb028e528478c541c82f9b0018c50b77ae3bd9",
+        "version": "f27acb156600d778ca5ee320e54beee06dbe93f2d40fa1f08f2d134015672bd2",
         "signature": "060c657839b77920e296a6c58f62e4f946a45b2aaab9be5cfdaaf7aab92f0164"
       },
       "../src/streaming/streaming.controller.ts": {
@@ -12038,7 +12038,7 @@
       "../src/accounts/accounts.controller.ts",
       "../src/accounts/accounts.module.ts",
       "../src/bots/bots.module.ts",
-      "../src/streaming/streaming.service.ts",
+      "../src/streaming/streaming.controller.ts",
       "../src/streaming/streaming.module.ts",
       "../node_modules/moment/moment.d.ts",
       "../node_modules/@types/cron/index.d.ts",
@@ -12150,7 +12150,7 @@
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
       "../node_modules/@types/yargs/index.d.ts",
-      "../src/streaming/streaming.controller.ts"
+      "../src/streaming/streaming.service.ts"
     ]
   },
   "version": "3.6.3"

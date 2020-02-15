@@ -43,6 +43,7 @@ let StreamingService = class StreamingService {
                 delete this.streams[botId];
                 bot.slave.emit('stopStreaming');
             }
+            bot.slave.removeListener('streaming', handler);
         };
     }
 };

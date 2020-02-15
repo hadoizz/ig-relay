@@ -1,14 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { BotsService } from '../bots/bots.service'
 
-interface Streams {
-  [botId: string]: {
-    lastData: string,
-    connectedClients: number,
-    handleUpdateLastData: (data: string) => void
-  }
-}
-
 interface Stream {
   previousData: string
   clientsCount: number
@@ -51,6 +43,8 @@ export class StreamingService {
         delete this.streams[botId]
         bot.slave.emit('stopStreaming')
       }
+      
+      bot.slave.removeListener('streaming', handler)
     }
   }
 }
