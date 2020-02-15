@@ -17,40 +17,36 @@ const exit = async (page: Page) => {
   process.exit(0)
 }
 
+const getScreenshotTime = async (page: Page) => {
+  const ts = Date.now()
+  await page.screenshot({ encoding: 'base64', type: 'jpeg' })
+  return Date.now() - ts
+}
+
 const createStreaming = (page: Page) => {
-  let enabled = false
-  let oldData = ''
+  const _ms = getScreenshotTime(page)
+  _ms.then(ms => console.log(`Screenshot took ${(ms/1000).toFixed(1)}s`))
 
-  const emit = async () => {
-    const data = await page.screenshot({ encoding: 'base64', type: 'jpeg' })
-    if(data === oldData || !enabled)
-      return
-
-    oldData = data
-    master.emit('streaming', data)
+  const stream = async () => {
+    master.emit('streaming', await page.screenshot({ encoding: 'base64', type: 'jpeg' }))
   }
 
-  const streaming = async () => {
-    await emit()
-    setTimeout(() => enabled && streaming(), 200)
-  }
-
-  return { 
-    startStreaming(){
-      if(enabled)
+  let timer: null | NodeJS.Timeout = null
+  return {
+    async startStreaming(){
+      if(timer !== null)
         return
       
-      enabled = true
-      streaming()
-      console.log('startStreaming')
+      const interval = (await _ms) * 2
+      timer = setInterval(stream, interval)
+      console.log(`Started streaming with interval ${(interval/1000).toFixed(1)}s`)
     },
     stopStreaming(){
-      if(!enabled)
+      if(timer === null)
         return
-      
-      enabled = false
-      oldData = ''
-      console.log('stopStreaming')
+
+      clearInterval(timer)
+      console.log(`Streaming stopped`)
     }
   }
 }
