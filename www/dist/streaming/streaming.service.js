@@ -22,6 +22,7 @@ let StreamingService = class StreamingService {
             return () => { };
         if (botId in this.streams) {
             this.streams[botId].clientsCount++;
+            handleData(this.streams[botId].previousData);
         }
         else {
             bot.slave.emit('startStreaming');

@@ -2354,7 +2354,7 @@
         "signature": "4beb360ccc3dde41d1810797c2219f2a473e89b487f925e518fca581456334ab"
       },
       "../src/streaming/streaming.service.ts": {
-        "version": "f27acb156600d778ca5ee320e54beee06dbe93f2d40fa1f08f2d134015672bd2",
+        "version": "0ee2357b4b88b074a72d6d178fd496dda18b4ca4337422c8deb147ee044bbc71",
         "signature": "060c657839b77920e296a6c58f62e4f946a45b2aaab9be5cfdaaf7aab92f0164"
       },
       "../src/streaming/streaming.controller.ts": {
