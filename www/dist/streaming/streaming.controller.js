@@ -21,7 +21,9 @@ let StreamingController = class StreamingController {
         this.streamingService = streamingService;
     }
     streaming(id, res, req) {
-        const cleanup = this.streamingService.createStreaming(id, (data) => res.sse(`data:${data}\n\n`));
+        const cleanup = this.streamingService.handleStreaming(id, (data) => {
+            res.sse(`data:${data}\n\n`);
+        });
         req.on('close', cleanup);
     }
 };

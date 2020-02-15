@@ -9,77 +9,48 @@ interface Streams {
   }
 }
 
+interface Stream {
+  previousData: string
+  clientsCount: number
+}
+
 @Injectable()
 export class StreamingService {
   constructor(private readonly botsService: BotsService){}
 
-  private streams: Streams = Object.create(null)
+  private streams: { [botId: string]: Stream } = Object.create(null)
 
-  private getLastData(id: string){
-    return this.streams[id].lastData
-  }
+  handleStreaming(botId: string, handleData: (data: string) => void){
+    const bot = this.botsService.get(botId)
+    if(!bot)
+      return () => {}
 
-  private startStreaming(id: string){
-    const handleUpdateLastData = (data: string) => {
-      this.streams[id].lastData = data 
+    if(botId in this.streams){
+      this.streams[botId].clientsCount++
+    } else {
+      bot.slave.emit('startStreaming')
+      this.streams[botId] = {
+        previousData: '',
+        clientsCount: 1
+      }
     }
 
-    this.streams[id] = { 
-      lastData: '', 
-      connectedClients: 0,
-      handleUpdateLastData
+    const handler = (data: string) => {
+      if(this.streams[botId].previousData.length === data.length)
+        return
+      
+      this.streams[botId].previousData = data
+      handleData(data)
     }
-    this.attachStreamingHandler(id, handleUpdateLastData)
-    this.orderBotToStartStreaming(id)
 
-    console.log(`Start streaming ${id}`)
-  }
+    bot.slave.on('streaming', handler)
 
-  private stopStreaming(id: string){
-    this.detachStreamingHandler(id, this.streams[id].handleUpdateLastData)
-    this.orderBotToStopStreaming(id)
-    delete this.streams[id]
-
-    console.log(`Stop streaming ${id}`)
-  }
-
-  private attachStreamingHandler(id: string, handler: (data: string) => void){
-    this.botsService.get(id) && this.botsService.get(id).slave.on('streaming', handler)
-  }
-
-  private detachStreamingHandler(id: string, handler: (data: string) => void){
-    this.botsService.get(id) && this.botsService.get(id).slave.removeListener('streaming', handler)
-  }
-
-  private orderBotToStartStreaming(id: string){
-    this.botsService.get(id) && this.botsService.get(id).slave.emit('startStreaming')
-  }
-
-  private orderBotToStopStreaming(id: string){
-    this.botsService.get(id) && this.botsService.get(id).slave.emit('stopStreaming')
-  }
-
-  createStreaming(id: string, handleData: (data: string) => void){
-    //bot doesn't exist
-    if(this.botsService.get(id) === null)
-      return
-
-    if(!this.streams[id])
-      this.startStreaming(id)
-    
-    this.streams[id].connectedClients++
-    this.attachStreamingHandler(id, handleData)
-
-    if(this.getLastData(id))
-      handleData(this.getLastData(id))
-
-    //cleanup
     return () => {
-      this.streams[id].connectedClients--
-      this.detachStreamingHandler(id, handleData)
-
-      if(this.streams[id].connectedClients === 0)
-        this.stopStreaming(id)
+      this.streams[botId].clientsCount--
+      if(this.streams[botId].clientsCount === 0){
+        delete this.streams[botId]
+        bot.slave.emit('stopStreaming')
+      }
     }
   }
 }

@@ -16,54 +16,33 @@ let StreamingService = class StreamingService {
         this.botsService = botsService;
         this.streams = Object.create(null);
     }
-    getLastData(id) {
-        return this.streams[id].lastData;
-    }
-    startStreaming(id) {
-        const handleUpdateLastData = (data) => {
-            this.streams[id].lastData = data;
+    handleStreaming(botId, handleData) {
+        const bot = this.botsService.get(botId);
+        if (!bot)
+            return () => { };
+        if (botId in this.streams) {
+            this.streams[botId].clientsCount++;
+        }
+        else {
+            bot.slave.emit('startStreaming');
+            this.streams[botId] = {
+                previousData: '',
+                clientsCount: 1
+            };
+        }
+        const handler = (data) => {
+            if (this.streams[botId].previousData.length === data.length)
+                return;
+            this.streams[botId].previousData = data;
+            handleData(data);
         };
-        this.streams[id] = {
-            lastData: '',
-            connectedClients: 0,
-            handleUpdateLastData
-        };
-        this.attachStreamingHandler(id, handleUpdateLastData);
-        this.orderBotToStartStreaming(id);
-        console.log(`Start streaming ${id}`);
-    }
-    stopStreaming(id) {
-        this.detachStreamingHandler(id, this.streams[id].handleUpdateLastData);
-        this.orderBotToStopStreaming(id);
-        delete this.streams[id];
-        console.log(`Stop streaming ${id}`);
-    }
-    attachStreamingHandler(id, handler) {
-        this.botsService.get(id) && this.botsService.get(id).slave.on('streaming', handler);
-    }
-    detachStreamingHandler(id, handler) {
-        this.botsService.get(id) && this.botsService.get(id).slave.removeListener('streaming', handler);
-    }
-    orderBotToStartStreaming(id) {
-        this.botsService.get(id) && this.botsService.get(id).slave.emit('startStreaming');
-    }
-    orderBotToStopStreaming(id) {
-        this.botsService.get(id) && this.botsService.get(id).slave.emit('stopStreaming');
-    }
-    createStreaming(id, handleData) {
-        if (this.botsService.get(id) === null)
-            return;
-        if (!this.streams[id])
-            this.startStreaming(id);
-        this.streams[id].connectedClients++;
-        this.attachStreamingHandler(id, handleData);
-        if (this.getLastData(id))
-            handleData(this.getLastData(id));
+        bot.slave.on('streaming', handler);
         return () => {
-            this.streams[id].connectedClients--;
-            this.detachStreamingHandler(id, handleData);
-            if (this.streams[id].connectedClients === 0)
-                this.stopStreaming(id);
+            this.streams[botId].clientsCount--;
+            if (this.streams[botId].clientsCount === 0) {
+                delete this.streams[botId];
+                bot.slave.emit('stopStreaming');
+            }
         };
     }
 };

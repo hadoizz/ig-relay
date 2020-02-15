@@ -9,10 +9,9 @@ export class StreamingController {
 
   @Get(':id')
   streaming(@Param('id') id: string, @Res() res: Response, @Req() req: Request){
-    const cleanup = this.streamingService.createStreaming(id, 
-      (data: string) => 
-        res.sse(`data:${data}\n\n`) 
-    )
+    const cleanup = this.streamingService.handleStreaming(id, (data: string) => {
+      res.sse(`data:${data}\n\n`) 
+    })
 
     req.on('close', cleanup)
   }
