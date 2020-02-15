@@ -16,23 +16,20 @@ const common_1 = require("@nestjs/common");
 const createBot_1 = __importDefault(require("./utils/createBot"));
 const getId_1 = __importDefault(require("./utils/getId"));
 const config_service_1 = require("../config/config.service");
-const path_1 = __importDefault(require("path"));
-const mkdirp_1 = __importDefault(require("mkdirp"));
 const ms_1 = __importDefault(require("ms"));
 const logs_service_1 = require("../logs/logs.service");
+const createDataDir_1 = __importDefault(require("../accounts/utils/createDataDir"));
 let BotsService = class BotsService {
     constructor(configService, logsService) {
         this.configService = configService;
         this.logsService = logsService;
         this.botInstances = new Map();
     }
-    async createBot({ accountId }) {
+    async createBot({ accountId, web = false }) {
         const id = await getId_1.default();
-        const dataDir = path_1.default.resolve(__dirname, `../../../accounts_data/${accountId}`);
-        await mkdirp_1.default(dataDir);
         const cleanup = () => this.botInstances.delete(id);
         const bot = await createBot_1.default({
-            dataDir,
+            dataDir: await createDataDir_1.default(accountId),
             env: Object.assign({ LOGIN: this.configService.get('LOGIN'), PASSWORD: this.configService.get('PASSWORD'), NODE_ENV: this.configService.get('NODE_ENV') }, this.configService.get('HEADLESS') && { HEADLESS: this.configService.get('HEADLESS') }),
             beforeLoad: (slave) => {
                 slave.on('log', this.logsService.handleLog(accountId));
@@ -48,6 +45,13 @@ let BotsService = class BotsService {
             createdAt: new Date
         });
         console.log(`Created ${id} bot`);
+        if (web)
+            setTimeout(() => {
+                try {
+                    bot.slave.kill();
+                }
+                catch (error) { }
+            }, 1000 * 60 * 15);
         return id;
     }
     exit(id) {

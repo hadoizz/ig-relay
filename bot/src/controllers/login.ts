@@ -44,11 +44,6 @@ export default async (page: Page, credentials = getCredentials()): Promise<Respo
     return 'challenge'
   }
 
-  /*const cookie = (await page.cookies()).find(cookie => cookie.name === 'sessionid')
-  console.log(cookie, null, ' ')
-  if(cookie)
-    return cookie.value*/
-
   log('login', 'success')
   return 'success'
 } 

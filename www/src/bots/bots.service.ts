@@ -3,10 +3,9 @@ import createBot, { Bot } from './utils/createBot'
 import getId from './utils/getId'
 import { ConfigService } from '../config/config.service'
 import { Slave } from 'fork-with-emitter'
-import path from 'path'
-import mkdirp from 'mkdirp'
 import ms from 'ms'
 import { LogsService } from '../logs/logs.service'
+import createDataDir from '../accounts/utils/createDataDir'
 
 type BotInstance = {
   bot: Bot
@@ -23,17 +22,14 @@ export class BotsService {
 
   private readonly botInstances = new Map<string, BotInstance>()
 
-  async createBot({ accountId }: { accountId: number }){
+  async createBot({ accountId, web = false }: { accountId: number, web?: boolean }){
     const id = await getId()
-
-    const dataDir = path.resolve(__dirname, `../../../accounts_data/${accountId}`)
-    await mkdirp(dataDir)     
     
     const cleanup = () =>
       this.botInstances.delete(id)
 
     const bot = await createBot({
-      dataDir,
+      dataDir: await createDataDir(accountId),
       env: {
         LOGIN: this.configService.get('LOGIN'),
         PASSWORD: this.configService.get('PASSWORD'),
@@ -56,6 +52,14 @@ export class BotsService {
     })
 
     console.log(`Created ${id} bot`)
+
+    //maximum 15 minutes lifetime
+    if(web)
+      setTimeout(() => {
+        try {
+          bot.slave.kill()
+        } catch(error) {}
+      }, 1000 * 60 * 15)
 
     return id
   }

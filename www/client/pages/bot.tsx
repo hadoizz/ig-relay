@@ -76,6 +76,10 @@ const Bot = connect(mapStateToProps, mapDispatchToProps)(({ currentAccount, acco
     setAddAccountDialog(value => !value)
 
   const classes = useStyles({})
+
+  if(currentAccount === null)
+    return <AddAccountDialog open={true} handleExit={() => {}} />
+
   return (
     <Layout>
       <AddAccountDialog open={addAccountDialog} handleExit={toggleAddAccountDialog} />
@@ -137,6 +141,12 @@ Bot.getInitialProps = async ctx => {
       tab: 0
     }
   }
+
+  if(accounts.length === 0)
+    return {
+      accounts: [],
+      tab: 0
+    }
 
   const accountId = Number(nextCookie(ctx).accountId)
 

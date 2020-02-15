@@ -13,6 +13,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
+const passport_1 = require("@nestjs/passport");
 const bots_service_1 = require("./bots.service");
 const accounts_service_1 = require("../accounts/accounts.service");
 let BotsController = class BotsController {
@@ -25,8 +26,11 @@ let BotsController = class BotsController {
     }
     async start(req, accountId) {
         accountId = Number(accountId);
-        const id = await this.botsService.createBot({ accountId });
-        return { id };
+        if (await this.accountsService.hasAccount(req.user.userId, accountId)) {
+            const id = await this.botsService.createBot({ accountId, web: true });
+            return { id };
+        }
+        throw `User ${req.user.userId} has no ${accountId} account`;
     }
     exit(botId) {
         this.botsService.exit(botId);
@@ -35,9 +39,17 @@ let BotsController = class BotsController {
         this.botsService.exit(botId);
     }
     async executeSupervisor(botId, name, payload) {
-        return {
-            result: await this.botsService.get(botId).executeSupervisor({ name, payload })
-        };
+        try {
+            const parsed = JSON.parse(payload);
+            return {
+                result: await this.botsService.get(botId).executeSupervisor({ name, payload: parsed })
+            };
+        }
+        catch (error) {
+            return {
+                result: await this.botsService.get(botId).executeSupervisor({ name, payload })
+            };
+        }
     }
     async getSupervisors(botId) {
         try {
@@ -55,6 +67,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], BotsController.prototype, "getList", null);
 __decorate([
+    common_1.UseGuards(passport_1.AuthGuard('jwt')),
     common_1.Get('start/account/:accountId'),
     __param(0, common_1.Request()), __param(1, common_1.Param('accountId')),
     __metadata("design:type", Function),

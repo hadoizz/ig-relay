@@ -1,6 +1,11 @@
-import { DialogTitle, DialogContent, TextField, Typography, Button, DialogActions, DialogContentText, makeStyles, CircularProgress } from '@material-ui/core'
-import { useState, ChangeEvent, FormEvent, useEffect, useCallback } from 'react'
+import { DialogTitle, DialogContent, TextField, Typography, Button, DialogActions, DialogContentText, makeStyles, CircularProgress, Snackbar, FormHelperText, FormControl, FormLabel } from '@material-ui/core'
+import { useState, ChangeEvent, FormEvent, useEffect, useRef, useCallback } from 'react'
 import Dialog from './Dialog'
+import createAccount from '../api/accounts/createAccount'
+import start from '../api/bots/start'
+import executeSupervisor from '../api/bots/executeSupervisor'
+import exit from '../api/bots/exit'
+import setLogged from '../api/accounts/setLogged'
 
 const tv = (dispatch: (arg?: any) => any) => (event: ChangeEvent | InputEvent) =>
   void dispatch(
@@ -24,53 +29,128 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-type Status = 'initial' | 'logging' | 'challenge' | 'added'
+type Status = 'unlogged' | 'logging' | 'wrong_credentials' | 'challenge' | 'challenging' | 'wrong_challenge_code' | 'success'
 
 export default ({ open, handleExit }: { open: boolean, handleExit: () => void }) => {
-  const [status, setStatus] = useState<Status>('initial')
-  useEffect(() => setStatus('initial'), [])
+  const [status, setStatus] = useState<Status>('unlogged')
+
+  const savedAccountId = useRef(null)
+  const savedBotId = useRef(null)
 
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
-  const logMe = useCallback(async () => {
-    alert(login+password)
 
-    setStatus('added')
-  }, [login, password])
+  const log = async () => {
+    let botId = savedBotId.current
+    let accountId = savedAccountId.current
 
-  const [code, setCode] = useState('')
-  const challenge = useCallback(async () => {
+    if(botId === null){
+      if(accountId === null){
+        setStatus('logging')
+        console.log('Creating account')
+        accountId = await createAccount({ login })
+        savedAccountId.current = accountId
+        console.log(`Account ${accountId} created`)
+      }
 
+      console.log(`Starting bot`)
+      botId = await start(accountId)
+      savedBotId.current = botId
+      console.log(`Bot ${botId} started`)
+    }
+
+    console.log(`Logging with credentials { login: '${login}', password: '${password}' }`)
+    const result = await executeSupervisor(botId, 'login', { login, password })
+    console.log(`Result: ${result}`)
+
+    if(result === 'error'){
+      setStatus('wrong_credentials')
+      return
+    }
+
+    if(result === 'challenge'){
+      setStatus('challenge')
+      return
+    }
+
+    if(result === 'success'){
+      setStatus('success')
+      setLogged(accountId)
+      return
+    }
+
+    throw `Unknown login result (${result})`
+  }
+
+  const [challengeCode, setChallengeCode] = useState('')
+
+  const challenge = async () => {
+    setStatus('challenging')
+    console.log(`Passing challenge with code ${challengeCode}`)
+    const result = await executeSupervisor(savedBotId.current, 'challenge', challengeCode)
+    console.log(`Passed challenge with result ${result}`)
     
-  }, [code])
+    if(result === 'error'){
+      setStatus('wrong_challenge_code')
+      return
+    }
+
+    if(result === 'success'){
+      setStatus('success')
+      setLogged(savedAccountId.current)
+      return
+    }
+
+    throw `Unknown challenge result (${result})`
+  }
+
+  useEffect(() => {
+    if(savedBotId.current === null)
+      return
+
+    const exitBot = () =>
+      exit(savedBotId.current)
+
+    window.addEventListener('unload', exitBot)
+    console.log(`window.addEventListener('unload', exitBot)`)
+    return () => {
+      if(status === 'success')
+        exitBot()
+      window.removeEventListener('unload', exitBot)
+      console.log(`window.removeEventListener('unload', exitBot)`)
+    }
+  }, [status])
 
   const classes = useStyles({})
   return (
     <Dialog open={open} onClose={handleExit} maxWidth="xs" fullWidth={true}>
-      {status === 'initial' && (
-        <>
+      {(status === 'unlogged' || status === 'wrong_credentials') && (
+        <form onSubmit={handleSubmit(log)}>
           <DialogTitle>Add Instagram account</DialogTitle>
           <DialogContent>
             <DialogContentText>
               We do not store Instagram passwords.
             </DialogContentText>
-            <form onSubmit={handleSubmit(logMe)} className={classes.form}>
+            <FormControl error={status === 'wrong_credentials'} className={classes.form}>
+              {status === 'wrong_credentials' && <FormLabel>Wrong password or login</FormLabel>}
               <TextField
                 label="login"
                 value={login}
                 onChange={tv(setLogin)}
+                required
               />
               <TextField
                 label="password"
                 value={password}
                 onChange={tv(setPassword)}
+                required
               />
-            </form>
+            </FormControl>
           </DialogContent>
           <DialogActions>
-            <Button color="primary" onClick={logMe}>Log me</Button>
+            <Button color="primary" type="submit">Log me</Button>
           </DialogActions>
-        </>
+        </form>
       )}
       {status === 'logging' && (
         <>
@@ -85,27 +165,45 @@ export default ({ open, handleExit }: { open: boolean, handleExit: () => void })
           </DialogActions>
         </>
       )}
-      {status === 'challenge' && (
+      {(status === 'challenge' || status === 'wrong_challenge_code') && (
+        <form onSubmit={handleSubmit(challenge)}>
+          <DialogTitle>Add Instagram account</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Instagram sent authentication code to your e-mail.
+            </DialogContentText>
+            <FormControl error={status === 'wrong_challenge_code'} className={classes.form}>
+              {status === 'wrong_challenge_code' && <FormLabel>Wrong code</FormLabel>}
+              <TextField
+                label="code"
+                value={challengeCode}
+                onChange={tv(setChallengeCode)}
+                required
+              />
+            </FormControl>
+          </DialogContent>
+          <DialogActions>
+            <Button color="primary" type="submit">Enter my code</Button>
+          </DialogActions>
+        </form>
+      )}
+      {status === 'challenging' && (
         <>
           <DialogTitle>Add Instagram account</DialogTitle>
           <DialogContent>
             <DialogContentText>
               Instagram sent authentication code to your e-mail.
             </DialogContentText>
-            <form onSubmit={handleSubmit(challenge)} className={classes.form}>
-              <TextField
-                label="code"
-                value={code}
-                onChange={tv(setCode)}
-              />
-            </form>
+            <div className={classes.progress}>
+              <CircularProgress />
+            </div>
           </DialogContent>
           <DialogActions>
-            <Button color="primary" onClick={challenge}>Enter my code</Button>
+            <Button color="primary" disabled>Enter my code</Button>
           </DialogActions>
         </>
       )}
-      {status === 'added' && (
+      {status === 'success' && (
         <>
           <DialogTitle>Add Instagram account</DialogTitle>
           <DialogContent>

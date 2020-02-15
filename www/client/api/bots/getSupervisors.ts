@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-unfetch'
+import fetch from '../fetch'
 import getServerHost from '../../utils/getServerHost'
 
 export default async (botId: string) => {

@@ -22,6 +22,12 @@ let AccountsController = class AccountsController {
     async getAccounts(req) {
         return this.accountService.getAccounts(req.user.userId);
     }
+    async setLogged(req, accountId) {
+        return this.accountService.setLogged(req.user.userId, +accountId);
+    }
+    async create(req, account) {
+        return this.accountService.createAccount(req.user.userId, account);
+    }
 };
 __decorate([
     common_1.UseGuards(passport_1.AuthGuard('jwt')),
@@ -31,6 +37,22 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AccountsController.prototype, "getAccounts", null);
+__decorate([
+    common_1.UseGuards(passport_1.AuthGuard('jwt')),
+    common_1.Post('/:accountId/logged'),
+    __param(0, common_1.Request()), __param(1, common_1.Param('accountId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String]),
+    __metadata("design:returntype", Promise)
+], AccountsController.prototype, "setLogged", null);
+__decorate([
+    common_1.UseGuards(passport_1.AuthGuard('jwt')),
+    common_1.Post('/'),
+    __param(0, common_1.Request()), __param(1, common_1.Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], AccountsController.prototype, "create", null);
 AccountsController = __decorate([
     common_1.Controller('accounts'),
     __metadata("design:paramtypes", [accounts_service_1.AccountsService])

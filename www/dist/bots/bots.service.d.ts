@@ -6,8 +6,9 @@ export declare class BotsService {
     private readonly logsService;
     constructor(configService: ConfigService, logsService: LogsService);
     private readonly botInstances;
-    createBot({ accountId }: {
+    createBot({ accountId, web }: {
         accountId: number;
+        web?: boolean;
     }): Promise<string>;
     exit(id: string): void;
     get(id: string): Bot;

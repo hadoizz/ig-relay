@@ -22,13 +22,7 @@ export class AppService {
 
     const user = this.userRepository.create({ username: 'admin', password: 'kolorowemaslojestnajlepsze' })
 
-    const account = this.accountRepository.create({ user })
-    user.accounts = [account] 
-
-    const job = this.jobRepository.create({ cron: '0 * * * * *', supervisor: 'identity', supervisorPayload: 'xD', account })
-    account.jobs = [job]
-
-    this.jobRepository.save(job)
+    this.userRepository.save(user)
 
     console.log('Added dev user')
   }

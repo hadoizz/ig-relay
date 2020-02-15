@@ -13,17 +13,17 @@ export class BotsController {
     return this.botsService.getList()
   }
 
-  //@UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'))
   @Get('start/account/:accountId')
   async start(@Request() req, @Param('accountId') accountId: string | number){
     accountId = Number(accountId)
 
-    /*const accounts = await this.accountsService.getAccounts(req.user.userId)
-    if(!accounts.some(account => account.accountId === accountId))
-      throw `User "${req.user.userId}" doesn't have "${accountId}" account`*/
+    if(await this.accountsService.hasAccount(req.user.userId, accountId)){
+      const id = await this.botsService.createBot({ accountId, web: true })
+      return { id }
+    }
 
-    const id = await this.botsService.createBot({ accountId })
-    return { id }
+    throw `User ${req.user.userId} has no ${accountId} account`
   }
 
   //@UseGuards(AuthGuard('jwt'))
@@ -42,8 +42,15 @@ export class BotsController {
   //@UseGuards(AuthGuard('jwt'))
   @Post(':botId/executeSupervisor')
   async executeSupervisor(@Param('botId') botId: string, @Body('name') name: string, @Body('payload') payload: string){
-    return { 
-      result: await this.botsService.get(botId).executeSupervisor({ name, payload })
+    try {
+      const parsed = JSON.parse(payload)
+      return { 
+        result: await this.botsService.get(botId).executeSupervisor({ name, payload: parsed })
+      }
+    } catch(error) {
+      return { 
+        result: await this.botsService.get(botId).executeSupervisor({ name, payload })
+      }
     }
   }
 
