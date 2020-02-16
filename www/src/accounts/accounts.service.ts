@@ -20,13 +20,11 @@ export class AccountsService {
 
   async deleteAccount(accountId: number){
     const account = await this.accountRepository.findOne(accountId)
-    if(account.logged){
-      this.jobRepository.delete({ account })
-      this.followedRepository.delete({ account })
-      this.logRepository.delete({ account })
-    }
-
+    this.jobRepository.delete({ account })
+    this.followedRepository.delete({ account })
+    this.logRepository.delete({ account })
     this.accountRepository.delete({ accountId })
+    
     deleteDataDir(accountId)
     console.log(`Deleted ${accountId} account (${account.login})`)
   }
