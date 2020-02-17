@@ -63,8 +63,10 @@ export default async (page: Page, credentials = getCredentials()): Promise<Respo
     await sleep(3000, 6000)
   }
 
-  await closeDialog(page)
-  await sleep(1000, 3000)
+  try {
+    await closeDialog(page)
+    await sleep(1000, 3000)
+  } catch(error) {}
 
   log('login', 'success')
   return 'success'
