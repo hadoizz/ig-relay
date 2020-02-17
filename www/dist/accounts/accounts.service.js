@@ -35,12 +35,10 @@ let AccountsService = class AccountsService {
     }
     async deleteAccount(accountId) {
         const account = await this.accountRepository.findOne(accountId);
-        if (account.logged) {
-            this.jobRepository.delete({ account });
-            this.followedRepository.delete({ account });
-            this.logRepository.delete({ account });
-        }
-        this.accountRepository.delete({ accountId });
+        await this.jobRepository.delete({ account });
+        await this.followedRepository.delete({ account });
+        await this.logRepository.delete({ account });
+        await this.accountRepository.delete({ accountId });
         deleteDataDir_1.default(accountId);
         console.log(`Deleted ${accountId} account (${account.login})`);
     }
@@ -61,11 +59,14 @@ let AccountsService = class AccountsService {
             .andWhere('accountId = :accountId', { accountId })
             .getRawOne()) !== undefined;
     }
-    async setLogged(userId, accountId) {
+    async setLogged(userId, accountId, login) {
         await this.accountRepository
             .createQueryBuilder('account')
             .update(account_entity_1.Account)
-            .set({ logged: true })
+            .set({
+            logged: true,
+            login
+        })
             .where('user = :userId', { userId })
             .andWhere('accountId = :accountId', { accountId })
             .execute();

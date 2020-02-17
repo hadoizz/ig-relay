@@ -67,12 +67,19 @@ export default (page: Page) => {
   )
 
   master.onRequest('executeSupervisor', async ({ name, payload }: { name: string, payload: any }) => { 
-    if(name === 'login')
-      log('supervisor', `login(...)`)
+    if(payload === undefined)
+      log('supervisor', `${name}()`)
+    else if(name === 'login')
+      log('supervisor', `${name}(${JSON.stringify({
+        ...payload,
+        password: '*'.repeat(payload.password.length)
+      })}`)
+    else if(typeof payload === 'object')
+      log('supervisor', `${name}(${JSON.stringify(payload)})`)
     else
-      log('supervisor', payload === undefined ? `${name}()` : `${name}(${typeof payload === 'object' ? JSON.stringify(payload) : payload})`)
-    
-      if(!supervisors.hasOwnProperty(name))
+      log('supervisor', `${name}(${payload})`)
+
+    if(!supervisors.hasOwnProperty(name))
       throw 'Invalid supervisor name'
     
     console.log(`at ${page.url()}`)

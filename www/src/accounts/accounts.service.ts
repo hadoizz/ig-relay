@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, getManager } from 'typeorm';
 import { Account } from '../entities/account.entity';
 import { UsersService } from '../users/users.service';
 import { RequiredAccountData } from './profile.interface';
@@ -20,11 +20,11 @@ export class AccountsService {
 
   async deleteAccount(accountId: number){
     const account = await this.accountRepository.findOne(accountId)
-    this.jobRepository.delete({ account })
-    this.followedRepository.delete({ account })
-    this.logRepository.delete({ account })
-    this.accountRepository.delete({ accountId })
-    
+    await this.jobRepository.delete({ account })
+    await this.followedRepository.delete({ account })
+    await this.logRepository.delete({ account })
+    await this.accountRepository.delete({ accountId })
+     
     deleteDataDir(accountId)
     console.log(`Deleted ${accountId} account (${account.login})`)
   }
@@ -55,11 +55,14 @@ export class AccountsService {
       .getRawOne()) !== undefined
   }
 
-  async setLogged(userId: number, accountId: number){
+  async setLogged(userId: number, accountId: number, login: string){
     await this.accountRepository
       .createQueryBuilder('account')
       .update(Account)
-      .set({ logged: true })
+      .set({ 
+        logged: true, 
+        login //login may change
+      })
       .where('user = :userId', { userId })
       .andWhere('accountId = :accountId', { accountId })
       .execute()

@@ -6,13 +6,14 @@ import Layout from '../components/Layout'
 import getAccounts from '../utils/api/getAccounts'
 import redirectOnError from '../utils/redirectOnError'
 import { Card, CardContent, Grid } from '@material-ui/core'
-import { FormatListBulletedOutlined, TrendingUpOutlined, ThreeSixtyOutlined } from '@material-ui/icons'
+import { FormatListBulletedOutlined, TrendingUpOutlined, ThreeSixtyOutlined, SettingsApplicationsOutlined } from '@material-ui/icons'
 import { connect } from 'react-redux'
 import { Account } from '../types/Account'
 import Index from '../components/Bot/Index'
 import Logs from '../components/Bot/Logs'
 import AddAccountDialog from '../components/AddAccountDialog'
 import Test from '../components/Bot/Test'
+import Config from '../components/Bot/Config'
 
 const useStyles = makeStyles((theme: Theme) => ({
   menuRow: {
@@ -36,6 +37,10 @@ const tabs = [{
   name: 'Test',
   icon: <ThreeSixtyOutlined />,
   getContent: (props?: any) => <Test {...props} />
+}, {
+  name: 'Config',
+  icon: <SettingsApplicationsOutlined />,
+  getContent: (props?: any) => <Config {...props} />
 }]
 
 const mapStateToProps = state => ({ 
@@ -78,7 +83,7 @@ const Bot = connect(mapStateToProps, mapDispatchToProps)(({ currentAccount, acco
   const classes = useStyles({})
 
   if(currentAccount === null)
-    return <AddAccountDialog open={true} handleExit={() => {}} />
+    return <AddAccountDialog open={true} handleExit={() => location.reload()} />
 
   return (
     <Layout>

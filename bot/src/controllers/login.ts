@@ -6,8 +6,21 @@ import sleep from '../utils/sleep'
 import log from '../logs/log'
 import isChallenge from '../services/login/isChallenge'
 import submitForm from '../services/navigation/submitForm'
+import clickButton from '../services/navigation/clickButton'
+import gotoIndex from '../services/index/gotoIndex'
+import closeDialog from '../services/dialog/closeDialog'
 
 const path = '/accounts/login'
+
+/*
+  Zapisać Twoje dane logowania?
+  Możemy zapisać Twoje dane logowania w tej przeglądarce, aby uniknąć konieczności ich ponownego wprowadzania.
+
+  Zapisz informacje
+
+  Nie teraz
+*/
+const oneTapPath = '/accounts/onetap'
 
 type Response = 'success' | 'challenge' | 'error'
 
@@ -28,7 +41,7 @@ export default async (page: Page, credentials = getCredentials()): Promise<Respo
   await typeCredentials(page, credentials)
   await submitCredentials(page)
 
-  await sleep(3000, 6000)
+  await sleep(8000, 12000)
 
   if(page.url().includes(path)){
     console.log(`Can't log in (${credentials.login})`)
@@ -43,6 +56,15 @@ export default async (page: Page, credentials = getCredentials()): Promise<Respo
     log('login', 'challenge')
     return 'challenge'
   }
+
+  if(page.url().includes(oneTapPath)){
+    log('onetap')
+    await clickButton(page)
+    await sleep(3000, 6000)
+  }
+
+  await closeDialog(page)
+  await sleep(1000, 3000)
 
   log('login', 'success')
   return 'success'

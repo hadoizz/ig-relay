@@ -21,6 +21,12 @@ const useStyles = makeStyles(() => ({
       paddingRight: '0'
     }
   },
+  breakAll: {
+    wordBreak: 'break-all'
+  },
+  noWrap: {
+    whiteSpace: 'nowrap'
+  },
   createdAt: {
     userSelect: 'none'
   }
@@ -73,8 +79,8 @@ export default connect(mapStateToProps)(memo(({ currentAccount }: { currentAccou
           {logs.map(({ type, payload, createdAt }, index) =>
             <TableRow key={index} className={classes.row}>
               <TableCell>{ type }</TableCell>
-              <TableCell>{ payload }</TableCell>
-              <TableCell>
+              <TableCell className={classes.breakAll}>{ payload }</TableCell>
+              <TableCell className={classes.noWrap}>
                 <Tooltip title={new Date(createdAt).toLocaleString('en-GB')} placement="right" enterTouchDelay={0}>
                   <span className={classes.createdAt}>
                     { getTimeAgo(new Date(createdAt)) }

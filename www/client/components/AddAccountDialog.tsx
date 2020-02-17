@@ -44,9 +44,9 @@ export default ({ open, handleExit }: { open: boolean, handleExit: () => void })
     let botId = savedBotId.current
     let accountId = savedAccountId.current
 
+    setStatus('logging')
     if(botId === null){
       if(accountId === null){
-        setStatus('logging')
         console.log('Creating account')
         accountId = await createAccount({ login })
         savedAccountId.current = accountId
@@ -57,6 +57,8 @@ export default ({ open, handleExit }: { open: boolean, handleExit: () => void })
       botId = await start(accountId)
       savedBotId.current = botId
       console.log(`Bot ${botId} started`)
+      window.addEventListener('unload', exitBot)
+      console.log(`window.addEventListener('unload', exitBot)`)
     }
 
     console.log(`Logging with credentials { login: '${login}', password: '${password}' }`)
@@ -75,7 +77,7 @@ export default ({ open, handleExit }: { open: boolean, handleExit: () => void })
 
     if(result === 'success'){
       setStatus('success')
-      setLogged(accountId)
+      setLogged(savedAccountId.current, login)
       return
     }
 
@@ -97,33 +99,41 @@ export default ({ open, handleExit }: { open: boolean, handleExit: () => void })
 
     if(result === 'success'){
       setStatus('success')
-      setLogged(savedAccountId.current)
+      setLogged(savedAccountId.current, login)
       return
     }
 
     throw `Unknown challenge result (${result})`
   }
 
-  useEffect(() => {
-    if(savedBotId.current === null)
+  const exitBot = () => {
+    exit(savedBotId.current)
+    console.log(`Exitting bot ${savedBotId.current}`)
+
+    setStatus('unlogged')
+    savedBotId.current = null
+    savedAccountId.current = null
+    setLogin('')
+    setPassword('')
+
+    window.removeEventListener('unload', exitBot)
+  }
+
+  const handleClose = () => {
+    const preventClose: Status[] = ['logging', 'challenging']
+    if(preventClose.includes(status))
       return
 
-    const exitBot = () =>
-      exit(savedBotId.current)
-
-    window.addEventListener('unload', exitBot)
-    console.log(`window.addEventListener('unload', exitBot)`)
-    return () => {
-      if(status === 'success')
-        exitBot()
-      window.removeEventListener('unload', exitBot)
-      console.log(`window.removeEventListener('unload', exitBot)`)
+    if(savedBotId.current !== null){
+      exitBot()
     }
-  }, [status])
+
+    handleExit()
+  }
 
   const classes = useStyles({})
   return (
-    <Dialog open={open} onClose={handleExit} maxWidth="xs" fullWidth={true}>
+    <Dialog open={open} onClose={handleClose} maxWidth="xs" fullWidth={true}>
       {(status === 'unlogged' || status === 'wrong_credentials') && (
         <form onSubmit={handleSubmit(log)}>
           <DialogTitle>Add Instagram account</DialogTitle>
@@ -137,13 +147,13 @@ export default ({ open, handleExit }: { open: boolean, handleExit: () => void })
                 label="login"
                 value={login}
                 onChange={tv(setLogin)}
-                required
+                inputProps={{ required: true }}
               />
               <TextField
                 label="password"
                 value={password}
                 onChange={tv(setPassword)}
-                required
+                inputProps={{ required: true }}
               />
             </FormControl>
           </DialogContent>
@@ -212,7 +222,7 @@ export default ({ open, handleExit }: { open: boolean, handleExit: () => void })
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button color="primary" onClick={handleExit}>Okay</Button>
+            <Button color="primary" onClick={handleClose}>Okay</Button>
           </DialogActions>
         </>
       )}

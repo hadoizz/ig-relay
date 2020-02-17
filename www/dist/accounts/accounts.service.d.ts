@@ -15,7 +15,7 @@ export declare class AccountsService {
     deleteAccount(accountId: number): Promise<void>;
     getAccounts(userId: number): Promise<any[]>;
     hasAccount(userId: number, accountId: number): Promise<boolean>;
-    setLogged(userId: number, accountId: number): Promise<void>;
+    setLogged(userId: number, accountId: number, login: string): Promise<void>;
     createAccount(userId: number, { login }: RequiredAccountData): Promise<{
         accountId: any;
     }>;
