@@ -6,24 +6,9 @@ import sleep from '../utils/sleep'
 import log from '../logs/log'
 import isChallenge from '../services/login/isChallenge'
 import submitForm from '../services/navigation/submitForm'
-import clickButton from '../services/navigation/clickButton'
-import gotoIndex from '../services/index/gotoIndex'
-import closeDialog from '../services/dialog/closeDialog'
-import scrollTo from '../utils/elements/scrollTo'
-import getFirstPost from '../services/post/selectors/getFirstPost'
-import scrollToNextPost from '../services/post/scrollToNextPost'
+import afterLogin from './utils/afterLogin'
 
 const path = '/accounts/login'
-
-/*
-  Zapisać Twoje dane logowania?
-  Możemy zapisać Twoje dane logowania w tej przeglądarce, aby uniknąć konieczności ich ponownego wprowadzania.
-
-  Zapisz informacje
-
-  Nie teraz
-*/
-const oneTapPath = '/accounts/onetap'
 
 type Response = 'success' | 'challenge' | 'error'
 
@@ -60,24 +45,7 @@ export default async (page: Page, credentials = getCredentials()): Promise<Respo
     return 'challenge'
   }
 
-  if(page.url().includes(oneTapPath)){
-    log('onetap')
-    await clickButton(page)
-    await sleep(3000, 6000)
-  }
-
-  try {
-    await closeDialog(page)
-    await sleep(1000, 2000)
-  } catch(error) {}
-
-  await gotoIndex(page)
-  await sleep(1000, 2000)
-  await scrollTo(await getFirstPost(page))
-  await sleep(1000, 2000)
-  await scrollToNextPost(page)
-  await sleep(1000, 2000)
-  await scrollToNextPost(page)
+  await afterLogin(page)
 
   log('login', 'success')
   return 'success'

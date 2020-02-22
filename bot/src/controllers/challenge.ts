@@ -4,6 +4,7 @@ import submitForm from '../services/navigation/submitForm';
 import sleep from '../utils/sleep'
 import isChallenge from '../services/login/isChallenge';
 import log from '../logs/log';
+import afterLogin from './utils/afterLogin';
 
 type Response = 'success' | 'error'
 
@@ -17,6 +18,8 @@ export default async (page: Page, code: string): Promise<Response> => {
     log('challenge', 'error')
     return 'error'
   }
+
+  await afterLogin(page)
 
   log('challenge', 'success')
   return 'success'
