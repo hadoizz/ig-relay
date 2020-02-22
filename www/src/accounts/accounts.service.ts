@@ -9,6 +9,7 @@ import deleteDataDir from './utils/deleteDataDir';
 import { Job } from '../entities/job.entity';
 import { Followed } from '../entities/followed.entity';
 import { Log } from '../entities/log.entity';
+import getRandomDevice from './utils/devices/getRandomDevice';
 
 @Injectable()
 export class AccountsService {
@@ -29,6 +30,10 @@ export class AccountsService {
     console.log(`Deleted ${accountId} account (${account.login})`)
   }
 
+  async getAccount(accountId: number){
+    return await this.accountRepository.findOne(accountId)
+  }
+
   /**
    * Returns accounts related to user.
    * @param userId 
@@ -36,7 +41,7 @@ export class AccountsService {
   async getAccounts(userId: number){
     const accounts = await this.accountRepository
       .createQueryBuilder('account')
-      .select(['login', 'accountId', 'logged'])
+      .select(['login', 'accountId', 'logged', 'device'])
       .where('account.user = :userId', { userId })
       .getRawMany()
 
@@ -81,7 +86,8 @@ export class AccountsService {
       .into(Account)
       .values({
         login,
-        user
+        user,
+        device: getRandomDevice()
       })
       .execute()
 

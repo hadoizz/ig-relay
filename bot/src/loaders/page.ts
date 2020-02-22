@@ -27,6 +27,15 @@ export default async () => {
     throw 'Page crashed'
   })
 
+  /*const block = ['graph.instagram.com/logging_client_events', 'instagram.com/logging/falco', 'instagram.com/logging/arwing']
+  await page.setRequestInterception(true)
+  page.on('request', (request) => {
+    if(block.includes(page.url()))
+      request.abort();
+    else
+     request.continue();
+  })*/
+
   /*const cookies = Object.entries(getEnvData().cookies).reduce((cookies: any[], [name, value]) => {
     cookies.push({
       name,
@@ -41,7 +50,13 @@ export default async () => {
     return cookies
   }, [])*/
 
-  await page.emulate(devices['Pixel 2'])
+  const device = getEnvData().device
+  if(devices[device] === undefined)
+    throw `Unknown device "${device}"!`
+
+  await page.emulate(devices[device])
+  console.log(`device: ${device}`)
+
   await exposeDevFns(page)
 
   //await page.setCookie(...cookies)

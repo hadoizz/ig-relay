@@ -39,13 +39,13 @@ let JobsService = class JobsService {
         if (this.configService.isProduction())
             this.loadJobs();
     }
-    async loadJob({ jobId, cron, supervisor, supervisorPayload, maxDelaySeconds, accountId }) {
+    async loadJob({ jobId, cron, supervisor, supervisorPayload, maxDelaySeconds, accountId, device }) {
         const job = createJob(cron, async () => {
             console.log(`Starting job ${jobId}`);
             await delay_1.default(random_int_1.default(0, maxDelaySeconds * 1000));
             if (!this.loadedJobs.has(jobId))
                 return;
-            const id = await this.botsService.createBot({ accountId });
+            const id = await this.botsService.createBot({ accountId, device });
             await delay_2.default(10000);
             try {
                 const result = await this.botsService.get(id).executeSupervisor({ name: supervisor, payload: supervisorPayload });
@@ -77,7 +77,7 @@ let JobsService = class JobsService {
     async getAllJobs() {
         const jobs = await this.jobRepository
             .createQueryBuilder('job')
-            .select(['jobId', 'cron', 'supervisor', 'supervisorPayload', 'maxDelaySeconds', 'accountId'])
+            .select(['jobId', 'cron', 'supervisor', 'supervisorPayload', 'maxDelaySeconds', 'accountId', 'device'])
             .innerJoin('job.account', 'account')
             .orderBy('createdAt', 'DESC')
             .getRawMany();

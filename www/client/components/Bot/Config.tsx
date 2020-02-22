@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react'
-import { Button } from '@material-ui/core'
+import { Button, Typography } from '@material-ui/core'
 import { connect } from 'react-redux'
 import { Account } from '../../types/Account'
 import deleteAccount from '../../api/accounts/deleteAccount'
@@ -22,6 +22,9 @@ export default connect(mapStateToProps)(({ currentAccount }: { currentAccount: A
 
   return (
     <div>
+      <Typography variant="h5" gutterBottom>
+        Device: { currentAccount.device }
+      </Typography>
       <Button variant="contained" color="primary" onClick={delAccount}>
         Delete account 
       </Button>

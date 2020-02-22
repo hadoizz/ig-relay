@@ -26,6 +26,7 @@ let BotsController = class BotsController {
     }
     async start(req, accountId) {
         accountId = Number(accountId);
+        console.log(`start bot, user ${req.user.userId}, account ${accountId}`);
         if (await this.accountsService.hasAccount(req.user.userId, accountId)) {
             const id = await this.botsService.createBot({ accountId, web: true });
             return { id };

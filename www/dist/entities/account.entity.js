@@ -25,6 +25,10 @@ __decorate([
     __metadata("design:type", String)
 ], Account.prototype, "login", void 0);
 __decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], Account.prototype, "device", void 0);
+__decorate([
     typeorm_1.Column({ default: false }),
     __metadata("design:type", Boolean)
 ], Account.prototype, "logged", void 0);

@@ -31,7 +31,7 @@ export class JobsService {
 
   private loadedJobs = new Map<number, CronJob>()
 
-  private async loadJob({ jobId, cron, supervisor, supervisorPayload, maxDelaySeconds, accountId }){
+  private async loadJob({ jobId, cron, supervisor, supervisorPayload, maxDelaySeconds, accountId, device }){
     const job = createJob(cron, async () => {
       console.log(`Starting job ${jobId}`)
       await delay(random(0, maxDelaySeconds*1000))
@@ -40,7 +40,7 @@ export class JobsService {
       if(!this.loadedJobs.has(jobId))
         return
 
-      const id = await this.botsService.createBot({ accountId })
+      const id = await this.botsService.createBot({ accountId, device })
       
       //cheap vps needs more time to fully load page
       await sleep(10000)
@@ -81,7 +81,7 @@ export class JobsService {
   private async getAllJobs(){
     const jobs = await this.jobRepository
       .createQueryBuilder('job')
-      .select(['jobId', 'cron', 'supervisor', 'supervisorPayload', 'maxDelaySeconds', 'accountId'])
+      .select(['jobId', 'cron', 'supervisor', 'supervisorPayload', 'maxDelaySeconds', 'accountId', 'device'])
       .innerJoin('job.account', 'account')
       .orderBy('createdAt', 'DESC')
       .getRawMany()

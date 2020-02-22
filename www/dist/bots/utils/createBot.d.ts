@@ -9,8 +9,9 @@ export declare type Bot = {
     executeSupervisor: (ExecuteSupervisorCommand: any) => Promise<any>;
     getSupervisors: () => Promise<any>;
 };
-declare const createBot: ({ dataDir, env, cookies, beforeLoad }: {
+declare const createBot: ({ dataDir, device, env, cookies, beforeLoad }: {
     dataDir: any;
+    device: any;
     env?: {};
     cookies?: {};
     beforeLoad?: (slave: any) => void;

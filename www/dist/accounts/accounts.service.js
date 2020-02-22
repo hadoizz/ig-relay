@@ -25,6 +25,7 @@ const deleteDataDir_1 = __importDefault(require("./utils/deleteDataDir"));
 const job_entity_1 = require("../entities/job.entity");
 const followed_entity_1 = require("../entities/followed.entity");
 const log_entity_1 = require("../entities/log.entity");
+const getRandomDevice_1 = __importDefault(require("./utils/devices/getRandomDevice"));
 let AccountsService = class AccountsService {
     constructor(accountRepository, jobRepository, followedRepository, logRepository, usersService) {
         this.accountRepository = accountRepository;
@@ -42,10 +43,13 @@ let AccountsService = class AccountsService {
         deleteDataDir_1.default(accountId);
         console.log(`Deleted ${accountId} account (${account.login})`);
     }
+    async getAccount(accountId) {
+        return await this.accountRepository.findOne(accountId);
+    }
     async getAccounts(userId) {
         const accounts = await this.accountRepository
             .createQueryBuilder('account')
-            .select(['login', 'accountId', 'logged'])
+            .select(['login', 'accountId', 'logged', 'device'])
             .where('account.user = :userId', { userId })
             .getRawMany();
         accounts.filter(({ logged }) => !logged).map(({ accountId }) => this.deleteAccount(accountId));
@@ -82,7 +86,8 @@ let AccountsService = class AccountsService {
             .into(account_entity_1.Account)
             .values({
             login,
-            user
+            user,
+            device: getRandomDevice_1.default()
         })
             .execute();
         const accountId = insertResult.identifiers[0].accountId;

@@ -13,6 +13,7 @@ export declare class AccountsService {
     private readonly usersService;
     constructor(accountRepository: Repository<Account>, jobRepository: Repository<Job>, followedRepository: Repository<Followed>, logRepository: Repository<Log>, usersService: UsersService);
     deleteAccount(accountId: number): Promise<void>;
+    getAccount(accountId: number): Promise<Account>;
     getAccounts(userId: number): Promise<any[]>;
     hasAccount(userId: number, accountId: number): Promise<boolean>;
     setLogged(userId: number, accountId: number, login: string): Promise<void>;

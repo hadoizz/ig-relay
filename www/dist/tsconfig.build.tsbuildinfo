@@ -2130,8 +2130,8 @@
         "signature": "99bea34cecdd1778f93e992e214898e4c0b816b13c37ff34a9a316cb98f0cad3"
       },
       "../src/bots/utils/createbot.ts": {
-        "version": "5bc27610a67d29affc4e7d074c8bbc87f8192ab36f7a7b1323ea3fe9515d7f27",
-        "signature": "4e95c9686c552c97c4720166fc293e422ea5f1242eeabfe3f2cb966e2e029876"
+        "version": "2d3d9da5ed8cc841b01762c5bff0e72a17807371dcd651969b3bcfa46a6ec255",
+        "signature": "e65f0809ece8a502134dcb030a1171b66f9644b7f208ce68cd7d3d252609fe62"
       },
       "../src/bots/utils/getid.ts": {
         "version": "d579d9774618691939a9e19af94271309b3b6f88f6408334769389eec2858751",
@@ -2157,9 +2157,37 @@
         "version": "04ed9bd744861291d821b3f31f7d0afafa0cc9e5646fdc883f86642b27146fd3",
         "signature": "5890050e1b14806118d2841f2080b8f8c5aeb07e791424fc85ae69e180024693"
       },
+      "../node_modules/@types/puppeteer/errors.d.ts": {
+        "version": "24074eb89fe21d5d7d8a5ed86e6c56939cf32d533f68bae213b0cdac74e03d3b",
+        "signature": "24074eb89fe21d5d7d8a5ed86e6c56939cf32d533f68bae213b0cdac74e03d3b"
+      },
+      "../node_modules/@types/puppeteer/devicedescriptors.d.ts": {
+        "version": "14a0185954b9d1130a9ab87c75011a97ac48c0253fd37a344a066c2c63fc59fb",
+        "signature": "14a0185954b9d1130a9ab87c75011a97ac48c0253fd37a344a066c2c63fc59fb"
+      },
+      "../node_modules/@types/puppeteer/index.d.ts": {
+        "version": "3cfa2d1cc8a66e3efdc0b60c7bb5089b1007c1c430c1db336627651213406b9a",
+        "signature": "3cfa2d1cc8a66e3efdc0b60c7bb5089b1007c1c430c1db336627651213406b9a"
+      },
+      "../node_modules/@types/puppeteer-core/index.d.ts": {
+        "version": "78daabf1f7d99c6b37a7fd4834f4eb0cb4c2e1401573bdfe9f0bca5fd36bf59a",
+        "signature": "78daabf1f7d99c6b37a7fd4834f4eb0cb4c2e1401573bdfe9f0bca5fd36bf59a"
+      },
+      "../src/accounts/utils/devices/portraitdevices.ts": {
+        "version": "3456c7570eaf5ec4321304ddb4c7524bc88ac1c82a9b141f3172110896a710c9",
+        "signature": "c4f1a6bce8d78eaa5143d56976073003b1d58bc093832c928c3d10b92dbeeda2"
+      },
+      "../node_modules/random-int/index.d.ts": {
+        "version": "20aa24ce3ffe34fb1b563122479449c6330fac5509d3d076680ec657c4eb949f",
+        "signature": "20aa24ce3ffe34fb1b563122479449c6330fac5509d3d076680ec657c4eb949f"
+      },
+      "../src/accounts/utils/devices/getrandomdevice.ts": {
+        "version": "d3999b953da487d41c6d8275079f397450b359139c2eee7abab8b77db4679d0e",
+        "signature": "a15be695b9125ad0ac9ab92d10a77e008b1b91700d8ad52eefba2e7b213d6de2"
+      },
       "../src/entities/account.entity.ts": {
-        "version": "99fa59ff465a694c282baaf96e5b27e0953e75409c916c9bf7c2d609af1b4c4a",
-        "signature": "c5784e813957ee0060ef6fd35fb06fbaa57848f5cf610056dc3544481a9eb7dd"
+        "version": "66ac39c6d96fa0c97dbe24f98140a44b7059a9646db482d44cae5f9e78efd421",
+        "signature": "93d569e59b8a5c0a56a357b386b525b8651620926b8afab461bde88639376849"
       },
       "../src/entities/log.entity.ts": {
         "version": "78defb97508a9e8e2442934aa209e42b9a09ae2f3b9291401c876b791becd69f",
@@ -2177,9 +2205,25 @@
         "version": "58a3140e9f81ef3dd9cba7223af4c59bf38d6de6c3e0b842bbcd8b810c85430a",
         "signature": "284ed4f683db20727da176c910cf5f680d6cf485049469a96d7c7099ed524ae7"
       },
+      "../src/users/users.service.ts": {
+        "version": "d6d44fe193375ba77118c5b2a5f49a5d6d9d2114d49e8a180d36b65f36ca8695",
+        "signature": "85033f1a962ac823c806f6ff09482e9bdada9369fef0c6affba798273ebdd510"
+      },
+      "../src/accounts/profile.interface.ts": {
+        "version": "886ee4fea26229f649555511023649a4f10bb114d4951b0a812af50aef796e15",
+        "signature": "1562a2f7fed96448d4784381231a0731aac8397dbfa5fd1517175fab23c3030e"
+      },
+      "../src/accounts/utils/deletedatadir.ts": {
+        "version": "2af2c725cc2fede3e45229b65bf1076fa8e18d563e2ef114c63342d204736f97",
+        "signature": "6a0ec600df10f3314ca57cd497d39f16e790e3d1d176680fb6e488c7c56a134a"
+      },
+      "../src/accounts/accounts.service.ts": {
+        "version": "e35b35a5b71e62e21625c704f797fe0ff8be8f94a6f561988a91ab791ac1a44f",
+        "signature": "707e2204930845825e667522cfce3a5760578a7781cdcd00d1e9f167e4b6bc22"
+      },
       "../src/bots/bots.service.ts": {
-        "version": "5fe0fd3d0929e399732fffb0ca16da225e0e12a151679adfd355adb9da10be37",
-        "signature": "593ca058b822d2047463617ce497dcb40f463a11d941150dac17cc994e62d879"
+        "version": "ae611032600206145417a7e4ddda8dd9d2a4bf08c8627096d8f5345b16b8684a",
+        "signature": "d8248a4ee679ed5862fdc75f7f6517d6121b828c3bd39b9aa26f2dfaf31c9f47"
       },
       "../node_modules/@nestjs/passport/dist/abstract.strategy.d.ts": {
         "version": "ba63131c5e91f797736444933af16ffa42f9f8c150d859ec65f568f037a416ea",
@@ -2221,24 +2265,8 @@
         "version": "a2b176f66f0b708241265fb3b417597c9c9d21912bbb7f5cc00d99af551c2078",
         "signature": "a2b176f66f0b708241265fb3b417597c9c9d21912bbb7f5cc00d99af551c2078"
       },
-      "../src/users/users.service.ts": {
-        "version": "d6d44fe193375ba77118c5b2a5f49a5d6d9d2114d49e8a180d36b65f36ca8695",
-        "signature": "85033f1a962ac823c806f6ff09482e9bdada9369fef0c6affba798273ebdd510"
-      },
-      "../src/accounts/profile.interface.ts": {
-        "version": "886ee4fea26229f649555511023649a4f10bb114d4951b0a812af50aef796e15",
-        "signature": "1562a2f7fed96448d4784381231a0731aac8397dbfa5fd1517175fab23c3030e"
-      },
-      "../src/accounts/utils/deletedatadir.ts": {
-        "version": "2af2c725cc2fede3e45229b65bf1076fa8e18d563e2ef114c63342d204736f97",
-        "signature": "6a0ec600df10f3314ca57cd497d39f16e790e3d1d176680fb6e488c7c56a134a"
-      },
-      "../src/accounts/accounts.service.ts": {
-        "version": "528cc19b1ce08a7709f1826e2ff7a37963aa43a2612a53097437c6742f67e3b6",
-        "signature": "3f945aeb059139aaa6c3165630171e5b1bdc0e9bcd3ac01ae0c1c99f0923be61"
-      },
       "../src/bots/bots.controller.ts": {
-        "version": "27c4f3accdc62512cc247491501881ac5117d0f1e126e28130e8cb3d939df021",
+        "version": "15f971477c6cad8e30b566e88795828e310c36e4d0347683bc29ac5a688910d9",
         "signature": "5dc908393b9453aa11f2666e36ea2f102abb1e88ec6b7242381e0737f5936448"
       },
       "../src/config/config.module.ts": {
@@ -2393,12 +2421,8 @@
         "version": "77ef901e7424f160f3ce11e05e05be147374fe15c492c6378158b2cf4119f7b9",
         "signature": "77ef901e7424f160f3ce11e05e05be147374fe15c492c6378158b2cf4119f7b9"
       },
-      "../node_modules/random-int/index.d.ts": {
-        "version": "20aa24ce3ffe34fb1b563122479449c6330fac5509d3d076680ec657c4eb949f",
-        "signature": "20aa24ce3ffe34fb1b563122479449c6330fac5509d3d076680ec657c4eb949f"
-      },
       "../src/jobs/jobs.service.ts": {
-        "version": "fec7ed2044e4de275ce7a7d6caed251f9d142ad748bac9ee7a626af46d1df2df",
+        "version": "9b1f2ab47d388fed5a104989f94bf41effacfeaf0376ea63b46c151abda509f8",
         "signature": "62dd511afd1de07434cf865ba82d2bb0bc061864688595f7de5225cab1424982"
       },
       "../src/jobs/jobs.controller.ts": {
@@ -2724,6 +2748,10 @@
       "../node_modules/@types/json5/index.d.ts": {
         "version": "96d14f21b7652903852eef49379d04dbda28c16ed36468f8c9fa08f7c14c9538",
         "signature": "96d14f21b7652903852eef49379d04dbda28c16ed36468f8c9fa08f7c14c9538"
+      },
+      "../node_modules/@types/mime-types/index.d.ts": {
+        "version": "f17dd220e27f33e3f1c5bb6f00999420520a6dd1e7f71ee66c11cfc1c2990f20",
+        "signature": "f17dd220e27f33e3f1c5bb6f00999420520a6dd1e7f71ee66c11cfc1c2990f20"
       },
       "../node_modules/@types/prop-types/index.d.ts": {
         "version": "a7e32dcb90bf0c1b7a1e4ac89b0f7747cbcba25e7beddc1ebf17be1e161842ad",
@@ -6257,12 +6285,50 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "../node_modules/@types/puppeteer/errors.d.ts": [
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../node_modules/@types/puppeteer/devicedescriptors.d.ts": [
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../node_modules/@types/puppeteer/index.d.ts": [
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/child_process.d.ts",
+        "../node_modules/@types/puppeteer/errors.d.ts",
+        "../node_modules/@types/puppeteer/devicedescriptors.d.ts",
+        "../node_modules/@types/node/ts3.2/index.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../node_modules/@types/puppeteer-core/index.d.ts": [
+        "../node_modules/@types/puppeteer/index.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/accounts/utils/devices/portraitdevices.ts": [
+        "../node_modules/@types/puppeteer-core/index.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../node_modules/random-int/index.d.ts": [
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/accounts/utils/devices/getrandomdevice.ts": [
+        "../src/accounts/utils/devices/portraitdevices.ts",
+        "../node_modules/random-int/index.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "../src/entities/account.entity.ts": [
         "../node_modules/typeorm/index.d.ts",
         "../src/entities/job.entity.ts",
         "../src/entities/user.entity.ts",
         "../src/entities/log.entity.ts",
         "../src/entities/followed.entity.ts",
+        "../src/accounts/utils/devices/getrandomdevice.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -6292,6 +6358,39 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "../src/users/users.service.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/typeorm/index.d.ts",
+        "../src/entities/user.entity.ts",
+        "../node_modules/typeorm/index.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/accounts/profile.interface.ts": [
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/accounts/utils/deletedatadir.ts": [
+        "../src/accounts/utils/getdatadir.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../src/accounts/accounts.service.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/typeorm/index.d.ts",
+        "../node_modules/typeorm/index.d.ts",
+        "../src/entities/account.entity.ts",
+        "../src/users/users.service.ts",
+        "../src/accounts/profile.interface.ts",
+        "../src/accounts/utils/createdatadir.ts",
+        "../src/accounts/utils/deletedatadir.ts",
+        "../src/entities/job.entity.ts",
+        "../src/entities/followed.entity.ts",
+        "../src/entities/log.entity.ts",
+        "../src/accounts/utils/devices/getrandomdevice.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "../src/bots/bots.service.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../src/bots/utils/createbot.ts",
@@ -6300,6 +6399,7 @@
         "../node_modules/fork-with-emitter/dist/index.d.ts",
         "../src/logs/logs.service.ts",
         "../src/accounts/utils/createdatadir.ts",
+        "../src/accounts/accounts.service.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -6355,38 +6455,6 @@
       ],
       "../node_modules/@nestjs/passport/index.d.ts": [
         "../node_modules/@nestjs/passport/dist/index.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/users/users.service.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
-        "../node_modules/@nestjs/typeorm/index.d.ts",
-        "../src/entities/user.entity.ts",
-        "../node_modules/typeorm/index.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/accounts/profile.interface.ts": [
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/accounts/utils/deletedatadir.ts": [
-        "../src/accounts/utils/getdatadir.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/accounts/accounts.service.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
-        "../node_modules/@nestjs/typeorm/index.d.ts",
-        "../node_modules/typeorm/index.d.ts",
-        "../src/entities/account.entity.ts",
-        "../src/users/users.service.ts",
-        "../src/accounts/profile.interface.ts",
-        "../src/accounts/utils/createdatadir.ts",
-        "../src/accounts/utils/deletedatadir.ts",
-        "../src/entities/job.entity.ts",
-        "../src/entities/followed.entity.ts",
-        "../src/entities/log.entity.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -6663,10 +6731,6 @@
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "../node_modules/delay/index.d.ts": [
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../node_modules/random-int/index.d.ts": [
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -7208,6 +7272,10 @@
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "../node_modules/@types/json5/index.d.ts": [
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../node_modules/@types/mime-types/index.d.ts": [
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -10739,6 +10807,32 @@
       "../src/entities/followed.entity.ts": [
         "../src/entities/account.entity.ts"
       ],
+      "../node_modules/@types/puppeteer/errors.d.ts": [
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../node_modules/@types/puppeteer/devicedescriptors.d.ts": [
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../node_modules/@types/puppeteer/index.d.ts": [
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/child_process.d.ts",
+        "../node_modules/@types/puppeteer/errors.d.ts",
+        "../node_modules/@types/puppeteer/devicedescriptors.d.ts",
+        "../node_modules/@types/node/ts3.2/index.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../node_modules/@types/puppeteer-core/index.d.ts": [
+        "../node_modules/@types/puppeteer/index.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../node_modules/random-int/index.d.ts": [
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "../src/entities/account.entity.ts": [
         "../src/entities/user.entity.ts",
         "../src/entities/job.entity.ts",
@@ -10754,9 +10848,23 @@
         "../src/entities/followed.entity.ts",
         "../src/entities/account.entity.ts"
       ],
+      "../src/users/users.service.ts": [
+        "../src/entities/user.entity.ts",
+        "../node_modules/typeorm/index.d.ts"
+      ],
+      "../src/accounts/accounts.service.ts": [
+        "../node_modules/typeorm/index.d.ts",
+        "../src/entities/account.entity.ts",
+        "../src/entities/job.entity.ts",
+        "../src/entities/followed.entity.ts",
+        "../src/entities/log.entity.ts",
+        "../src/users/users.service.ts",
+        "../src/accounts/profile.interface.ts"
+      ],
       "../src/bots/bots.service.ts": [
         "../src/config/config.service.ts",
         "../src/logs/logs.service.ts",
+        "../src/accounts/accounts.service.ts",
         "../src/bots/utils/createbot.ts"
       ],
       "../node_modules/@nestjs/passport/dist/abstract.strategy.d.ts": [
@@ -10813,19 +10921,6 @@
         "../node_modules/@nestjs/passport/dist/index.d.ts",
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/users/users.service.ts": [
-        "../src/entities/user.entity.ts",
-        "../node_modules/typeorm/index.d.ts"
-      ],
-      "../src/accounts/accounts.service.ts": [
-        "../node_modules/typeorm/index.d.ts",
-        "../src/entities/account.entity.ts",
-        "../src/entities/job.entity.ts",
-        "../src/entities/followed.entity.ts",
-        "../src/entities/log.entity.ts",
-        "../src/users/users.service.ts",
-        "../src/accounts/profile.interface.ts"
       ],
       "../src/bots/bots.controller.ts": [
         "../src/bots/bots.service.ts",
@@ -10990,10 +11085,6 @@
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "../node_modules/delay/index.d.ts": [
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../node_modules/random-int/index.d.ts": [
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -11368,6 +11459,10 @@
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "../node_modules/@types/json5/index.d.ts": [
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../node_modules/@types/mime-types/index.d.ts": [
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
@@ -12041,11 +12136,22 @@
       "../src/entities/job.entity.ts",
       "../src/entities/user.entity.ts",
       "../src/entities/followed.entity.ts",
+      "../node_modules/@types/puppeteer/errors.d.ts",
+      "../node_modules/@types/puppeteer/devicedescriptors.d.ts",
+      "../node_modules/@types/puppeteer/index.d.ts",
+      "../node_modules/@types/puppeteer-core/index.d.ts",
+      "../src/accounts/utils/devices/portraitdevices.ts",
+      "../node_modules/random-int/index.d.ts",
+      "../src/accounts/utils/devices/getrandomdevice.ts",
       "../src/entities/account.entity.ts",
       "../src/entities/log.entity.ts",
       "../src/logs/logs.service.ts",
       "../src/accounts/utils/getdatadir.ts",
       "../src/accounts/utils/createdatadir.ts",
+      "../src/users/users.service.ts",
+      "../src/accounts/profile.interface.ts",
+      "../src/accounts/utils/deletedatadir.ts",
+      "../src/accounts/accounts.service.ts",
       "../src/bots/bots.service.ts",
       "../node_modules/@nestjs/passport/dist/abstract.strategy.d.ts",
       "../node_modules/@nestjs/passport/dist/interfaces/auth-module.options.d.ts",
@@ -12057,10 +12163,6 @@
       "../node_modules/@nestjs/passport/dist/passport/passport.strategy.d.ts",
       "../node_modules/@nestjs/passport/dist/index.d.ts",
       "../node_modules/@nestjs/passport/index.d.ts",
-      "../src/users/users.service.ts",
-      "../src/accounts/profile.interface.ts",
-      "../src/accounts/utils/deletedatadir.ts",
-      "../src/accounts/accounts.service.ts",
       "../src/bots/bots.controller.ts",
       "../src/config/config.module.ts",
       "../src/logs/logs.controller.ts",
@@ -12100,7 +12202,6 @@
       "../node_modules/moment/moment.d.ts",
       "../node_modules/@types/cron/index.d.ts",
       "../node_modules/delay/index.d.ts",
-      "../node_modules/random-int/index.d.ts",
       "../src/jobs/jobs.service.ts",
       "../src/jobs/jobs.controller.ts",
       "../src/jobs/jobs.module.ts",
@@ -12135,7 +12236,6 @@
       "../node_modules/@nestjs/core/services/reflector.service.d.ts",
       "../node_modules/@nestjs/core/services/index.d.ts",
       "../node_modules/@nestjs/core/index.d.ts",
-      "../src/main.ts",
       "../src/accounts/account.entity.spec.ts",
       "../node_modules/@nestjs/testing/interfaces/override-by-factory-options.interface.d.ts",
       "../node_modules/@nestjs/core/metadata-scanner.d.ts",
@@ -12183,6 +12283,7 @@
       "../node_modules/jest-diff/build/index.d.ts",
       "../node_modules/@types/jest/index.d.ts",
       "../node_modules/@types/json5/index.d.ts",
+      "../node_modules/@types/mime-types/index.d.ts",
       "../node_modules/@types/prop-types/index.d.ts",
       "../node_modules/@types/react/global.d.ts",
       "../node_modules/csstype/index.d.ts",
@@ -12206,7 +12307,8 @@
       "../node_modules/@types/webpack-sources/index.d.ts",
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
-      "../node_modules/@types/yargs/index.d.ts"
+      "../node_modules/@types/yargs/index.d.ts",
+      "../src/main.ts"
     ]
   },
   "version": "3.6.3"

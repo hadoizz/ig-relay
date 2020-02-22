@@ -19,16 +19,21 @@ const config_service_1 = require("../config/config.service");
 const ms_1 = __importDefault(require("ms"));
 const logs_service_1 = require("../logs/logs.service");
 const createDataDir_1 = __importDefault(require("../accounts/utils/createDataDir"));
+const accounts_service_1 = require("../accounts/accounts.service");
 let BotsService = class BotsService {
-    constructor(configService, logsService) {
+    constructor(configService, logsService, accountsService) {
         this.configService = configService;
         this.logsService = logsService;
+        this.accountsService = accountsService;
         this.botInstances = new Map();
     }
-    async createBot({ accountId, web = false }) {
+    async createBot({ accountId, device, web = false }) {
+        if (!device)
+            device = (await this.accountsService.getAccount(accountId)).device;
         const id = await getId_1.default();
         const cleanup = () => this.botInstances.delete(id);
         const bot = await createBot_1.default({
+            device,
             dataDir: await createDataDir_1.default(accountId),
             env: Object.assign({ LOGIN: this.configService.get('LOGIN'), PASSWORD: this.configService.get('PASSWORD'), NODE_ENV: this.configService.get('NODE_ENV') }, this.configService.get('HEADLESS') && { HEADLESS: this.configService.get('HEADLESS') }),
             beforeLoad: (slave) => {
@@ -77,7 +82,8 @@ let BotsService = class BotsService {
 BotsService = __decorate([
     common_1.Injectable(),
     __metadata("design:paramtypes", [config_service_1.ConfigService,
-        logs_service_1.LogsService])
+        logs_service_1.LogsService,
+        accounts_service_1.AccountsService])
 ], BotsService);
 exports.BotsService = BotsService;
 //# sourceMappingURL=bots.service.js.map

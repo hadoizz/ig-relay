@@ -15,7 +15,7 @@ export type Bot = {
   getSupervisors: () => Promise<any>
 }
 
-const createBot = async ({ dataDir, env = {}, cookies = {}, beforeLoad = slave => {} }) => {
+const createBot = async ({ dataDir, device, env = {}, cookies = {}, beforeLoad = slave => {} }) => {
   const slave = createSlave('app.js', {
     cwd: resolve('../bot/dist/'),
     env: {
@@ -23,7 +23,8 @@ const createBot = async ({ dataDir, env = {}, cookies = {}, beforeLoad = slave =
       ...env,
       CONTROLLED: '1',
       COOKIES: JSON.stringify(cookies),
-      DATA_DIR: dataDir
+      DATA_DIR: dataDir,
+      DEVICE: device
     }
   })
 

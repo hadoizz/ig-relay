@@ -6,6 +6,7 @@ import { Slave } from 'fork-with-emitter'
 import ms from 'ms'
 import { LogsService } from '../logs/logs.service'
 import createDataDir from '../accounts/utils/createDataDir'
+import { AccountsService } from '../accounts/accounts.service'
 
 type BotInstance = {
   bot: Bot
@@ -17,18 +18,23 @@ type BotInstance = {
 export class BotsService {
   constructor(
     private readonly configService: ConfigService,
-    private readonly logsService: LogsService
+    private readonly logsService: LogsService,
+    private readonly accountsService: AccountsService
   ){}
 
   private readonly botInstances = new Map<string, BotInstance>()
 
-  async createBot({ accountId, web = false }: { accountId: number, web?: boolean }){
+  async createBot({ accountId, device, web = false }: { accountId: number, device?: string, web?: boolean }){
+    if(!device)
+      device = (await this.accountsService.getAccount(accountId)).device
+
     const id = await getId()
     
     const cleanup = () =>
       this.botInstances.delete(id)
 
     const bot = await createBot({
+      device,
       dataDir: await createDataDir(accountId),
       env: {
         LOGIN: this.configService.get('LOGIN'),

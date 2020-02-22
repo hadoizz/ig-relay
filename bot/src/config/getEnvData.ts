@@ -18,6 +18,8 @@ const cookies = process.env.COOKIES
 
 const dataDir = process.env.DATA_DIR || process.cwd()
 
+const device = process.env.DEVICE || 'Pixel 2'
+
 const getEnvData = () => ({
   login,
   password,
@@ -25,7 +27,8 @@ const getEnvData = () => ({
   headless,
   production,
   cookies,
-  dataDir
+  dataDir,
+  device
 })
 
 export default getEnvData

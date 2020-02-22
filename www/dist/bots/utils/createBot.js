@@ -14,10 +14,10 @@ const path_1 = require("path");
 const chalk_1 = __importDefault(require("chalk"));
 const fork_with_emitter_1 = require("fork-with-emitter");
 const stringio_1 = require("@rauschma/stringio");
-const createBot = async ({ dataDir, env = {}, cookies = {}, beforeLoad = slave => { } }) => {
+const createBot = async ({ dataDir, device, env = {}, cookies = {}, beforeLoad = slave => { } }) => {
     const slave = fork_with_emitter_1.createSlave('app.js', {
         cwd: path_1.resolve('../bot/dist/'),
-        env: Object.assign(Object.assign({ HEADLESS: '1' }, env), { CONTROLLED: '1', COOKIES: JSON.stringify(cookies), DATA_DIR: dataDir })
+        env: Object.assign(Object.assign({ HEADLESS: '1' }, env), { CONTROLLED: '1', COOKIES: JSON.stringify(cookies), DATA_DIR: dataDir, DEVICE: device })
     });
     beforeLoad(slave);
     (async () => {
