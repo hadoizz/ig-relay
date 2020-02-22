@@ -70,6 +70,10 @@ export default connect(mapStateToProps)(({ currentAccount }: { currentAccount: A
     }
   }, [currentAccount.accountId, bot])
 
+  const [streaming, setStreaming] = useState(true)
+  const toggleStreaming = () =>
+    setStreaming(streaming => !streaming)
+  
   return (
     <div>
     {bot === States.Initial && <Button variant="contained" color="primary" onClick={startBot}>Odpalaj</Button>}
@@ -99,7 +103,8 @@ export default connect(mapStateToProps)(({ currentAccount }: { currentAccount: A
         <br />
         <Typography variant="h5" gutterBottom>Odpowiedź: { response === null ? 'brak' : `"${response}"` }</Typography>
         <Typography variant="h4" gutterBottom>Podgląd</Typography>
-        <Streaming botId={bot} />
+        <Streaming botId={bot} open={streaming} />
+        <Button variant="contained" color="primary" onClick={toggleStreaming}>Przełącz</Button>
       </>
     )}
     </div>

@@ -9,6 +9,9 @@ import submitForm from '../services/navigation/submitForm'
 import clickButton from '../services/navigation/clickButton'
 import gotoIndex from '../services/index/gotoIndex'
 import closeDialog from '../services/dialog/closeDialog'
+import scrollTo from '../utils/elements/scrollTo'
+import getFirstPost from '../services/post/selectors/getFirstPost'
+import scrollToNextPost from '../services/post/scrollToNextPost'
 
 const path = '/accounts/login'
 
@@ -65,8 +68,16 @@ export default async (page: Page, credentials = getCredentials()): Promise<Respo
 
   try {
     await closeDialog(page)
-    await sleep(1000, 3000)
+    await sleep(1000, 2000)
   } catch(error) {}
+
+  await gotoIndex(page)
+  await sleep(1000, 2000)
+  await scrollTo(await getFirstPost(page))
+  await sleep(1000, 2000)
+  await scrollToNextPost(page)
+  await sleep(1000, 2000)
+  await scrollToNextPost(page)
 
   log('login', 'success')
   return 'success'

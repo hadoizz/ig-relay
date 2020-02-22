@@ -18,7 +18,7 @@ export default memo(({ botId, open = true }: { botId: string, open?: boolean }) 
       eventSource.close()
       console.log(`eventSource.removeEventListener('message')`)
     }
-  }, [botId])
+  }, [botId, open])
 
   return open && <img src={`data:image/png;base64,${data}`} style={{ objectFit: 'contain', width: '100%', maxHeight: '600px' }} />
 })
