@@ -14,7 +14,7 @@ app.prepare().then(() => {
     // This tells it to parse the query portion of the URL.
     const parsedUrl = parse(req.url, true)
     handle(req, res, parsedUrl)
-  }).listen(PORT, err => {
+  }).listen(PORT, '0.0.0.0', err => {
     if (err) throw err
     console.log(`> Ready on http://localhost:${PORT}`)
   })
