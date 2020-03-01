@@ -15,5 +15,5 @@ export default async (page: Page, text: string) => {
   //select input text if exists (typing will overwrite it)
   await input.click({ clickCount: 3 })
 
-  await input.type(text, { delay: random(70, 120) })
+  await input.type(text.toString(), { delay: random(70, 120) })
 }
