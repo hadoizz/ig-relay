@@ -19,8 +19,8 @@ import login from './controllers/login'
 import closeDialog from './services/dialog/closeDialog'
 import uploadPost from './services/uploadPost/uploadPost'
 import unfollowingBot from './controllers/unfollowingBot'
-import getSessionid from './controllers/getSessionid'
 import Credentials from './types/Credentials'
+import challenge from './controllers/challenge'
 
 const navigationSupervisors = (page: Page) => ({
   gotoIndex: () =>
@@ -52,18 +52,14 @@ const servicesSupervisors = (page: Page) => ({
 })
 
 const controllersSupervisors = (page: Page) => ({
-  //followPersonsWhoLiked: (maximum?: number) =>
-  //  followPersonsWhoLiked(page, maximum),
   followingBot: async (maximum: number) =>
     await followingBot(page, maximum),
   unfollowingBot: (maximum: number) =>  
     unfollowingBot(page, maximum),
   login: (credentials?: Credentials) =>
     login(page, credentials),
-  //unfollowFollowed: () =>
-  //  unfollowFollowed(page)
-  getSessionid: async ({ login, password }: { login: string, password: string }) =>
-    await getSessionid(page, { login, password })
+  challenge: (code: string) =>
+    challenge(page, code)
 })
 
 const devSupervisors = (page: Page) => ({
