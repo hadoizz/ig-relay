@@ -73,6 +73,7 @@ let JobsService = class JobsService {
         const jobs = await this.getAllJobs();
         for (const job of jobs)
             await this.loadJob(job);
+        console.log(`Loaded ${jobs.length} jobs`);
     }
     async getAllJobs() {
         const jobs = await this.jobRepository
@@ -110,6 +111,7 @@ let JobsService = class JobsService {
             return;
         this.unloadJob(jobId);
         this.jobRepository.delete(jobId);
+        console.log(`Deleted job ${jobId}`);
     }
     async updateJob(userId, jobId, changes) {
         if (!(await this.hasJob(userId, jobId)))
@@ -131,7 +133,7 @@ let JobsService = class JobsService {
             .where('account.user = :userId', { userId })
             .andWhere('account.accountId = :accountId', { accountId })
             .getOne();
-        this.jobRepository.insert(Object.assign(Object.assign({}, job), { account }));
+        await this.jobRepository.insert(Object.assign(Object.assign({}, job), { account }));
         if (this.configService.isProduction()) {
             this.unloadJobs();
             await this.loadJobs();

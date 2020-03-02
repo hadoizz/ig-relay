@@ -63,12 +63,17 @@ const JobForm = ({ index, job }: { index: number, job: Job }) => {
       [key]: value
     }))
 
+  const del = async () => {
+    await deleteJob(job)
+    location.reload()
+  }
+
   return (
     <form noValidate autoComplete="off" onSubmit={handleSubmit} style={{ marginBottom: '16px' }}>
       <Typography variant="h6">
         #{ index + 1 }
         <div style={{ float: 'right' }}>
-          <Button color="secondary" variant="contained" size="small" onClick={() => deleteJob(job)} style={{ marginRight: '0.5rem' }}>
+          <Button color="secondary" variant="contained" size="small" onClick={del} style={{ marginRight: '0.5rem' }}>
             Delete
           </Button>
           <Button color="secondary" variant="contained" size="small" type="submit">

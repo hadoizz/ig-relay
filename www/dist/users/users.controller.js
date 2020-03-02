@@ -14,22 +14,12 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const users_service_1 = require("./users.service");
-const user_entity_1 = require("../entities/user.entity");
 let UsersController = class UsersController {
     constructor(service) {
         this.service = service;
     }
     get(params) {
         return this.service.getUser(params.id);
-    }
-    create(user) {
-        return this.service.createUser(user);
-    }
-    update(user) {
-        return this.service.updateUser(user);
-    }
-    delete(params) {
-        return this.service.deleteUser(params.id);
     }
 };
 __decorate([
@@ -39,27 +29,6 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "get", null);
-__decorate([
-    common_1.Post(),
-    __param(0, common_1.Body()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [user_entity_1.User]),
-    __metadata("design:returntype", void 0)
-], UsersController.prototype, "create", null);
-__decorate([
-    common_1.Put(),
-    __param(0, common_1.Body()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [user_entity_1.User]),
-    __metadata("design:returntype", void 0)
-], UsersController.prototype, "update", null);
-__decorate([
-    common_1.Delete(':id'),
-    __param(0, common_1.Param()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
-], UsersController.prototype, "delete", null);
 UsersController = __decorate([
     common_1.Controller('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])

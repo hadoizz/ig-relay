@@ -2310,8 +2310,8 @@
         "signature": "bf468c84b1dd83f4925e5d59f0cda3b078b93a4fcef0e388ba03e4346b30bb07"
       },
       "../src/users/users.controller.ts": {
-        "version": "a2c74062b3edc97027360b1b1fe9e07698fe1c9cc68512fd8faa3f66c4c6efda",
-        "signature": "608f8474590f81ca454450cd952e2b6eb7f51ba914bb5214b84ec978d0b3e33f"
+        "version": "8612f0763c3e4f07285e5d12de6ca0cc11ea728f014be2e01d80a69f298ba70f",
+        "signature": "066159945f2317d6f82e4189f309817ff339ad39f96ed147b838ceb6b01c5b04"
       },
       "../src/users/users.module.ts": {
         "version": "6ba2b32ce28c0fe36b7d7c391790449d989ceaf93c2e0582d85433e2499ac7a5",
@@ -2422,7 +2422,7 @@
         "signature": "77ef901e7424f160f3ce11e05e05be147374fe15c492c6378158b2cf4119f7b9"
       },
       "../src/jobs/jobs.service.ts": {
-        "version": "9b1f2ab47d388fed5a104989f94bf41effacfeaf0376ea63b46c151abda509f8",
+        "version": "3df02188646374aa034ec07b0c16dc845af89c2f977e9378bab2633b94d7cd4c",
         "signature": "62dd511afd1de07434cf865ba82d2bb0bc061864688595f7de5225cab1424982"
       },
       "../src/jobs/jobs.controller.ts": {
@@ -12202,7 +12202,6 @@
       "../node_modules/moment/moment.d.ts",
       "../node_modules/@types/cron/index.d.ts",
       "../node_modules/delay/index.d.ts",
-      "../src/jobs/jobs.service.ts",
       "../src/jobs/jobs.controller.ts",
       "../src/jobs/jobs.module.ts",
       "../src/app.service.ts",
@@ -12308,7 +12307,8 @@
       "../node_modules/@types/webpack-sources/index.d.ts",
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
-      "../node_modules/@types/yargs/index.d.ts"
+      "../node_modules/@types/yargs/index.d.ts",
+      "../src/jobs/jobs.service.ts"
     ]
   },
   "version": "3.6.3"
