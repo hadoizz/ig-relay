@@ -21,10 +21,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: '100%',
     padding: `0 ${theme.spacing(4)}px`,
     [theme.breakpoints.down('sm')]: {
-      padding: `0 ${theme.spacing(1)}px`
+      padding: `0 ${theme.spacing(1)}px 0 ${theme.spacing(3)}px`
     },
     [theme.breakpoints.down('xs')]: {
-      padding: 'unset'
+      padding: `0 ${theme.spacing(1)}px 0 ${theme.spacing(2)}px`
     }
   },
   logo: {
@@ -43,9 +43,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   link: {
     textDecoration: 'none',
     color: 'inherit'
-  },
-  burgerIcon: {
-    color: '#fd5949'
   }
 }))
 
@@ -61,11 +58,6 @@ export default () => {
   return (
     <AppBar position="fixed" color="primary">
       <Toolbar className={classes.toolbar}>
-        <Hidden implementation="css" mdUp>
-          <IconButton onClick={toggleDrawer}>
-            <Menu className={classes.burgerIcon} />
-          </IconButton>
-        </Hidden>
         <Typography variant="h3" className={classes.logo}>
           <Link href="/">
             <a>
@@ -74,14 +66,12 @@ export default () => {
           </Link>
         </Typography>
         <div className={classes.grow} />
+        <Hidden implementation="css" mdUp>
+          <IconButton onClick={toggleDrawer} color="secondary">
+            <Menu />
+          </IconButton>
+        </Hidden>
         <Hidden smDown implementation="css">
-          <Link href="/dev">
-            <a>
-              <IconButton color="secondary">
-                <PhonelinkSetupOutlined />
-              </IconButton>
-            </a>
-          </Link>
           <Link href="/profile">
             <a>
               <IconButton color="secondary">
@@ -96,7 +86,7 @@ export default () => {
       </Toolbar>
       { /* mobile drawer */ }
       <Hidden smUp implementation="css">
-        <SwipeableDrawer open={mobileDrawerOpen} onOpen={toggleDrawer} onClose={toggleDrawer} className={classes.drawer} disableBackdropTransition={!iOS} disableDiscovery={iOS}>
+        <SwipeableDrawer anchor="right" open={mobileDrawerOpen} onOpen={toggleDrawer} onClose={toggleDrawer} className={classes.drawer} disableBackdropTransition={!iOS} disableDiscovery={iOS}>
           <List className={classes.drawer}>
             <Link href="/bot">
               <a className={classes.link}>
@@ -106,18 +96,6 @@ export default () => {
                   </ListItemIcon>
                   <ListItemText>
                     Bot
-                  </ListItemText>
-                </ListItem>
-              </a>
-            </Link>
-            <Link href="/dev">
-              <a className={classes.link}>
-                <ListItem button>
-                  <ListItemIcon>
-                    <PhonelinkSetupOutlined color="secondary" />
-                  </ListItemIcon>
-                  <ListItemText>
-                    Dev
                   </ListItemText>
                 </ListItem>
               </a>

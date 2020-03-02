@@ -21,7 +21,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     margin: theme.spacing(2, 0)
   },
   button: {
-    marginTop: theme.spacing(4)
+    margin: theme.spacing(3, 0, 2)
+  },
+  divider: {
+    margin: theme.spacing(2, 0)
   },
   center: {
     display: 'flex',
@@ -70,10 +73,9 @@ export default () => {
             <TextField label="password" type="password" value={password} onChange={({ target: { value } }) => setPassword(value)} />
             <Button type="submit" variant="contained" color="primary" className={classes.button}>Log in</Button>
           </form>
-          <Divider variant="fullWidth" orientation="horizontal" />
-          <br />
+          <Divider variant="fullWidth" orientation="horizontal" className={classes.divider} />
           <div className={classes.center}>
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" disabled>
               log me with google
             </Button>
           </div>
