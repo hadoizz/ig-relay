@@ -2558,7 +2558,7 @@
         "signature": "2608cfd623840916e664e68c3dc5eb4347ccae822f808d899bf00e73cbab2bfe"
       },
       "../src/main.ts": {
-        "version": "b6bd6a202e14349c5cc307b4f9e549b1f57095f8bd7d5a59b9a38ed50177e121",
+        "version": "ca5d3957a81e742266fa999ba86aef4a4499834a28bcdc393bdd60b95e7d2216",
         "signature": "3b3cbe89219f5c7208870ae9336c27c597cc0148fa7858e25ee8561172abbec9"
       },
       "../src/accounts/account.entity.spec.ts": {

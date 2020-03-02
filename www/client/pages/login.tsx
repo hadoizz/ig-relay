@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import { TextField, Button, Theme, makeStyles, Card, CardContent, Typography, Avatar } from '@material-ui/core'
+import { TextField, Button, Theme, makeStyles, Card, CardContent, Typography, Avatar, Divider } from '@material-ui/core'
 import fetch from 'isomorphic-unfetch'
 import { login } from '../utils/auth'
 import getServerHost from '../utils/getServerHost'
@@ -22,6 +22,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   button: {
     marginTop: theme.spacing(4)
+  },
+  center: {
+    display: 'flex',
+    justifyContent: 'center'
   }
 }))
 
@@ -66,6 +70,13 @@ export default () => {
             <TextField label="password" type="password" value={password} onChange={({ target: { value } }) => setPassword(value)} />
             <Button type="submit" variant="contained" color="primary" className={classes.button}>Log in</Button>
           </form>
+          <Divider variant="fullWidth" orientation="horizontal" />
+          <br />
+          <div className={classes.center}>
+            <Button variant="contained" color="primary">
+              log me with google
+            </Button>
+          </div>
         </CardContent>
       </Card>
     </Layout>

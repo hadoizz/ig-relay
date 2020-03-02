@@ -22,6 +22,11 @@ const CreateJob = connect(mapStateToProps)(({ currentAccount, open, handleExit }
       [key]: value
     }))
 
+  const create = async () => {
+    await createJob(currentAccount.accountId, state)
+    location.reload()
+  }
+
   return (
     <Dialog open={open} onClose={handleExit}>
       <DialogTitle>Create new job</DialogTitle>
@@ -33,7 +38,7 @@ const CreateJob = connect(mapStateToProps)(({ currentAccount, open, handleExit }
         <TextField label="payload" value={state.supervisorPayload} onChange={update('supervisorPayload')} />
       </DialogContent>
       <DialogActions>
-        <Button color="primary" onClick={() => createJob(currentAccount.accountId, state)}>
+        <Button color="primary" onClick={create}>
           Create
         </Button>
       </DialogActions>

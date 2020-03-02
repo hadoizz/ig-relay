@@ -10,7 +10,7 @@ const app_module_1 = require("./app.module");
 (async () => {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.use(cors_1.default());
-    await app.listen(process.env.PORT || 8080);
+    await app.listen(process.env.PORT || 8080, '0.0.0.0');
     console.log(`Server listening on port: ${process.env.PORT || 8080}`);
     if (process.env.NODE_ENV === 'production')
         console.log('Production mode');
