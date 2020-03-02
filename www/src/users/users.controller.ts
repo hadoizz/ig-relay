@@ -11,7 +11,7 @@ export class UsersController {
     return this.service.getUser(params.id)
   }
 
-  @Post()
+  /*@Post()
   create(@Body() user: User){
     return this.service.createUser(user)
   }
@@ -24,5 +24,5 @@ export class UsersController {
   @Delete(':id')
   delete(@Param() params){
     return this.service.deleteUser(params.id)
-  }
+  }*/
 }
