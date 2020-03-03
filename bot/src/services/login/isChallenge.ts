@@ -2,8 +2,14 @@ import { Page } from 'puppeteer';
 import getFormInput from '../navigation/selectors/getFormInput';
 
 export default async (page: Page) => {
-  const isLink = Boolean(page.url().includes('instagram.com/challenge'))
-  const isFormInput = await getFormInput(page) !== null
+  if(!page.url().includes('instagram.com/challenge'))
+    return false
 
-  return isLink && isFormInput
+  try {
+    await getFormInput(page)
+  } catch(error) {
+    return false
+  }
+
+  return true
 }
