@@ -12,7 +12,7 @@ export default async (page: Page, code: string): Promise<Response> => {
   await typeForm(page, code)
   await submitForm(page)
 
-  await sleep(3000)
+  await sleep(10000)
 
   if(await isChallenge(page)){
     log('challenge', 'error')
