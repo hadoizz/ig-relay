@@ -1,16 +1,9 @@
 import { Page } from 'puppeteer'
 import random from 'random-int'
-
-const getInput = async (page: Page) => {
-  const input = await page.$('form input')
-  if(input === null)
-    throw `Can't select submit form input`
-
-  return input
-}
+import getFormInput from './selectors/getFormInput'
 
 export default async (page: Page, text: string) => {
-  const input = await getInput(page)
+  const input = await getFormInput(page)
 
   //select input text if exists (typing will overwrite it)
   await input.click({ clickCount: 3 })
