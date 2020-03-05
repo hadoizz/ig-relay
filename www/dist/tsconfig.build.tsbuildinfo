@@ -2438,7 +2438,7 @@
         "signature": "78b4c07ca8775723b6cbf7fb1080cef23202a716f6302fb3a2d65c5ff864faa3"
       },
       "../src/app.module.ts": {
-        "version": "9efef1fb65393635731cb57657c37b7b3a9f202140b7c7573b3288af584684bb",
+        "version": "6fd4f705dd1ba51d7f7aad8b1880ecb653eb707344299279a92e5bbb4a218ec3",
         "signature": "9fc7f7b6ad854404973b8cba8e6d883f758237991968e9a3965d716d46f1da88"
       },
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts": {
@@ -10834,8 +10834,8 @@
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "../src/entities/account.entity.ts": [
-        "../src/entities/user.entity.ts",
         "../src/entities/job.entity.ts",
+        "../src/entities/user.entity.ts",
         "../src/entities/log.entity.ts",
         "../src/entities/followed.entity.ts"
       ],
@@ -10843,8 +10843,8 @@
         "../src/entities/account.entity.ts"
       ],
       "../src/logs/logs.service.ts": [
-        "../node_modules/typeorm/index.d.ts",
         "../src/entities/log.entity.ts",
+        "../node_modules/typeorm/index.d.ts",
         "../src/entities/followed.entity.ts",
         "../src/entities/account.entity.ts"
       ],
@@ -10855,17 +10855,17 @@
       "../src/accounts/accounts.service.ts": [
         "../node_modules/typeorm/index.d.ts",
         "../src/entities/account.entity.ts",
+        "../src/users/users.service.ts",
+        "../src/accounts/profile.interface.ts",
         "../src/entities/job.entity.ts",
         "../src/entities/followed.entity.ts",
-        "../src/entities/log.entity.ts",
-        "../src/users/users.service.ts",
-        "../src/accounts/profile.interface.ts"
+        "../src/entities/log.entity.ts"
       ],
       "../src/bots/bots.service.ts": [
+        "../src/bots/utils/createbot.ts",
         "../src/config/config.service.ts",
         "../src/logs/logs.service.ts",
-        "../src/accounts/accounts.service.ts",
-        "../src/bots/utils/createbot.ts"
+        "../src/accounts/accounts.service.ts"
       ],
       "../node_modules/@nestjs/passport/dist/abstract.strategy.d.ts": [
         "../node_modules/@types/node/util.d.ts",
@@ -11089,11 +11089,11 @@
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "../src/jobs/jobs.service.ts": [
-        "../node_modules/typeorm/index.d.ts",
         "../src/entities/job.entity.ts",
         "../src/entities/user.entity.ts",
-        "../src/entities/account.entity.ts",
+        "../node_modules/typeorm/index.d.ts",
         "../src/bots/bots.service.ts",
+        "../src/entities/account.entity.ts",
         "../src/config/config.service.ts"
       ],
       "../src/jobs/jobs.controller.ts": [

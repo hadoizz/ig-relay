@@ -27,7 +27,10 @@ const connectionOptions = {
     "password": process.env.MYSQL_PASSWORD || "",
     "database": process.env.MYSQL_DB || "insta",
     "entities": [__dirname + "/entities/*.entity{.js,.ts}"],
-    "synchronize": true
+    "synchronize": true,
+    "extra": {
+        "charset": "utf8mb4"
+    }
 };
 let AppModule = class AppModule {
 };
