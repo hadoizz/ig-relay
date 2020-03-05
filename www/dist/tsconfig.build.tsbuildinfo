@@ -2142,7 +2142,7 @@
         "signature": "c9ae0b351a07b52f29a28e869d8c7c8d29743bbb5eeddc7c0b5b2a69a2450528"
       },
       "../src/config/config.service.ts": {
-        "version": "062b07915e48faf408f97ccae8380c32ab113546ec5f52c95e7174470bdcb5df",
+        "version": "c901c0621f1411ca21495e298667e22cd949d4889b84074ef8e1cd33037f4aef",
         "signature": "0802519b1699b89092f0a8220ae215b341eb6cfe70eb5e2a6d2b23ecd4dfb0e3"
       },
       "../src/entities/job.entity.ts": {
@@ -2174,7 +2174,7 @@
         "signature": "78daabf1f7d99c6b37a7fd4834f4eb0cb4c2e1401573bdfe9f0bca5fd36bf59a"
       },
       "../src/accounts/utils/devices/portraitdevices.ts": {
-        "version": "3456c7570eaf5ec4321304ddb4c7524bc88ac1c82a9b141f3172110896a710c9",
+        "version": "6c42a1c8f06cfe9dfd3f81b5c09da1737b7c8359a78e6bd7d2a3a2a156375ebf",
         "signature": "c4f1a6bce8d78eaa5143d56976073003b1d58bc093832c928c3d10b92dbeeda2"
       },
       "../node_modules/random-int/index.d.ts": {
@@ -2560,118 +2560,6 @@
       "../src/main.ts": {
         "version": "ca5d3957a81e742266fa999ba86aef4a4499834a28bcdc393bdd60b95e7d2216",
         "signature": "3b3cbe89219f5c7208870ae9336c27c597cc0148fa7858e25ee8561172abbec9"
-      },
-      "../src/accounts/account.entity.spec.ts": {
-        "version": "2187fe06a7036085e12b498c87cabe5b17a30eda75315f8660ecd91efe89cadc",
-        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
-      },
-      "../node_modules/@nestjs/testing/interfaces/override-by-factory-options.interface.d.ts": {
-        "version": "ca248f650c19abc031e2aaafa41fceb524378b1a2249905b44d1c8e4148fcb52",
-        "signature": "ca248f650c19abc031e2aaafa41fceb524378b1a2249905b44d1c8e4148fcb52"
-      },
-      "../node_modules/@nestjs/core/metadata-scanner.d.ts": {
-        "version": "9c08c74e1560befc7fc784be9cd20ec036f7387ad0d55dbb0d5164b3a67f6ab0",
-        "signature": "9c08c74e1560befc7fc784be9cd20ec036f7387ad0d55dbb0d5164b3a67f6ab0"
-      },
-      "../node_modules/@nestjs/testing/testing-module.d.ts": {
-        "version": "930e8338212d259acfb8cc06097f8d57b0d15190893bca2cd6f24fbaf428b758",
-        "signature": "930e8338212d259acfb8cc06097f8d57b0d15190893bca2cd6f24fbaf428b758"
-      },
-      "../node_modules/@nestjs/testing/testing-module.builder.d.ts": {
-        "version": "ba8cf606aee66bd27748f6b51776ebc6117f8abdaee40052e890e697baff8e0b",
-        "signature": "ba8cf606aee66bd27748f6b51776ebc6117f8abdaee40052e890e697baff8e0b"
-      },
-      "../node_modules/@nestjs/testing/interfaces/override-by.interface.d.ts": {
-        "version": "9388b0ffb5ab94e23e0165a96985091a133e3632e5f92fd72b14df7d73b3804d",
-        "signature": "9388b0ffb5ab94e23e0165a96985091a133e3632e5f92fd72b14df7d73b3804d"
-      },
-      "../node_modules/@nestjs/testing/interfaces/index.d.ts": {
-        "version": "a397d00d0454ddb1cae255c19bde344f78b8b93512cff09b98b7e148d889b6e6",
-        "signature": "a397d00d0454ddb1cae255c19bde344f78b8b93512cff09b98b7e148d889b6e6"
-      },
-      "../node_modules/@nestjs/testing/test.d.ts": {
-        "version": "927c6cf84c59b3ca7fdb6d3cbc3aa986193337b6a9758994575106f6073ee737",
-        "signature": "927c6cf84c59b3ca7fdb6d3cbc3aa986193337b6a9758994575106f6073ee737"
-      },
-      "../node_modules/@nestjs/testing/index.d.ts": {
-        "version": "0a33b8bff876368beef794f5f08e8221103efa394f9e0e27e19f557a8cdaa0a0",
-        "signature": "0a33b8bff876368beef794f5f08e8221103efa394f9e0e27e19f557a8cdaa0a0"
-      },
-      "../src/accounts/accounts.controller.spec.ts": {
-        "version": "d25e48400164c1a49d449919b730ac55025a8843de287d03a4f3011db1fd49c1",
-        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
-      },
-      "../src/accounts/accounts.service.spec.ts": {
-        "version": "b32a382ee1815d26e60d72aba7a72be75e743f1b1a50367f127be5f26136ee2b",
-        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
-      },
-      "../src/auth/auth.controller.spec.ts": {
-        "version": "3ee087062383b1645cb5eb17b9c9700bdb26635e5e5a01d5648b2141bf8cb213",
-        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
-      },
-      "../src/auth/auth.service.spec.ts": {
-        "version": "97bbc6835e25318e40a5d32ae0f97d39333c753c3779d957ebf8231139e9ea34",
-        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
-      },
-      "../src/bots/bots.controller.spec.ts": {
-        "version": "b441f4c88e08e006672edde7853dbb35e6639b902fc88f198ba8e8b2e63bcc9a",
-        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
-      },
-      "../src/bots/bots.service.spec.ts": {
-        "version": "9f1c311e42b613483fddc2a9642da6cf1a21349bb5424ae9612226b80ee29f48",
-        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
-      },
-      "../src/entities/account.entity.spec.ts": {
-        "version": "2e2efd4c2ecb6d2a9dbd584ac35d1dbe9d45fd6f8d1c377e2fa410c42f877f8d",
-        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
-      },
-      "../src/entities/followed.entity.spec.ts": {
-        "version": "2dc96e4a39415cca3c05e052c58a9360ff0fca22897059cda8dede60f0526578",
-        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
-      },
-      "../src/entities/job.entity.spec.ts": {
-        "version": "f893be39446f6033df2a1836daae43dd8873d8d47cd2a0db291f8fd6b2126e0d",
-        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
-      },
-      "../src/entities/log.entity.spec.ts": {
-        "version": "b20f1416ce205dfdc6d07a757e4dcb0625dd10a8a37a7214448c2325253dea7e",
-        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
-      },
-      "../src/entities/user.entity.spec.ts": {
-        "version": "5b0d5e984b441ee1ad248adbd66762ae3cd71b1b13113241df06f2194e9f1138",
-        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
-      },
-      "../src/jobs/jobs.controller.spec.ts": {
-        "version": "0c4f08039190c2591e30c32e402cc6ee53109443eef10c20b8ecdf7dc12f2e3a",
-        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
-      },
-      "../src/jobs/jobs.service.spec.ts": {
-        "version": "bb3338a1721b8fa204543a6b072d5005a479c09ccd931e2a1bf11674f889c2ca",
-        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
-      },
-      "../src/logs/logs.controller.spec.ts": {
-        "version": "08650e804f5fe35cef1e4517ffaa0d67a1716391dae06e2bc86e2387a6a00460",
-        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
-      },
-      "../src/logs/logs.service.spec.ts": {
-        "version": "d86e81a380e4789d8911bd7289feb460c25d5bcc1f30a9cd79f66d6fe9fb2464",
-        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
-      },
-      "../src/streaming/streaming.controller.spec.ts": {
-        "version": "d7d7e6a840ebc67026caf7243cea6f092163aeeb11563481d54d8c16fc92b912",
-        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
-      },
-      "../src/streaming/streaming.service.spec.ts": {
-        "version": "a75440da76ef9f22270239c48490bdb60ce3ffc29fe0ea2e56cc90b88e916c14",
-        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
-      },
-      "../src/users/users.controller.spec.ts": {
-        "version": "f6e126344077b97b75064a0ab5f10a6628fa2b4032ffb188e7f4b81ca6a164f9",
-        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
-      },
-      "../src/users/users.service.spec.ts": {
-        "version": "c5b98b99fdaf48c0872e0ce12a77742d984098240c3e041a268efd4f68330236",
-        "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6"
       },
       "../node_modules/@types/anymatch/index.d.ts": {
         "version": "48b52264fa193879a074197839dbb4796fa07e86350ff888e5361e06aa46df76",
@@ -7010,176 +6898,6 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
       ],
-      "../src/accounts/account.entity.spec.ts": [
-        "../src/entities/account.entity.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../node_modules/@nestjs/testing/interfaces/override-by-factory-options.interface.d.ts": [
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../node_modules/@nestjs/core/metadata-scanner.d.ts": [
-        "../node_modules/@nestjs/common/interfaces/injectable.interface.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../node_modules/@nestjs/testing/testing-module.d.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
-        "../node_modules/@nestjs/common/interfaces/microservices/microservice-configuration.interface.d.ts",
-        "../node_modules/@nestjs/common/interfaces/microservices/nest-microservice-options.interface.d.ts",
-        "../node_modules/@nestjs/common/interfaces/nest-application-options.interface.d.ts",
-        "../node_modules/@nestjs/common/interfaces/type.interface.d.ts",
-        "../node_modules/@nestjs/core/index.d.ts",
-        "../node_modules/@nestjs/core/application-config.d.ts",
-        "../node_modules/@nestjs/core/injector/container.d.ts",
-        "../node_modules/@nestjs/core/injector/module.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../node_modules/@nestjs/testing/testing-module.builder.d.ts": [
-        "../node_modules/@nestjs/common/interfaces/index.d.ts",
-        "../node_modules/@nestjs/core/metadata-scanner.d.ts",
-        "../node_modules/@nestjs/testing/interfaces/index.d.ts",
-        "../node_modules/@nestjs/testing/testing-module.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../node_modules/@nestjs/testing/interfaces/override-by.interface.d.ts": [
-        "../node_modules/@nestjs/testing/testing-module.builder.d.ts",
-        "../node_modules/@nestjs/testing/interfaces/override-by-factory-options.interface.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../node_modules/@nestjs/testing/interfaces/index.d.ts": [
-        "../node_modules/@nestjs/testing/interfaces/override-by-factory-options.interface.d.ts",
-        "../node_modules/@nestjs/testing/interfaces/override-by.interface.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../node_modules/@nestjs/testing/test.d.ts": [
-        "../node_modules/@nestjs/common/interfaces/modules/module-metadata.interface.d.ts",
-        "../node_modules/@nestjs/testing/testing-module.builder.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../node_modules/@nestjs/testing/index.d.ts": [
-        "../node_modules/@nestjs/testing/interfaces/index.d.ts",
-        "../node_modules/@nestjs/testing/test.d.ts",
-        "../node_modules/@nestjs/testing/testing-module.d.ts",
-        "../node_modules/@nestjs/testing/testing-module.builder.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/accounts/accounts.controller.spec.ts": [
-        "../node_modules/@nestjs/testing/index.d.ts",
-        "../src/accounts/accounts.controller.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/accounts/accounts.service.spec.ts": [
-        "../node_modules/@nestjs/testing/index.d.ts",
-        "../src/accounts/accounts.service.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/auth/auth.controller.spec.ts": [
-        "../node_modules/@nestjs/testing/index.d.ts",
-        "../src/auth/auth.controller.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/auth/auth.service.spec.ts": [
-        "../node_modules/@nestjs/testing/index.d.ts",
-        "../src/auth/auth.service.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/bots/bots.controller.spec.ts": [
-        "../node_modules/@nestjs/testing/index.d.ts",
-        "../src/bots/bots.controller.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/bots/bots.service.spec.ts": [
-        "../node_modules/@nestjs/testing/index.d.ts",
-        "../src/bots/bots.service.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/entities/account.entity.spec.ts": [
-        "../src/entities/account.entity.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/entities/followed.entity.spec.ts": [
-        "../src/entities/followed.entity.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/entities/job.entity.spec.ts": [
-        "../src/entities/job.entity.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/entities/log.entity.spec.ts": [
-        "../src/entities/log.entity.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/entities/user.entity.spec.ts": [
-        "../src/entities/user.entity.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/jobs/jobs.controller.spec.ts": [
-        "../node_modules/@nestjs/testing/index.d.ts",
-        "../src/jobs/jobs.controller.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/jobs/jobs.service.spec.ts": [
-        "../node_modules/@nestjs/testing/index.d.ts",
-        "../src/jobs/jobs.service.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/logs/logs.controller.spec.ts": [
-        "../node_modules/@nestjs/testing/index.d.ts",
-        "../src/logs/logs.controller.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/logs/logs.service.spec.ts": [
-        "../node_modules/@nestjs/testing/index.d.ts",
-        "../src/logs/logs.service.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/streaming/streaming.controller.spec.ts": [
-        "../node_modules/@nestjs/testing/index.d.ts",
-        "../src/streaming/streaming.controller.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/streaming/streaming.service.spec.ts": [
-        "../node_modules/@nestjs/testing/index.d.ts",
-        "../src/streaming/streaming.service.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/users/users.controller.spec.ts": [
-        "../node_modules/@nestjs/testing/index.d.ts",
-        "../src/users/users.controller.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../src/users/users.service.spec.ts": [
-        "../node_modules/@nestjs/testing/index.d.ts",
-        "../src/users/users.service.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
       "../node_modules/@types/anymatch/index.d.ts": [
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
@@ -11311,62 +11029,6 @@
       "../src/main.ts": [
         "../node_modules/reflect-metadata/index.d.ts"
       ],
-      "../node_modules/@nestjs/testing/interfaces/override-by-factory-options.interface.d.ts": [
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../node_modules/@nestjs/core/metadata-scanner.d.ts": [
-        "../node_modules/@nestjs/common/interfaces/injectable.interface.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../node_modules/@nestjs/testing/testing-module.d.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
-        "../node_modules/@nestjs/common/interfaces/microservices/microservice-configuration.interface.d.ts",
-        "../node_modules/@nestjs/common/interfaces/microservices/nest-microservice-options.interface.d.ts",
-        "../node_modules/@nestjs/common/interfaces/nest-application-options.interface.d.ts",
-        "../node_modules/@nestjs/common/interfaces/type.interface.d.ts",
-        "../node_modules/@nestjs/core/index.d.ts",
-        "../node_modules/@nestjs/core/application-config.d.ts",
-        "../node_modules/@nestjs/core/injector/container.d.ts",
-        "../node_modules/@nestjs/core/injector/module.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../node_modules/@nestjs/testing/testing-module.builder.d.ts": [
-        "../node_modules/@nestjs/common/interfaces/index.d.ts",
-        "../node_modules/@nestjs/core/metadata-scanner.d.ts",
-        "../node_modules/@nestjs/testing/interfaces/index.d.ts",
-        "../node_modules/@nestjs/testing/testing-module.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../node_modules/@nestjs/testing/interfaces/override-by.interface.d.ts": [
-        "../node_modules/@nestjs/testing/testing-module.builder.d.ts",
-        "../node_modules/@nestjs/testing/interfaces/override-by-factory-options.interface.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../node_modules/@nestjs/testing/interfaces/index.d.ts": [
-        "../node_modules/@nestjs/testing/interfaces/override-by-factory-options.interface.d.ts",
-        "../node_modules/@nestjs/testing/interfaces/override-by.interface.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../node_modules/@nestjs/testing/test.d.ts": [
-        "../node_modules/@nestjs/common/interfaces/modules/module-metadata.interface.d.ts",
-        "../node_modules/@nestjs/testing/testing-module.builder.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../node_modules/@nestjs/testing/index.d.ts": [
-        "../node_modules/@nestjs/testing/interfaces/index.d.ts",
-        "../node_modules/@nestjs/testing/test.d.ts",
-        "../node_modules/@nestjs/testing/testing-module.d.ts",
-        "../node_modules/@nestjs/testing/testing-module.builder.d.ts",
-        "../node_modules/@types/node/util.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
       "../node_modules/@types/anymatch/index.d.ts": [
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts"
@@ -12140,7 +11802,6 @@
       "../node_modules/@types/puppeteer/devicedescriptors.d.ts",
       "../node_modules/@types/puppeteer/index.d.ts",
       "../node_modules/@types/puppeteer-core/index.d.ts",
-      "../src/accounts/utils/devices/portraitdevices.ts",
       "../node_modules/random-int/index.d.ts",
       "../src/accounts/utils/devices/getrandomdevice.ts",
       "../src/entities/account.entity.ts",
@@ -12202,6 +11863,7 @@
       "../node_modules/moment/moment.d.ts",
       "../node_modules/@types/cron/index.d.ts",
       "../node_modules/delay/index.d.ts",
+      "../src/jobs/jobs.service.ts",
       "../src/jobs/jobs.controller.ts",
       "../src/jobs/jobs.module.ts",
       "../src/app.service.ts",
@@ -12236,34 +11898,6 @@
       "../node_modules/@nestjs/core/services/index.d.ts",
       "../node_modules/@nestjs/core/index.d.ts",
       "../src/main.ts",
-      "../src/accounts/account.entity.spec.ts",
-      "../node_modules/@nestjs/testing/interfaces/override-by-factory-options.interface.d.ts",
-      "../node_modules/@nestjs/core/metadata-scanner.d.ts",
-      "../node_modules/@nestjs/testing/testing-module.d.ts",
-      "../node_modules/@nestjs/testing/testing-module.builder.d.ts",
-      "../node_modules/@nestjs/testing/interfaces/override-by.interface.d.ts",
-      "../node_modules/@nestjs/testing/interfaces/index.d.ts",
-      "../node_modules/@nestjs/testing/test.d.ts",
-      "../node_modules/@nestjs/testing/index.d.ts",
-      "../src/accounts/accounts.controller.spec.ts",
-      "../src/accounts/accounts.service.spec.ts",
-      "../src/auth/auth.controller.spec.ts",
-      "../src/auth/auth.service.spec.ts",
-      "../src/bots/bots.controller.spec.ts",
-      "../src/bots/bots.service.spec.ts",
-      "../src/entities/account.entity.spec.ts",
-      "../src/entities/followed.entity.spec.ts",
-      "../src/entities/job.entity.spec.ts",
-      "../src/entities/log.entity.spec.ts",
-      "../src/entities/user.entity.spec.ts",
-      "../src/jobs/jobs.controller.spec.ts",
-      "../src/jobs/jobs.service.spec.ts",
-      "../src/logs/logs.controller.spec.ts",
-      "../src/logs/logs.service.spec.ts",
-      "../src/streaming/streaming.controller.spec.ts",
-      "../src/streaming/streaming.service.spec.ts",
-      "../src/users/users.controller.spec.ts",
-      "../src/users/users.service.spec.ts",
       "../node_modules/@types/anymatch/index.d.ts",
       "../node_modules/@babel/types/lib/index.d.ts",
       "../node_modules/@types/babel__generator/index.d.ts",
@@ -12308,7 +11942,7 @@
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
       "../node_modules/@types/yargs/index.d.ts",
-      "../src/jobs/jobs.service.ts"
+      "../src/accounts/utils/devices/portraitdevices.ts"
     ]
   },
   "version": "3.6.3"

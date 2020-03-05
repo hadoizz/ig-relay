@@ -8,6 +8,7 @@ const fs_1 = __importDefault(require("fs"));
 class ConfigService {
     constructor() {
         this.env = {};
+        this.env = process.env;
         fs_1.default.readFile('.env', (err, data) => {
             if (err)
                 return;
