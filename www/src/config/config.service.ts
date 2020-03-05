@@ -5,6 +5,8 @@ export class ConfigService {
   private readonly env: { [key: string]: string } = {}
 
   constructor(){
+    this.env = process.env
+
     fs.readFile('.env', (err, data) => {
       if(err)
         return
