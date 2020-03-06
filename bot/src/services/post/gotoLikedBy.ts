@@ -1,19 +1,14 @@
 import Post from '../../types/post/Post'
-import LikesBox from '../../types/post/LikesBox'
-import getLikesBox from './selectors/getLikesBox'
+
+const getLinkToLikedBy = async (post: Post) => {
+  const el = await post.$('a[href*="liked_by"]')
+  if(!el)
+    throw `Can't get link to liked_by`
+
+  return el
+}
 
 export default async (post: Post) => {
-  let likesBox: LikesBox
-  try {
-    likesBox = await getLikesBox(post)
-  } catch(error) {
-    return 0
-  }
-
-  const aTags = await likesBox.$$('a')
-  const likedByLink = aTags[aTags.length-1]
-  if(likedByLink === null)
-    throw `Nie ma linku do osób, które polubiły post`
-
-  await likedByLink.click()
+  const link = await getLinkToLikedBy(post)
+  await link.click()
 }

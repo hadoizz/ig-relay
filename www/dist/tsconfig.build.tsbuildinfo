@@ -11802,6 +11802,7 @@
       "../node_modules/@types/puppeteer/devicedescriptors.d.ts",
       "../node_modules/@types/puppeteer/index.d.ts",
       "../node_modules/@types/puppeteer-core/index.d.ts",
+      "../src/accounts/utils/devices/portraitdevices.ts",
       "../node_modules/random-int/index.d.ts",
       "../src/accounts/utils/devices/getrandomdevice.ts",
       "../src/entities/account.entity.ts",
@@ -11941,8 +11942,7 @@
       "../node_modules/@types/webpack-sources/index.d.ts",
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
-      "../node_modules/@types/yargs/index.d.ts",
-      "../src/accounts/utils/devices/portraitdevices.ts"
+      "../node_modules/@types/yargs/index.d.ts"
     ]
   },
   "version": "3.6.3"
