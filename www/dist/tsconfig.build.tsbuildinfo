@@ -2174,7 +2174,7 @@
         "signature": "78daabf1f7d99c6b37a7fd4834f4eb0cb4c2e1401573bdfe9f0bca5fd36bf59a"
       },
       "../src/accounts/utils/devices/portraitdevices.ts": {
-        "version": "6c42a1c8f06cfe9dfd3f81b5c09da1737b7c8359a78e6bd7d2a3a2a156375ebf",
+        "version": "02a968a48ee55946508b06e6fd2bec20201d8313b82d1620ef780cc477098732",
         "signature": "c4f1a6bce8d78eaa5143d56976073003b1d58bc093832c928c3d10b92dbeeda2"
       },
       "../node_modules/random-int/index.d.ts": {
@@ -11802,7 +11802,6 @@
       "../node_modules/@types/puppeteer/devicedescriptors.d.ts",
       "../node_modules/@types/puppeteer/index.d.ts",
       "../node_modules/@types/puppeteer-core/index.d.ts",
-      "../src/accounts/utils/devices/portraitdevices.ts",
       "../node_modules/random-int/index.d.ts",
       "../src/accounts/utils/devices/getrandomdevice.ts",
       "../src/entities/account.entity.ts",
@@ -11942,7 +11941,8 @@
       "../node_modules/@types/webpack-sources/index.d.ts",
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
-      "../node_modules/@types/yargs/index.d.ts"
+      "../node_modules/@types/yargs/index.d.ts",
+      "../src/accounts/utils/devices/portraitdevices.ts"
     ]
   },
   "version": "3.6.3"

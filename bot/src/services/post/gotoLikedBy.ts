@@ -2,7 +2,7 @@ import Post from '../../types/post/Post'
 
 const getLinkToLikedBy = async (post: Post) => {
   const el = await post.$('a[href*="liked_by"]')
-  if(!el)
+  if(el === null)
     throw `Can't get link to liked_by`
 
   return el
