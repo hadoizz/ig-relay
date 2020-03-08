@@ -18,7 +18,7 @@ export default async (ctx?: any) => {
   }
 
   try {
-    const response = await fetch(`${getServerHost(ctx.req)}/auth/user`, { headers: { Authorization: `Bearer ${token}` } })
+    const response = await fetch(`${getServerHost(ctx?.req)}/auth/user`, { headers: { Authorization: `Bearer ${token}` } })
 
     if(response.ok){
       return await response.json()
