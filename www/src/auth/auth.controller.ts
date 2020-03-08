@@ -15,6 +15,8 @@ export class AuthController {
   @UseGuards(AuthGuard('jwt'))
   @Get('user')
   getUser(@Request() req){
-    return req.user
+    const { username } = req.user
+
+    return { username }
   }
 }

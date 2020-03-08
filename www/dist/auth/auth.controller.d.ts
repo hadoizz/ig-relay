@@ -5,5 +5,7 @@ export declare class AuthController {
     login(req: any): Promise<{
         access_token: string;
     }>;
-    getUser(req: any): any;
+    getUser(req: any): {
+        username: any;
+    };
 }

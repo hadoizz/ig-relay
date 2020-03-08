@@ -23,7 +23,8 @@ let AuthController = class AuthController {
         return this.authService.login(req.user);
     }
     getUser(req) {
-        return req.user;
+        const { username } = req.user;
+        return { username };
     }
 };
 __decorate([
