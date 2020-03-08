@@ -22,7 +22,7 @@ let AuthController = class AuthController {
     async login(req) {
         return this.authService.login(req.user);
     }
-    getProfile(req) {
+    getUser(req) {
         return req.user;
     }
 };
@@ -36,12 +36,12 @@ __decorate([
 ], AuthController.prototype, "login", null);
 __decorate([
     common_1.UseGuards(passport_1.AuthGuard('jwt')),
-    common_1.Get('profile'),
+    common_1.Get('user'),
     __param(0, common_1.Request()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
-], AuthController.prototype, "getProfile", null);
+], AuthController.prototype, "getUser", null);
 AuthController = __decorate([
     common_1.Controller('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])

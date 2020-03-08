@@ -1,12 +1,6 @@
-import { withAuthSync } from '../utils/auth'
-import Router from 'next/router'
+import Layout from '../components/Layout'
 
-const Index = () => null
-
-Index.getInitialProps = ctx => {
-  process.browser
-    ? Router.push('/bot')
-    : ctx.res.writeHead(302, { Location: '/bot' }).end()
-}
-
-export default withAuthSync(Index)
+export default () =>
+  <Layout>
+    X
+  </Layout>

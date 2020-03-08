@@ -3,19 +3,23 @@ import App from 'next/app'
 import Head from 'next/head'
 import { ThemeProvider } from '@material-ui/styles'
 import theme from '@material-ui/core/styles/defaultTheme'
-import {createStore} from "redux"
-import {Provider} from "react-redux"
+import { createStore } from "redux"
+import { Provider } from "react-redux"
 import withRedux from "next-redux-wrapper"
 import { Account } from '../types/Account'
+import { User } from '../types/User'
+import getUser from '../utils/getUser'
 
 type State = {
-  user: null
+  checkedAuth: boolean,
+  user: null | User
   bot: {
     currentAccount: null | Account
   }
 }
 
 const initialState = (): State => ({
+  checkedAuth: false,
   user: null,
   bot: {
     currentAccount: null
@@ -24,6 +28,21 @@ const initialState = (): State => ({
 
 const reducer = (state = initialState(), action) => {
   switch (action.type) {
+    case 'checkedAuth':
+      return {
+        ...state,
+        checkedAuth: true
+      }
+    case 'login':
+      return {
+        ...state,
+        user: action.payload
+      }
+    case 'logout':
+      return {
+        ...state,
+        user: null
+      }
     case 'setCurrentAccount':
       return {
         ...state, 
@@ -63,16 +82,19 @@ class MyApp extends App {
   //   return { ...appProps }
   // }
 
-  static async getInitialProps({Component, ctx}) {
+  static async getInitialProps({ Component, ctx }) {
+    if(!ctx.store.getState().checkedAuth){
+      const user = await getUser(ctx)
+      if(user)
+        ctx.store.dispatch({ type: 'login', payload: user })
 
-    // we can dispatch from here too
-    ctx.store.dispatch({type: 'FOO', payload: 'foo'});
+      ctx.store.dispatch({ type: 'checkedAuth' })
+    }
 
     const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
 
-    return {pageProps};
-
-}
+    return { pageProps };
+  }
 
   render() {
     //@ts-ignore

@@ -1,10 +1,12 @@
 import { useState, useCallback } from 'react'
 import { TextField, Button, Theme, makeStyles, Card, CardContent, Typography, Avatar, Divider } from '@material-ui/core'
 import fetch from 'isomorphic-unfetch'
-import { login } from '../utils/auth'
+import login from '../utils/auth/login'
 import getServerHost from '../utils/getServerHost'
 import Layout from '../components/Layout'
 import { LockOutlined } from '@material-ui/icons'
+import { connect } from 'react-redux'
+import getUser from '../utils/getUser'
 
 const useStyles = makeStyles((theme: Theme) => ({
   card: {
@@ -32,7 +34,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-export default () => {
+const mapStateToProps = state => ({})
+
+const mapDispatchToProps = dispatch => ({
+  dispatchLogin: (user) => 
+    dispatch({ type: 'login', payload: user })
+})
+
+const Login = ({ dispatchLogin }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -47,7 +56,11 @@ export default () => {
       })
       if(response.ok){
         const { access_token } = await response.json()
-        await login(access_token)
+        login(access_token)
+
+        const user = await getUser()
+        console.log(user)
+        dispatchLogin(user)
       } else {
         console.log('Login failed.')
       }
@@ -84,3 +97,5 @@ export default () => {
     </Layout>
   )
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

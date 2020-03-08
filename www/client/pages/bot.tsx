@@ -14,6 +14,7 @@ import Logs from '../components/Bot/Logs'
 import AddAccountDialog from '../components/AddAccountDialog'
 import Test from '../components/Bot/Test'
 import Config from '../components/Bot/Config'
+import withRestricted from '../utils/withRestricted'
 
 const useStyles = makeStyles((theme: Theme) => ({
   menuRow: {
@@ -139,7 +140,7 @@ const Bot = connect(mapStateToProps, mapDispatchToProps)(({ currentAccount, acco
 Bot.getInitialProps = async ctx => {
   const accounts = await getAccounts(ctx)
   if(accounts === null){
-    redirectOnError(ctx)
+    throw `Can't get accounts` //redirectOnError(ctx)
 
     return { 
       accounts: [],
@@ -170,4 +171,4 @@ Bot.getInitialProps = async ctx => {
   }
 }
 
-export default Bot
+export default withRestricted(Bot)

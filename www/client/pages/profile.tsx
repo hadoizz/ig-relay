@@ -1,4 +1,4 @@
-import { withAuthSync } from '../utils/auth'
+/*import { withAuthSync } from '../utils/auth'
 import getLoggedUser from '../utils/getLoggedUser'
 import Layout from '../components/Layout'
 
@@ -14,3 +14,6 @@ const Profile = props => {
 
 Profile.getInitialProps = getLoggedUser
 export default withAuthSync(Profile)
+*/
+
+export default () => 'XD'

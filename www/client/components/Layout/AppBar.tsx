@@ -2,7 +2,8 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { AppBar, Toolbar, Container, Typography, makeStyles, Theme, IconButton, Hidden, Drawer, SwipeableDrawer, useTheme, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core'
 import { Menu, PhonelinkSetupOutlined, AccountCircleOutlined, ExitToAppOutlined, HomeOutlined } from '@material-ui/icons'
-import { logout } from '../../utils/auth'
+import logout from '../../utils/auth/logout'
+import { connect } from 'react-redux'
 
 const drawerWidth = 240
 
@@ -46,12 +47,25 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
+const mapStateToProps = state => ({
+  logged: Boolean(state.user)
+})
 
-export default () => {
+const mapDispatchToProps = dispatch => ({
+  dispatchLogout: () => 
+    dispatch({ type: 'logout' })
+})
+
+const AppBarComponent = ({ logged, dispatchLogout }) => {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false)
 
   const toggleDrawer = () =>
     setMobileDrawerOpen(mobileDrawerOpen => !mobileDrawerOpen)
+
+  const _logout = () => {
+    dispatchLogout()
+    logout()
+  }
 
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent)
   const classes = useStyles({})
@@ -66,26 +80,28 @@ export default () => {
           </Link>
         </Typography>
         <div className={classes.grow} />
-        <Hidden implementation="css" mdUp>
-          <IconButton onClick={toggleDrawer} color="secondary">
-            <Menu />
-          </IconButton>
-        </Hidden>
-        <Hidden smDown implementation="css">
-          <Link href="/profile">
-            <a>
-              <IconButton color="secondary">
-                <AccountCircleOutlined />
-              </IconButton>
-            </a>
-          </Link>
-          <IconButton color="secondary" onClick={logout}>
-            <ExitToAppOutlined />
-          </IconButton>
-        </Hidden>
+        {logged && <>
+          <Hidden implementation="css" mdUp>
+            <IconButton onClick={toggleDrawer} color="secondary">
+              <Menu />
+            </IconButton>
+          </Hidden>
+          <Hidden smDown implementation="css">
+            <Link href="/profile">
+              <a>
+                <IconButton color="secondary">
+                  <AccountCircleOutlined />
+                </IconButton>
+              </a>
+            </Link>
+            <IconButton color="secondary" onClick={_logout}>
+              <ExitToAppOutlined />
+            </IconButton>
+          </Hidden>
+        </>}
       </Toolbar>
       { /* mobile drawer */ }
-      <Hidden smUp implementation="css">
+      {logged && <Hidden smUp implementation="css">
         <SwipeableDrawer anchor="right" open={mobileDrawerOpen} onOpen={toggleDrawer} onClose={toggleDrawer} className={classes.drawer} disableBackdropTransition={!iOS} disableDiscovery={iOS}>
           <List className={classes.drawer}>
             <Link href="/bot">
@@ -112,7 +128,7 @@ export default () => {
               </ListItem>
               </a>
             </Link>
-            <ListItem button onClick={logout}>
+            <ListItem button onClick={_logout}>
               <ListItemIcon>
                 <ExitToAppOutlined color="secondary" />
               </ListItemIcon>
@@ -122,7 +138,9 @@ export default () => {
             </ListItem>
           </List>
         </SwipeableDrawer>
-      </Hidden>
+      </Hidden>}
     </AppBar>
   )
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppBarComponent)
