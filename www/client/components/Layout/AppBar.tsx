@@ -99,6 +99,15 @@ const AppBarComponent = ({ logged, dispatchLogout }) => {
             </IconButton>
           </Hidden>
         </>}
+        {logged || <>
+          <Link href="/login">
+            <a>
+              <IconButton color="secondary">
+                <AccountCircleOutlined />
+              </IconButton>
+            </a>
+          </Link>
+        </>}
       </Toolbar>
       { /* mobile drawer */ }
       {logged && <Hidden smUp implementation="css">
