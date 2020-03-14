@@ -17,6 +17,7 @@ import getFirstPost from '../services/post/selectors/getFirstPost'
 import closeDialog from '../services/dialog/closeDialog'
 import isDialog from '../services/dialog/isDialog'
 import getNextPost from '../services/post/selectors/getNextPost'
+import isOnLikedBy from '../services/likedBy/isOnLikedBy'
 
 const getFollowersFromLogin = async (page: Page, login: string) => {
   const _page = await page.browser().newPage()
@@ -72,8 +73,18 @@ export default async (page: Page, maximumFollows: number) => {
     }
 
     console.log('Going to liked by')
+
     await gotoLikedBy(post)
-    await sleep(1000, 2000)
+    await sleep(2500, 5000)
+
+    if(!(await isOnLikedBy(page))){
+      log('retry', 'goto liked_by')
+      await gotoLikedBy(post)
+      await sleep(2500, 5000)
+    }
+
+    if(!(await isOnLikedBy(page)))
+      throw `Should go to liked_by, still on ${page.url()}`
 
     const personList = await getPersonList(page)
     let personRow

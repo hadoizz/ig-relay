@@ -11849,9 +11849,11 @@
       "../node_modules/@types/passport-strategy/index.d.ts",
       "../node_modules/@types/passport-local/index.d.ts",
       "../src/auth/local.strategy.ts",
+      "../src/auth/auth.controller.ts",
       "../src/auth/constants.ts",
       "../node_modules/@types/passport-jwt/index.d.ts",
       "../src/auth/jwt.strategy.ts",
+      "../src/auth/auth.module.ts",
       "../src/logs/logs.module.ts",
       "../src/accounts/accounts.controller.ts",
       "../src/accounts/accounts.module.ts",
@@ -11940,9 +11942,7 @@
       "../node_modules/@types/webpack-sources/index.d.ts",
       "../node_modules/@types/webpack/index.d.ts",
       "../node_modules/@types/yargs-parser/index.d.ts",
-      "../node_modules/@types/yargs/index.d.ts",
-      "../src/auth/auth.controller.ts",
-      "../src/auth/auth.module.ts"
+      "../node_modules/@types/yargs/index.d.ts"
     ]
   },
   "version": "3.6.3"
