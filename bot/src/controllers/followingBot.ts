@@ -1,5 +1,4 @@
 import { Page } from 'puppeteer'
-import getVisiblePost from '../services/post/selectors/getVisiblePost'
 import scrollToNextPost from '../services/post/scrollToNextPost'
 import getLikes from '../services/post/getLikes'
 import sleep from '../utils/sleep'
@@ -118,40 +117,4 @@ export default async (page: Page, maximumFollows: number) => {
     await sleep(3000, 5000)
     console.log('Scrolling to next post')
   }
-
-  /*let followCount = new Counter
-
-  while(true){
-    const post = await getVisiblePost(page)
-    await likePost(post)
-    await onLikePost.emit()
-    await sleep(500, 2000)
-
-    const likes = await getLikes(post)
-    if(likes === 0 || likes > 50){
-      await scrollToNextPost(page)
-      await sleep(500, 2000)
-      continue
-    }
-
-    await openLikesDialog(post)
-    await sleep(1000, 2000)
-
-    followCount.increase(
-      maximum === undefined
-        ? await followPersonsWhoLiked(page)
-        : await followPersonsWhoLiked(page, maximum - followCount.getCount())
-    )
-
-    await closeDialog(page)
-    await sleep(500, 2000)
-
-    if(followCount.getCount() === maximum){
-      console.log(`Reached maximum follow count (${maximum})`)
-      break
-    }
-
-    await scrollToNextPost(page)
-    await sleep(500, 2000)
-  }*/
 }
