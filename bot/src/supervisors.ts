@@ -69,6 +69,12 @@ const devSupervisors = (page: Page) => ({
     log(await getNextPost(page)),
   identity: (value?: any) =>
     value,
+  throw: (error: string) => {
+    if(!error)
+      throw `test`
+
+    throw `test "${error}"`
+  },
   uploadPost: uploadPost(page)
 })
 

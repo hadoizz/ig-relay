@@ -2,8 +2,10 @@ import { Page } from 'puppeteer'
 import sleep from 'sleep-promise'
 import decamelize from 'decamelize'
 import { master } from 'fork-with-emitter'
+import path from 'path'
 import { getSupervisorsWithTypes } from '../supervisors'
 import log from '../logs/log'
+import getEnvData from '../config/getEnvData'
 
 const exit = async (page: Page) => {
   try {
@@ -89,10 +91,12 @@ export default (page: Page) => {
       log('success')
       return value
     } catch(error) {
-      await page.screenshot({ path: 'error.png' })
-      log('error', error instanceof Error
-        ? error.message
-        : error.split('\n')[0])
+      const errorTitle = error instanceof Error ? error.message : error.split('\n')[0]
+
+      await page.screenshot({ 
+        path: path.resolve(getEnvData().dataDir, `${new Date().getUTCFullYear()}-${new Date().getUTCMonth()+1}-${new Date().getUTCDate()}_${new Date().getUTCHours()+1}_${encodeURIComponent(errorTitle.slice(0, 20))}.png`)
+      })
+      log('error', errorTitle)
     }
   })
 
