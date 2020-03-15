@@ -1,3 +1,5 @@
+import { resolve } from 'path'
+
 const login = process.env.LOGIN || 'arturz__'
 
 const password = process.env.PASSWORD || ''
@@ -16,7 +18,7 @@ const cookies = process.env.COOKIES
       ? { sessionid: process.argv[2] }
       : {}
 
-const dataDir = process.env.DATA_DIR || process.cwd()
+const dataDir = process.env.DATA_DIR || resolve(process.cwd(), 'account_data')
 
 const device = process.env.DEVICE || 'Pixel 2'
 

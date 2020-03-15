@@ -7,7 +7,7 @@ import exposeDevFns from './page/exposeDevFns'
 import getEnvData from '../config/getEnvData'
 
 puppeteer.use(StealthPlugin())
-puppeteer.use(AdblockerPlugin())
+puppeteer.use(AdblockerPlugin({ blockTrackers: true }))
 
 export default async () => {
   const userDataDir = resolve(getEnvData().dataDir, 'chrome')
