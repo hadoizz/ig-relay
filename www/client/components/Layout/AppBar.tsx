@@ -70,7 +70,7 @@ const AppBarComponent = ({ logged, dispatchLogout }) => {
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent)
   const classes = useStyles({})
   return (
-    <AppBar position="fixed" color="primary">
+    <AppBar position="fixed" color="primary" elevation={5}>
       <Toolbar className={classes.toolbar}>
         <Typography variant="h3" className={classes.logo}>
           <Link href="/">

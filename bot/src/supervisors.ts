@@ -21,6 +21,7 @@ import uploadPost from './services/uploadPost/uploadPost'
 import unfollowingBot from './controllers/unfollowingBot'
 import Credentials from './types/Credentials'
 import challenge from './controllers/challenge'
+import createDevtools from './loaders/page/createDevtools'
 
 const navigationSupervisors = (page: Page) => ({
   gotoIndex: () =>
@@ -75,7 +76,8 @@ const devSupervisors = (page: Page) => ({
 
     throw `test "${error}"`
   },
-  uploadPost: uploadPost(page)
+  createDevtools: async () =>
+    await createDevtools(page)
 })
 
 const getAllSupervisors = (page: Page) => ({
