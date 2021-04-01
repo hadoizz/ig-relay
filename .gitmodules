@@ -1,0 +1,6 @@
+[submodule "www/client"]
+	path = www/client
+	url = https://github.com/arturz/ig-ui
+[submodule "bot"]
+	path = bot
+	url = https://github.com/arturz/ig-core
