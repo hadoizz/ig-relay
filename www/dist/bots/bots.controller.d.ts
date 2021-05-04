@@ -1,21 +1,24 @@
 import { BotsService } from './bots.service';
-import { AccountsService } from '../accounts/accounts.service';
 export declare class BotsController {
     private readonly botsService;
-    private readonly accountsService;
-    constructor(botsService: BotsService, accountsService: AccountsService);
+    constructor(botsService: BotsService);
     getList(): {
-        id: string;
+        botId: string;
         created: any;
-        accountId: number;
     }[];
-    start(req: any, accountId: string | number): Promise<{
-        id: string;
+    getInfo(botId: string): {
+        botId: string;
+        created: any;
+    };
+    start(login: string, password: string): Promise<{
+        message: string;
     }>;
     exit(botId: string): void;
     exit_post(botId: string): void;
-    executeSupervisor(botId: string, name: string, payload: string): Promise<{
-        result: any;
+    executeCommand(botId: string, name: string, payload: string): Promise<{
+        message: any;
     }>;
-    getSupervisors(botId: string): Promise<any>;
+    getCommands(botId: string): Promise<{
+        message: any;
+    }>;
 }

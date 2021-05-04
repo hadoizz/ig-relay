@@ -1,21 +1,26 @@
-import { resolve } from 'path'
-import chalk from 'chalk'
-import { createSlave, Slave } from 'fork-with-emitter'
-import { chunksToLinesAsync, chomp } from '@rauschma/stringio'
+import { chomp, chunksToLinesAsync } from '@rauschma/stringio';
+import chalk from 'chalk';
+import { createSlave, Slave } from 'fork-with-emitter';
+import { resolve } from 'path';
 
-export interface ExecuteSupervisorCommand {
-  name: string
-  payload?: string
+export interface Data {
+  name: string;
+  payload?: string;
 }
 
 export type Bot = {
-  slave: Slave,
-  exit: () => any,
-  executeSupervisor: (ExecuteSupervisorCommand) => Promise<any>,
-  getSupervisors: () => Promise<any>
-}
+  slave: Slave;
+  exit: () => any;
+  executeCommand: (ExecuteCommand) => Promise<any>;
+  getCommands: () => Promise<any>;
+};
 
-const createBot = async ({ dataDir, device, env = {}, cookies = {}, beforeLoad = slave => {} }) => {
+const createBot = async ({
+  dataDir,
+  env = {},
+  cookies = {},
+  beforeLoad = (slave: Slave) => {},
+}) => {
   const slave = createSlave('app.js', {
     cwd: resolve('../bot/dist/'),
     env: {
@@ -24,36 +29,33 @@ const createBot = async ({ dataDir, device, env = {}, cookies = {}, beforeLoad =
       CONTROLLED: '1',
       COOKIES: JSON.stringify(cookies),
       DATA_DIR: dataDir,
-      DEVICE: device
-    }
-  })
+    },
+  });
 
-  beforeLoad(slave)
-
-  ;(async () => {
+  beforeLoad(slave);
+  (async () => {
     for await (const line of chunksToLinesAsync(slave.fork.stdout))
-      console.log(chalk.yellow(chomp(line)))
-  })()
-
-  ;(async () => {
+      console.log(chalk.yellow(chomp(line)));
+  })();
+  (async () => {
     for await (const line of chunksToLinesAsync(slave.fork.stderr))
-      console.log(chalk.red(chomp(line)))
-  })()
+      console.log(chalk.red(chomp(line)));
+  })();
 
-  await slave.request('start', null, 120)
+  await slave.request('start', null, 120);
 
   return {
     slave,
-    exit(){
-      slave.emit('exit')
+    exit() {
+      slave.emit('exit');
     },
-    async executeSupervisor(executeSupervisorCommand: ExecuteSupervisorCommand){
-      return await slave.request('executeSupervisor', executeSupervisorCommand, 60*30)
+    async executeCommand(data: Data) {
+      return await slave.request('executeCommand', data, 60 * 30);
     },
-    async getSupervisors(){
-      return slave.request('getSupervisors')
-    }
-  }
-}
+    async getCommands() {
+      return await slave.request('getCommands');
+    },
+  };
+};
 
-export default createBot
+export default createBot;

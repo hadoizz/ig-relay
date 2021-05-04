@@ -1,68 +1,68 @@
-import { Controller, Get, Param, Post, Query, Body, Request, UseGuards } from '@nestjs/common'
-import { AuthGuard } from '@nestjs/passport';
-import { BotsService } from './bots.service'
-import { AccountsService } from '../accounts/accounts.service'
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { BotsService } from './bots.service';
 
 @Controller('bots')
 export class BotsController {
-  constructor(private readonly botsService: BotsService,
-    private readonly accountsService: AccountsService){}
+  constructor(private readonly botsService: BotsService) {}
 
   @Get('/')
-  getList(){
-    return this.botsService.getList()
+  getList() {
+    return this.botsService.getList();
   }
 
-  @UseGuards(AuthGuard('jwt'))
-  @Get('start/account/:accountId')
-  async start(@Request() req, @Param('accountId') accountId: string | number){
-    accountId = Number(accountId)
-
-    console.log(`start bot, user ${req.user.userId}, account ${accountId}`)
-
-    if(await this.accountsService.hasAccount(req.user.userId, accountId)){
-      const id = await this.botsService.createBot({ accountId, web: true })
-      return { id }
-    }
-
-    throw `User ${req.user.userId} has no ${accountId} account`
+  @Get(':botId')
+  getInfo(@Param('botId') botId: string) {
+    return this.botsService.getInfo(botId);
   }
 
-  //@UseGuards(AuthGuard('jwt'))
+  @Post('start')
+  async start(
+    @Body('login') login: string,
+    @Body('password') password: string,
+  ) {
+    const botId = await this.botsService.createBot(login, password);
+    return {
+      message: botId,
+    };
+  }
+
   @Get(':botId/exit')
-  exit(@Param('botId') botId: string){
-    this.botsService.exit(botId)
+  exit(@Param('botId') botId: string) {
+    this.botsService.exit(botId);
   }
 
-  //@UseGuards(AuthGuard('jwt'))
   @Post(':botId/exit')
-  exit_post(@Param('botId') botId: string){
-    this.botsService.exit(botId)
-  }
-  
-
-  //@UseGuards(AuthGuard('jwt'))
-  @Post(':botId/executeSupervisor')
-  async executeSupervisor(@Param('botId') botId: string, @Body('name') name: string, @Body('payload') payload: string){
-    try {
-      const parsed = JSON.parse(payload)
-      return { 
-        result: await this.botsService.get(botId).executeSupervisor({ name, payload: parsed })
-      }
-    } catch(error) {
-      return { 
-        result: await this.botsService.get(botId).executeSupervisor({ name, payload })
-      }
-    }
+  exit_post(@Param('botId') botId: string) {
+    this.botsService.exit(botId);
   }
 
-  //@UseGuards(AuthGuard('jwt'))
-  @Get(':botId/supervisors')
-  async getSupervisors(@Param('botId') botId: string){
+  @Post(':botId/command')
+  async executeCommand(
+    @Param('botId') botId: string,
+    @Body('name') name: string,
+    @Body('payload') payload: string,
+  ) {
     try {
-      return await this.botsService.get(botId).getSupervisors()
-    } catch(error){
-      return []
+      payload = JSON.parse(payload);
+    } catch (error) {}
+
+    return {
+      message: await this.botsService
+        .get(botId)
+        .executeCommand({ name, payload }),
+    };
+  }
+
+  @Get(':botId/commands')
+  async getCommands(@Param('botId') botId: string) {
+    try {
+      return {
+        message: await this.botsService.get(botId).getCommands(),
+      };
+    } catch (error) {
+      return {
+        message: [],
+      };
     }
   }
 }

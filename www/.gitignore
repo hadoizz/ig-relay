@@ -34,3 +34,4 @@ lerna-debug.log*
 
 .env
 /client/.next
+/bots_data/

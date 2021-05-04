@@ -29,7 +29,9 @@ let StreamingController = class StreamingController {
 };
 __decorate([
     common_1.Get(':id'),
-    __param(0, common_1.Param('id')), __param(1, common_1.Res()), __param(2, common_1.Req()),
+    __param(0, common_1.Param('id')),
+    __param(1, common_1.Res()),
+    __param(2, common_1.Req()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, typeof (_a = typeof nestjs_sse_1.Response !== "undefined" && nestjs_sse_1.Response) === "function" ? _a : Object, Object]),
     __metadata("design:returntype", void 0)

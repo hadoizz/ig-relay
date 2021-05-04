@@ -13,77 +13,76 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
-const createBot_1 = __importDefault(require("./utils/createBot"));
-const getId_1 = __importDefault(require("./utils/getId"));
-const config_service_1 = require("../config/config.service");
 const ms_1 = __importDefault(require("ms"));
-const logs_service_1 = require("../logs/logs.service");
-const createDataDir_1 = __importDefault(require("../accounts/utils/createDataDir"));
-const accounts_service_1 = require("../accounts/accounts.service");
+const config_service_1 = require("../config/config.service");
+const createBot_1 = __importDefault(require("./utils/createBot"));
+const createDataDir_1 = __importDefault(require("./utils/createDataDir"));
+const getId_1 = __importDefault(require("./utils/getId"));
+const removeDataDir_1 = __importDefault(require("./utils/removeDataDir"));
+const removeDataDirs_1 = __importDefault(require("./utils/removeDataDirs"));
 let BotsService = class BotsService {
-    constructor(configService, logsService, accountsService) {
+    constructor(configService) {
         this.configService = configService;
-        this.logsService = logsService;
-        this.accountsService = accountsService;
         this.botInstances = new Map();
+        removeDataDirs_1.default();
     }
-    async createBot({ accountId, device, web = false }) {
-        if (!device)
-            device = (await this.accountsService.getAccount(accountId)).device;
-        const id = await getId_1.default();
-        const cleanup = () => this.botInstances.delete(id);
+    async createBot(login, password) {
+        const botId = await getId_1.default();
+        const cleanup = () => this.exit(botId);
         const bot = await createBot_1.default({
-            device,
-            dataDir: await createDataDir_1.default(accountId),
-            env: Object.assign({ LOGIN: this.configService.get('LOGIN'), PASSWORD: this.configService.get('PASSWORD'), NODE_ENV: this.configService.get('NODE_ENV') }, this.configService.get('HEADLESS') && { HEADLESS: this.configService.get('HEADLESS') }),
+            dataDir: await createDataDir_1.default(botId),
+            env: Object.assign({ LOGIN: login, PASSWORD: password, NODE_ENV: this.configService.get('NODE_ENV') }, (this.configService.get('HEADLESS') && {
+                HEADLESS: this.configService.get('HEADLESS'),
+            })),
             beforeLoad: (slave) => {
-                slave.on('log', this.logsService.handleLog(accountId));
-                slave.onRequest('isFollowed', this.logsService.handleRequestIsFollowed(accountId));
-                slave.onRequest('oldestFollowed', this.logsService.handleRequestOldestFollowed(accountId));
                 slave.fork.once('exit', cleanup);
                 slave.fork.once('error', cleanup);
-            }
+            },
         });
-        this.botInstances.set(id, {
+        this.botInstances.set(botId, {
             bot,
-            accountId,
-            createdAt: new Date
+            createdAt: new Date(),
         });
-        console.log(`Created ${id} bot`);
-        if (web)
+        setTimeout(cleanup, 1000 * 60 * 30);
+        console.log(`Created ${botId} bot`);
+        return botId;
+    }
+    exit(botId) {
+        if (this.botInstances.has(botId)) {
+            this.botInstances.get(botId).bot.exit();
+            this.botInstances.delete(botId);
             setTimeout(() => {
                 try {
-                    bot.slave.kill();
+                    removeDataDir_1.default(botId);
                 }
-                catch (error) { }
-            }, 1000 * 60 * 15);
-        return id;
-    }
-    exit(id) {
-        if (this.botInstances.has(id)) {
-            this.botInstances.get(id).bot.exit();
-            this.botInstances.delete(id);
-            console.log(`Exitted ${id} bot`);
+                catch (error) {
+                    console.error(`Couldn't remove ${botId} bot's dataDir`, error);
+                }
+            }, 5000);
+            console.log(`Exitted ${botId} bot`);
         }
     }
-    get(id) {
-        if (this.botInstances.has(id))
-            return this.botInstances.get(id).bot;
+    get(botId) {
+        if (this.botInstances.has(botId))
+            return this.botInstances.get(botId).bot;
         return null;
     }
-    getList() {
-        return [...this.botInstances.entries()].map(([id, botInstance]) => ({
-            id,
+    getInfo(botId) {
+        if (!this.botInstances.has(botId))
+            throw `Bot with this ID has expired.`;
+        const botInstance = this.botInstances.get(botId);
+        return {
+            botId,
             created: ms_1.default(Date.now() - botInstance.createdAt.getTime()),
-            accountId: botInstance.accountId
-        }));
+        };
+    }
+    getList() {
+        return [...this.botInstances.keys()].map(botId => this.getInfo(botId));
     }
 };
 BotsService = __decorate([
     common_1.Injectable(),
-    __metadata("design:paramtypes", [config_service_1.ConfigService,
-        logs_service_1.LogsService,
-        accounts_service_1.AccountsService])
+    __metadata("design:paramtypes", [config_service_1.ConfigService])
 ], BotsService);
 exports.BotsService = BotsService;
 //# sourceMappingURL=bots.service.js.map

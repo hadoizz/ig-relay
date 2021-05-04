@@ -1,5 +1,5 @@
-import { Response } from 'nestjs-sse';
 import { Request } from 'express';
+import { Response } from 'nestjs-sse';
 import { StreamingService } from './streaming.service';
 export declare class StreamingController {
     private readonly streamingService;

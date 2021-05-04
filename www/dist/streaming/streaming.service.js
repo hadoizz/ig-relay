@@ -28,7 +28,7 @@ let StreamingService = class StreamingService {
             bot.slave.emit('startStreaming');
             this.streams[botId] = {
                 previousData: '',
-                clientsCount: 1
+                clientsCount: 1,
             };
         }
         const handler = (data) => {

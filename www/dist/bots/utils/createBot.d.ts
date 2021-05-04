@@ -1,24 +1,23 @@
 import { Slave } from 'fork-with-emitter';
-export interface ExecuteSupervisorCommand {
+export interface Data {
     name: string;
     payload?: string;
 }
 export declare type Bot = {
     slave: Slave;
     exit: () => any;
-    executeSupervisor: (ExecuteSupervisorCommand: any) => Promise<any>;
-    getSupervisors: () => Promise<any>;
+    executeCommand: (ExecuteCommand: any) => Promise<any>;
+    getCommands: () => Promise<any>;
 };
-declare const createBot: ({ dataDir, device, env, cookies, beforeLoad }: {
+declare const createBot: ({ dataDir, env, cookies, beforeLoad, }: {
     dataDir: any;
-    device: any;
     env?: {};
     cookies?: {};
-    beforeLoad?: (slave: any) => void;
+    beforeLoad?: (slave: Slave) => void;
 }) => Promise<{
     slave: Slave;
     exit(): void;
-    executeSupervisor(executeSupervisorCommand: ExecuteSupervisorCommand): Promise<unknown>;
-    getSupervisors(): Promise<unknown>;
+    executeCommand(data: Data): Promise<unknown>;
+    getCommands(): Promise<unknown>;
 }>;
 export default createBot;

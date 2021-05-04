@@ -10,14 +10,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const path_1 = require("path");
+const stringio_1 = require("@rauschma/stringio");
 const chalk_1 = __importDefault(require("chalk"));
 const fork_with_emitter_1 = require("fork-with-emitter");
-const stringio_1 = require("@rauschma/stringio");
-const createBot = async ({ dataDir, device, env = {}, cookies = {}, beforeLoad = slave => { } }) => {
+const path_1 = require("path");
+const createBot = async ({ dataDir, env = {}, cookies = {}, beforeLoad = (slave) => { }, }) => {
     const slave = fork_with_emitter_1.createSlave('app.js', {
         cwd: path_1.resolve('../bot/dist/'),
-        env: Object.assign(Object.assign({ HEADLESS: '1' }, env), { CONTROLLED: '1', COOKIES: JSON.stringify(cookies), DATA_DIR: dataDir, DEVICE: device })
+        env: Object.assign(Object.assign({ HEADLESS: '1' }, env), { CONTROLLED: '1', COOKIES: JSON.stringify(cookies), DATA_DIR: dataDir }),
     });
     beforeLoad(slave);
     (async () => {
@@ -58,12 +58,12 @@ const createBot = async ({ dataDir, device, env = {}, cookies = {}, beforeLoad =
         exit() {
             slave.emit('exit');
         },
-        async executeSupervisor(executeSupervisorCommand) {
-            return await slave.request('executeSupervisor', executeSupervisorCommand, 60 * 30);
+        async executeCommand(data) {
+            return await slave.request('executeCommand', data, 60 * 30);
         },
-        async getSupervisors() {
-            return slave.request('getSupervisors');
-        }
+        async getCommands() {
+            return await slave.request('getCommands');
+        },
     };
 };
 exports.default = createBot;
