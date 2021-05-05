@@ -1,1 +1,0 @@
-{"version":3,"file":"removeDataDirs.js","sourceRoot":"","sources":["../../../src/bots/utils/removeDataDirs.ts"],"names":[],"mappings":";;AAAA,MAAM,GAAG,GAAG,OAAO,CAAC,aAAa,CAAC,CAAC;AAEpB,KAAK,UAAU,cAAc;IAC1C,MAAM,GAAG,CAAC,KAAK,CAAC,GAAG,OAAO,CAAC,GAAG,EAAE,YAAY,EAAE,EAAE,SAAS,EAAE,IAAI,EAAE,CAAC,CAAC;AACrE,CAAC;AAFD,iCAEC"}
