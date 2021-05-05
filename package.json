@@ -1,26 +1,28 @@
 {
-  "name": "insta",
+  "name": "ig-relay",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev-bot": "cd bot && npm run tsc -- --watch",
     "dev-www": "concurrently \"cd www && npm run start:dev\" \"cd www/client && npm run dev\"",
-    "dev": "concurrently \"cd www && npm run start:dev\" \"cd www/client && npm run dev\" \"npm run dev-bot\"",
-    "build": "cd www && npm install && cd ../bot && npm install && npm run tsc && cd ..",
-    "start": "node www/dist/main"
+    "dev-bot": "cd bot && npm run tsc -- --watch",
+    "dev": "concurrently \"npm run dev-www\" \"npm run dev-bot\"",
+    "build-www": "concurrently \"cd www && npm install && npm run build\" \"cd www/client && npm install && npm run build\"",
+    "build-bot": "cd bot && npm install && npm run tsc",
+    "build": "concurrently \"npm run build-www\" \"npm run build-bot\"",
+    "start": "cd www && node dist/main"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xout/Insta.git"
+    "url": "git+https://github.com/arturz/ig-relay.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/xout/Insta/issues"
+    "url": "https://github.com/arturz/ig-relay/issues"
   },
-  "homepage": "https://github.com/xout/Insta#readme",
+  "homepage": "https://github.com/arturz/ig-relay#readme",
   "devDependencies": {
     "concurrently": "^4.1.2",
     "typescript": "^3.6.3"
