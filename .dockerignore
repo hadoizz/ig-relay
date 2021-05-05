@@ -1,0 +1,10 @@
+**/node_modules
+.git
+Dockerfile
+.dockerignore
+www/bots_data
+www/dist
+www/client/.next
+www/client/build
+bot/dist
+README.md
