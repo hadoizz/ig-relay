@@ -41,9 +41,6 @@ RUN npm i puppeteer \
     && chown -R pptruser:pptruser /home/pptruser \
     && chown -R pptruser:pptruser /app/node_modules
 
-# Run everything after as non-privileged user.
-USER pptruser
-
 
 COPY www /app/www
 RUN npm run build-www
