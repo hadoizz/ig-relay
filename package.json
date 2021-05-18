@@ -9,7 +9,7 @@
     "dev": "concurrently \"npm run dev-www\" \"npm run dev-bot\"",
     "build-www": "concurrently \"cd www && npm install && npm run build\" \"cd www/client && npm install && npm run build\"",
     "build-bot": "cd bot && npm install && npm run build",
-    "build": "concurrently \"npm run build-www\" \"npm run build-bot\"",
+    "build": "npm run build-bot && npm run build-www",
     "start": "cd www && node dist/main",
     "test-www-backend": "cd www && npm run test",
     "test-www-frontend": "cd www/client && npm run test",

@@ -4,10 +4,8 @@ ENV REACT_APP_SERVER=/
 EXPOSE 80
 WORKDIR /app
 
-
 COPY package*.json tsconfig.json /app/
 RUN npm install
-
 
 # Install latest chrome dev package and fonts to support major charsets (Chinese, Japanese, Arabic, Hebrew, Thai and a few others)
 # Note: this installs the necessary libs to make the bundled version of Chromium that Puppeteer
@@ -21,11 +19,10 @@ RUN apt-get update \
       --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
+COPY bot /app/bot
+RUN npm run build-bot
 
 COPY www /app/www
 RUN npm run build-www
-
-COPY bot /app/bot
-RUN npm run build-bot
 
 CMD ["npm","start"]
