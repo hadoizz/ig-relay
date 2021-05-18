@@ -4,13 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev-www": "concurrently \"cd www && npm run start:dev\" \"cd www/client && npm run dev\"",
-    "dev-bot": "cd bot && npm run tsc -- --watch",
+    "dev-www": "concurrently \"cd www && npm run start:dev\" \"cd www/client && npm run start\"",
+    "dev-bot": "cd bot && npm run dev",
     "dev": "concurrently \"npm run dev-www\" \"npm run dev-bot\"",
     "build-www": "concurrently \"cd www && npm install && npm run build\" \"cd www/client && npm install && npm run build\"",
-    "build-bot": "cd bot && npm install && npm run tsc",
+    "build-bot": "cd bot && npm install && npm run build",
     "build": "concurrently \"npm run build-www\" \"npm run build-bot\"",
-    "start": "cd www && node dist/main"
+    "start": "cd www && node dist/main",
+    "test-www-backend": "cd www && npm run test",
+    "test-www-frontend": "cd www/client && npm run test",
+    "test-www": "concurrently \"npm run test-www-backend\" \"npm run test-www-frontend\"",
+    "test": "npm run test-www"
   },
   "repository": {
     "type": "git",
@@ -29,6 +33,7 @@
   },
   "dependencies": {
     "@date-io/date-fns": "^1.3.13",
-    "passport-google-oauth": "^2.0.0"
+    "passport-google-oauth": "^2.0.0",
+    "sweetalert2-react-content": "^3.3.2"
   }
 }

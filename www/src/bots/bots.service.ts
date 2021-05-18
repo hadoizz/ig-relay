@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { Slave } from 'fork-with-emitter';
 import ms from 'ms';
+import createBot, { Bot } from '../../../bot';
 import { ConfigService } from '../config/config.service';
-import createBot, { Bot } from './utils/createBot';
 import createDataDir from './utils/createDataDir';
 import getId from './utils/getId';
 import removeDataDir from './utils/removeDataDir';
@@ -26,6 +25,11 @@ export class BotsService {
 
     const cleanup = () => this.exit(botId);
 
+    if (!login || !password) {
+      login = this.configService.get('LOGIN');
+      password = this.configService.get('PASSWORD');
+    }
+
     const bot = await createBot({
       dataDir: await createDataDir(botId),
       env: {
@@ -36,11 +40,15 @@ export class BotsService {
           HEADLESS: this.configService.get('HEADLESS'),
         }),
       },
-      beforeLoad: (slave: Slave) => {
-        slave.fork.once('exit', cleanup);
-        slave.fork.once('error', cleanup);
-      },
     });
+
+    bot.fork.process.once('exit', cleanup);
+    bot.fork.process.once('error', cleanup);
+
+    // here should be some database lookup to check if this person was followed before
+    bot.fork.onRequest('isFollowed', (login: string) => false);
+    // same here, but person that has been followed at the earliest should be returned
+    bot.fork.onRequest('oldestFollowed', () => null);
 
     this.botInstances.set(botId, {
       bot,
@@ -49,6 +57,8 @@ export class BotsService {
 
     //maximum 30 minutes lifetime
     setTimeout(cleanup, 1000 * 60 * 30);
+
+    await bot.start();
 
     console.log(`Created ${botId} bot`);
 

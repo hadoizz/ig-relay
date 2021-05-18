@@ -20,7 +20,7 @@ export class StreamingService {
       this.streams[botId].clientsCount++;
       handleData(this.streams[botId].previousData);
     } else {
-      bot.slave.emit('startStreaming');
+      bot.fork.emit('startStreaming');
       this.streams[botId] = {
         previousData: '',
         clientsCount: 1,
@@ -34,16 +34,16 @@ export class StreamingService {
       handleData(data);
     };
 
-    bot.slave.on('streaming', handler);
+    bot.fork.on('streaming', handler);
 
     return () => {
       this.streams[botId].clientsCount--;
       if (this.streams[botId].clientsCount === 0) {
         delete this.streams[botId];
-        bot.slave.emit('stopStreaming');
+        bot.fork.emit('stopStreaming');
       }
 
-      bot.slave.removeListener('streaming', handler);
+      bot.fork.removeListener('streaming', handler);
     };
   }
 }
